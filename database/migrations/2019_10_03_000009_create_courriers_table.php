@@ -33,12 +33,9 @@ class CreateCourriersTable extends Migration
             $table->string('statut', 200)->nullable();
             $table->timestamp('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('gestionnaires_id');
-            $table->unsignedInteger('users_id');
             $table->unsignedInteger('types_courriers_id');
 
             $table->index(["gestionnaires_id"], 'fk_courriers_gestionnaires1_idx');
-
-            $table->index(["users_id"], 'fk_courriers_users1_idx');
 
             $table->index(["types_courriers_id"], 'fk_courriers_types_courriers1_idx');
             $table->softDeletes();
@@ -47,11 +44,6 @@ class CreateCourriersTable extends Migration
 
             $table->foreign('gestionnaires_id', 'fk_courriers_gestionnaires1_idx')
                 ->references('id')->on('gestionnaires')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('users_id', 'fk_courriers_users1_idx')
-                ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
