@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Profile extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'users_id' => 'int'
@@ -47,5 +48,10 @@ class Profile extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
+	}
+
+	public function getImage(){
+		$imagePath = $this->image ?? 'avatars/default.png';
+		return "/storage/" . $imagePath;
 	}
 }
