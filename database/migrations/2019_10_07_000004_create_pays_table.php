@@ -24,6 +24,8 @@ class CreatePaysTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('code', 200)->nullable();
+            $table->string('indicatif', 200)->nullable();
             $table->string('nom', 200)->nullable();
             $table->unsignedInteger('users_id');
 

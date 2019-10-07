@@ -1,8 +1,5 @@
 <?php
 
-use App\Helpers\SnNameGenerator as SnmG;
-use Illuminate\Support\Str;
-
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use Faker\Generator as Faker;

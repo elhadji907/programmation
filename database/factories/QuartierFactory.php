@@ -9,6 +9,8 @@ $factory->define(App\Quartier::class, function (Faker $faker) {
         'uuid' => $faker->uuid,
         'nom' => $faker->word,
         'chef_id' => $faker->randomNumber(),
+        'villes_id' => $faker->randomNumber(),
+        'villages_id' => $faker->randomNumber(),
         'communes_id' => function () {
             return factory(App\Commune::class)->create()->id;
         },

@@ -26,15 +26,23 @@ class CreateQuartiersTable extends Migration
             $table->char('uuid', 36);
             $table->string('nom', 200)->nullable();
             $table->integer('chef_id')->nullable();
-            $table->unsignedInteger('communes_id');
+            $table->unsignedInteger('villes_id');
+            $table->unsignedInteger('villages_id');
 
-            $table->index(["communes_id"], 'fk_villages_communes1_idx');
+            $table->index(["villages_id"], 'fk_quartiers_villages1_idx');
+
+            $table->index(["villes_id"], 'fk_quartiers_villes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('communes_id', 'fk_villages_communes1_idx')
-                ->references('id')->on('communes')
+            $table->foreign('villes_id', 'fk_quartiers_villes1_idx')
+                ->references('id')->on('villes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('villages_id', 'fk_quartiers_villages1_idx')
+                ->references('id')->on('villages')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
