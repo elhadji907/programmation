@@ -2,14 +2,28 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+// use Faker\Generator as Faker;
 
-$factory->define(App\Administrateur::class, function (Faker $faker) {
+// $factory->define(App\Administrateur::class, function (Faker $faker) {
+//     return [
+//         'uuid' => $faker->uuid,
+//         'matricule' => $faker->word,
+//         'users_id' => function () {
+//             return factory(App\User::class)->create()->id;
+//         },
+//     ];
+// });
+
+
+use App\Helpers\SnNameGenerator as SnmG;
+use Illuminate\Support\Str;
+
+$factory->define(App\Administrateur::class, function (Faker\Generator $faker) {
+    $role_id=App\Role::where('name','Administrateur')->first()->id;
     return [
-        'uuid' => $faker->uuid,
-        'matricule' => $faker->word,
-        'users_id' => function () {
-            return factory(App\User::class)->create()->id;
+        'matricule' => "ADMIN".$faker->word,
+        'users_id' => function () use($role_id) {
+             return factory(App\User::class)->create(["roles_id"=>$role_id])->id;
         },
     ];
 });

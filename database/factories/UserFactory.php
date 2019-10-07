@@ -1,27 +1,42 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+/* @var $factory \Illuminate\Database\Eloquent\Factory */
+
+// use Faker\Generator as Faker;
+
+// $factory->define(App\User::class, function (Faker $faker) {
+//     return [
+//         'uuid' => $faker->uuid,
+//         'civilite' => $faker->word,
+//         'firstname' => $faker->firstName,
+//         'name' => $faker->name,
+//         'username' => $faker->userName,
+//         'email' => $faker->safeEmail,
+//         'telephone' => $faker->word,
+//         'date_naissance' => $faker->dateTime(),
+//         'lieu_naissance' => $faker->word,
+//         'situation_familiale' => $faker->word,
+//         'email_verified_at' => $faker->dateTime(),
+//         'password' => bcrypt($faker->password),
+//         'roles_id' => function () {
+//             return factory(App\Role::class)->create()->id;
+//         },
+//     ];
+// });
+
+
+use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
-use Faker\Generator as Faker;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'firstname' => SnmG::getFirstName(),
+        'name' => SnmG::getName(),
+        'telephone' => $faker->phoneNumber,
+        'email' => Str::random(5).".".$faker->safeEmail,
+        'email_verified_at' => $faker->dateTimeBetween(),
+        'password' => bcrypt('secret'),
+
     ];
 });
