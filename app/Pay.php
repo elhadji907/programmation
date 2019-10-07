@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 05 Oct 2019 13:53:03 +0000.
+ * Date: Mon, 07 Oct 2019 12:14:26 +0000.
  */
 
 namespace App;
@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $code
+ * @property string $indicatif
  * @property string $nom
  * @property int $users_id
  * @property string $deleted_at
@@ -35,6 +37,8 @@ class Pay extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'code',
+		'indicatif',
 		'nom',
 		'users_id'
 	];

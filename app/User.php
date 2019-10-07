@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 05 Oct 2019 13:53:03 +0000.
+ * Date: Mon, 07 Oct 2019 12:14:26 +0000.
  */
 
 namespace App;
@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
+ * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
  * @property \Illuminate\Database\Eloquent\Collection $pays
  * @property \Illuminate\Database\Eloquent\Collection $postes
@@ -78,19 +79,24 @@ class User extends Eloquent
 		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateurs()
+	public function administrateur()
 	{
-		return $this->hasMany(\App\Administrateur::class, 'users_id');
+		return $this->hasOne(\App\Administrateur::class, 'users_id');
 	}
 
-	public function gestionnaires()
+	public function beneficiaire()
 	{
-		return $this->hasMany(\App\Gestionnaire::class, 'users_id');
+		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
 	}
 
-	public function pays()
+	public function gestionnaire()
 	{
-		return $this->hasMany(\App\Pay::class, 'users_id');
+		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
+	}
+
+	public function pay()
+	{
+		return $this->hasOne(\App\Pay::class, 'users_id');
 	}
 
 	public function postes()
@@ -98,8 +104,8 @@ class User extends Eloquent
 		return $this->hasMany(\App\Poste::class, 'users_id');
 	}
 
-	public function profiles()
+	public function profile()
 	{
-		return $this->hasMany(\App\Profile::class, 'users_id');
+		return $this->hasOne(\App\Profile::class, 'users_id');
 	}
 }

@@ -10,42 +10,45 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Departement
+ * Class Beneficiaire
  * 
  * @property int $id
  * @property string $uuid
- * @property string $nom
- * @property int $regions_id
+ * @property string $matricule
+ * @property int $quartiers_id
+ * @property int $users_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Region $region
- * @property \Illuminate\Database\Eloquent\Collection $arrondissements
+ * @property \App\Quartier $quartier
+ * @property \App\User $user
  *
  * @package App
  */
-class Departement extends Eloquent
+class Beneficiaire extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
 	protected $casts = [
-		'regions_id' => 'int'
+		'quartiers_id' => 'int',
+		'users_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'nom',
-		'regions_id'
+		'matricule',
+		'quartiers_id',
+		'users_id'
 	];
 
-	public function region()
+	public function quartier()
 	{
-		return $this->belongsTo(\App\Region::class, 'regions_id');
+		return $this->belongsTo(\App\Quartier::class, 'quartiers_id');
 	}
 
-	public function arrondissements()
+	public function user()
 	{
-		return $this->hasMany(\App\Arrondissement::class, 'departements_id');
+		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 }

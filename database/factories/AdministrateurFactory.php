@@ -1,9 +1,6 @@
 <?php
-
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-
 // use Faker\Generator as Faker;
-
 // $factory->define(App\Administrateur::class, function (Faker $faker) {
 //     return [
 //         'uuid' => $faker->uuid,
@@ -13,11 +10,8 @@
 //         },
 //     ];
 // });
-
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
-
 $factory->define(App\Administrateur::class, function (Faker\Generator $faker) {
     $role_id=App\Role::where('name','Administrateur')->first()->id;
     return [
