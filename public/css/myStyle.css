@@ -1,0 +1,14 @@
+.logo_onfp{
+    max-width: 50%;
+    height: auto;
+    max-height: 45vh;
+}
+
+.jumbotron {
+    background-image: url('../img/propeller-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: aliceblue;
+    height: 100vh;
+    margin-top: 30px;
+    }
