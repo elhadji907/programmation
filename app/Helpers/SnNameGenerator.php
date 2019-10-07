@@ -36,6 +36,12 @@ namespace App\Helpers;
 class SnNameGenerator
 {
 
+    public static $civilite = array(
+
+        "M.",
+        "Mme",
+    );
+
     public static $name = array(
         "Badiane",
         "Badiatte",
@@ -979,6 +985,15 @@ class SnNameGenerator
         $dimension=count(self::$firstName);
         $random_index=random_int(0, (int)$dimension-1);
         return self::$firstName[$random_index];
+
+
+    }
+
+    static function getCivilite()
+    {
+        $dimension=count(self::$civilite);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$civilite[$random_index];
 
 
     }

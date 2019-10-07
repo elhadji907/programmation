@@ -31,9 +31,14 @@ use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
+        'civilite' => SnmG::getCivilite(),
         'firstname' => SnmG::getFirstName(),
         'name' => SnmG::getName(),
+        'username' => Str::random(7),
         'telephone' => $faker->phoneNumber,
+        'date_naissance' => $faker->dateTime(),
+        'lieu_naissance' => $faker->word,
+        'situation_familiale' => $faker->word,
         'email' => Str::random(5).".".$faker->safeEmail,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt('secret'),
