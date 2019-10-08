@@ -9,8 +9,8 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="numero">Numero</label>
-                <input class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" type="text" name="numero" placeholder="Numéro du courrier..."
-                    id="numero" value="{{ old('numero') }}">
+                <input class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" disabled="disabled" type="text" name="numero" placeholder="Numéro du courrier..."
+                    id="numero" value="{{ old('numero') }} {{ $numCourrier }}">
                 <div class="invalid-feedback">
                     {{ $errors->first('numero') }}
                 </div>
