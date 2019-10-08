@@ -37,10 +37,10 @@
   <nav class="navbar navbar-expand-lg bg-dark fixed-top navbar-light bg-white shadow-sm border-bottom-success" id="mainNav">
     <div class="container">
       {{-- <a class="navbar-brand js-scroll-trigger" href="#page-top">ACCUEIL</a> --}}
-      <a class="navbar-brand" href="#page-top">
-        <img src="{{ asset('img/ONFP.png') }}" class="pr-3" width="50px" style="border-right: solid 1px #333; "/>
+      <a class="navbar-brand js-scroll-trigger align-items-baseline" href="#jumbotron">
+        <img src="{{ asset('img/ONFP.png') }}" class="pr-1" width="40px" style="border-right: solid 1px #333; "/>
 
-        <span class="pl-3">{{ config('app.name', 'ONFP') }}</span>
+        <strong><span class="pl-1">{{ config('app.name', 'ONFP') }}</span></strong>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -87,12 +87,22 @@
     </div>
   </nav>
 
-  <header class="bg-primary text-white">
+  <header class="bg-primary text-white bg-grad header"  id="jumbotron">
     <div class="container text-center">
       <h1>{{ ("Bienvenue à l'ONFP") }}</h1>
       <p class="lead">{{ ("Office national de Formation professionnelle") }}</p>
     </div>
   </header>
+
+  {{--  <div class="jumbotron bg-grad" id="jumbotron">  --}}
+  
+    {{--  <p class="card-text"> {{ $date_actuel }}</p>  --}}
+    {{--  <div class="container text-center">
+      <h1>{{ ("Bienvenue à l'ONFP") }}</h1>
+      <p class="lead">{{ ("Office national de Formation professionnelle") }}</p>
+    </div>
+    
+  </div>  --}}
 
   {{-- 
   <div class="jumbotron bg-grad" id="jumbotron">      
