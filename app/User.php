@@ -47,17 +47,6 @@ class User extends Authenticatable
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
-	protected static function boot(){
-		parent::boot();
-		static::created(function ($user){
-			$user->profile()->create([
-				'titre'	=>	'',
-				'description'	=>	'',
-				'url'	=>	''
-			]);
-		});
-	} 
-
 	protected $casts = [
 		'roles_id' => 'int'
 	];
@@ -87,6 +76,22 @@ class User extends Authenticatable
 		'password',
 		'roles_id'
 	];
+
+	protected static function boot(){
+		parent::boot();
+		static::created(function ($user){
+			$user->profile()->create([
+				'titre'	=>	'',
+				'description'	=>	'',
+				'url'	=>	''
+			]);
+		});
+	} 
+
+	public function getRouteKeyName()
+	{
+		return 'username';
+	}
 
 	public function role()
 	{
