@@ -22,6 +22,7 @@
 // });
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'civilite' => SnmG::getCivilite(),
