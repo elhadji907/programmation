@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Courrier extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'gestionnaires_id' => 'int',
