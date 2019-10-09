@@ -87,39 +87,68 @@
   </h6>
 <!-- Nav Item - Pages Collapse Menu -->
 
+{{--  <li class="nav-item">
+  <a class="nav-link" href="{{ route('administrateurs.index') }}">
+      <span data-feather="users"></span>
+    <span>Administrer utilisateurs</span>
+  </a>
+</li>  --}}
+
 <li class="nav-item">
+  <a class="nav-link" href="{{ route('courriers.show') }}">
+      <span data-feather="mail"></span>
+    <span>Gestion courriers</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#">
+      <span data-feather="user-plus"></span>
+    <span>Gestion personnel</span>
+  </a>
+</li>
+
+  <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
-        <span data-feather="layers"></span>
-      <span>Administrer les utilisateurs</span>
+        <span data-feather="user"></span>
+      <span>Gestion administrateurs</span>
     </a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="{{ route('courriers.show') }}">
-        <span data-feather="layers"></span>
-      <span>Administrer les courriers</span>
+    <a class="nav-link" href="{{ route('administrateurs.index') }}">
+        <span data-feather="user"></span>
+      <span>Gestion gestionnaires</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('administrateurs.index') }}">
+        <span data-feather="user"></span>
+      <span>Gestion benegiciaires</span>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+        <span data-feather="users"></span>
+      <span>Gestion opérateurs</span>
     </a>
   </li>
 
   <li class="nav-item">
     <a class="nav-link" href="#">
         <span data-feather="layers"></span>
-      <span>Administrer les demandes</span>
+      <span>Gestion demandes</span>
     </a>
   </li>
 
   <li class="nav-item">
     <a class="nav-link" href="#">
         <span data-feather="layers"></span>
-      <span>Administrer les formations</span>
+      <span>Gestion formations</span>
     </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-        <span data-feather="layers"></span>
-      <span>Administrer les opérateurs</span>
-    </a>
-  </li>
+
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
     <i class="fas fa-fw fa-folder"></i>
