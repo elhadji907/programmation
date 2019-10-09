@@ -7,7 +7,7 @@
     <form method="POST" action="#" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
-            <div class="form-group col-md-3">
+         {{--    <div class="form-group col-md-3">
                 <label for="numero">Numero</label>
                 <input class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" disabled="disabled" type="text" name="numero" placeholder="Numéro du courrier..."
                     id="numero" value="{{ old('numero') }} {{ $numCourrier }}">
@@ -15,7 +15,7 @@
                     {{ $errors->first('numero') }}
                 </div>
                 
-            </div>
+            </div> --}}
             <div class="form-group col-md-6">
                 <label for="nom">Objet</label>
                 <input class="form-control {{ $errors->has('nom') ? 'is-invalid' : '' }}" type="text" name="nom" placeholder="Objet du courrier..."

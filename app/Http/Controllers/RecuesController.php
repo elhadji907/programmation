@@ -52,7 +52,11 @@ class RecuesController extends Controller
      */
     public function show(Recue $recue)
     {
-        //
+        $types = TypesCourrier::get();
+        // $numCourrier = date('mdHis').rand(1,99999);
+        //$numCourrier = date('YmdHis');
+
+        return view('courriers.arrives.show',compact('types'));
     }
 
     /**

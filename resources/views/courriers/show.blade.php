@@ -3,7 +3,7 @@
 <div class="container">
     <!-- Standard buttons -->
     <div class="col-md-12">
-        <a class="btn btn-info btn-block" href="{{ route('arrives.create') }}"><span data-feather="book-open"></span> Courriers arrivés</a>
+        <a class="btn btn-info btn-block" href="{{ route('arrives.show') }}"><span data-feather="book-open"></span> Courriers arrivés</a>
     </div>
     <br />
     <!-- Primary buttons -->

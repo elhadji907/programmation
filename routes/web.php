@@ -40,7 +40,7 @@ Route::patch('profiles/{user}', 'ProfilesController@update')->name('profiles.upd
 Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
 
 Route::get('courriers', 'CourriersController@show')->name('courriers.show');
-Route::get('courriers/arrives', 'RecuesController@create')->name('arrives.create');
+Route::get('courriers/arrives', 'RecuesController@show')->name('arrives.show');
 
 Route::get('postes/create', 'PostesController@create')->name('postes.create');
 Route::post('postes', 'PostesController@store')->name('postes.store');
