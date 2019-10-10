@@ -10,12 +10,14 @@
 //         'name' => $faker->name,
 //     ];
 // });
+
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 
-$factory->define(App\Role::class, function (Faker\Generator $faker) {
+$factory->define(App\Role::class, function(Faker\Generator $faker) {
     return [
         'name' => $faker->name,
     ];
 });
+

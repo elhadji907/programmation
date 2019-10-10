@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 11:12:18 +0000.
+ * Date: Thu, 10 Oct 2019 14:26:09 +0000.
  */
 
 namespace App;
@@ -16,39 +16,37 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $matricule
  * @property int $users_id
- * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Courrier $courrier
  * @property \App\User $user
+ * @property \Illuminate\Database\Eloquent\Collection $courriers
  *
  * @package App
  */
 class Gestionnaire extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'users_id' => 'int',
-		'courriers_id' => 'int'
+		'users_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'matricule',
-		'users_id',
-		'courriers_id'
+		'users_id'
 	];
-
-	public function courrier()
-	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
-	}
 
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
+	}
+
+	public function courriers()
+	{
+		return $this->hasMany(\App\Courrier::class, 'gestionnaires_id');
 	}
 }

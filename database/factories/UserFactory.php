@@ -40,8 +40,5 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => Str::random(5).".".$faker->safeEmail,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt('secret'),
-        // 'roles_id' => function () {
-        //     return factory(App\Role::class)->create()->id;
-        // },
     ];
 });
