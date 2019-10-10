@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 07 Oct 2019 12:14:26 +0000.
+ * Date: Thu, 10 Oct 2019 11:12:18 +0000.
  */
 
 namespace App;
@@ -29,7 +29,6 @@ class Poste extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'users_id' => 'int'

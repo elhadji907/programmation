@@ -14,9 +14,6 @@
 //     ];
 // });
 
-use App\Helpers\SnNameGenerator as SnmG;
-use Illuminate\Support\Str;
-
 $factory->define(App\Interne::class, function (Faker\Generator $faker) {
     return [
         'objet' => $faker->word,

@@ -15,21 +15,14 @@
 //         'fichier' => $faker->word,
 //         'statut' => $faker->word,
 //         'date' => $faker->dateTime(),
-//         'gestionnaires_id' => function () {
-//             return factory(App\Gestionnaire::class)->create()->id;
-//         },
 //         'types_courriers_id' => function () {
 //             return factory(App\TypesCourrier::class)->create()->id;
 //         },
 //     ];
 // });
 
-use App\Helpers\SnNameGenerator as SnmG;
-use Illuminate\Support\Str;
-
 $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     return [
-        
         'numero' => $faker->word,
         'name' => $faker->name,
         'types' => $faker->word,
@@ -38,11 +31,8 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'fichier' => $faker->word,
         'statut' => $faker->word,
         'date' => $faker->dateTime(),
-        'gestionnaires_id' => function () {
-            return factory(App\Gestionnaire::class)->create()->id;
+        'types_courriers_id' => function () {
+            return factory(App\TypesCourrier::class)->create()->id;
         },
-        // 'types_courriers_id' => function () {
-        //     return factory(App\TypesCourrier::class)->create()->id;
-        // },
     ];
 });

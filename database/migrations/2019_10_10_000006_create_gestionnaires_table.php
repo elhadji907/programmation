@@ -25,7 +25,7 @@ class CreateGestionnairesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('matricule', 200);
-            $table->unsignedInteger('users_id')->nullable();
+            $table->unsignedInteger('users_id');
 
             $table->index(["users_id"], 'fk_gestionnaires_users1_idx');
             $table->softDeletes();
