@@ -14,6 +14,5 @@
     <div class="col-md-12">
         <a class="btn btn-info btn-block" href="#"><span data-feather="book-open"></span> Courriers internes</a>
     </div>
-</div>
-
+</div
 @endsection

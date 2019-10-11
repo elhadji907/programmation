@@ -95,7 +95,7 @@
 </li>  --}}
 
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('courriers.show') }}">
+  <a class="nav-link" href="{{ route('courriers.index') }}">
       <span data-feather="mail"></span>
     <span>Gestion courriers</span>
   </a>

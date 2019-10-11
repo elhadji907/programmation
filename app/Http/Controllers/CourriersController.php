@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Courrier;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class CourriersController extends Controller
 {
@@ -14,7 +15,7 @@ class CourriersController extends Controller
      */
     public function index()
     {
-        //
+        return view('courriers.index');
     }
 
     /**
@@ -81,5 +82,11 @@ class CourriersController extends Controller
     public function destroy(Courrier $courrier)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $courriers=Courrier::get();
+        return Datatables::of($courriers)->make(true);
     }
 }
