@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Gestionnaire;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use App\Role;
+use App\User;
 
 class GestionnairesController extends Controller
 {
@@ -14,7 +17,7 @@ class GestionnairesController extends Controller
      */
     public function index()
     {
-        //
+        return view('gestionnaires.index');
     }
 
     /**
@@ -81,5 +84,11 @@ class GestionnairesController extends Controller
     public function destroy(Gestionnaire $gestionnaire)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $gestionnaires=Gestionnaire::with('user')->get();
+        return Datatables::of($gestionnaires)->make(true);
     }
 }

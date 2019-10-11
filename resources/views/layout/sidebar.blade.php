@@ -115,7 +115,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="{{ route('administrateurs.index') }}">
+    <a class="nav-link" href="{{ route('gestionnaires.index') }}">
         <span data-feather="user"></span>
       <span>Gestion gestionnaires</span>
     </a>
@@ -124,7 +124,7 @@
   <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
         <span data-feather="user"></span>
-      <span>Gestion benegiciaires</span>
+      <span>Gestion beneficiaires</span>
     </a>
   </li>
 
