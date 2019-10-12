@@ -11,6 +11,6 @@ class RecuesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Recue::class,12)->create();
+        factory(App\Recue::class,25)->create();
     }
 }

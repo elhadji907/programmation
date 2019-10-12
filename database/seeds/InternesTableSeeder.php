@@ -11,6 +11,6 @@ class InternesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Interne::class,12)->create();
+        factory(App\Interne::class,10)->create();
     }
 }
