@@ -29,10 +29,11 @@ use Illuminate\Support\Str;
 
 $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     $gestionnaire_id=App\Gestionnaire::all()->random()->id;
+    $annee = date('Y');
     return [
         
-        'numero' => $faker->word,
-        'name' => $faker->name,
+        'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=5,$strict=true),
+        'name' => "Demande de ".$faker->name,
         'types' => $faker->word,
         'message' => $faker->word,
         'destinataire' => $faker->word,

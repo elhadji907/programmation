@@ -73,7 +73,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'numero', name: 'numero' },
                     { data: 'name', name: 'name' },
-                    { data: 'types', name: 'types' },
+                    { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'message', name: 'message' },
                     { data: 'destinataire', name: 'destinataire' },
                     { data: null ,orderable: false, searchable: false}

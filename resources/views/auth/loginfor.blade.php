@@ -42,9 +42,9 @@
                   <div class="dropdown-menu" aria-labelledby="dropdownId">
                   <a href="{{route('loginfor','Administrateur')}}" class="btn btn-lg btn-secondary">Administrateur</a>
                       <a href="{{route('loginfor','Gestionnaire')}}" class="btn btn-lg btn-secondary">Gestionnaire</a>
-                      <a href="{{route('loginfor','Client')}}" class="btn btn-lg btn-secondary">Client</a>
+                      {{--  <a href="{{route('loginfor','Client')}}" class="btn btn-lg btn-secondary">Client</a>
                       <a href="{{route('loginfor','Comptable')}}" class="btn btn-lg btn-secondary">Comptable</a>
-                      <a href="{{route('loginfor','Agent')}}" class="btn btn-lg btn-secondary">Agent</a>
+                      <a href="{{route('loginfor','Agent')}}" class="btn btn-lg btn-secondary">Agent</a>  --}}
                   </div>
                 </div>
               </div>

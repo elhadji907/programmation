@@ -86,7 +86,7 @@ class CourriersController extends Controller
 
     public function list(Request $request)
     {
-        $courriers=Courrier::get();
+        $courriers=Courrier::with('types_courrier')->get();
         return Datatables::of($courriers)->make(true);
     }
 }
