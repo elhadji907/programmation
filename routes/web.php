@@ -43,21 +43,15 @@ Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestion
 // Route::get('courriers', 'CourriersController@show')->name('courriers.show');
 Route::get('courriers/arrives', 'RecuesController@show')->name('arrives.show');
 
-
 Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
 
 Route::get('postes/create', 'PostesController@create')->name('postes.create');
 Route::post('postes', 'PostesController@store')->name('postes.store');
 Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
 
-
-
 Route::resource('/administrateurs', 'AdministrateursController');
 Route::resource('/gestionnaires', 'GestionnairesController');
 Route::resource('/courriers', 'CourriersController');
-
-
-
 
 //gestion des roles par niveau d'autorisation
 Route::get('loginfor/{rolename?}',function($rolename=null){

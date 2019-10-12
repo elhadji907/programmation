@@ -111,7 +111,7 @@
         <div class="card-body">
                 <div class="table-responsive">
                     <div align="right">
-                    <a href="#"><div class="btn btn-success">Nouveau Courrier&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                    <a href="{{ ('courriers.show') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
                     </div>
                     <br />
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">
