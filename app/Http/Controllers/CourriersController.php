@@ -25,7 +25,7 @@ class CourriersController extends Controller
      */
     public function create()
     {
-        //
+        return view('courriers.create');
     }
 
     /**

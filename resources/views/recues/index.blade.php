@@ -2,19 +2,19 @@
 @section('content')
 <div class="container-fluid">
     {{-- <div class="col-md-12">
-        <a class="btn btn-info btn-block" href="{{ route('arrives.show') }}"><span data-feather="book-open"></span> Courriers arrivés</a>
+        <a class="btn btn-info btn-block" href="{{ route('arrives.show') }}"><span data-feather="book-open"></span> recues arrivés</a>
     </div>
     <br />
     <div class="col-md-12">
-        <a class="btn btn-dark btn-block" href="#"><span data-feather="book-open"></span> Courriers départs</a>
+        <a class="btn btn-dark btn-block" href="#"><span data-feather="book-open"></span> recues départs</a>
     </div>
     <br />
     <div class="col-md-12">
-        <a class="btn btn-info btn-block" href="#"><span data-feather="book-open"></span> Courriers internes</a>
+        <a class="btn btn-info btn-block" href="#"><span data-feather="book-open"></span> recues internes</a>
     </div> --}}
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Courriers</h1>
+      <h1 class="h3 mb-0 text-gray-800">recues</h1>
       {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
     </div>
 
@@ -25,7 +25,7 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Courriers (ANNUELS)') }}</div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('recues (ANNUELS)') }}</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Courrier::get()->count() }}</div>
                   </div>
                   <div class="col-auto">
@@ -44,7 +44,7 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                     {{ ('Courriers (ARRIVES)') }}
+                     {{ ('recues (ARRIVES)') }}
                     </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Recue::get()->count() }}</div>
                   </div>
@@ -63,7 +63,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{ ('Courriers (DEPARTS)') }}</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{ ('recues (DEPARTS)') }}</div>
                         <div class="row no-gutters align-items-center">
                           <div class="col-auto">
                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ \App\Depart::get()->count() }}</div>
@@ -89,7 +89,7 @@
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{ ('Courriers (INTERNES)') }}</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{ ('recues (INTERNES)') }}</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Interne::get()->count() }}</div>
                       </div>
                       <div class="col-auto">
@@ -110,21 +110,20 @@
         <div class="card"> 
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des courriers
+                Liste des courriers reçues
             </div>              
         <div class="card-body">
                 <div class="table-responsive">
                     <div align="right">
-                    <a href="{{ route('courriers.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
+                    <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
                     </div>
                     <br />
-                <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">
+                <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Type</th>
                         <th>Message</th>
                         <th>Destinataire</th>
                         <th>Action</th>
@@ -135,7 +134,6 @@
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Type</th>
                         <th>Message</th>
                         <th>Destinataire</th>
                         <th>Action</th>
@@ -155,17 +153,16 @@
 @push('scripts')
     <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-courriers').DataTable( { 
+          $('#table-recues').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('courriers.list')}}",
+            "ajax": "{{route('recues.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'numero', name: 'numero' },
-                    { data: 'name', name: 'name' },
-                    { data: 'types_courrier.name', name: 'types_courrier.name' },
-                    { data: 'message', name: 'message' },
-                    { data: 'destinataire', name: 'destinataire' },
+                    { data: 'courrier.numero', name: 'courrier.numero' },
+                    { data: 'courrier.name', name: 'courrier.name' },
+                    { data: 'courrier.message', name: 'courrier.message' },
+                    { data: 'courrier.destinataire', name: 'courrier.destinataire' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -173,12 +170,12 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('courriers.edit',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('courriers.destroy',':id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
                         '<a class="btn btn-danger delete" title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
                         },
-                        "targets": 6
+                        "targets": 5
                         },
                 ],
                 language: {

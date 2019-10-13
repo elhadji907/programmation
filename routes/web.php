@@ -25,9 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/accueil', function () {
         return view('layout.default');
 });
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/accueil', function () {
@@ -40,10 +40,8 @@ Route::patch('profiles/{user}', 'ProfilesController@update')->name('profiles.upd
 Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
 Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
 
-// Route::get('courriers', 'CourriersController@show')->name('courriers.show');
-Route::get('courriers/arrives', 'RecuesController@show')->name('arrives.show');
-
 Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
+Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
 
 Route::get('postes/create', 'PostesController@create')->name('postes.create');
 Route::post('postes', 'PostesController@store')->name('postes.store');
@@ -52,6 +50,7 @@ Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
 Route::resource('/administrateurs', 'AdministrateursController');
 Route::resource('/gestionnaires', 'GestionnairesController');
 Route::resource('/courriers', 'CourriersController');
+Route::resource('/recues', 'RecuesController');
 
 //gestion des roles par niveau d'autorisation
 Route::get('loginfor/{rolename?}',function($rolename=null){

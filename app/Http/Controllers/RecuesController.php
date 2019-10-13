@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recue;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 use App\TypesCourrier;
 
@@ -16,7 +17,7 @@ class RecuesController extends Controller
      */
     public function index()
     {
-        //
+        return view('recues.index');
     }
 
     /**
@@ -30,7 +31,7 @@ class RecuesController extends Controller
         // $numCourrier = date('mdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
 
-        return view('courriers.arrives.create',compact('types', 'numCourrier'));
+        return view('recues.create',compact('types', 'numCourrier'));
     }
 
     /**
@@ -56,7 +57,7 @@ class RecuesController extends Controller
         // $numCourrier = date('mdHis').rand(1,99999);
         //$numCourrier = date('YmdHis');
 
-        return view('courriers.arrives.show',compact('types'));
+        return view('recues.show',compact('types'));
     }
 
     /**
@@ -91,5 +92,11 @@ class RecuesController extends Controller
     public function destroy(Recue $recue)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $recues=Recue::with('courrier')->get();
+        return Datatables::of($recues)->make(true);
     }
 }
