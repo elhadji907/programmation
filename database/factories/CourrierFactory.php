@@ -33,10 +33,10 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     return [
         
         'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=5,$strict=true),
-        'name' => "Demande de ".$faker->name,
-        'types' => $faker->word,
+        'objet' => "Demande de ".$faker->name,
+        'type' => $faker->word,
         'message' => $faker->word,
-        'destinataire' => $faker->word,
+        'imputation' => $faker->word,
         'fichier' => $faker->word,
         'statut' => $faker->word,
         'date' => $faker->dateTime(),

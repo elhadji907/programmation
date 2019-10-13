@@ -160,9 +160,9 @@
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'courrier.numero', name: 'courrier.numero' },
-                    { data: 'courrier.name', name: 'courrier.name' },
+                    { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.message', name: 'courrier.message' },
-                    { data: 'courrier.destinataire', name: 'courrier.destinataire' },
+                    { data: 'courrier.imputation', name: 'courrier.imputation' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],

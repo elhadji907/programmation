@@ -15,10 +15,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $numero
- * @property string $name
- * @property string $types
+ * @property string $objet
+ * @property string $type
  * @property string $message
- * @property string $destinataire
+ * @property string $imputation
  * @property string $fichier
  * @property string $statut
  * @property \Carbon\Carbon $date
@@ -53,10 +53,10 @@ class Courrier extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'numero',
-		'name',
-		'types',
+		'objet',
+		'type',
 		'message',
-		'destinataire',
+		'imputation',
 		'fichier',
 		'statut',
 		'date',

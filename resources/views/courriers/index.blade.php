@@ -162,10 +162,10 @@
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'numero', name: 'numero' },
-                    { data: 'name', name: 'name' },
+                    { data: 'objet', name: 'objet' },
                     { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'message', name: 'message' },
-                    { data: 'destinataire', name: 'destinataire' },
+                    { data: 'imputation', name: 'imputation' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],

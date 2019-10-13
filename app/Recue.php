@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $objet
  * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -35,7 +34,6 @@ class Recue extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'objet',
 		'courriers_id'
 	];
 

@@ -24,7 +24,6 @@ class CreateDepartsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('objet', 200)->nullable();
             $table->unsignedInteger('courriers_id');
 
             $table->index(["courriers_id"], 'fk_depart_courriers1_idx');
