@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Depart;
 use Illuminate\Http\Request;
+use App\TypesCourrier;
+use Yajra\Datatables\Datatables;
+
+use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 class DepartsController extends Controller
 {
@@ -14,7 +19,7 @@ class DepartsController extends Controller
      */
     public function index()
     {
-        //
+        return view('departs.index');
     }
 
     /**
@@ -24,7 +29,8 @@ class DepartsController extends Controller
      */
     public function create()
     {
-        //
+        $types = TypesCourrier::get();
+        return view('departs.create', compact('types'));
     }
 
     /**
@@ -82,4 +88,14 @@ class DepartsController extends Controller
     {
         //
     }
+
+    public function list(Request $request)
+    {
+        $date = Carbon::today();
+        $date = $date->copy()->addDays(-7);
+
+        $departs=Depart::with('courrier')->where('created_at', '>=', $date)->get();
+        return Datatables::of($departs)->make(true);
+    }
+
 }

@@ -6,15 +6,15 @@
         <div class="card"> 
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des courriers reçues
+                Liste des courriers départ
             </div>              
         <div class="card-body">
                 <div class="table-responsive">
                     <div align="right">
-                    <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
+                    <a href="{{ route('departs.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
                     </div>
                     <br />
-                <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
+                <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-departs">
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -49,10 +49,10 @@
 @push('scripts')
     <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-recues').DataTable( { 
+          $('#table-departs').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('recues.list')}}",
+            "ajax": "{{route('departs.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'courrier.numero', name: 'courrier.numero' },
@@ -66,8 +66,8 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('departs.edit',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('departs.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
                         '<a class="btn btn-danger delete" title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
                         },

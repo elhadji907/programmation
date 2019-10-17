@@ -42,6 +42,8 @@ Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestion
 
 Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
 Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
+Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
+Route::get('/internes/list', 'InternesController@list')->name('internes.list');
 
 Route::get('postes/create', 'PostesController@create')->name('postes.create');
 Route::post('postes', 'PostesController@store')->name('postes.store');
@@ -51,6 +53,8 @@ Route::resource('/administrateurs', 'AdministrateursController');
 Route::resource('/gestionnaires', 'GestionnairesController');
 Route::resource('/courriers', 'CourriersController');
 Route::resource('/recues', 'RecuesController');
+Route::resource('/departs', 'DepartsController');
+Route::resource('/internes', 'InternesController');
 
 //gestion des roles par niveau d'autorisation
 Route::get('loginfor/{rolename?}',function($rolename=null){
