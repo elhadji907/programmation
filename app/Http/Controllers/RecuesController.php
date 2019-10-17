@@ -6,6 +6,9 @@ use App\Recue;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
+use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
+
 use App\TypesCourrier;
 
 class RecuesController extends Controller
@@ -17,7 +20,10 @@ class RecuesController extends Controller
      */
     public function index()
     {
-        return view('recues.index');
+        $date = Carbon::today()->locale('fr_FR');
+        $date = $date->copy()->addDays(0);
+        $date = $date->isoFormat('LLLL'); // M/D/Y
+        return view('recues.index',compact('date'));
     }
 
     /**
@@ -96,7 +102,10 @@ class RecuesController extends Controller
 
     public function list(Request $request)
     {
-        $recues=Recue::with('courrier')->get();
+        $date = Carbon::today();
+        $date = $date->copy()->addDays(-7);
+
+        $recues=Recue::with('courrier')->where('created_at', '>=', $date)->get();
         return Datatables::of($recues)->make(true);
     }
 }

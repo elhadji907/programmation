@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Schema;
 
+use Illuminate\Support\DateFactory;
+use Carbon\CarbonImmutable;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        DateFactory::use(CarbonImmutable::class);
     }
 
     /**
