@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVillesTable extends Migration
+class CreateRegionsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'villes';
+    public $tableName = 'regions';
 
     /**
      * Run the migrations.
-     * @table villes
+     * @table regions
      *
      * @return void
      */
@@ -25,17 +25,8 @@ class CreateVillesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('nom', 200)->nullable();
-            $table->unsignedInteger('communes_id');
-
-            $table->index(["communes_id"], 'fk_villes_communes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('communes_id', 'fk_villes_communes1_idx')
-                ->references('id')->on('communes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

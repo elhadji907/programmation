@@ -36,7 +36,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->unsignedInteger('roles_id');
-            $table->rememberToken();
+            $table->unsignedInteger('directions_id');
+
+            $table->index(["directions_id"], 'fk_users_directions1_idx');
 
             $table->index(["roles_id"], 'fk_users_roles1_idx');
 
@@ -47,6 +49,11 @@ class CreateUsersTable extends Migration
 
             $table->foreign('roles_id', 'fk_users_roles1_idx')
                 ->references('id')->on('roles')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('directions_id', 'fk_users_directions1_idx')
+                ->references('id')->on('directions')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
