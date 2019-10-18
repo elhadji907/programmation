@@ -10,33 +10,39 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class TypesCourrier
+ * Class Direction
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property string $categorie
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $courriers
+ * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * @package App
  */
-class TypesCourrier extends Eloquent
+class Direction extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
-		'name',
-		'categorie'
+		'name'
 	];
 
 	public function courriers()
 	{
-		return $this->hasMany(\App\Courrier::class, 'types_courriers_id');
+		return $this->belongsToMany(\App\Courrier::class, 'courriers_has_directions', 'directions_id', 'courriers_id')
+					->withPivot('deleted_at')
+					->withTimestamps();
+	}
+
+	public function users()
+	{
+		return $this->hasMany(\App\User::class, 'directions_id');
 	}
 }

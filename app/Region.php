@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -15,12 +15,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $nom
- * @property int $pays_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Pay $pay
  * @property \Illuminate\Database\Eloquent\Collection $departements
  *
  * @package App
@@ -29,20 +27,10 @@ class Region extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 
-	protected $casts = [
-		'pays_id' => 'int'
-	];
-
 	protected $fillable = [
 		'uuid',
-		'nom',
-		'pays_id'
+		'nom'
 	];
-
-	public function pay()
-	{
-		return $this->belongsTo(\App\Pay::class, 'pays_id');
-	}
 
 	public function departements()
 	{

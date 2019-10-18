@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -31,7 +31,6 @@ class Profile extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-
 	protected $casts = [
 		'users_id' => 'int'
 	];

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -29,15 +29,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
  * @property int $roles_id
+ * @property int $directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Direction $direction
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
- * @property \Illuminate\Database\Eloquent\Collection $pays
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
  *
@@ -49,7 +50,8 @@ class User extends Authenticatable
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'roles_id' => 'int'
+		'roles_id' => 'int',
+		'directions_id' => 'int'
 	];
 
 	protected $dates = [
@@ -74,7 +76,8 @@ class User extends Authenticatable
 		'situation_familiale',
 		'email_verified_at',
 		'password',
-		'roles_id'
+		'roles_id',
+		'directions_id'
 	];
 
 	protected static function boot(){
@@ -91,6 +94,11 @@ class User extends Authenticatable
 	public function getRouteKeyName()
 	{
 		return 'username';
+	}
+
+	public function direction()
+	{
+		return $this->belongsTo(\App\Direction::class, 'directions_id');
 	}
 
 	public function role()
@@ -111,11 +119,6 @@ class User extends Authenticatable
 	public function gestionnaire()
 	{
 		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
-	}
-
-	public function pay()
-	{
-		return $this->hasOne(\App\Pay::class, 'users_id');
 	}
 
 	public function postes()

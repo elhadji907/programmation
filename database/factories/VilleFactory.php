@@ -6,8 +6,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Ville::class, function (Faker $faker) {
     return [
-        'uuid' => $faker->uuid,
-        'nom' => $faker->word,
         'communes_id' => function () {
             return factory(App\Commune::class)->create()->id;
         },

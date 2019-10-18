@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -16,6 +16,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $numero
  * @property string $objet
+ * @property string $expediteur
+ * @property string $adresse
+ * @property string $fax
+ * @property string $bp
  * @property string $type
  * @property string $message
  * @property string $imputation
@@ -30,6 +34,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Gestionnaire $gestionnaire
  * @property \App\TypesCourrier $types_courrier
+ * @property \Illuminate\Database\Eloquent\Collection $directions
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $internes
  * @property \Illuminate\Database\Eloquent\Collection $recues
@@ -54,6 +59,10 @@ class Courrier extends Eloquent
 		'uuid',
 		'numero',
 		'objet',
+		'expediteur',
+		'adresse',
+		'fax',
+		'bp',
 		'type',
 		'message',
 		'imputation',
@@ -72,6 +81,13 @@ class Courrier extends Eloquent
 	public function types_courrier()
 	{
 		return $this->belongsTo(\App\TypesCourrier::class, 'types_courriers_id');
+	}
+
+	public function directions()
+	{
+		return $this->belongsToMany(\App\Direction::class, 'courriers_has_directions', 'courriers_id', 'directions_id')
+					->withPivot('deleted_at')
+					->withTimestamps();
 	}
 
 	public function departs()

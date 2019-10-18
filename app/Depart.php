@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property int $courriers_id
+ * @property string $destinataire
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -34,7 +35,8 @@ class Depart extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'courriers_id'
+		'courriers_id',
+		'destinataire'
 	];
 
 	public function courrier()

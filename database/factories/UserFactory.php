@@ -21,6 +21,9 @@
 //         'roles_id' => function () {
 //             return factory(App\Role::class)->create()->id;
 //         },
+//         'directions_id' => function () {
+//             return factory(App\Direction::class)->create()->id;
+//         },
 //     ];
 // });
 
@@ -28,6 +31,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
+    $direction_id=App\Direction::all()->random()->id;
     return [
         'civilite' => SnmG::getCivilite(),
         'firstname' => SnmG::getFirstName(),
@@ -40,5 +44,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => Str::random(5).".".$faker->safeEmail,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt('secret'),
+        'directions_id'  => function () use($direction_id) {
+            return $direction_id;
+        },
     ];
 });

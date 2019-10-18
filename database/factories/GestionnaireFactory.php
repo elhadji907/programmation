@@ -26,4 +26,3 @@ $factory->define(App\Gestionnaire::class, function (Faker\Generator $faker) {
         },
     ];
 });
-

@@ -8,10 +8,14 @@
 //     return [
 //         'uuid' => $faker->uuid,
 //         'numero' => $faker->word,
-//         'name' => $faker->name,
-//         'types' => $faker->word,
+//         'objet' => $faker->word,
+//         'expediteur' => $faker->word,
+//         'adresse' => $faker->word,
+//         'fax' => $faker->word,
+//         'bp' => $faker->word,
+//         'type' => $faker->word,
 //         'message' => $faker->word,
-//         'destinataire' => $faker->word,
+//         'imputation' => $faker->word,
 //         'fichier' => $faker->word,
 //         'statut' => $faker->word,
 //         'date' => $faker->dateTime(),
@@ -34,6 +38,10 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         
         'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=5,$strict=true),
         'objet' => "Demande de ".$faker->name,
+        'expediteur' => $faker->word,
+        'adresse' => $faker->word,
+        'fax' => $faker->word,
+        'bp' => $faker->word,
         'type' => $faker->word,
         'message' => $faker->word,
         'imputation' => $faker->word,
@@ -43,9 +51,5 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'gestionnaires_id' => function () use($gestionnaire_id) {
             return $gestionnaire_id;
         },
-        // 'types_courriers_id' => function () {
-        //     return factory(App\TypesCourrier::class)->create()->id;
-        // },
     ];
 });
-

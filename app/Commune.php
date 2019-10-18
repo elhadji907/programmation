@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 10 Oct 2019 14:26:09 +0000.
+ * Date: Fri, 18 Oct 2019 15:40:20 +0000.
  */
 
 namespace App;
@@ -22,13 +22,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Arrondissement $arrondissement
  * @property \Illuminate\Database\Eloquent\Collection $villages
- * @property \Illuminate\Database\Eloquent\Collection $villes
  *
  * @package App
  */
 class Commune extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'arrondissements_id' => 'int'
@@ -48,10 +48,5 @@ class Commune extends Eloquent
 	public function villages()
 	{
 		return $this->hasMany(\App\Village::class, 'communes_id');
-	}
-
-	public function villes()
-	{
-		return $this->hasMany(\App\Ville::class, 'communes_id');
 	}
 }
