@@ -11,11 +11,13 @@ class DirectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $role1=App\Direction::firstOrCreate(["name"=>"DIOF"],["uuid"=>Str::uuid()]);
-        $role2=App\Direction::firstOrCreate(["name"=>"DEC"],["uuid"=>Str::uuid()]);
-        $role3=App\Direction::firstOrCreate(["name"=>"DPP"],["uuid"=>Str::uuid()]);
-        $role4=App\Direction::firstOrCreate(["name"=>"COM"],["uuid"=>Str::uuid()]);
-        $role5=App\Direction::firstOrCreate(["name"=>"CONS"],["uuid"=>Str::uuid()]);
-        $role5=App\Direction::firstOrCreate(["name"=>"SI"],["uuid"=>Str::uuid()]);
+        $direction1=App\Direction::firstOrCreate(["name"=>"DIOF"],["uuid"=>Str::uuid()]);
+        $direction2=App\Direction::firstOrCreate(["name"=>"DEC"],["uuid"=>Str::uuid()]);
+        $direction3=App\Direction::firstOrCreate(["name"=>"DPP"],["uuid"=>Str::uuid()]);
+        $direction4=App\Direction::firstOrCreate(["name"=>"COM"],["uuid"=>Str::uuid()]);
+        $direction5=App\Direction::firstOrCreate(["name"=>"CONS"],["uuid"=>Str::uuid()]);
+        $direction5=App\Direction::firstOrCreate(["name"=>"SI"],["uuid"=>Str::uuid()]);
+        $direction6=App\Direction::firstOrCreate(["name"=>"DAF"],["uuid"=>Str::uuid()]);
+        $direction7=App\Direction::firstOrCreate(["name"=>"EDITION"],["uuid"=>Str::uuid()]);
     }
 }

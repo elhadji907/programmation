@@ -36,7 +36,7 @@
     </script>
 
     {{-- <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/4/tinymce.min.js' referrerpolicy="origin"></script> --}}
-    <script src="/path/to/tinymce.min.js"></script>
+    {{-- <script src="/path/to/tinymce.min.js"></script> --}}
 
 
 @stack('scripts')

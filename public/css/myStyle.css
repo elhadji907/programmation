@@ -20,3 +20,10 @@
     height: 100vh;
     margin-top: 30px;
 }
+
+body {
+    color: black;
+    background-color: white;
+    background-image: url('../images/pattern.png');
+    background-repeat: no-repeat;
+}

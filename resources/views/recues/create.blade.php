@@ -7,48 +7,60 @@
     <form method="POST" action="#" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
-         {{--    <div class="form-group col-md-3">
-                <label for="numero">Numero</label>
-                <input class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" disabled="disabled" type="text" name="numero" placeholder="Numéro du courrier..."
-                    id="numero" value="{{ old('numero') }} {{ $numCourrier }}">
-                <div class="invalid-feedback">
-                    {{ $errors->first('numero') }}
-                </div>
-                
-            </div> --}}
-            <div class="form-group col-md-6">
-                <label for="nom">Objet</label>
+            <div class="form-group col-md-12">
+                <label for="nom"><b>Objet:</b></label>
                 <input class="form-control {{ $errors->has('nom') ? 'is-invalid' : '' }}" type="text" name="nom" placeholder="Objet du courrier..."
                     id="nom" value="{{ old('nom') }}">
                 <div class="invalid-feedback">
                     {{ $errors->first('nom') }}
                 </div>
-            </div>   
-            <div class="form-group col-md-3">
-                <label for="type">Type</label>
-                <select name="type" id="type" class="form-control selectpicker">
-                        <option value="" class="text-gray-600 small">--Sélectionner le type--</option>
-                    @foreach($types as $type)
-                        <option value="{{ $type->id }}">{{ $type->name }}</option>
-                    @endforeach
-                </select>
+            </div>                   
+        </div>  
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="expediteur"><b>Prénom et Nom:</b></label>
+                <input class="form-control {{ $errors->has('expediteur') ? 'is-invalid' : '' }}" type="text" name="expediteur" placeholder="Prénom et Nom de l'expéditeur..."
+                    id="expediteur" value="{{ old('expediteur') }}">
                 <div class="invalid-feedback">
-                    {{ $errors->first('type') }}
+                    {{ $errors->first('expediteur') }}
                 </div>
             </div>
-                
+            <div class="form-group col-md-6">
+                <label for="adresse"><b>Adresse:</b></label>
+                <input class="form-control {{ $errors->has('adresse') ? 'is-invalid' : '' }}" type="text" name="adresse" placeholder="Adresse complète..."
+                    id="adresse" value="{{ old('adresse') }}">
+                <div class="invalid-feedback">
+                    {{ $errors->first('adresse') }}
+                </div>
+            </div>                   
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="telephone"><b>Téléphone:</b></label>
+                <input class="form-control {{ $errors->has('telephone') ? 'is-invalid' : '' }}" type="text" name="telephone" placeholder="Téléphone..."
+                    id="telephone" value="{{ old('telephone') }}">
+                <div class="invalid-feedback">
+                    {{ $errors->first('expediteur') }}
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email"><b>Adresse E-mail:</b></label>
+                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="text" name="email" placeholder="Adresse E-mail..."
+                    id="email" value="{{ old('email') }}">
+                <div class="invalid-feedback">
+                    {{ $errors->first('email') }}
+                </div>
+            </div>                   
         </div>        
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="content">Message</label>
             <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" rows="7" name="content" id="textarea"></textarea>
             <div class="invalid-feedback">
                 {{ $errors->first('content') }}
             </div>
-        </div>           
-    {{-- <input class="btn btn-outline-primary" type="submit" value="Enregistrer">  --}}
-
-    <button class="btn btn-outline-primary">
-            <span data-feather="save"></span> Enregistrer
+        </div>            --}}
+    <button class="btn btn-outline-primary" type="submit">
+        <span data-feather="save"></span> Enregistrer
     </button>
     </form>
 </div>

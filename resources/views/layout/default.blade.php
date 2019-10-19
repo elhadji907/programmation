@@ -15,7 +15,7 @@
   <title>{{ config('app.name', 'ONFP') }}</title>
 
  {{--  <!-- Custom fonts for this template--> --}}
-  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  {{-- <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"> --}}
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 {{--   <!-- Custom styles for this template--> --}}
@@ -29,32 +29,37 @@
 
 </head>
 
-<body>
+<body style="background-image: url('{{ asset('images/pattern.png')}}');">
 
 {{--   <!-- Page Wrapper --> --}}
   <div id="wrapper">
 
- {{--    <!-- Sidebar --> --}}
-  @include('layout.sidebar')
-{{--     <!-- End of Sidebar --> --}}
+    {{--    <!-- Sidebar --> --}}
+      @include('layout.sidebar')
+    {{--     <!-- End of Sidebar --> --}}
 
-{{--     <!-- Content Wrapper --> --}}
-    <div id="content-wrapper" class="d-flex flex-column">
-      @include('layout.navbar')
-{{--       <!-- Main Content --> --}}
+    {{--     <!-- Content Wrapper --> --}}
+        <div id="content-wrapper" class="d-flex flex-column">
+        
+            @include('layout.navbar')
 
-@section('content')  
+          <div class="container-fluid">
+            
+          {{--       <!-- Main Content --> --}}
 
-@include('layout.main')
-{{--  <!-- End of Main Content --> --}}
-@show
+          @section('content')  
 
-{{--       <!-- Footer --> --}}
-      @include('layout.footer')
-{{--       <!-- End of Footer --> --}}
+          @include('layout.main')
+          {{--  <!-- End of Main Content --> --}}
+          @show
+          </div>
+        {{--       <!-- Footer --> --}}
+              @include('layout.footer')
+        {{--       <!-- End of Footer --> --}}
 
     </div>
-{{--     <!-- End of Content Wrapper --> --}}
+
+    {{--     <!-- End of Content Wrapper --> --}}
 
   </div>
 {{--   <!-- End of Page Wrapper --> --}}

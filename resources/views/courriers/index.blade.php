@@ -129,8 +129,8 @@
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Type</th>
                         <th>Message</th>
+                        <th>Type</th>
                         <th>Destinataire</th>
                         <th>Action</th>
                     </tr>
@@ -140,8 +140,8 @@
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Type</th>
                         <th>Message</th>
+                        <th>Type</th>
                         <th>Destinataire</th>
                         <th>Action</th>
                     </tr>
@@ -168,8 +168,8 @@
                     { data: 'id', name: 'id' },
                     { data: 'numero', name: 'numero' },
                     { data: 'objet', name: 'objet' },
-                    { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'message', name: 'message' },
+                    { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'imputation', name: 'imputation' },
                     { data: null ,orderable: false, searchable: false}
 
