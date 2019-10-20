@@ -48,7 +48,15 @@ class RecuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'objet'         =>  'required|string|max:100',
+                'expediteur'    =>  'required|string|max:100',
+                'adresse'       =>  'required|string|max:100',
+                'telephone'     =>  'required|string|max:50',
+                'email'         =>  'required|email|max:255',
+            ]
+        );
     }
 
     /**

@@ -21,7 +21,7 @@
 {{--   <!-- Custom styles for this template--> --}}
   <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
- 
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <!-- Custom styles for this page -->
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   
@@ -52,11 +52,10 @@
           @include('layout.main')
           {{--  <!-- End of Main Content --> --}}
           @show
-          </div>
-        {{--       <!-- Footer --> --}}
-              @include('layout.footer')
-        {{--       <!-- End of Footer --> --}}
-
+          </div>       
+     {{--       <!-- Footer --> --}}
+     @include('layout.footer')
+     {{--       <!-- End of Footer --> --}}
     </div>
 
     {{--     <!-- End of Content Wrapper --> --}}
@@ -74,7 +73,5 @@
 
 {{--   <!-- Bootstrap core JavaScript--> --}}
   @include('layout.script')
-
 </body>
-
 </html>

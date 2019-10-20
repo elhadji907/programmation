@@ -60,6 +60,8 @@ class Courrier extends Eloquent
 		'numero',
 		'objet',
 		'expediteur',
+		'telephone',
+		'email',
 		'adresse',
 		'fax',
 		'bp',

@@ -6,7 +6,7 @@
    {{--   <i class="fas fa-laugh-wink"></i>  --}}
    <img src="{{ asset('img/ONFP.png') }}" class="img-fluid logo_onfp" alt="LOGO">
   </div>
-  <div class="sidebar-brand-text mx-3">ONFP<sup></sup></div>
+  <div class="sidebar-brand-text mx-3">ONFP<sup>1</sup></div>
 </a>
 
 <!-- Divider -->
@@ -151,7 +151,8 @@
 
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-    <i class="fas fa-fw fa-folder"></i>
+    {{--  <i class="fas fa-fw fa-folder"></i>  --}}
+    <span data-feather="folder"></span>
     <span>Pages</span>
   </a>
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">

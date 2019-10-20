@@ -1,24 +1,21 @@
 @extends('layout.default') 
-
-
 @section('content')
-<div class="container">
-   
-    <form method="POST" action="#" enctype="multipart/form-data">
+<div class="container">   
+    <form method="POST" action="{{ url('recues') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label for="nom"><b>Objet:</b></label>
-                <input class="form-control {{ $errors->has('nom') ? 'is-invalid' : '' }}" type="text" name="nom" placeholder="Objet du courrier..."
-                    id="nom" value="{{ old('nom') }}">
+                <label for="objet"><b>Objet:</b></label>
+                <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
+                    id="objet" value="{{ old('objet') }}">
                 <div class="invalid-feedback">
-                    {{ $errors->first('nom') }}
+                    {{ $errors->first('objet') }}
                 </div>
             </div>                   
         </div>  
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="expediteur"><b>Prénom et Nom:</b></label>
+                <label for="expediteur"><b>Expéditeur:</b></label>
                 <input class="form-control {{ $errors->has('expediteur') ? 'is-invalid' : '' }}" type="text" name="expediteur" placeholder="Prénom et Nom de l'expéditeur..."
                     id="expediteur" value="{{ old('expediteur') }}">
                 <div class="invalid-feedback">
@@ -51,14 +48,7 @@
                     {{ $errors->first('email') }}
                 </div>
             </div>                   
-        </div>        
-        {{-- <div class="form-group">
-            <label for="content">Message</label>
-            <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" rows="7" name="content" id="textarea"></textarea>
-            <div class="invalid-feedback">
-                {{ $errors->first('content') }}
-            </div>
-        </div>            --}}
+        </div>
     <button class="btn btn-outline-primary" type="submit">
         <span data-feather="save"></span> Enregistrer
     </button>

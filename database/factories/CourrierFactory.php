@@ -40,6 +40,8 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'objet' => "Demande de ".$faker->name,
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'adresse' => $faker->address,
+        'telephone' => $faker->phoneNumber,
+        'email' => $faker->email,
         'fax' => $faker->tollFreePhoneNumber,
         'bp' => $faker->postcode,
         'type' => $faker->word,

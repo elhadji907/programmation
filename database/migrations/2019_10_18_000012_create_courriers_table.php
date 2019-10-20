@@ -27,6 +27,8 @@ class CreateCourriersTable extends Migration
             $table->string('numero', 200);
             $table->string('objet', 200)->nullable();
             $table->string('expediteur', 200)->nullable();
+            $table->string('telephone', 200)->nullable();
+            $table->string('email', 200)->nullable();
             $table->string('adresse', 200)->nullable();
             $table->string('fax', 200)->nullable();
             $table->string('bp', 200)->nullable();
