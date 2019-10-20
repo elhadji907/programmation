@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Courrier;
 use App\Recue;
+use Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -55,8 +56,45 @@ class RecuesController extends Controller
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
+                'date_r'          =>  'required|date',
             ]
         );
+
+
+        $types_courrier_id = TypesCourrier::where('name','courriers arrives')->first()->id;
+        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+
+        $numCourrier = date('YmdHis');
+
+       /*  dd($types_courrier_id); */
+        /* dd($gestionnaire_id); */
+
+        $courrier = new Courrier([
+
+            'numero'             =>      $numCourrier,
+            'objet'              =>      $request->input('objet'),
+            'expediteur'         =>      $request->input('expediteur'),
+            'telephone'          =>      $request->input('telephone'),
+            'email'              =>      $request->input('email'),
+            'adresse'            =>      $request->input('adresse'),
+            'fax'                =>      $request->input('fax'),
+            'bp'                 =>      $request->input('bp'),
+            'imputation'         =>      $request->input('imputation'),
+            'date'               =>      $request->input('date'),
+            'types_courriers_id' =>      $types_courrier_id,
+            'gestionnaires_id'   =>      $gestionnaire_id
+
+        ]);
+
+        $courrier->save();
+
+        $recue = new Recue([
+            'courriers_id'  =>   $courrier->id
+        ]);
+        
+        $recue->save();
+
+        return redirect()->route('recues.create')->with('success','courrier ajouté avec succès !');
     }
 
     /**
