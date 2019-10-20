@@ -64,14 +64,20 @@ class RecuesController extends Controller
         $types_courrier_id = TypesCourrier::where('name','courriers arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
 
-        $numCourrier = date('YmdHis');
+        $courrier_id = Courrier::get()->last()->id;
+
+        // dd($courrier_id);
+
+        $annee = date('Y');
+
+        $numCourrier = "10000".$courrier_id;
 
        /*  dd($types_courrier_id); */
         /* dd($gestionnaire_id); */
 
         $courrier = new Courrier([
 
-            'numero'             =>      $numCourrier,
+            'numero'             =>      "CA-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'expediteur'         =>      $request->input('expediteur'),
             'telephone'          =>      $request->input('telephone'),
@@ -94,7 +100,7 @@ class RecuesController extends Controller
         
         $recue->save();
 
-        return redirect()->route('recues.create')->with('success','courrier ajouté avec succès !');
+        return redirect()->route('recues.index')->with('success','courrier ajouté avec succès !');
     }
 
     /**
@@ -105,11 +111,12 @@ class RecuesController extends Controller
      */
     public function show(Recue $recue)
     {
-        $types = TypesCourrier::get();
+        /* $types = TypesCourrier::get(); */
         // $numCourrier = date('mdHis').rand(1,99999);
         //$numCourrier = date('YmdHis');
 
-        return view('recues.show',compact('types'));
+        /* return view('recues.show',compact('types')); */
+        
     }
 
     /**
@@ -143,7 +150,9 @@ class RecuesController extends Controller
      */
     public function destroy(Recue $recue)
     {
-        //
+        $recue->delete();
+        $message = $recue->courrier->numero.' a été supprimé(e)';
+        return redirect()->route('recues.index')->with(compact('message'));
     }
 
     public function list(Request $request)

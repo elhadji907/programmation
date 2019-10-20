@@ -1,8 +1,16 @@
 @extends('layout.default')
 @section('content')
 <div class="container-fluid">
+    @if (session()->has('success'))
+    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+    @endif  
     <div class="row">
     <div class="col-md-12">
+            @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+            @endif
         <div class="card"> 
             <div class="card-header">
                 <i class="fas fa-table"></i>
@@ -50,6 +58,29 @@
     </div>
 </div>
 </div>
+<div class="modal fade" id="modal_delete_recue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-recue">
+          @csrf
+          @method('DELETE')
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                cliquez sur close pour annuler
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
 @endsection
 
 @push('scripts')
@@ -77,8 +108,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
-                        '<a class="btn btn-danger delete" title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit" title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
+                        '<a class="btn btn-danger delete btn_delete_recue"  title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
                         },
                         "targets": 8
                         },
@@ -114,6 +145,14 @@
                 },
               
           });
+
+          $('#table-recues').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
+          function() { 
+            var href=$(this).data('href');
+            $('#form-delete-recue').attr('action', href);
+            $('#modal_delete_recue').modal();
+          });
+
       });
     </script> 
 @endpush

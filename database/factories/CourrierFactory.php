@@ -36,7 +36,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     $annee = date('Y');
     return [
         
-        'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=5,$strict=true),
+        'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=7,$strict=true),
         'objet' => "Demande de ".$faker->name,
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'adresse' => $faker->address,
