@@ -111,12 +111,7 @@ class RecuesController extends Controller
      */
     public function show(Recue $recue)
     {
-        /* $types = TypesCourrier::get(); */
-        // $numCourrier = date('mdHis').rand(1,99999);
-        //$numCourrier = date('YmdHis');
-
-        /* return view('recues.show',compact('types')); */
-        
+       //        
     }
 
     /**
@@ -151,7 +146,7 @@ class RecuesController extends Controller
     public function destroy(Recue $recue)
     {
         $recue->delete();
-        $message = $recue->courrier->numero.' a été supprimé(e)';
+        $message = "Le courrier enregistré sous le numéro ".$recue->courrier->numero.' a été supprimé';
         return redirect()->route('recues.index')->with(compact('message'));
     }
 

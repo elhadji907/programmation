@@ -1,64 +1,66 @@
 @extends('layout.default')
 @section('content')
-<div class="container-fluid">
-    @if (session()->has('success'))
-    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-    @endif  
-    <div class="row">
-    <div class="col-md-12">
-            @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
+        <div class="container-fluid">
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            @endif 
+          <div class="row">
+            <div class="col-md-12">
+                @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+                @endif
+              <div class="card"> 
+                  <div class="card-header">
+                      <i class="fas fa-table"></i>
+                      Liste des courriers reçus
+                  </div>              
+                <div class="card-body">
+                      <div class="table-responsive">
+                          <div align="right">
+                            <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Utilisateur&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                          </div>
+                          <br />
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
+                          <thead class="table-dark">
+                            <tr>
+                              <th>ID</th>
+                              <th>Numéro</th>
+                              <th>Objet</th>
+                              <th>Expediteur</th>
+                              <th>Adresse</th>
+                              <th>Telephone</th>
+                              <th>Email</th>
+                              <th>Destinataires</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tfoot class="table-dark">
+                              <tr>
+                                <th>ID</th>
+                                <th>Numéro</th>
+                                <th>Objet</th>
+                                <th>Expediteur</th>
+                                <th>Adresse</th>
+                                <th>Telephone</th>
+                                <th>Email</th>
+                                <th>Destinataires</th>
+                                <th>Action</th>
+                              </tr>
+                            </tfoot>
+                          <tbody>
+                           
+                          </tbody>
+                      </table>                        
+                </div>
+              </div>
             </div>
-            @endif
-        <div class="card"> 
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Liste des courriers reçues
-            </div>              
-        <div class="card-body">
-                <div class="table-responsive">
-                    <div align="right">
-                    <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
-                    </div>
-                    <br />
-                <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Numéro</th>
-                        <th>Objet</th>
-                        <th>Expediteur</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
-                        <th>Destinataires</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tfoot class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Numéro</th>
-                        <th>Objet</th>
-                        <th>Expediteur</th>
-                        <th>Adresse</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
-                        <th>Destinataires</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
-                    <tbody                           
-                    </tbody>
-                </table>                        
+          </div>
         </div>
-        </div>
-    </div>
-    </div>
-</div>
-</div>
-<div class="modal fade" id="modal_delete_recue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      </div>
+
+      <div class="modal fade" id="modal_delete_recue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="POST" action="" id="form-delete-recue">
           @csrf
           @method('DELETE')
@@ -81,10 +83,10 @@
           </div>
         </form>
       </div>
-@endsection
+      @endsection
 
-@push('scripts')
-    <script type="text/javascript">
+      @push('scripts')
+      <script type="text/javascript">
       $(document).ready(function () {
           $('#table-recues').DataTable( { 
             "processing": true,
@@ -108,8 +110,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit" title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
-                        '<a class="btn btn-danger delete btn_delete_recue"  title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
+                        '<div class="btn btn-danger delete btn_delete_recue" title="Supprimer" data-href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></div>';
                         },
                         "targets": 8
                         },
@@ -143,16 +145,17 @@
                           } 
                   }
                 },
-              
+                order:[[0,'desc'], [0, 'asc']]              
           });
 
-          $('#table-recues').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
-          function() { 
-            var href=$(this).data('href');
-            $('#form-delete-recue').attr('action', href);
-            $('#modal_delete_recue').modal();
-          });
-
+          
+        $('#table-recues').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
+        function() { 
+          var href=$(this).data('href');
+          $('#form-delete-recue').attr('action', href);
+          $('#modal_delete_recue').modal();
+        });
       });
-    </script> 
-@endpush
+      
+  </script> 
+  @endpush
