@@ -15,6 +15,11 @@ class Auth
      */
     public function handle($request, Closure $next)
     {
+        if (Auth()->guest())
+        {
+            flash("Vous devez être connecté pour voir cette page !")->error();
+            return redirect('/login');            
+        }
         return $next($request);
     }
 }

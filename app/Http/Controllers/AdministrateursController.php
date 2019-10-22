@@ -11,6 +11,13 @@ use Yajra\Datatables\Datatables;
 
 class AdministrateursController extends Controller
 {
+  
+    public function __construct()
+    {
+        /* roles */
+         $this->middleware('auth');
+         $this->middleware('roles:Administrateur'); 
+    }
     /**
      * Display a listing of the resource.
      *

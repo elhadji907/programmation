@@ -177,6 +177,9 @@ return [
         Reliese\Coders\CodersServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
 
+        //mon provider
+        App\Providers\MyBladeServiceProvider::class,
+
     ],
 
     /*
