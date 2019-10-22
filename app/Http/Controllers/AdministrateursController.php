@@ -10,14 +10,17 @@ use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 
 class AdministrateursController extends Controller
-{
-  
-    public function __construct()
-    {
-        /* roles */
-         $this->middleware('auth');
-         $this->middleware('roles:Administrateur'); 
-    }
+{  
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+   public function __construct()
+   {
+       $this->middleware('auth');
+       $this->middleware('roles:Administrateur'); 
+   }
     /**
      * Display a listing of the resource.
      *

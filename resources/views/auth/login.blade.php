@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+                @include('flash::message')
                 @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
