@@ -60,7 +60,7 @@ class User extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password'
+		'password',  'remember_token'
 	];
 
 	protected $fillable = [
@@ -129,5 +129,15 @@ class User extends Authenticatable
 	public function profile()
 	{
 		return $this->hasOne(\App\Profile::class, 'users_id');
+	}
+	//gestion des roles
+	public function hasRole($roleName)
+	{
+		return $this->role->name === $roleName;
+	}
+
+	public function hasAnyRoles($roles)
+	{
+		return in_array($this->role->name, $roles);
 	}
 }
