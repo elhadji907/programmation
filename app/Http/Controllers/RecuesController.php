@@ -170,8 +170,6 @@ class RecuesController extends Controller
 
        $courrier->save();
 
-      /*  dd('succes');
- */
        $recue->courriers_id          =      $courrier->id;
 
        $recue->save();
