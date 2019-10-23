@@ -49,6 +49,8 @@ class RecuesController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $types_courrier_id = TypesCourrier::where('name','courriers arrives')->first()->id;
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
@@ -61,7 +63,6 @@ class RecuesController extends Controller
         );
 
 
-        $types_courrier_id = TypesCourrier::where('name','courriers arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
 
         $courrier_id = Courrier::get()->last()->id;
