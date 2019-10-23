@@ -129,9 +129,10 @@
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Message</th>
+                       {{--  <th>Message</th> --}}
                         <th>Type</th>
                         <th>Destinataire</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -140,9 +141,10 @@
                         <th>ID</th>
                         <th>Numéro</th>
                         <th>Objet</th>
-                        <th>Message</th>
+                      {{--   <th>Message</th> --}}
                         <th>Type</th>
                         <th>Destinataire</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -168,9 +170,10 @@
                     { data: 'id', name: 'id' },
                     { data: 'numero', name: 'numero' },
                     { data: 'objet', name: 'objet' },
-                    { data: 'message', name: 'message' },
+                    /*{ data: 'message', name: 'message' },*/
                     { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'imputation', name: 'imputation' },
+                    { data: 'created_at', name: 'created_at' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],

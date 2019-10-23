@@ -24,9 +24,9 @@ Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
     {            
-        Route::get('profiles/{user}', 'ProfilesController@show')->name('profiles.show');
-        Route::get('profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
-        Route::patch('profiles/{user}', 'ProfilesController@update')->name('profiles.update');
+        Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
+        Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
+        Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
 

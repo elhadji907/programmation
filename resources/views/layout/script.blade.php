@@ -37,6 +37,8 @@
 
     {{-- <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/4/tinymce.min.js' referrerpolicy="origin"></script> --}}
     {{-- <script src="/path/to/tinymce.min.js"></script> --}}
-
+{{-- 
+    <script src='cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
+    <script src='cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js'></script> --}}
 
 @stack('scripts')
