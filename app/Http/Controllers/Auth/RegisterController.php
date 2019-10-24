@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Role;
+use App\Direction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -67,6 +68,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $role = Role::where('name','Client')->first()->id;
+        $direction_id = Direction::where('name','Aucune')->first()->id;
         return User::create([
             'firstname' => $data['firstname'],
             'name' => $data['name'],
@@ -74,6 +76,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'roles_id'  => $role,
+            'directions_id' => $direction_id,
         ]);
     }
 }

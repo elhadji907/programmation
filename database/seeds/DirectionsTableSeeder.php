@@ -19,5 +19,6 @@ class DirectionsTableSeeder extends Seeder
         $direction5=App\Direction::firstOrCreate(["name"=>"SI"],["uuid"=>Str::uuid()]);
         $direction6=App\Direction::firstOrCreate(["name"=>"DAF"],["uuid"=>Str::uuid()]);
         $direction7=App\Direction::firstOrCreate(["name"=>"EDITION"],["uuid"=>Str::uuid()]);
+        $direction8=App\Direction::firstOrCreate(["name"=>"Aucune"],["uuid"=>Str::uuid()]);
     }
 }
