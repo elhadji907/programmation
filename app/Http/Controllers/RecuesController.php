@@ -61,7 +61,7 @@ class RecuesController extends Controller
         );
 
 
-        $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;
+        $types_courrier_id = TypesCourrier::where('name','arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
 
         $courrier_id = Courrier::get()->last()->id;
@@ -153,7 +153,7 @@ class RecuesController extends Controller
        $courrier = $recue->courrier;
        /* dd($courrier); */
 
-       $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;
+       $types_courrier_id = TypesCourrier::where('name','arrives')->first()->id;
        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
 
        $courrier->objet              =      $request->input('objet');
