@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Ville extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'communes_id' => 'int'

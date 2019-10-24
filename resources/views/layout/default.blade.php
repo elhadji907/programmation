@@ -32,14 +32,14 @@
 <body style="background-image: url('{{ asset('images/pattern.png')}}');">
 
 {{--   <!-- Page Wrapper --> --}}
-  <div id="wrapper">
+  <div id="wrapper" style="background-image: url('{{ asset('images/pattern.png')}}');">
 
     {{--    <!-- Sidebar --> --}}
       @include('layout.sidebar')
     {{--     <!-- End of Sidebar --> --}}
 
     {{--     <!-- Content Wrapper --> --}}
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('{{ asset('images/pattern.png')}}');">
         
             @include('layout.navbar')
 
@@ -66,10 +66,8 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
 {{--   <!-- Logout Modal--> --}}
   @include('layout.logout')
-
 {{--   <!-- Bootstrap core JavaScript--> --}}
   @include('layout.script')
 </body>

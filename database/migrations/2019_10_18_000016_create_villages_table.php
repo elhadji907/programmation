@@ -25,6 +25,7 @@ class CreateVillagesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('nom', 200)->nullable();
+            $table->integer('chef_id')->nullable();
             $table->unsignedInteger('communes_id');
 
             $table->index(["communes_id"], 'fk_villages_communes1_idx');

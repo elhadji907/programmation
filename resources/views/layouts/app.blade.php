@@ -28,8 +28,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body  style="background-image: url('{{ asset('images/pattern.png')}}')">
-    <div id="app">
+<body>
+    <div id="app" style="background-image: url('{{ asset('images/pattern.png')}}'); height: 100vh;">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom-success">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -81,11 +81,11 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+</div>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
