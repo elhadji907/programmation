@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
+use App\Helpers\SnNameGenerator as SnmG;
+
 class VillagesTableSeeder extends Seeder
 {
     /**
@@ -75,9 +77,12 @@ class VillagesTableSeeder extends Seeder
                             "email"=>$faker->randomNumber($nbDigit=3,$strict=true).$faker->safeEmail,
                             "password"=>bcrypt("secret"),
                             "roles_id"=>$role_beneficiaire->id,
-
+                            'username' => Str::random(7),
                             'directions_id'=>$direction_id,
-                           
+                            'civilite' => SnmG::getCivilite(),   
+                            'date_naissance' => $faker->dateTime(),
+                            'lieu_naissance' => $faker->word,
+                            'situation_familiale' => $faker->word,                        
                             "telephone"=>$faker->phoneNumber
                             ]);
                             //echo("Pass 4".PHP_EOL);
