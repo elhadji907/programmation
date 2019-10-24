@@ -12,8 +12,8 @@ class TypesCourriersTableSeeder extends Seeder
      */
     public function run()
     {
-        $type1=App\TypesCourrier::firstOrCreate(["name"=>"arrives"],["categorie"=>"Courriers arrives"],["uuid"=>Str::uuid()]);
-        $type2=App\TypesCourrier::firstOrCreate(["name"=>"departs"],["categorie"=>"Courriers arrives"],["uuid"=>Str::uuid()]);
-        $type3=App\TypesCourrier::firstOrCreate(["name"=>"internes"],["categorie"=>"Courriers arrives"],["uuid"=>Str::uuid()]);
+        $type1=App\TypesCourrier::firstOrCreate(["name"=>"Arrives"],["categorie"=>"Arrives"],["uuid"=>Str::uuid()]);
+        $type2=App\TypesCourrier::firstOrCreate(["name"=>"Departs"],["categorie"=>"Departs"],["uuid"=>Str::uuid()]);
+        $type3=App\TypesCourrier::firstOrCreate(["name"=>"Internes"],["categorie"=>"Internes"],["uuid"=>Str::uuid()]);
     }
 }
