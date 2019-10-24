@@ -14,7 +14,7 @@
                     </ul>
                 </div>
                 @endif
-            <div class="card">
+            <div class="card" style="background-image: url('{{ asset('images/pattern.png')}}')">
                 
                 <div class="card card-header text-center bg-gradient-success">
                         <h1 class="h4 text-white mb-0"><span data-feather="log-in"></span> CONNEXION</h1>

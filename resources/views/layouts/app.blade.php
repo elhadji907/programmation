@@ -28,7 +28,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body  style="background-image: url('{{ asset('images/pattern.png')}}')">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom-success">
             <div class="container">
