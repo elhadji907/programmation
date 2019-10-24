@@ -20,7 +20,7 @@
                         <h1 class="h4 text-white mb-0"><span data-feather="log-in"></span> CONNEXION</h1>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" style="background-image: url('{{ asset('images/pattern.png')}}');">
                     <form class="user" method="POST" action="{{ route('login') }}">
                         @csrf
 
