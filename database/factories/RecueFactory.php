@@ -17,7 +17,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Recue::class, function (Faker\Generator $faker) {
-    $types_courrier_id=App\TypesCourrier::where('name','arrives')->first()->id;
+    $types_courrier_id=App\TypesCourrier::where('name','Arrives')->first()->id;
 
     return [
         'courriers_id' => function () use($types_courrier_id) {
