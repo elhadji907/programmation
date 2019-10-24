@@ -95,7 +95,7 @@
 </li>  --}}
 
 <li class="nav-item">
-    @roles('Administrateur')
+    @roles('Administrateur|Gestionnaire')
   <a class="nav-link" href="{{ route('courriers.index') }}">
       <span data-feather="mail"></span>
     <span>Gestion courriers</span>
@@ -108,21 +108,22 @@
     <span>Gestion personnel</span>
   </a>
 </li>
-
+@roles('Administrateur')
   <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
         <span data-feather="user"></span>
       <span>Gestion administrateurs</span>
     </a>
   </li>
-
+  @endroles
+  @roles('Administrateur|Gestionnaire')
   <li class="nav-item">
     <a class="nav-link" href="{{ route('gestionnaires.index') }}">
         <span data-feather="user"></span>
       <span>Gestion gestionnaires</span>
     </a>
   </li>
-
+  @endroles
   <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
         <span data-feather="user"></span>
