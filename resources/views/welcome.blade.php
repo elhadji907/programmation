@@ -29,14 +29,20 @@
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+  <!-- Plugin CSS -->
+  <link href="{{ asset('vendor/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="{{ asset('css/creative.min.css') }}" rel="stylesheet">
+
+
 </head>
 
 <body id="page-top">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg bg-dark fixed-top navbar-light bg-white shadow-sm border-bottom-success" id="mainNav">
+{{--   <nav class="navbar navbar-expand-lg bg-dark fixed-top navbar-light bg-white shadow-sm border-bottom-success" id="mainNav">
     <div class="container">
-      {{-- <a class="navbar-brand js-scroll-trigger" href="#page-top">ACCUEIL</a> --}}
       <a class="navbar-brand js-scroll-trigger align-items-baseline" href="#jumbotron">
         <img src="{{ asset('img/ONFP.png') }}" class="pr-1" width="40px" style="border-right: solid 1px #333; "/>
 
@@ -62,9 +68,6 @@
           @if (Route::has('login'))
           <li class="nav-item">
             @auth
-           {{--   <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Mon Compte
-              <img class="pt-1 rounded-circle" src="{{ asset(Auth::user()->profile->getImage()) }}" width="20" height="auto">
-            </a>  --}}
 
             <a class="navbar-brand pl-3" href="{{ url('/home') }}">Mon Compte
                 <img src="{{ asset(Auth::user()->profile->getImage()) }}" class="rounded-circle" width="30px" height="auto"/>
@@ -85,29 +88,56 @@
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> --}}
 
-  <header class="bg-primary text-white bg-grad header"  id="jumbotron">
+{{--   <header class="bg-primary text-white bg-grad header"  id="jumbotron">
     <div class="container text-center">
       <h1>{{ ("Bienvenue à l'ONFP") }}</h1>
       <p class="lead">{{ ("Office national de Formation professionnelle") }}</p>
     </div>
-  </header>
-
-  {{--  <div class="jumbotron bg-grad" id="jumbotron">  --}}
+  </header> --}}
   
-    {{--  <p class="card-text"> {{ $date_actuel }}</p>  --}}
-    {{--  <div class="container text-center">
-      <h1>{{ ("Bienvenue à l'ONFP") }}</h1>
-      <p class="lead">{{ ("Office national de Formation professionnelle") }}</p>
-    </div>
-    
-  </div>  --}}
 
-  {{-- 
-  <div class="jumbotron bg-grad" id="jumbotron">      
-  </div> 
-  --}}
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 align-self-end">
+          <h1 class="text-uppercase text-white font-weight-bold">Your Favorite Source of Free Bootstrap Themes</h1>
+          <hr class="divider my-4">
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-white-75 font-weight-light mb-5">Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p>
+          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <section id="about" class="bg-white">
     <div class="container">
@@ -133,13 +163,13 @@
       </div>
     </div>
   </section>
-  <section id="services">
+  {{-- <section id="services">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <h2><strong>SERVICES</strong></h2>
+          <h2><strong>SERVICES</strong></h2> --}}
           {{--  <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>  --}}
-          <h2><em>{{ ("Formation") }}</em></h2>
+          {{-- <h2><em>{{ ("Formation") }}</em></h2>
           {{ ("C’est l’organisation d’actions et d’opérations de formation au bénéfice de cibles diversifiées pouvant être les branches professionnelles, les demandeurs d’emploi, les travailleurs, les entreprises, les collectivités, les organismes de l’état, etc. Ces formations s’inscrivent dans une perspective d’obtention d’une qualification professionnelle au regard des catégories professionnelles des conventions collectives de branches professionnelles. Ces formations de type modulaire sont sanctionnées par des attestations, des titres de qualification ou des titres professionnels. L’obtention de ces titres peut se faire par la voie de la Validation des Acquis de l’Expérience (VAE).") }}
           <h2><em>{{ ("Documentation / Edition") }}</em></h2>
           {{ ("L’ONFP produit et diffuse de la documentation et des supports techniques et pédagogiques sur la formation professionnelle. Il s’agit de la mise à la disposition du public de la documentation avec accès libre ou conditionné sous format physique ou électronique. Il s’agit également de l’édition et de la distribution de manuels et supports pédagogiques destinés aux apprenants ou hommes de métier en exercice.
@@ -148,6 +178,42 @@
           {{ ("Ce service consiste à la maitrise d’ouvrage de construction de centres de formation professionnelle ou la maitrise d’ouvrage déléguée à la demande de ministères, d’organismes, de projets nationaux, de coopération ou à la demande d’organismes privés tels que les branches, les ONG, les associations et les entreprises.") }}
           <h2><em>{{ ("Recherche") }}</em></h2>
           {{ ("Il s’agit de la production ou de la diffusion de connaissances et de savoirs sur la formation professionnelle. Ceci se traduit par l’appui à des thèses ou des mémoires portant sur des sujets en lien avec les problématiques de la formation professionnelle. Il s’agit également de mise en oeuvre d’études, de mise au point de méthodes et d’expérimentation de moyens et équipements pédagogiques. Les résultats de recherche sont destinés notamment à alimenter les politiques publiques et les programmes des branches professionnelles.") }}
+        </div>
+      </div>
+    </div>
+  </section> --}}
+  <section class="page-section" id="services">
+    <div class="container">
+      <h2 class="text-center mt-0">At Your Service</h2>
+      <hr class="divider my-4">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-gem text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Formation</h3>
+            <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-laptop-code text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Documentation / Edition</h3>
+            <p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-globe text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Construction</h3>
+            <p class="text-muted mb-0">You can  this design as is, or you can make changes!</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-heart text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Recherche</h3>
+            <p class="text-muted mb-0">Is it really open source if its not made with love?</p>
+          </div>
         </div>
       </div>
     </div>
@@ -178,7 +244,7 @@
       </div>
     </div>
   </section>
-
+{{-- 
   <section id="contact">
     <div class="container">      
         <h2><strong>CONTACTS</strong></h2>
@@ -210,19 +276,41 @@
         <li><em>{{ ("MATAM") }}</em></li>
         <p><b>Adresse: </b>{{ ("") }}<p>
         <p><b>Tél: </b>{{ ("") }}</p>
-      </div>
+      </div> --}}
       {{--  <div class="col-lg-8 mx-auto">       
          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.517864720242!2d-17.470480685250187!3d14.73982917760135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec10d5aafda1357%3A0xe11853e0c04fd69c!2sOffice+National+de+Formation+Professionnelle+(ONFP+S%C3%A9n%C3%A9gal)!5e0!3m2!1sfr!2ssn!4v1566480045367!5m2!1sfr!2ssn" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
       </div>  --}}
+  {{--     </div>
+    </div>
+  </section> --}}
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">Entrez en contact avec nous !</h2>
+          <hr class="divider my-4">
+          <p class="text-muted mb-5">Prêt à démarrer votre prochain projet avec nous? Appelez-nous ou envoyez-nous un email et nous vous contacterons dans les plus brefs délais!</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+          <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+          <div>+221 33 827 92 51</div>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+          <!-- Make sure to change the email address in anchor text AND the link below! -->
+          <a class="d-block" href="mailto:onfp@onfp.sn">onfp@onfp.sn</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-5 bg-light">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; ONFP 2019</p>
+      <p class="small text-center text-muted">Copyright &copy; ONFP 2019</p>
     </div>
     <!-- /.container -->
   </footer>
@@ -237,7 +325,10 @@
   <script src="{{ asset('js/scrolling-nav.js') }}"></script>
   
   <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{{ asset('js/creative.min.js') }}"></script>
 
 </body>
 

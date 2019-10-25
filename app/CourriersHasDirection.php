@@ -27,6 +27,7 @@ class CourriersHasDirection extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 	protected $primaryKey = 'courriers_id';
 
 	protected $casts = [
