@@ -115,24 +115,22 @@
             <a class="nav-link js-scroll-trigger" href="#about">A PROPOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">SERVICES</a>
+            <a class="nav-link js-scroll-trigger" href="#cibles">CIBLES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#cibles">CIBLES</a>
+            <a class="nav-link js-scroll-trigger" href="#services">SERVICES</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">CONTACTS</a>
           </li>
-          @if (Route::has('login'))
+          @if (Route::has('login'))          
+          @auth
           <li class="nav-item">
-            @auth
-
-            <a class="navbar-brand pl-3" href="{{ url('/home') }}">Mon Compte
+            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">MON COMPTE
                 <img src="{{ asset(Auth::user()->profile->getImage()) }}" class="rounded-circle" width="30px" height="auto"/>
-            </a>
-            
-            @else
+            </a>      
           </li>
+          @else
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">CONNEXION</a>
           </li>
@@ -153,12 +151,12 @@
     <div class="container h-100">
       <div class="row h-100 align-items-center justify-content-center text-center">
         <div class="col-lg-10 align-self-end">
-          <h1 class="text-uppercase text-white font-weight-bold">Your Favorite Source of Free Bootstrap Themes</h1>
+          <h1 class="text-uppercase text-white font-weight-bold">Office national de la Formation professionnelle ONFP</h1>
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-          <p class="text-white-75 font-weight-light mb-5">Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p>
-          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+          <p class="text-white-75 font-weight-light mb-5">La référence de la formation professionnelle au Sénégal et en Afrique</p>
+          {{-- <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a> --}}
         </div>
       </div>
     </div>
@@ -269,46 +267,6 @@
       </div>
     </div>
   </section>
-{{-- 
-  <section id="contact">
-    <div class="container">      
-        <h2><strong>CONTACTS</strong></h2>
-      <div class="row">          
-        <div class="col-lg-4 mx-auto">
-        <h2><em>{{ ("Direction Générale") }}</em></h2>
-        <p><b>Adresse: </b>{{ ("SIPRES 1, lot 2 – 2 Voies Liberté 6 extension VDN") }}<p>
-        <p><b>BP: </b>{{ ("21013 Dakar – Ponty") }}</p>
-        <p><b>Tél: </b>{{ ("(+221) 33 827 92 51") }}</p>
-        <p><b>Fax: </b>{{ ("(+221) 33 827 92 55") }}</p>
-        <p><b>BP: </b>{{ ("onfp@onfp.sn") }}</p>
-        <h2><em>{{ ("Antennes") }}</em></h2>
-        <li><em>{{ ("KOLDA") }}</em></li>
-        <p><b>Adresse: </b>{{ ("") }}<p>
-        <p><b>Tél: </b>{{ ("") }}</p>
-        
-        <li><em>{{ ("KAOLACK") }}</em></li>
-        <p><b>Adresse: </b>{{ ("") }}<p>
-        <p><b>Tél: </b>{{ ("") }}</p>
-
-        <li><em>{{ ("SAINT-LOUIS") }}</em></li>
-        <p><b>Adresse: </b>{{ ("") }}<p>
-        <p><b>Tél: </b>{{ ("") }}</p>
-        
-        <li><em>{{ ("KEDOUGOU") }}</em></li>
-        <p><b>Adresse: </b>{{ ("") }}<p>
-        <p><b>Tél: </b>{{ ("") }}</p>
-
-        <li><em>{{ ("MATAM") }}</em></li>
-        <p><b>Adresse: </b>{{ ("") }}<p>
-        <p><b>Tél: </b>{{ ("") }}</p>
-      </div> --}}
-      {{--  <div class="col-lg-8 mx-auto">       
-         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.517864720242!2d-17.470480685250187!3d14.73982917760135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec10d5aafda1357%3A0xe11853e0c04fd69c!2sOffice+National+de+Formation+Professionnelle+(ONFP+S%C3%A9n%C3%A9gal)!5e0!3m2!1sfr!2ssn!4v1566480045367!5m2!1sfr!2ssn" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
-      </div>  --}}
-  {{--     </div>
-    </div>
-  </section> --}}
   <section class="page-section" id="contact">
     <div class="container">
       <div class="row justify-content-center">
