@@ -100,24 +100,49 @@
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      {{-- <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a> --}}
+      <a class="navbar-brand js-scroll-trigger align-items-baseline" href="#page-top">
+        <img src="{{ asset('img/ONFP.png') }}" class="pr-1" width="40px" style="border-right: solid 1px #333; "/>
+
+        <strong><span class="pl-1">{{ config('app.name', 'ONFP') }}</span></strong>
+      </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            <a class="nav-link js-scroll-trigger" href="#about">A PROPOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            <a class="nav-link js-scroll-trigger" href="#services">SERVICES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            <a class="nav-link js-scroll-trigger" href="#cibles">CIBLES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#contact">CONTACTS</a>
           </li>
+          @if (Route::has('login'))
+          <li class="nav-item">
+            @auth
+
+            <a class="navbar-brand pl-3" href="{{ url('/home') }}">Mon Compte
+                <img src="{{ asset(Auth::user()->profile->getImage()) }}" class="rounded-circle" width="30px" height="auto"/>
+            </a>
+            
+            @else
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">CONNEXION</a>
+          </li>
+          <li class="nav-item">
+            @if (Route::has('register'))
+            <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">INSCRIPTION</a>
+            @endif
+            @endauth
+          </li>
+          @endif
         </ul>
       </div>
     </div>
