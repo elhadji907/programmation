@@ -22,8 +22,9 @@ class CreateCourriersHasDirectionsTable extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->char('uuid', 36);
-            $table->increments('courriers_id');
+            $table->unsignedInteger('courriers_id');
             $table->unsignedInteger('directions_id');
 
             $table->index(["courriers_id"], 'fk_courriers_has_directions_courriers1_idx');
