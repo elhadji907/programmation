@@ -56,6 +56,26 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contacts</a>
           </li>
+          @if (Route::has('login'))
+          <li class="nav-item">
+            @auth
+
+            <a class="navbar-brand pl-3" href="{{ url('/home') }}">Mon Compte
+                <img src="{{ asset(Auth::user()->profile->getImage()) }}" class="rounded-circle" width="30px" height="auto"/>
+            </a>
+            
+            @else
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">CONNEXION</a>
+          </li>
+          <li class="nav-item">
+            @if (Route::has('register'))
+            <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">INSCRIPTION</a>
+            @endif
+            @endauth
+          </li>
+          @endif
         </ul>
       </div>
     </div>
