@@ -29,8 +29,6 @@
                               <th>Numéro</th>
                               <th>Objet</th>
                               <th>Expediteur</th>
-                              <th>Adresse</th>
-                              <th>Telephone</th>
                               <th>Email</th>
                               <th>Destinataires</th>
                               <th>Action</th>
@@ -42,8 +40,6 @@
                                 <th>Numéro</th>
                                 <th>Objet</th>
                                 <th>Expediteur</th>
-                                <th>Adresse</th>
-                                <th>Telephone</th>
                                 <th>Email</th>
                                 <th>Destinataires</th>
                                 <th>Action</th>
@@ -97,8 +93,6 @@
                     { data: 'courrier.numero', name: 'courrier.numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
-                    { data: 'courrier.adresse', name: 'courrier.adresse' },
-                    { data: 'courrier.telephone', name: 'courrier.telephone' },
                     { data: 'courrier.email', name: 'courrier.email' },
                     { data: 'courrier.imputation', name: 'courrier.imputation' },
                     { data: null ,orderable: false, searchable: false}
@@ -113,7 +107,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
                         '<div class="btn btn-danger delete btn_delete_recue" title="Supprimer" data-href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></div>';
                         },
-                        "targets": 8
+                        "targets": 6
                         },
                 ],
                 language: {

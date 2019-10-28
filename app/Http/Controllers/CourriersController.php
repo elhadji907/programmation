@@ -45,9 +45,9 @@ class CourriersController extends Controller
      * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function show(Courrier $courrier)
+    public function show($id)
     {        
-        return view('courriers.show');
+       dd($id);
     }
 
     /**

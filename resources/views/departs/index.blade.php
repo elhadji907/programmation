@@ -16,25 +16,31 @@
                     <br />
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-departs">
                     <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Numéro</th>
-                        <th>Objet</th>
-                        <th>Message</th>
-                        <th>Destinataire</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tfoot class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Numéro</th>
-                        <th>Objet</th>
-                        <th>Message</th>
-                        <th>Destinataire</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
+                        <tr>
+                          <th>ID</th>
+                          <th>Numéro</th>
+                          <th>Objet</th>
+                          <th>Expediteur</th>
+                          <th>Adresse</th>
+                          <th>Telephone</th>
+                          <th>Email</th>
+                          <th>Destinataires</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tfoot class="table-dark">
+                          <tr>
+                            <th>ID</th>
+                            <th>Numéro</th>
+                            <th>Objet</th>
+                            <th>Expediteur</th>
+                            <th>Adresse</th>
+                            <th>Telephone</th>
+                            <th>Email</th>
+                            <th>Destinataires</th>
+                            <th>Action</th>
+                          </tr>
+                        </tfoot>
                     <tbody                           
                     </tbody>
                 </table>                        
@@ -57,7 +63,10 @@
                     { data: 'id', name: 'id' },
                     { data: 'courrier.numero', name: 'courrier.numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
-                    { data: 'courrier.message', name: 'courrier.message' },
+                    { data: 'courrier.expediteur', name: 'courrier.expediteur' },
+                    { data: 'courrier.adresse', name: 'courrier.adresse' },
+                    { data: 'courrier.telephone', name: 'courrier.telephone' },
+                    { data: 'courrier.email', name: 'courrier.email' },
                     { data: 'courrier.imputation', name: 'courrier.imputation' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -71,7 +80,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>&nbsp;'+
                         '<a class="btn btn-danger delete" title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
                         },
-                        "targets": 5
+                        "targets": 8
                         },
                 ],
                 language: {
