@@ -35,7 +35,12 @@ class PostesController extends Controller
      */
     public function create()
     {
-        return view('postes.create');
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
+        return view('postes.create', compact('courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

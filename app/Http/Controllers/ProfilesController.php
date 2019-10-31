@@ -11,7 +11,12 @@ class ProfilesController extends Controller
         //dd($user);
         //dd($user->profile);
         
-        return view('profiles.show', compact('user'));
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+        
+        return view('profiles.show', compact('user','courriers', 'recues', 'internes', 'departs'));
     }
 
 

@@ -19,7 +19,12 @@ class DepartsController extends Controller
      */
     public function index()
     {
-        return view('departs.index');
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+        
+        return view('departs.index',compact('courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

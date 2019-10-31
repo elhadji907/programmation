@@ -19,7 +19,12 @@ class InternesController extends Controller
      */
     public function index()
     {
-        return view('internes.index');
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
+        return view('internes.index',compact('courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

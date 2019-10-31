@@ -40,5 +40,5 @@
 {{-- 
     <script src='cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
     <script src='cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js'></script> --}}
-
+    
 @stack('scripts')

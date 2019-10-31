@@ -21,8 +21,6 @@
 
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
-
-
 <li class="nav-item">
   <a class="nav-link" href="{{ url('/home') }}">
     <span data-feather="home"></span>
