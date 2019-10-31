@@ -24,7 +24,13 @@ class RecuesController extends Controller
         $date = Carbon::today()->locale('fr_FR');
         $date = $date->copy()->addDays(0);
         $date = $date->isoFormat('LLLL'); // M/D/Y
-        return view('recues.index',compact('date'));
+        
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
+        return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

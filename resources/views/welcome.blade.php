@@ -23,6 +23,8 @@
   <link href="{{ asset('css/myStyle.css') }}" rel="stylesheet">
       
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 

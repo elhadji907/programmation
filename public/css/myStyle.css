@@ -1,4 +1,4 @@
-.logo_onfp {
+/* .logo_onfp {
     max-width: 50%;
     height: auto;
     max-height: 45vh;
@@ -12,8 +12,10 @@
     height: 100vh;
     margin-top: 30px;
 }
+ */
 
-.header {
+.masthead {
+    background-image: url('../img/propeller-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: aliceblue;

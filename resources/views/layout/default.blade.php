@@ -26,13 +26,15 @@
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+  
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 
-<body style="background-image: url('{{ asset('images/pattern.png')}}');">
+<body>
 
 {{--   <!-- Page Wrapper --> --}}
-  <div id="wrapper" style="background-image: url('{{ asset('images/pattern.png')}}');">
+  <div id="wrapper">
 
     {{--    <!-- Sidebar --> --}}
       @include('layout.sidebar')

@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layout.default');
+        $courriers = \App\Courrier::get()->count();
+        //$formations = \App\Formation::get()->count();
+        //$operateurs = \App\Operateur::get()->count();
+        //$demandes = \App\Demande::get()->count();
+        return view('layout.default', compact('courriers'));
     }
 }

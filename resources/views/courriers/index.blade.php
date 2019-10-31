@@ -18,7 +18,25 @@
       {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
     </div>
 
-    <div class="row">
+    <div class="row">     
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <a class="nav-link" href="{{ route('courriers.index') }}">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Courriers (ANNUELS)') }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $courriers }}</div>
+                  </div>
+                  <div class="col-auto">
+                    {{-- <i class="fas fa-calendar fa-2x text-gray-300"></i> --}}
+                    <span data-feather="mail"></span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+          </div>   
           <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
               <a class="nav-link" href="{{ route('recues.index') }}">
@@ -28,7 +46,7 @@
                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                      {{ ('Courriers (ARRIVES)') }}
                     </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{  $recues =  \App\Recue::get()->count() }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{  $recues }}</div>
                   </div>
                   <div class="col-auto">
                     {{-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> --}}
@@ -49,7 +67,7 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{ ('Courriers (DEPARTS)') }}</div>
                         <div class="row no-gutters align-items-center">
                           <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{  $departs =  \App\Depart::get()->count() }}</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{  $departs }}</div>
                           </div>
                          {{--  <div class="col">
                             <div class="progress progress-sm mr-2">
@@ -75,7 +93,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{ ('Courriers (INTERNES)') }}</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $internes = \App\Interne::get()->count() }}</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $internes }}</div>
                 </div>
                 <div class="col-auto">
                   {{-- <i class="fas fa-comments fa-2x text-gray-300"></i> --}}
@@ -85,26 +103,7 @@
             </div>
             </a>
           </div>
-        </div>     
-
-        <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-primary shadow h-100 py-2">
-            <a class="nav-link" href="{{ route('courriers.index') }}">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Courriers (ANNUELS)') }}</div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $recues + $departs + $internes }}</div>
-                </div>
-                <div class="col-auto">
-                  {{-- <i class="fas fa-calendar fa-2x text-gray-300"></i> --}}
-                  <span data-feather="mail"></span>
-                </div>
-              </div>
-            </div>
-          </a>
-          </div>
-        </div>         
+        </div>          
     </div>
 </div>
 <hr />
