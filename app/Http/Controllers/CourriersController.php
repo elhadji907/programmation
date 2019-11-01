@@ -30,7 +30,12 @@ class CourriersController extends Controller
      */
     public function create()
     {
-        return view('courriers.create');
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
+        return view('courriers.create', compact('courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

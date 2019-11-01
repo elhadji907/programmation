@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 class HomeController extends Controller
 {
 
@@ -75,7 +75,21 @@ class HomeController extends Controller
         $courriers = \App\Courrier::get()->count();
         //$formations = \App\Formation::get()->count();
         //$operateurs = \App\Operateur::get()->count();
-        //$demandes = \App\Demande::get()->count();
-        return view('layout.default', compact('courriers'));
+		//$demandes = \App\Demande::get()->count();
+		
+		$data = DB::table('users')
+       ->select(
+        DB::raw('civilite as civilite'),
+        DB::raw('count(*) as number'))
+       ->groupBy('civilite')
+       ->get();
+     $array[] = ['Civilite', 'Number'];
+     foreach($data as $key => $value)
+     {
+      $array[++$key] = [$value->civilite, $value->number];
+     }
+	 return view('layout.default', compact('courriers'))->with('civilite', json_encode($array));
+	 
+       /*  return view('layout.default', compact('courriers')); */
     }
 }

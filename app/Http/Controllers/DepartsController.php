@@ -34,8 +34,12 @@ class DepartsController extends Controller
      */
     public function create()
     {
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
         $types = TypesCourrier::get();
-        return view('departs.create', compact('types'));
+        return view('departs.create', compact('types','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

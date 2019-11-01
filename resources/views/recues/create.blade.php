@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header card-header-primary text-center">
                     <h3 class="card-title">Enregistrement</h3>
-                    <p class="card-category">Courrier arrivé</p>
+                    <p class="card-category">Courriers arrivés</p>
                 </div>
                 <div class="card-body">
         <form method="POST" action="{{ url('recues') }}" enctype="multipart/form-data">

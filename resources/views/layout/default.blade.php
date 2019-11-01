@@ -26,8 +26,6 @@
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-  
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 

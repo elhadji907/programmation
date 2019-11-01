@@ -40,11 +40,15 @@ class RecuesController extends Controller
      */
     public function create()
     {
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
         $types = TypesCourrier::get();
         // $numCourrier = date('mdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
 
-        return view('recues.create',compact('types', 'numCourrier'));
+        return view('recues.create',compact('types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**
