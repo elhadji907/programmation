@@ -68,7 +68,7 @@ class Courrier extends Eloquent
 		'type',
 		'message',
 		'imputation',
-		'fichier',
+		'file',
 		'statut',
 		'date',
 		'types_courriers_id',

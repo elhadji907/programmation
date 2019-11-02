@@ -67,9 +67,14 @@ class RecuesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
+                'file'          =>  'required|file',
             ]
         );
 
+       /*  dd(request('file')); */
+        
+        // $filePath = request('file')->store('recues', 'public');
+       /*  dd($filePath); */
 
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
@@ -84,6 +89,7 @@ class RecuesController extends Controller
 
        /*  dd($types_courrier_id); */
         /* dd($gestionnaire_id); */
+        $filePath = request('file')->store('recues', 'public');
 
         $courrier = new Courrier([
 
@@ -96,9 +102,10 @@ class RecuesController extends Controller
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
             'imputation'         =>      $request->input('imputation'),
-            'date'               =>      $request->input('date'),
+            'date'               =>      $request->input('date_r'),
             'types_courriers_id' =>      $types_courrier_id,
-            'gestionnaires_id'   =>      $gestionnaire_id
+            'gestionnaires_id'   =>      $gestionnaire_id,
+            'file'               =>      $filePath
 
         ]);
 

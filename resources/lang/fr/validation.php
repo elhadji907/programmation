@@ -292,6 +292,7 @@ return [
         'time'                  => 'Heure',
         'available'             => 'Disponible',
         'size'                  => 'Taille',
+        'file'                  => 'fichier',
     ],
 
 ];

@@ -35,7 +35,7 @@ class CreateCourriersTable extends Migration
             $table->string('type', 200)->nullable();
             $table->string('message', 200)->nullable();
             $table->string('imputation', 200)->nullable();
-            $table->string('fichier', 200)->nullable();
+            $table->string('file', 200)->nullable();
             $table->string('statut', 200)->nullable();
             $table->timestamp('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('types_courriers_id');
