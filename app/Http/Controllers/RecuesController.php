@@ -67,7 +67,8 @@ class RecuesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'file'          =>  'required|file',
+                'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docs,png,svg,csv,rtf,bmp',
+
             ]
         );
 
