@@ -108,12 +108,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="file"><b>Joindre le courrier:</b></label>
-                            <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="{{ old('file') }}" id="validatedCustomFile">
+                            <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="" id="validatedCustomFile">
+                           {{--   <h3><a href="#">{{ asset($recue->courrier->getFile()) }}</a></h3>  --}}
+                            <a target="_blank" href="{{ asset($recue->courrier->getFile()) }}">Télécharger</a>
                             <div class="invalid-feedback">
                                 {{ $errors->first('file') }}
                             </div>
                         </div>
-
                     </div>
                 <button class="btn btn-outline-primary" type="submit">
                     <span data-feather="save"></span> Enregistrer

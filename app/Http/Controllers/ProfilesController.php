@@ -23,8 +23,13 @@ class ProfilesController extends Controller
     public function edit(User $user)
     {
         // dd($user);      
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
         $this->authorize('update', $user->profile);
-        return view('profiles.edit', compact('user'));
+        return view('profiles.edit', compact('user','courriers', 'recues', 'internes', 'departs'));
     }
 
 
@@ -43,26 +48,7 @@ class ProfilesController extends Controller
 
         ]);
 
-  /*       if (request('image')) {            
-            $imagePath = request('image')->store('avatars', 'public');
-            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
-            
-            $image->save();
-
-            auth()->user()->profile->update(array_merge(
-                $data,
-                ['image' => $imagePath]
-            ));
-        } 
-        else {
-            auth()->user()->profile->update($data);
-        }
-
-        return redirect()->route('profiles.show', ['user' => $user]); */
-
-
-
-        if (request('image')) {   
+         if (request('image')) {   
         $imagePath = request('image')->store('avatars', 'public');
 
         $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);

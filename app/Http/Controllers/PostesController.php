@@ -80,8 +80,12 @@ class PostesController extends Controller
     public function show(Poste $poste)
     {
         //dd($poste);
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
 
-        return view('postes.show', compact('poste'));
+        return view('postes.show', compact('poste','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

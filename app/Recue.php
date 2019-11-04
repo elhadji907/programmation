@@ -40,4 +40,5 @@ class Recue extends Eloquent
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
+
 }

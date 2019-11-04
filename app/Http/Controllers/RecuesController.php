@@ -67,7 +67,7 @@ class RecuesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docs,png,svg,csv,rtf,bmp',
+                'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
             ]
         );
@@ -140,8 +140,13 @@ class RecuesController extends Controller
      */
     public function edit($id)
     {
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = $recues + $internes + $departs;
+
          $recue = Recue::find($id);
-         return view('recues.update', compact('recue','id'));
+         return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs'));
          dd($recue);
     }
 
