@@ -67,6 +67,7 @@ class RecuesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
+                'legende'       =>  'required|string|max:100',
                 'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
             ]
@@ -104,6 +105,7 @@ class RecuesController extends Controller
             'bp'                 =>      $request->input('bp'),
             'imputation'         =>      $request->input('imputation'),
             'date'               =>      $request->input('date_r'),
+            'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
             'gestionnaires_id'   =>      $gestionnaire_id,
             'file'               =>      $filePath
@@ -188,6 +190,7 @@ class RecuesController extends Controller
        $courrier->bp                 =      $request->input('bp');
        $courrier->imputation         =      $request->input('imputation');
        $courrier->date               =      $request->input('date_r');
+       $courrier->legende            =      $request->input('legende');
        $courrier->types_courriers_id =      $types_courrier_id;
        $courrier->gestionnaires_id   =      $gestionnaire_id;
 

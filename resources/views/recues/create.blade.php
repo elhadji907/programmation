@@ -80,13 +80,15 @@
                 </div>
                 <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="date_r"><b>Date:</b></label>
-                            <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
-                                id="date_r" value="{{ old('date_r') }}">
-                            <div class="invalid-feedback">
-                                {{ $errors->first('date_r') }}
-                            </div>
-                        </div>
+                            <label for="legende"><b>Légende</b></label>                            
+                                <input id="legende" type="text" class="form-control @error('legende') is-invalid @enderror" name="legende" value="{{ old('legende') }}" placeholder="donner un nom à ce fichier..." autocomplete="legende" autofocus>
+                               
+                                @error('legende')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div> 
                         <div class="form-group col-md-6">
                             <label for="file"><b>Joindre le courrier:</b></label>
                             <div class="custom-file">
@@ -101,6 +103,16 @@
                             </div>    
                         </div>
                     </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="date_r"><b>Date:</b></label>
+                        <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
+                            id="date_r" value="{{ old('date_r') }}">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('date_r') }}
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-outline-primary" type="submit">
                     <span data-feather="save"></span> Enregistrer
                 </button>
