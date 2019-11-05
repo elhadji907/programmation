@@ -181,8 +181,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('courriers.show',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('courriers.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="voir"><i class="far fa-eye">&nbsp;Voir</i></a>&nbsp;'
-                        //+'<a class="btn btn-danger delete" title="Supprimer" href='+url_d+'><i class="fas fa-times">&nbsp;Delete</i></a>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="voir"><i class="far fa-eye"></i></a>'
+                        //+'<a class="btn btn-danger delete ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 6
                         },

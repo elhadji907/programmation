@@ -42,6 +42,8 @@ Route::group([
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
+        
+        Route::get('/download', 'RecuesController@file')->name('recues.file');
 
     }         
 );

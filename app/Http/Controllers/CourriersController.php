@@ -55,9 +55,14 @@ class CourriersController extends Controller
      * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Courrier $courrier)
     {        
-       dd($id);
+      /*  dd($id); */
+      $recues = \App\Recue::get()->count();
+      $internes = \App\Interne::get()->count();
+      $departs = \App\Depart::get()->count();
+      $courriers = $recues + $internes + $departs;
+      return view('courriers.show', compact('courriers','courrier', 'recues', 'internes', 'departs'));
     }
 
     /**

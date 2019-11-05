@@ -149,7 +149,7 @@ class RecuesController extends Controller
 
          $recue = Recue::find($id);
          return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs'));
-         dd($recue);
+        /*  dd($recue); */
     }
 
     /**
@@ -170,35 +170,73 @@ class RecuesController extends Controller
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
                 'imputation'    =>  'required|string|max:50',
+                'legende'       =>  'required|string|max:100',
+                'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
+
             ]
         );
 
+        if (request('file')) { 
+            $filePath = request('file')->store('recues', 'public');
+           /*  dd($filePath); */           
         $recue = Recue::find($id);
-       /*  dd($id); */
-       $courrier = $recue->courrier;
-       /* dd($courrier); */
+        /*  dd($id); */
+        $courrier = $recue->courrier;
+        /* dd($courrier); */
+ 
+        $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
+        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+ 
+        $courrier->objet              =      $request->input('objet');
+        $courrier->expediteur         =      $request->input('expediteur');
+        $courrier->telephone          =      $request->input('telephone');
+        $courrier->email              =      $request->input('email');
+        $courrier->adresse            =      $request->input('adresse');
+        $courrier->fax                =      $request->input('fax');
+        $courrier->bp                 =      $request->input('bp');
+        $courrier->imputation         =      $request->input('imputation');
+        $courrier->date               =      $request->input('date_r');
+        $courrier->legende            =      $request->input('legende');
+        $courrier->types_courriers_id =      $types_courrier_id;
+        $courrier->gestionnaires_id   =      $gestionnaire_id;
+        $courrier->file               =      $filePath;
 
-       $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-       $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $courrier->save(); 
 
-       $courrier->objet              =      $request->input('objet');
-       $courrier->expediteur         =      $request->input('expediteur');
-       $courrier->telephone          =      $request->input('telephone');
-       $courrier->email              =      $request->input('email');
-       $courrier->adresse            =      $request->input('adresse');
-       $courrier->fax                =      $request->input('fax');
-       $courrier->bp                 =      $request->input('bp');
-       $courrier->imputation         =      $request->input('imputation');
-       $courrier->date               =      $request->input('date_r');
-       $courrier->legende            =      $request->input('legende');
-       $courrier->types_courriers_id =      $types_courrier_id;
-       $courrier->gestionnaires_id   =      $gestionnaire_id;
+        $recue->courriers_id          =      $courrier->id; 
 
-       $courrier->save();
+        $recue->save();
+         }
+         else{            
+        $recue = Recue::find($id);
+        /*  dd($id); */
+        $courrier = $recue->courrier;
+        /* dd($courrier); */
+ 
+        $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
+        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+ 
+        $courrier->objet              =      $request->input('objet');
+        $courrier->expediteur         =      $request->input('expediteur');
+        $courrier->telephone          =      $request->input('telephone');
+        $courrier->email              =      $request->input('email');
+        $courrier->adresse            =      $request->input('adresse');
+        $courrier->fax                =      $request->input('fax');
+        $courrier->bp                 =      $request->input('bp');
+        $courrier->imputation         =      $request->input('imputation');
+        $courrier->date               =      $request->input('date_r');
+        $courrier->legende            =      $request->input('legende');
+        $courrier->types_courriers_id =      $types_courrier_id;
+        $courrier->gestionnaires_id   =      $gestionnaire_id;
+ 
+        $courrier->save();
+ 
+        $recue->courriers_id          =      $courrier->id;
+ 
+        $recue->save();
+ 
 
-       $recue->courriers_id          =      $courrier->id;
-
-       $recue->save();
+         }
 
        return redirect()->route('recues.index')->with('success','courrier modifié avec succès !');
 
@@ -224,5 +262,10 @@ class RecuesController extends Controller
 
         $recues=Recue::with('courrier')->where('created_at', '>=', $date)->get();
         return Datatables::of($recues)->make(true);
+    }
+
+    public function file($id)
+    {
+        dd($request);
     }
 }
