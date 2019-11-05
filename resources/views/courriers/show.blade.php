@@ -151,13 +151,17 @@
             <tr class="details">
                 <td>
                         {{ $courrier->objet }}
-                </td>
-                
+                </td>                
                 <td>
-                    <a class="btn btn-outline-secondary mt-0"  title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}"><i class="fas fa-download"></i></a>
-                </td>
+                    @if ($courrier->file !== "")
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
+                            <i class="fas fa-download"></i>
+                        </a>                                            
+                    @else
+                        Aucun fichier joint
+                    @endif
+                   </td>
             </tr>
-            
             <tr class="heading">
                 <td>
                    IMPUTATION

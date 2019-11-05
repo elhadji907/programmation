@@ -48,7 +48,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'message' => $faker->realText($maxNbChars = 200, $indexSize = 2),
         'imputation' => SnmG::getFirstName()." ".SnmG::getName(),
         'legende' => "",
-        'file' => $faker->url,
+        'file' => "",
         'statut' => $faker->word,
         'date' => $faker->dateTime(),
         'gestionnaires_id' => function () use($gestionnaire_id) {
