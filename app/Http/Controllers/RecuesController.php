@@ -77,6 +77,10 @@ class RecuesController extends Controller
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = "10000".$courrier_id;
+
+        $direction = \App\Direction::first();
+        $courrier = \App\Courrier::first();
+       
         
      /*    if($request->file->getClientOriginalName()){
             $ext =  $request->file->getClientOriginalExtension();
@@ -113,6 +117,7 @@ class RecuesController extends Controller
         ]);
         
         $recue->save();
+        $direction->courriers()->attach($courrier);
 
         return redirect()->route('recues.index')->with('success','courrier ajouté avec succès !');
     }

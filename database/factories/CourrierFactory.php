@@ -34,8 +34,7 @@ use Illuminate\Support\Str;
 $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     $gestionnaire_id=App\Gestionnaire::all()->random()->id;
     $annee = date('Y');
-    return [
-        
+    return [        
         'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=7,$strict=true),
         'objet' => "Demande de ".$faker->name,
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),

@@ -20,7 +20,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
-    {            
+    {   
+        
+ /*        $direction = \App\Direction::first();
+        $courrier = \App\Courrier::all();
+        $direction->courriers()->attach($courrier);
+        dd($direction); */
+
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');

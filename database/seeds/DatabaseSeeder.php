@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartsTableSeeder::class);
         $this->call(InternesTableSeeder::class);
         $this->call(BeneficiairesTableSeeder::class);
-        $this->call(CourriersHasDirectionTableSeeder::class);
+        // $this->call(CourriersHasDirectionTableSeeder::class);
         
     }
 }
