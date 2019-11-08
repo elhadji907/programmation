@@ -155,7 +155,7 @@
                 <td>
                     @if ($courrier->file !== "")
                         <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
-                            <i class="fas fa-download"></i>
+                            <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
                         </a>                                            
                     @else
                         Aucun fichier joint
@@ -209,7 +209,13 @@
                    {{-- Total: $385.00 --}}
                 </td>
             </tr>
+            <tr>
+                <a class="btn btn-outline-primary mt-0" title="télécharger le fichier joint" target="_blank" href="#">
+                    <i class="fas fa-edit">&nbsp;Modifier le courrier</i>
+                </a>   
+            </tr>
         </table>
-    </div></div>
+    </div>
+</div>
 
 @endsection

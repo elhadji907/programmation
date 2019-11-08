@@ -45,7 +45,7 @@ class RecuesController extends Controller
         $departs = \App\Depart::get()->count();
         $courriers = $recues + $internes + $departs;
         $types = TypesCourrier::get();
-        // $numCourrier = date('mdHis').rand(1,99999);
+        // $numCourrier = date('YmdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
 
         return view('recues.create',compact('types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
@@ -72,29 +72,24 @@ class RecuesController extends Controller
 
             ]
         );
-
-       /*  dd(request('file')); */
-        
-        // $filePath = request('file')->store('recues', 'public');
-       /*  dd($filePath); */
-
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
-
         $courrier_id = Courrier::get()->last()->id;
-
-        // dd($courrier_id);
-
         $annee = date('Y');
-
         $numCourrier = "10000".$courrier_id;
+        
+     /*    if($request->file->getClientOriginalName()){
+            $ext =  $request->file->getClientOriginalExtension();
+            $filePath = $request->input('legende')." ".date('YmdHis').rand(1,99999).'.'.$ext;
+            $request->file->storeAs('public/recues',$filePath);
+        }
+        else
+        {
+            $filePath = '';
+        } */
 
-       /*  dd($types_courrier_id); */
-        /* dd($gestionnaire_id); */
         $filePath = request('file')->store('recues', 'public');
-
         $courrier = new Courrier([
-
             'numero'             =>      "CA-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'expediteur'         =>      $request->input('expediteur'),
@@ -109,7 +104,6 @@ class RecuesController extends Controller
             'types_courriers_id' =>      $types_courrier_id,
             'gestionnaires_id'   =>      $gestionnaire_id,
             'file'               =>      $filePath
-
         ]);
 
         $courrier->save();
@@ -177,7 +171,16 @@ class RecuesController extends Controller
         );
 
         if (request('file')) { 
-            $filePath = request('file')->store('recues', 'public');
+           /*  if($request->file->getClientOriginalName()){
+                $ext =  $request->file->getClientOriginalExtension();
+                $filePath = $request->input('legende')." ".date('YmdHis').rand(1,99999).'.'.$ext;
+                $request->file->storeAs('public/recues',$filePath);
+            }
+            else
+            {
+                $filePath = '';
+            } */
+             $filePath = request('file')->store('recues', 'public');
            /*  dd($filePath); */           
         $recue = Recue::find($id);
         /*  dd($id); */

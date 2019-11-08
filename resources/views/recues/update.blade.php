@@ -110,11 +110,15 @@
                             <label for="file"><b>Joindre le courrier:</b></label>
                             <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="" id="validatedCustomFile">
                            {{--   <h3><a href="#">{{ asset($recue->courrier->getFile()) }}</a></h3>  --}}
-                            <a target="_blank" href="{{ asset($recue->courrier->getFile()) }}">{{ $recue->courrier->legende }}</a>
+                            {{-- <a target="_blank" href="{{ asset($recue->courrier->getFile()) }}">{{ $recue->courrier->legende }}</a> --}}
+                            <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($recue->courrier->getFile()) }}">
+                                <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
+                            </a>  
                             <div class="invalid-feedback">
                                 {{ $errors->first('file') }}
                             </div>
                         </div>
+
                         <div class="form-group col-md-6">
                                 <label for="legende"><b>Légende</b></label>                            
                                 <input id="legende" type="text" class="form-control @error('legende') is-invalid @enderror" name="legende" value="{{ old('legende') ?? $recue->courrier->legende}}" placeholder="donner un nom à ce fichier..." autocomplete="legende" autofocus>
