@@ -150,6 +150,13 @@
     </a>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('directions.index') }}">
+        <span data-feather="layers"></span>
+      <span>Directions / Services</span>
+    </a>
+  </li>
+
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
     {{--  <i class="fas fa-fw fa-folder"></i>  --}}

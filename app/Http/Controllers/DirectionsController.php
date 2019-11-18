@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Direction;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class DirectionsController extends Controller
 {
@@ -15,6 +16,7 @@ class DirectionsController extends Controller
     public function index()
     {
         //
+        return view('directions.index');
     }
 
     /**
@@ -81,5 +83,11 @@ class DirectionsController extends Controller
     public function destroy(Direction $direction)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $directions=Direction::with('users')->get();
+        return Datatables::of($directions)->make(true);
     }
 }

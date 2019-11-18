@@ -15,7 +15,8 @@ $factory->define(App\Beneficiaire::class, function (Faker $faker) {
             return factory(App\Village::class)->create()->id;
         },
     ];
-}); */
+});
+ */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

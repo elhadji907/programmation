@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 18 Oct 2019 15:40:20 +0000.
+ * Date: Mon, 18 Nov 2019 16:15:50 +0000.
  */
 
 namespace App;
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * Class CourriersHasDirection
  * 
+ * @property int $id
  * @property int $courriers_id
  * @property int $directions_id
  * @property string $deleted_at
@@ -27,14 +28,14 @@ class CourriersHasDirection extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
-	protected $primaryKey = 'courriers_id';
 
 	protected $casts = [
+		'courriers_id' => 'int',
 		'directions_id' => 'int'
 	];
 
 	protected $fillable = [
+		'courriers_id',
 		'directions_id'
 	];
 

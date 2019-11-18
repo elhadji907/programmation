@@ -4,8 +4,8 @@
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
-          <div class="row">
-            <div class="col-md-12">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -14,34 +14,26 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des courriers reçus
+                      Liste des directions et services
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Utilisateur&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{route('directions.create')}}"><div class="btn btn-success">Ajouter une direction / service</div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-directions">
                           <thead class="table-dark">
                             <tr>
                               <th>ID</th>
-                              <th>Numéro</th>
-                              <th>Objet</th>
-                              <th>Expediteur</th>
-                              <th>Email</th>
-                              <th>Destinataires</th>
+                              <th>Direction / Service</th>
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
-                                <th>Numéro</th>
-                                <th>Objet</th>
-                                <th>Expediteur</th>
-                                <th>Email</th>
-                                <th>Destinataires</th>
+                                <th>Direction / Service</th>
                                 <th>Action</th>
                               </tr>
                             </tfoot>
@@ -56,8 +48,8 @@
         </div>
       </div>
 
-      <div class="modal fade" id="modal_delete_recue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-recue">
+      <div class="modal fade" id="modal_delete_gestionnaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-gestionnaire">
           @csrf
           @method('DELETE')
           <div class="modal-dialog" role="document">
@@ -84,17 +76,13 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-recues').DataTable( { 
+          $('#table-directions').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('recues.list')}}",
+            "ajax": "{{route('directions.list')}}",
             columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'courrier.numero', name: 'courrier.numero' },
-                    { data: 'courrier.objet', name: 'courrier.objet' },
-                    { data: 'courrier.expediteur', name: 'courrier.expediteur' },
-                    { data: 'courrier.email', name: 'courrier.email' },
-                    { data: 'courrier.imputation', name: 'courrier.imputation' },
+                    { data: 'id', name: 'id' }, 
+                    { data: 'name', name: 'name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -102,14 +90,11 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
-                        url_f =  "{!! route('recues.selectdirection',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class="btn btn-primary edit" title="Modifier"><i class="far fa-edit"></i></a>&nbsp;'+
-                        '<a href='+url_f+'  class="btn btn-primary edit" title="partager"><i class="fab fa-get-pocket"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        url_e =  "{!! route('directions.edit',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('directions.destroy',':id')!!}".replace(':id', data.id);
+                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>';
                         },
-                        "targets": 6
+                        "targets": 2
                         },
                 ],
                 language: {
@@ -140,17 +125,8 @@
                               1: "1 ligne séléctionnée"
                           } 
                   }
-                },
-                order:[[0,'desc'], [0, 'asc']]              
+                }             
           });
-
-          
-        $('#table-recues').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
-        function() { 
-          var href=$(this).data('href');
-          $('#form-delete-recue').attr('action', href);
-          $('#modal_delete_recue').modal();
-        });
       });
       
   </script> 

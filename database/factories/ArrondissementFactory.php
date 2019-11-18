@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Arrondissement::class, function (Faker $faker) {
     return [
@@ -13,3 +13,4 @@ $factory->define(App\Arrondissement::class, function (Faker $faker) {
         },
     ];
 });
+ */

@@ -2,15 +2,16 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-// use Faker\Generator as Faker;
+/* use Faker\Generator as Faker;
 
-// $factory->define(App\TypesCourrier::class, function (Faker $faker) {
-//     return [
-//         'uuid' => $faker->uuid,
-//         'name' => $faker->name,
-//         'categorie' => $faker->word,
-//     ];
-// });
+$factory->define(App\TypesCourrier::class, function (Faker $faker) {
+    return [
+        'uuid' => $faker->uuid,
+        'name' => $faker->name,
+        'categorie' => $faker->word,
+    ];
+});
+ */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

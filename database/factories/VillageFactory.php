@@ -11,5 +11,6 @@ $factory->define(App\Village::class, function (Faker $faker) {
         'communes_id' => function () {
             return factory(App\Commune::class)->create()->id;
         },
+        'chef_id' => $faker->randomNumber(),
     ];
 });

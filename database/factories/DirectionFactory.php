@@ -2,22 +2,13 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-// use Faker\Generator as Faker;
+use Faker\Generator as Faker;
 
-// $factory->define(App\Direction::class, function (Faker $faker) {
-//     return [
-//         'uuid' => $faker->uuid,
-//         'name' => $faker->name,
-//     ];
-// });
-
-use App\Helpers\SnNameGenerator as SnmG;
-use Illuminate\Support\Str;
-
-
-$factory->define(App\Direction::class, function(Faker\Generator $faker) {
+$factory->define(App\Direction::class, function (Faker $faker) {
     return [
+        'uuid' => $faker->uuid,
         'name' => $faker->name,
+        'chef_id' => $faker->randomNumber(),
     ];
 });
 

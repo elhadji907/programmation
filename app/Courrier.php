@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 18 Oct 2019 15:40:20 +0000.
+ * Date: Mon, 18 Nov 2019 16:15:50 +0000.
  */
 
 namespace App;
@@ -17,13 +17,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $numero
  * @property string $objet
  * @property string $expediteur
+ * @property string $telephone
+ * @property string $email
  * @property string $adresse
  * @property string $fax
  * @property string $bp
  * @property string $type
  * @property string $message
  * @property string $imputation
- * @property string $fichier
+ * @property string $legende
+ * @property string $file
  * @property string $statut
  * @property \Carbon\Carbon $date
  * @property int $types_courriers_id
@@ -89,7 +92,7 @@ class Courrier extends Eloquent
 	public function directions()
 	{
 		return $this->belongsToMany(\App\Direction::class, 'courriers_has_directions', 'courriers_id', 'directions_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
@@ -106,10 +109,5 @@ class Courrier extends Eloquent
 	public function recues()
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
-	}
-
-	public function getFile(){
-		$filePath = $this->file ?? 'recues/default.jpg';
-		return "/storage/" . $filePath;
 	}
 }

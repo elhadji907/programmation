@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 18 Oct 2019 15:40:20 +0000.
+ * Date: Mon, 18 Nov 2019 16:15:50 +0000.
  */
 
 namespace App;
@@ -31,6 +31,7 @@ class Profile extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+
 	protected $casts = [
 		'users_id' => 'int'
 	];
@@ -48,7 +49,7 @@ class Profile extends Eloquent
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
-
+	
 	public function getImage(){
 		$imagePath = $this->image ?? 'avatars/default.png';
 		return "/storage/" . $imagePath;

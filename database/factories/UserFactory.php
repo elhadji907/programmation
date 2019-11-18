@@ -24,6 +24,7 @@
 //         'directions_id' => function () {
 //             return factory(App\Direction::class)->create()->id;
 //         },
+//         'remember_token' => Str::random(10),
 //     ];
 // });
 

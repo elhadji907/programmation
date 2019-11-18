@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 18 Oct 2019 15:40:20 +0000.
+ * Date: Mon, 18 Nov 2019 16:15:50 +0000.
  */
 
 namespace App;
@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property int $chef_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -29,15 +30,20 @@ class Direction extends Eloquent
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
+	protected $casts = [
+		'chef_id' => 'int'
+	];
+
 	protected $fillable = [
 		'uuid',
-		'name'
+		'name',
+		'chef_id'
 	];
 
 	public function courriers()
 	{
 		return $this->belongsToMany(\App\Courrier::class, 'courriers_has_directions', 'directions_id', 'courriers_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

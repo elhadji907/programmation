@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDirectionsTable extends Migration
+class CreateVillagesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'directions';
+    public $tableName = 'villages';
 
     /**
      * Run the migrations.
-     * @table directions
+     * @table villages
      *
      * @return void
      */
@@ -24,9 +24,19 @@ class CreateDirectionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200);
+            $table->string('nom', 200)->nullable();
+            $table->unsignedInteger('communes_id');
+            $table->integer('chef_id')->nullable();
+
+            $table->index(["communes_id"], 'fk_villages_communes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
+
+            $table->foreign('communes_id', 'fk_villages_communes1_idx')
+                ->references('id')->on('communes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

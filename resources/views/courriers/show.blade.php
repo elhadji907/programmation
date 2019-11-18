@@ -210,7 +210,8 @@
                 </td>
             </tr>
             <tr>
-                <a class="btn btn-outline-primary mt-0" title="télécharger le fichier joint" target="_blank" href="#">
+                <a class="btn btn-outline-primary mt-0" title="modifier le courrier" 
+                href="{{ route('courriers.create',['courrier'=>$courrier->id]) }}">
                     <i class="fas fa-edit">&nbsp;Modifier le courrier</i>
                 </a>   
             </tr>

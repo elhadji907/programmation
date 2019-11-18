@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 18 Oct 2019 15:40:20 +0000.
+ * Date: Mon, 18 Nov 2019 16:15:50 +0000.
  */
 
 namespace App;
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $nom
  * @property int $communes_id
+ * @property int $chef_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -31,13 +32,15 @@ class Village extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'communes_id' => 'int'
+		'communes_id' => 'int',
+		'chef_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'nom',
-		'communes_id'
+		'communes_id',
+		'chef_id'
 	];
 
 	public function commune()

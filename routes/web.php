@@ -27,11 +27,13 @@ Route::group([
         $direction->courriers()->attach($courrier);
         dd($direction); */
 
+        Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
+        Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
@@ -48,6 +50,7 @@ Route::group([
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
+        Route::resource('/directions', 'DirectionsController');
         
         Route::get('/download', 'RecuesController@file')->name('recues.file');
 

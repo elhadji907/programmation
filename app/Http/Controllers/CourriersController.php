@@ -85,7 +85,7 @@ class CourriersController extends Controller
      */
     public function update(Request $request, Courrier $courrier)
     {
-        //
+        dd($courrier);
     }
 
     /**

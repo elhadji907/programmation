@@ -88,7 +88,7 @@ class VillagesTableSeeder extends Seeder
                             //echo("Pass 4".PHP_EOL);
                             $user->save();
                             
-                            $beneficiaire=App\Beneficiaire::firstOrNew([
+                            $beneficiaire=App\Beneficiaire::firstOrNew( [
                                 "matricule"=>$village->attributes->id
                             ],["villages_id"=>$village_->id,"users_id"=>$user->id]);
                             $beneficiaire->save();
