@@ -61,7 +61,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                cliquez sur close pour annuler
+                cliquez sur fermer pour annuler
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -92,7 +92,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('directions.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('directions.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 2
                         },

@@ -110,4 +110,8 @@ class Courrier extends Eloquent
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
 	}
+	public function getFile(){
+		$filePath = $this->file ?? 'recues/default.jpg';
+		return "/storage/" . $filePath;
+	}
 }

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Depart;
+use App\Courrier;
 use Illuminate\Http\Request;
-use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
 
-use Illuminate\Support\Facades\Date;
-use Carbon\Carbon;
-
-class DepartsController extends Controller
+class PresentationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +18,9 @@ class DepartsController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
+        $courriers = $recues + $internes + $departs;
         
-        return view('departs.index',compact('courriers', 'recues', 'internes', 'departs'));
+        return view('presentations.index', compact('courriers', 'recues', 'internes', 'departs'));
     }
 
     /**
@@ -34,12 +30,7 @@ class DepartsController extends Controller
      */
     public function create()
     {
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
-        $types = TypesCourrier::get();
-        return view('departs.create', compact('types','courriers', 'recues', 'internes', 'departs'));
+        //
     }
 
     /**
@@ -56,10 +47,10 @@ class DepartsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Depart  $depart
+     * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function show(Depart $depart)
+    public function show(Courrier $courrier)
     {
         //
     }
@@ -67,10 +58,10 @@ class DepartsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Depart  $depart
+     * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Depart $depart)
+    public function edit(Courrier $courrier)
     {
         //
     }
@@ -79,10 +70,10 @@ class DepartsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Depart  $depart
+     * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Depart $depart)
+    public function update(Request $request, Courrier $courrier)
     {
         //
     }
@@ -90,21 +81,16 @@ class DepartsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Depart  $depart
+     * @param  \App\Courrier  $courrier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Depart $depart)
+    public function destroy(Courrier $courrier)
     {
         //
-    }
-
+    }    
     public function list(Request $request)
     {
-        $date = Carbon::today();
-        $date = $date->copy()->addDays(-7);
-
-        $departs=Depart::with('courrier')->where('created_at', '>=', $date)->get();
-        return Datatables::of($departs)->make(true);
+        $courriers=Courrier::with('types_courrier')->get();
+        return Datatables::of($courriers)->make(true);
     }
-
 }

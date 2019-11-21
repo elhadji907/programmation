@@ -24,12 +24,11 @@ class RecuesController extends Controller
         $date = Carbon::today()->locale('fr_FR');
         $date = $date->copy()->addDays(0);
         $date = $date->isoFormat('LLLL'); // M/D/Y
-        
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
-
+       $courriers = \App\Courrier::get()->count();
+        
         return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
@@ -40,13 +39,14 @@ class RecuesController extends Controller
      */
     public function create()
     {
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
         $types = TypesCourrier::get();
         // $numCourrier = date('YmdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
+
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+       $courriers = \App\Courrier::get()->count();
 
         return view('recues.create',compact('types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
     }
@@ -141,10 +141,11 @@ class RecuesController extends Controller
      */
     public function edit($id)
     {
+        
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+       $courriers = \App\Courrier::get()->count();
 
          $recue = Recue::find($id);
          return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs'));
@@ -268,12 +269,7 @@ class RecuesController extends Controller
         $date = Carbon::today();
         $date = $date->copy()->addDays(-7);
 
-        $recues=Recue::with('courrier')->where('created_at', '>=', $date)->get();
+        $recues=Recue::with('courrier')->get();
         return Datatables::of($recues)->make(true);
-    }
-
-    public function file($id)
-    {
-        dd($request);
     }
 }

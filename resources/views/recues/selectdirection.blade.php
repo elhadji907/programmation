@@ -1,22 +1,25 @@
 @extends('layout.default')
 @section('content')
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            @endif 
+          <div class="row justify-content-center text-center">
+            <div class="col-md-8">
+                @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+                @endif
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Dispatching du courrier
+                      Liste des directions et services
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-
-                            {{--  <a href="{{route('directions.create')}}">
-                                <div class="btn btn-success">Nouveau Client&nbsp;<i class="fas fa-user-plus"></i>
-                                </div>
-                            </a>   --}}
-
+                            <a href="{{route('directions.create')}}"><div class="btn btn-success">Ajouter une direction / service</div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-directions">
@@ -24,57 +27,79 @@
                             <tr>
                               <th>ID</th>
                               <th>Direction / Service</th>
-                              <th>Responsable</th>
-                              <th>Contact</th>
-                              <th>Selectionner</th>
+                              <th>Action</th>
+                              <th><button type="button" name="bulk_imputation" id="bulk_imputation" class="btn btn-success btn-xs"><i class="fas fa-angle-double-right"></i></button></th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
                                 <th>Direction / Service</th>
-                                <th>Responsable</th>
-                                <th>Contact</th>
-                                <th>Selectionner</th>
+                                <th>Action</th>
+                                <th><button type="button" name="bulk_imputation" id="bulk_imputation" class="btn btn-success btn-xs"><i class="fas fa-angle-double-right"></i></button></th>
                               </tr>
                             </tfoot>
                           <tbody>
                            
                           </tbody>
-                        </table>                        
+                      </table>                        
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div> </div>
+
+      <div class="modal fade" id="modal_delete_direction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-direction">
+          @csrf
+          @method('DELETE')
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                cliquez sur close pour annuler
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       @endsection
 
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-        $('#table-directions').DataTable( { 
+          $('#table-directions').DataTable( { 
             "processing": true,
             "serverSide": true,
             "ajax": "{{route('directions.list')}}",
             columns: [
-                    { data: 'id', name: 'id' },
+                    { data: 'id', name: 'id' }, 
                     { data: 'name', name: 'name' },
-                    { data: 'name', name: 'name' },
-                    { data: 'name', name: 'name' },
-                    { data: null ,orderable: false, searchable: false}
+                    { data: 'action' ,orderable: false, searchable: false},
+                    { data: 'checkbox' , orderable:false, searchable:false}
 
                 ],
                 "columnDefs": [
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('directions.create','recue=:id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary " ><i class="fas fa-check"></i>';
+                        url_e =  "{!! route('directions.edit',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('directions.destroy',':id')!!}".replace(':id', data.id);
+                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 4
+                        "targets": 2
                         },
-
                 ],
                 language: {
                   "sProcessing":     "Traitement en cours...",
@@ -104,10 +129,37 @@
                               1: "1 ligne séléctionnée"
                           } 
                   }
-                },
-              
+                }             
           });
 
+          $(document).on('click', '#bulk_imputation', function(){
+            var id = [];
+            if(confirm("Êtes vous sûr de bien vouloir imputer ce courrier au(x) direction(s) / service(s)"))
+            {
+                $('.direction_checkbox:checked').each(function(){
+                    id.push($(this).val());
+                });
+                if(id.length > 0)
+                {
+                    $.ajax({
+                        url:"{{ route('ajaxdata.massremove')}}",
+                        method:"get",
+                        data:{id:id},
+                        success:function(data)
+                        {
+                            alert(data);
+                            $('#table-directions').DataTable().ajax.reload();
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Please select atleast one checkbox");
+                }
+            }
+        });
+
       });
-      </script> 
+      
+  </script> 
   @endpush

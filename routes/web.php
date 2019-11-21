@@ -36,6 +36,7 @@ Route::group([
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
+        Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
         Route::get('/internes/list', 'InternesController@list')->name('internes.list');
@@ -47,12 +48,17 @@ Route::group([
         Route::resource('/administrateurs', 'AdministrateursController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
+        Route::resource('/presentations', 'PresentationsController');
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
         Route::resource('/directions', 'DirectionsController');
         
         Route::get('/download', 'RecuesController@file')->name('recues.file');
+
+        Route::get('ajaxdata/removedata', 'DirectionsController@removedata')->name('ajaxdata.removedata');
+        Route::get('ajaxdata/massremove', 'DirectionsController@massremove')->name('ajaxdata.massremove');
+
 
     }         
 );

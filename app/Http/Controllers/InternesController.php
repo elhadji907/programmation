@@ -22,7 +22,7 @@ class InternesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+       $courriers = \App\Courrier::get()->count();
 
         return view('internes.index',compact('courriers', 'recues', 'internes', 'departs'));
     }
@@ -37,7 +37,7 @@ class InternesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+       $courriers = \App\Courrier::get()->count();
 
         $types = TypesCourrier::get();
         return view('internes.create', compact('types','courriers', 'recues', 'internes', 'departs'));

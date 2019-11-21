@@ -18,7 +18,7 @@ class CourriersController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+        $courriers = \App\Courrier::get()->count();
         
         return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs'));
     }
@@ -32,8 +32,8 @@ class CourriersController extends Controller
     {
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+        $departs = \App\Depart::get()->count();       
+        $courriers = \App\Courrier::get()->count();
 
         return view('courriers.create', compact('courriers', 'recues', 'internes', 'departs'));
     }
@@ -60,8 +60,9 @@ class CourriersController extends Controller
       /*  dd($id); */
       $recues = \App\Recue::get()->count();
       $internes = \App\Interne::get()->count();
-      $departs = \App\Depart::get()->count();
-      $courriers = $recues + $internes + $departs;
+      $departs = \App\Depart::get()->count();    
+      $courriers = \App\Courrier::get()->count();
+      
       return view('courriers.show', compact('courriers','courrier', 'recues', 'internes', 'departs'));
     }
 

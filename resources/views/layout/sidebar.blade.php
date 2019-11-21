@@ -4,9 +4,9 @@
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
   <div class="sidebar-brand-icon rotate-n-15">
    {{--   <i class="fas fa-laugh-wink"></i>  --}}
-   <img src="{{ asset('img/ONFP.png') }}" class="img-fluid logo_onfp" alt="LOGO">
+   <img src="{{ asset('img/ONFP.png') }}" class="img-fluid logo_onfp w-75" alt="LOGO">
   </div>
-  <div class="sidebar-brand-text mx-3">ONFP<sup>1</sup></div>
+  <div class="sidebar-brand-text mx-3">ONFP<sup></sup></div>
 </a>
 
 <!-- Divider -->
