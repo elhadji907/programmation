@@ -259,8 +259,16 @@ class RecuesController extends Controller
      */
     public function destroy(Recue $recue)
     {
+        $courriers_id = $recue->courriers_id;
+        $courrier = \App\Courrier::find($courriers_id);
+       /*  dd($courrier); */
+        // dd($recue);
+        $numero = $recue->courrier->numero;
+
+        $courrier->delete();
         $recue->delete();
-        $message = "Le courrier enregistré sous le numéro ".$recue->courrier->numero.' a été supprimé';
+        
+        $message = "Le courrier enregistré sous le numéro ".$numero.' a été supprimé';
         return redirect()->route('recues.index')->with(compact('message'));
     }
 
