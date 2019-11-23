@@ -111,9 +111,13 @@
                             <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="" id="validatedCustomFile">
                            {{--   <h3><a href="#">{{ asset($recue->courrier->getFile()) }}</a></h3>  --}}
                             {{-- <a target="_blank" href="{{ asset($recue->courrier->getFile()) }}">{{ $recue->courrier->legende }}</a> --}}
+                            @if ($recue->courrier->file !== "")
                             <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($recue->courrier->getFile()) }}">
                                 <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
                             </a>  
+                            @else
+                                {{ __("Aucun document n'a été télécharger, merci de cliquer sur choisir un fichier pour joindre un nouveau fichier.") }}
+                            @endif
                             <div class="invalid-feedback">
                                 {{ $errors->first('file') }}
                             </div>

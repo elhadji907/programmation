@@ -280,4 +280,3 @@ class RecuesController extends Controller
         $recues=Recue::with('courrier')->get();
         return Datatables::of($recues)->make(true);
     }
-}

@@ -53,12 +53,10 @@ Route::group([
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
         Route::resource('/directions', 'DirectionsController');
-        
-        Route::get('/download', 'RecuesController@file')->name('recues.file');
 
-        Route::get('ajaxdata/removedata', 'DirectionsController@removedata')->name('ajaxdata.removedata');
-        Route::get('ajaxdata/massremove', 'DirectionsController@massremove')->name('ajaxdata.massremove');
-
+        Route::get('myproducts', 'ProductController@index');
+        Route::delete('myproducts/{id}', 'ProductController@destroy');
+        Route::delete('myproductsDeleteAll', 'ProductController@deleteAll');
 
     }         
 );
