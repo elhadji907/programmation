@@ -14,39 +14,35 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des courriers internes
+                      Liste des courriers reçus
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{ route('internes.create') }}"><div class="btn btn-success">Nouveau courrier&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Utilisateur&nbsp;<i class="fas fa-user-plus"></i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-internes">
-                          <thead class="table-dark">
-                            <tr>
-                              <th>ID</th>
-                              <th>Numéro</th>
-                              <th>Objet</th>
-                              <th>Expediteur</th>
-                              <th>Destinataires</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tfoot class="table-dark">
+                          <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-directions">
+                            <thead class="table-dark">
                               <tr>
                                 <th>ID</th>
-                                <th>Numéro</th>
-                                <th>Objet</th>
-                                <th>Expediteur</th>
-                                <th>Destinataires</th>
+                                <th>Direction / Service</th>
                                 <th>Action</th>
+                                <th><button type="button" name="bulk_imputation" id="bulk_imputation" class="btn btn-success btn-xs"><i class="fas fa-angle-double-right"></i></button></th>
                               </tr>
-                            </tfoot>
-                          <tbody>
-                           
-                          </tbody>
-                      </table>                        
+                            </thead>
+                            <tfoot class="table-dark">
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Direction / Service</th>
+                                  <th>Action</th>
+                                  <th></th>
+                                </tr>
+                              </tfoot>
+                            <tbody>
+                             
+                            </tbody>
+                        </table>                  
                 </div>
               </div>
             </div>
@@ -82,10 +78,10 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-internes').DataTable( { 
+          $('#table-recues').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('internes.list')}}",
+            "ajax": "{{route('recues.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'courrier.numero', name: 'courrier.numero' },
@@ -99,9 +95,9 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('internes.edit',':id')!!}".replace(':id', data.id);
-                        url_f =  "{!! route('internes.selectdirection',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('internes.destroy',':id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('recues.edit',':id')!!}".replace(':id', data.id);
+                        url_f =  "{!! route('recues.selectdirection',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('recues.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class="btn btn-primary edit" title="Modifier"><i class="far fa-edit"></i></a>&nbsp;'+
                         '<a href='+url_f+'  class="btn btn-primary edit" title="partager"><i class="fab fa-get-pocket"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
@@ -138,11 +134,11 @@
                           } 
                   }
                 },
-                order:[[0, 'asc']]              
+                order:[[0, 'desc']]              
           });
 
           
-        $('#table-internes').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
+        $('#table-recues').off('click', '.btn_delete_recue').on('click', '.btn_delete_recue',
         function() { 
           var href=$(this).data('href');
           $('#form-delete-recue').attr('action', href);

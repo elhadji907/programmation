@@ -25,6 +25,7 @@ class CreateDirectionsTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200);
+            $table->string('sigle', 10);
             $table->integer('chef_id')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();

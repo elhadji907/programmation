@@ -19,7 +19,7 @@
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau Utilisateur&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{ route('recues.create') }}"><div class="btn btn-success">Nouveau courrier&nbsp;<i class="fas fa-user-plus"></i></div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-recues">
@@ -29,7 +29,7 @@
                               <th>Numéro</th>
                               <th>Objet</th>
                               <th>Expediteur</th>
-                              <th>Destinataires</th>
+                              <th>Imputation</th>
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -39,7 +39,7 @@
                                 <th>Numéro</th>
                                 <th>Objet</th>
                                 <th>Expediteur</th>
-                                <th>Destinataires</th>
+                                <th>Imputation</th>
                                 <th>Action</th>
                               </tr>
                             </tfoot>
@@ -138,7 +138,7 @@
                           } 
                   }
                 },
-                order:[[0, 'desc']]              
+                order:[[0, 'asc']]              
           });
 
           

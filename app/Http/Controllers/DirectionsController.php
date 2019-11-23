@@ -26,7 +26,7 @@ class DirectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('directions.create');
     }
 
     /**

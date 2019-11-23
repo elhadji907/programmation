@@ -27,7 +27,7 @@ class RecuesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
+        $courriers = \App\Courrier::get()->count();
         
         return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
@@ -177,22 +177,9 @@ class RecuesController extends Controller
         );
 
         if (request('file')) { 
-           /*  if($request->file->getClientOriginalName()){
-                $ext =  $request->file->getClientOriginalExtension();
-                $filePath = $request->input('legende')." ".date('YmdHis').rand(1,99999).'.'.$ext;
-                $request->file->storeAs('public/recues',$filePath);
-            }
-            else
-            {
-                $filePath = '';
-            } */
              $filePath = request('file')->store('recues', 'public');
-           /*  dd($filePath); */           
         $recue = Recue::find($id);
-        /*  dd($id); */
-        $courrier = $recue->courrier;
-        /* dd($courrier); */
- 
+        $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
  
@@ -280,3 +267,4 @@ class RecuesController extends Controller
         $recues=Recue::with('courrier')->get();
         return Datatables::of($recues)->make(true);
     }
+}

@@ -28,6 +28,7 @@ Route::group([
         dd($direction); */
 
         Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
+        Route::get('/internes.selectdirection', function() { return view('internes.selectdirection'); })->name('internes.selectdirection');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
