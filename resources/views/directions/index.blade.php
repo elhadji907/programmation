@@ -19,7 +19,7 @@
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('directions.create')}}"><div class="btn btn-success">Ajouter une direction / service</div></a>
+                            <a href="{{ route('directions.selectresponsable')}}"><div class="btn btn-success">Ajouter une direction / service</div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-directions">

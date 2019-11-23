@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('layout.default')
 @section('content')
         <div class="container-fluid">
           <div class="row">
@@ -6,35 +6,27 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Selection du village pour le client
+                      Selection du directeur ou du chef de service
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-
-                            {{--  <a href="{{route('villages.create')}}">
-                                <div class="btn btn-success">Nouveau Client&nbsp;<i class="fas fa-user-plus"></i>
-                                </div>
-                            </a>   --}}
-
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-villages">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-responsable">
                           <thead class="table-dark">
                             <tr>
                               <th>ID</th>
-                              <th>Village</th>
-                              <th>Commune</th>
-                              <th>Region</th>
+                              <th>Prenom</th>
+                              <th>Nom</th>
                               <th>Selectionner</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
-                                <th>Village</th>
-                                <th>Commune</th>
-                                <th>Region</th>
+                                <th>Prenom</th>
+                                <th>Nom</th>
                                 <th>Selectionner</th>
                               </tr>
                             </tfoot>
@@ -53,15 +45,14 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-        $('#table-villages').DataTable( { 
+        $('#table-responsable').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('villages.list')}}",
+            "ajax": "{{ route('administrateurs.list') }}",
             columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'nom', name: 'nom' },
-                    { data: 'commune.nom', name: 'commune.nom' },
-                    { data: 'commune.arrondissement.departement.region.nom', name: 'commune.arrondissement.departement.region.nom' },
+                    { data: 'user.firstname', name: 'user.firstname' },
+                    { data: 'user.name', name: 'user.name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -69,10 +60,10 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('clients.create','village=:id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('directions.create','user=:id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary " ><i class="fas fa-check"></i>';
                         },
-                        "targets": 4
+                        "targets": 3
                         },
 
                 ],

@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('layout.default')
 @section('content')
 <div class="content">
     <div class="container">
@@ -9,16 +9,16 @@
             <div class="card-body">
                     <div class="row pt-5 pl-5">
                         <h4>
-                            Village: {{$village->nom ?? 'Aucun village choisi'}}<br/>
-                            Commune: {{$village->commune->nom ?? ''}}
+                            Prenom: {{  $user->name ?? 'Aucun administrateur choisi'}}<br/>
+                           {{--  Nom: {{  $user->name ?? ''}} --}}
                         </h4>
                     </div>
                     <div class="row pt-5"></div>
                     
-                    <form method="POST" action="{{ url('clients') }}">
+                    <form method="POST" action="{{ url('directions') }}">
                         @csrf
                         
-                        <input type="hidden" name="village" value="{{$village->id}}" class="form-control" name="inputName" id="inputName" placeholder="">
+                        <input type="hidden" name="administrateur" value="" class="form-control" name="inputName" id="inputName" placeholder="">
                         <div class="form-group">
                             <label for="input-prenom"><b>Prénom</b></label>
                             <input type="text" name="prenom" class="form-control{{ $errors->get('prenom') ? ' is-invalid' : '' }}" id="input-prenom" placeholder="prenom du client" value="{{ old('prenom') }}">
