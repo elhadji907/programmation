@@ -15,7 +15,7 @@
                 <div class="card-body">
                                                
                         <form method="POST" action="{{ action('AdministrateursController@update', $id) }}">
-                            {{ csrf_field() }}
+                           @csrf
                             <input type="hidden" name="_method" value="PATCH" />                         
                             <div class="form-row">
                             <div class="form-group col-md-6">

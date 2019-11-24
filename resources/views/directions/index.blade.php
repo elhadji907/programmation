@@ -50,14 +50,14 @@
         </div>
       </div>
 
-      <div class="modal fade" id="modal_delete_gestionnaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-gestionnaire">
+      <div class="modal fade" id="modal_delete_direction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-direction">
           @csrf
           @method('DELETE')
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
+                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cette direction / service ?</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -96,7 +96,7 @@
                         url_e =  "{!! route('directions.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('directions.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        '<div class="btn btn-danger btn_delete_direction ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 3
                         },
@@ -130,6 +130,12 @@
                           } 
                   }
                 }             
+          });
+          $('#table-directions').off('click', '.btn_delete_direction').on('click', '.btn_delete_direction',
+          function() { 
+            var href=$(this).data('href');
+            $('#form-delete-direction').attr('action', href);
+            $('#modal_delete_direction').modal();
           });
       });
       

@@ -78,9 +78,10 @@ class DirectionsController extends Controller
      * @param  \App\Direction  $direction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Direction $direction)
+    public function edit($id)
     {
-        //
+        $direction = Direction::find($id);
+        return view('directions.update', compact('direction','id'));
     }
 
     /**
@@ -90,9 +91,21 @@ class DirectionsController extends Controller
      * @param  \App\Direction  $direction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Direction $direction)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'direction'     => 'required|string|max:250',
+                'sigle'         => 'required|string|max:10',
+            ]);
+            $direction = Direction::find($id);
+            $direction->name   =     $request->input('direction');
+            $direction->sigle  =     $request->input('sigle');
+
+            $direction->save();
+        
+            return redirect()->route('directions.index')->with('success','direction modifié avec succès !');
     }
 
     /**
@@ -103,7 +116,9 @@ class DirectionsController extends Controller
      */
     public function destroy(Direction $direction)
     {
-        //
+        $direction->delete();
+        $message = $direction->sigle.' a été supprimé(e)';
+        return redirect()->route('directions.index')->with(compact('message'));
     }
 
     public function list(Request $request)
@@ -111,25 +126,5 @@ class DirectionsController extends Controller
         $directions=Direction::with('users')->get();
         return Datatables::of($directions)->make(true);
 
-    }
-
-
-    function removedata(Request $request)
-    {
-        $recue = \App\Recue::find($request->input('id'));
-        if($recue->delete())
-        {
-            echo 'Data Deleted';
-        }
-    }
-
-    function massremove(Request $request)
-    {
-        $recue_id_array = $request->input('id');
-        $recue = \App\Recue::whereIn('id', $recue_id_array);
-        if($recue->delete())
-        {
-            echo 'Data Deleted';
-        }
     }
 }

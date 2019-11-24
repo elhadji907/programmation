@@ -59,7 +59,7 @@
     <span>Gestion personnel</span>
   </a>
 </li>
-@roles('Administrateur')
+@roles('Administrateur|Gestionnaire')
   <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
         <span data-feather="user"></span>
