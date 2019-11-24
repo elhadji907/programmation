@@ -24,9 +24,15 @@ class DirectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('directions.create');
+
+        $directeur_id=$request->input('user');
+       /*  dd($directeur_id); */
+        $user=\App\User::find($directeur_id);
+       /*  dd($user); */
+
+        return view('directions.create',compact('user'));
     }
 
     /**
@@ -37,7 +43,22 @@ class DirectionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'direction'     => 'required|string|max:250',
+                'sigle'         => 'required|string|max:10',
+                'user'          => 'required|exists:users,id',
+            ]
+        );
+        /* dd($request->input('user')); */
+        $direction = new Direction([            
+            'name'      =>      $request->input('direction'),
+            'sigle'     =>      $request->input('sigle'),
+            'chef_id'   =>      $request->input('user')
+
+        ]);
+        $direction->save();
+        return redirect()->route('directions.index')->with('success','direction / service ajouté(e) avec succès !');
     }
 
     /**

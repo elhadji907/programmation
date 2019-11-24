@@ -37,6 +37,7 @@ class Direction extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'name',
+		'sigle',
 		'chef_id'
 	];
 

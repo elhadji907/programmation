@@ -13,7 +13,7 @@
                           <div align="right">
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-responsable">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-administrateurs">
                           <thead class="table-dark">
                             <tr>
                               <th>ID</th>
@@ -45,7 +45,7 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-        $('#table-responsable').DataTable( { 
+        $('#table-administrateurs').DataTable( { 
             "processing": true,
             "serverSide": true,
             "ajax": "{{ route('administrateurs.list') }}",
