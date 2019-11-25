@@ -29,7 +29,6 @@
                               <th>Numéro</th>
                               <th>Objet</th>
                               <th>Expediteur</th>
-                              <th>Imputation</th>
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -39,7 +38,6 @@
                                 <th>Numéro</th>
                                 <th>Objet</th>
                                 <th>Expediteur</th>
-                                <th>Imputation</th>
                                 <th>Action</th>
                               </tr>
                             </tfoot>
@@ -91,7 +89,6 @@
                     { data: 'courrier.numero', name: 'courrier.numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
-                    { data: 'courrier.imputation', name: 'courrier.imputation' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -106,7 +103,7 @@
                         '<a href='+url_f+'  class="btn btn-primary edit" title="partager"><i class="fab fa-get-pocket"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 5
+                        "targets": 4
                         },
                 ],
                 language: {

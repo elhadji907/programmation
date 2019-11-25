@@ -267,4 +267,10 @@ class RecuesController extends Controller
         $recues=Recue::with('courrier')->get();
         return Datatables::of($recues)->make(true);
     }
+
+    public function selectdirection($id)
+    {
+       $recue = Recue::find($id);
+       dd($recue);
+    }
 }
