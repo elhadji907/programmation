@@ -4,7 +4,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\CourriersHasDirection::class, function (Faker $faker) {
+$factory->define(App\Courriersdirection::class, function (Faker $faker) {
     return [
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;

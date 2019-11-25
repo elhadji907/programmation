@@ -49,7 +49,6 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'bp' => $faker->postcode,
         'type' => $faker->word,
         'message' => $faker->realText($maxNbChars = 200, $indexSize = 2),
-        'imputation' => SnmG::getFirstName()." ".SnmG::getName(),
         'legende' => "",
         'file' => "",
         'statut' => $faker->word,

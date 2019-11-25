@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CourriersHasDirectionTableSeeder extends Seeder
+class CourriersdirectionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

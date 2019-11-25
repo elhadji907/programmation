@@ -70,7 +70,6 @@ class Courrier extends Eloquent
 		'bp',
 		'type',
 		'message',
-		'imputation',
 		'legende',
 		'file',
 		'statut',
@@ -91,7 +90,7 @@ class Courrier extends Eloquent
 
 	public function directions()
 	{
-		return $this->belongsToMany(\App\Direction::class, 'courriers_has_directions', 'courriers_id', 'directions_id')
+		return $this->belongsToMany(\App\Direction::class, 'courriersdirections', 'courriers_id', 'directions_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

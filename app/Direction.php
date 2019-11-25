@@ -43,7 +43,7 @@ class Direction extends Eloquent
 
 	public function courriers()
 	{
-		return $this->belongsToMany(\App\Courrier::class, 'courriers_has_directions', 'directions_id', 'courriers_id')
+		return $this->belongsToMany(\App\Courrier::class, 'courriersdirections', 'directions_id', 'courriers_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
