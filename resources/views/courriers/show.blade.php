@@ -94,7 +94,12 @@
         text-align: left;
     }
     </style>
-    <div class="invoice-box">
+    <div class="invoice-box justify-content-center">
+        <div class="card">
+        <div class="card card-header text-center bg-gradient-default">
+            <h1 class="h4 text-black mb-0"> <span data-feather="mail"></span> RECIPICE DU COURRIER</h1>
+        </div>
+        <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -102,7 +107,8 @@
                         <tr>
                             <td class="title">
                                 {{-- <img src="" style="width:100%; max-width:300px;"> --}}
-                                <i>DOSSIER</i><br>
+                               {{--   <i>DOSSIER</i><br>  --}}
+                               Courrier {{ $courrier->types_courrier->name }}<br>
                             </td>
                             <td>
                                 Numéro #: {{ $courrier->numero }}<br>
@@ -218,5 +224,6 @@
         </table>
     </div>
 </div>
+</div></div>
 
 @endsection
