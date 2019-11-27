@@ -37,21 +37,13 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->unsignedInteger('roles_id');
             $table->unsignedInteger('directions_id');
-            $table->rememberToken();
 
             $table->index(["directions_id"], 'fk_users_directions1_idx');
-
-            $table->index(["roles_id"], 'fk_users_roles1_idx');
 
             $table->unique(["email"], 'email_UNIQUE');
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
-            $table->foreign('roles_id', 'fk_users_roles1_idx')
-                ->references('id')->on('roles')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('directions_id', 'fk_users_directions1_idx')
                 ->references('id')->on('directions')

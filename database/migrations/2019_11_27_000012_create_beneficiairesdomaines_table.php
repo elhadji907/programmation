@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesdomainesTable extends Migration
+class CreateBeneficiairesdomainesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modulesdomaines';
+    public $tableName = 'beneficiairesdomaines';
 
     /**
      * Run the migrations.
-     * @table modulesdomaines
+     * @table beneficiairesdomaines
      *
      * @return void
      */
@@ -23,20 +23,22 @@ class CreateModulesdomainesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('modules_id');
-            $table->integer('domaines_id');
+            $table->unsignedInteger('beneficiaires_id');
+            $table->unsignedInteger('domaines_id');
 
-            $table->index(["modules_id"], 'fk_modulesdomaines_modules1_idx');
+            $table->index(["domaines_id"], 'fk_beneficiaires_has_domaines_domaines1_idx');
 
-            $table->index(["domaines_id"], 'fk_modulesdomaines_domaines1_idx');
+            $table->index(["beneficiaires_id"], 'fk_beneficiaires_has_domaines_beneficiaires1_idx');
+            $table->softDeletes();
+            $table->nullableTimestamps();
 
 
-            $table->foreign('modules_id', 'fk_modulesdomaines_modules1_idx')
-                ->references('id')->on('modules')
+            $table->foreign('beneficiaires_id', 'fk_beneficiaires_has_domaines_beneficiaires1_idx')
+                ->references('id')->on('beneficiaires')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('domaines_id', 'fk_modulesdomaines_domaines1_idx')
+            $table->foreign('domaines_id', 'fk_beneficiaires_has_domaines_domaines1_idx')
                 ->references('id')->on('domaines')
                 ->onDelete('no action')
                 ->onUpdate('no action');

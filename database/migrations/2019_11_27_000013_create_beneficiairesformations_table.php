@@ -23,20 +23,22 @@ class CreateBeneficiairesformationsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('beneficiaires_id');
-            $table->integer('formations_id');
+            $table->unsignedInteger('beneficiaires_id');
+            $table->unsignedInteger('formations_id');
 
-            $table->index(["formations_id"], 'fk_beneficiairesformations_formations1_idx');
+            $table->index(["formations_id"], 'fk_beneficiaires_has_formations_formations1_idx');
 
-            $table->index(["beneficiaires_id"], 'fk_beneficiairesformations_beneficiaires1_idx');
+            $table->index(["beneficiaires_id"], 'fk_beneficiaires_has_formations_beneficiaires1_idx');
+            $table->softDeletes();
+            $table->nullableTimestamps();
 
 
-            $table->foreign('beneficiaires_id', 'fk_beneficiairesformations_beneficiaires1_idx')
+            $table->foreign('beneficiaires_id', 'fk_beneficiaires_has_formations_beneficiaires1_idx')
                 ->references('id')->on('beneficiaires')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('formations_id', 'fk_beneficiairesformations_formations1_idx')
+            $table->foreign('formations_id', 'fk_beneficiaires_has_formations_formations1_idx')
                 ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
