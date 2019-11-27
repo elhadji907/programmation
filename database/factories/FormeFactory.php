@@ -4,11 +4,12 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Direction::class, function (Faker $faker) {
+$factory->define(App\Forme::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
-        'sigle' => $faker->word,
-        'chef_id' => $faker->randomNumber(),
+        'beneficiaires_id' => function () {
+            return factory(App\Beneficiaire::class)->create()->id;
+        },
     ];
 });

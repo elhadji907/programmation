@@ -29,8 +29,7 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
             return factory(App\Gestionnaire::class)->create()->id;
         },
     ];
-});
- */
+}); */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

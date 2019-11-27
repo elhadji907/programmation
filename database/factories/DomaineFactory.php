@@ -4,11 +4,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Direction::class, function (Faker $faker) {
+$factory->define(App\Domaine::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
-        'sigle' => $faker->word,
-        'chef_id' => $faker->randomNumber(),
     ];
 });
