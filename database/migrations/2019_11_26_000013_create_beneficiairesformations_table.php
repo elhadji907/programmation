@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBeneficiairesTable extends Migration
+class CreateBeneficiairesformationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'beneficiaires';
+    public $tableName = 'beneficiairesformations';
 
     /**
      * Run the migrations.
-     * @table beneficiaires
+     * @table beneficiairesformations
      *
      * @return void
      */
@@ -23,25 +23,21 @@ class CreateBeneficiairesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->char('uuid', 36);
-            $table->string('matricule', 200);
-            $table->unsignedInteger('users_id');
-            $table->unsignedInteger('villages_id');
+            $table->integer('beneficiaires_id');
+            $table->integer('formations_id');
 
-            $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
+            $table->index(["formations_id"], 'fk_beneficiairesformations_formations1_idx');
 
-            $table->index(["users_id"], 'fk_beneficiaires_users1_idx');
-            $table->softDeletes();
-            $table->nullableTimestamps();
+            $table->index(["beneficiaires_id"], 'fk_beneficiairesformations_beneficiaires1_idx');
 
 
-            $table->foreign('users_id', 'fk_beneficiaires_users1_idx')
-                ->references('id')->on('users')
+            $table->foreign('beneficiaires_id', 'fk_beneficiairesformations_beneficiaires1_idx')
+                ->references('id')->on('beneficiaires')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('villages_id', 'fk_beneficiaires_villages1_idx')
-                ->references('id')->on('villages')
+            $table->foreign('formations_id', 'fk_beneficiairesformations_formations1_idx')
+                ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

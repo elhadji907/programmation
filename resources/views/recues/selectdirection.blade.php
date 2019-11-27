@@ -13,7 +13,7 @@
                           <div align="right">
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-administrateurs">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-directions">
                           <thead class="table-dark">
                             <tr>
                               <th>ID</th>
@@ -45,7 +45,7 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-        $('#table-administrateurs').DataTable( { 
+        $('#table-directions').DataTable( { 
             "processing": true,
             "serverSide": true,
             "ajax": "{{ route('directions.list') }}",
@@ -60,7 +60,7 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('directions.create','user=:id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('recues.create','user=:id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary " ><i class="fas fa-check"></i>';
                         },
                         "targets": 3
