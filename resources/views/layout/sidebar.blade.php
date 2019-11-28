@@ -59,7 +59,8 @@
     <span>Gestion personnel</span>
   </a>
 </li>
-@roles('Administrateur|Gestionnaire')
+
+{{-- @roles('Administrateur|Gestionnaire')
   <li class="nav-item">
     <a class="nav-link" href="{{ route('administrateurs.index') }}">
         <span data-feather="user"></span>
@@ -80,7 +81,7 @@
         <span data-feather="user"></span>
       <span>Gestion beneficiaires</span>
     </a>
-  </li>
+  </li> --}}
 
   <li class="nav-item">
     <a class="nav-link" href="#">
@@ -90,7 +91,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{ route('beneficiaires.index') }}">
         <span data-feather="layers"></span>
       <span>Gestion demandes</span>
     </a>
@@ -129,6 +130,22 @@
       <a class="collapse-item" href="{{ route('register') }}">{{ __("S'inscrire") }}</a>
       @endif
       @else
+      <h6 class="collapse-header">UTILISATEURS</h6>
+      <a class="collapse-item" href="{{ route('administrateurs.index') }}">
+        <span data-feather="user"></span>
+        <span>Administrateurs</span>
+      </a>
+      <a class="collapse-item" href="{{ route('gestionnaires.index') }}">
+        <span data-feather="user"></span>
+        <span>Gestionnaires</span>
+      </a>
+      <a class="collapse-item" href="{{ route('beneficiaires.index') }}">
+        <span data-feather="user"></span>
+        <span>Bénéficiaires</span>
+      </a>
+    {{--   <a class="collapse-item" href="#">DIOF</a>
+      <a class="collapse-item" href="#">DEC</a>
+      <a class="collapse-item" href="#">DPP</a> --}}
     {{--        
       <h6 class="collapse-header">DIRECTIONS</h6>
       <a class="collapse-item" href="#">DIOF</a>

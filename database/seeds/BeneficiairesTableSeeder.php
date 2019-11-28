@@ -11,6 +11,6 @@ class BeneficiairesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Beneficiaire::class,5)->create();
+        factory(App\Beneficiaire::class,500)->create();
     }
 }

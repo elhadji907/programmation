@@ -36,6 +36,7 @@ Route::group([
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
+        Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
@@ -55,6 +56,7 @@ Route::group([
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
         Route::resource('/directions', 'DirectionsController');
+        Route::resource('/beneficiaires', 'BeneficiairesController');
 
         Route::get('myproducts', 'ProductController@index');
         Route::delete('myproducts/{id}', 'ProductController@destroy');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaire;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class BeneficiairesController extends Controller
 {
@@ -14,7 +15,7 @@ class BeneficiairesController extends Controller
      */
     public function index()
     {
-        //
+        return view('beneficiaires.index');
     }
 
     /**
@@ -81,5 +82,11 @@ class BeneficiairesController extends Controller
     public function destroy(Beneficiaire $beneficiaire)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $beneficiaires=Beneficiaire::with('user')->orderBy('created_at', 'asc')->get();
+        return Datatables::of($beneficiaires)->make(true);
     }
 }
