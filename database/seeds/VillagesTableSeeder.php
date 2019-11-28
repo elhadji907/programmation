@@ -87,12 +87,15 @@ class VillagesTableSeeder extends Seeder
                             ]);
                             //echo("Pass 4".PHP_EOL);
                             $user->save();
-                            
+
+                            $nivaus_id = App\Nivaus::all()->random()->id;
+
                             $beneficiaire=App\Beneficiaire::firstOrNew( [
                                 "matricule"=>$village->attributes->id,
                                 "cin" =>$faker->phoneNumber
                             ],
                             ["villages_id"=>$village_->id,
+                            "nivaus_id"=>$nivaus_id,
                             "users_id"=>$user->id
                             ]);
                             $beneficiaire->save();

@@ -28,7 +28,7 @@ class CreateBeneficiairesTable extends Migration
             $table->string('cin', 50);
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('villages_id');
-            $table->unsignedInteger('nivaus_id')->nullable();
+            $table->unsignedInteger('nivaus_id');
 
             $table->index(["nivaus_id"], 'fk_beneficiaires_nivaus1_idx');
 
