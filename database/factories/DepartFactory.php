@@ -12,8 +12,7 @@ $factory->define(App\Depart::class, function (Faker $faker) {
         },
         'destinataire' => $faker->word,
     ];
-});
- */
+}); */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

@@ -24,26 +24,9 @@ class CreateFormationsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('code', 200);
-            $table->unsignedInteger('typesformations_id');
-            $table->unsignedInteger('certifications_id');
-
-            $table->index(["typesformations_id"], 'fk_formations_typesformations1_idx');
-
-            $table->index(["certifications_id"], 'fk_formations_certifications1_idx');
+            $table->string('code', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('typesformations_id', 'fk_formations_typesformations1_idx')
-                ->references('id')->on('typesformations')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('certifications_id', 'fk_formations_certifications1_idx')
-                ->references('id')->on('certifications')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

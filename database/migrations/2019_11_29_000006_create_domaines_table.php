@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormesTable extends Migration
+class CreateDomainesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formes';
+    public $tableName = 'domaines';
 
     /**
      * Run the migrations.
-     * @table formes
+     * @table domaines
      *
      * @return void
      */
@@ -24,16 +24,16 @@ class CreateFormesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200);
-            $table->unsignedInteger('beneficiaires_id');
+            $table->string('name', 200)->nullable();
+            $table->unsignedInteger('formations_id');
 
-            $table->index(["beneficiaires_id"], 'fk_formes_beneficiaires1_idx');
+            $table->index(["formations_id"], 'fk_domaines_formations1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('beneficiaires_id', 'fk_formes_beneficiaires1_idx')
-                ->references('id')->on('beneficiaires')
+            $table->foreign('formations_id', 'fk_domaines_formations1_idx')
+                ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

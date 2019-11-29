@@ -26,19 +26,19 @@ class CreateCourriersdirectionsTable extends Migration
             $table->unsignedInteger('courriers_id');
             $table->unsignedInteger('directions_id');
 
-            $table->index(["courriers_id"], 'fk_courriersdirections_courriers1_idx');
+            $table->index(["courriers_id"], 'fk_courriers_has_directions_courriers1_idx');
 
-            $table->index(["directions_id"], 'fk_courriersdirections_directions1_idx');
+            $table->index(["directions_id"], 'fk_courriers_has_directions_directions1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('courriers_id', 'fk_courriersdirections_courriers1_idx')
+            $table->foreign('courriers_id', 'fk_courriers_has_directions_courriers1_idx')
                 ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('directions_id', 'fk_courriersdirections_directions1_idx')
+            $table->foreign('directions_id', 'fk_courriers_has_directions_directions1_idx')
                 ->references('id')->on('directions')
                 ->onDelete('no action')
                 ->onUpdate('no action');

@@ -2,13 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:20 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-
 
 /**
  * Class Domaine
@@ -16,10 +15,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property int $formations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Formation $formation
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $modules
  *
@@ -30,10 +31,20 @@ class Domaine extends Eloquent
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
+	protected $casts = [
+		'formations_id' => 'int'
+	];
+
 	protected $fillable = [
 		'uuid',
-		'name'
+		'name',
+		'formations_id'
 	];
+
+	public function formation()
+	{
+		return $this->belongsTo(\App\Formation::class, 'formations_id');
+	}
 
 	public function beneficiaires()
 	{
@@ -44,8 +55,6 @@ class Domaine extends Eloquent
 
 	public function modules()
 	{
-		return $this->belongsToMany(\App\Module::class, 'modulesdomaines', 'domaines_id', 'modules_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Module::class, 'domaines_id');
 	}
 }

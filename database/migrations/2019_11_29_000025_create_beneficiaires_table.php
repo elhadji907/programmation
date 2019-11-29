@@ -25,14 +25,14 @@ class CreateBeneficiairesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('matricule', 200);
-            $table->string('cin', 50);
+            $table->string('cin', 200)->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('villages_id');
-            $table->unsignedInteger('nivaus_id');
-
-            $table->index(["nivaus_id"], 'fk_beneficiaires_nivaus1_idx');
+            $table->unsignedInteger('nivauxs_id');
 
             $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
+
+            $table->index(["nivauxs_id"], 'fk_beneficiaires_nivauxs1_idx');
 
             $table->index(["users_id"], 'fk_beneficiaires_users1_idx');
             $table->softDeletes();
@@ -49,8 +49,8 @@ class CreateBeneficiairesTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('nivaus_id', 'fk_beneficiaires_nivaus1_idx')
-                ->references('id')->on('nivaus')
+            $table->foreign('nivauxs_id', 'fk_beneficiaires_nivauxs1_idx')
+                ->references('id')->on('nivauxs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

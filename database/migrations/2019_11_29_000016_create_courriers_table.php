@@ -34,7 +34,6 @@ class CreateCourriersTable extends Migration
             $table->string('bp', 200)->nullable();
             $table->string('type', 200)->nullable();
             $table->string('message', 200)->nullable();
-            $table->string('imputation', 200)->nullable();
             $table->string('legende', 200)->nullable();
             $table->string('file', 200)->nullable();
             $table->string('statut', 200)->nullable();

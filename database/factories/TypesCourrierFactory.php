@@ -10,8 +10,7 @@ $factory->define(App\TypesCourrier::class, function (Faker $faker) {
         'name' => $faker->name,
         'categorie' => $faker->word,
     ];
-});
- */
+}); */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

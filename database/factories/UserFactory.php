@@ -24,9 +24,9 @@ $factory->define(App\User::class, function (Faker $faker) {
         'directions_id' => function () {
             return factory(App\Direction::class)->create()->id;
         },
-        'remember_token' => Str::random(10),
     ];
-}); */
+});
+ */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

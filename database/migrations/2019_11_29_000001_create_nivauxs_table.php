@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNivausTable extends Migration
+class CreateNivauxsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'nivaus';
+    public $tableName = 'nivauxs';
 
     /**
      * Run the migrations.
-     * @table nivaus
+     * @table nivauxs
      *
      * @return void
      */

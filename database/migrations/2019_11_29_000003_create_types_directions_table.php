@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegionsTable extends Migration
+class CreateTypesDirectionsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'regions';
+    public $tableName = 'types_directions';
 
     /**
      * Run the migrations.
-     * @table regions
+     * @table types_directions
      *
      * @return void
      */
@@ -24,7 +24,8 @@ class CreateRegionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('nom', 200)->nullable();
+            $table->string('name', 200);
+            $table->string('categorie', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

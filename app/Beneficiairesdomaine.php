@@ -2,13 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:20 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use \App\Helpers\UuidForKey;
 
 /**
  * Class Beneficiairesdomaine
@@ -28,6 +27,7 @@ use \App\Helpers\UuidForKey;
 class Beneficiairesdomaine extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'beneficiaires_id' => 'int',

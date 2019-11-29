@@ -29,6 +29,7 @@ Route::group([
 
         Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
         Route::get('/directions.selectresponsable', function() { return view('directions.selectresponsable'); })->name('directions.selectresponsable');
+        Route::get('/services.selectresponsable', function() { return view('services.selectresponsable'); })->name('services.selectresponsable');
         Route::get('/internes.selectdirection', function() { return view('internes.selectdirection'); })->name('internes.selectdirection');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
@@ -36,6 +37,7 @@ Route::group([
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
+        Route::get('/services/list', 'ServicesController@list')->name('services.list');
         Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
@@ -56,11 +58,8 @@ Route::group([
         Route::resource('/departs', 'DepartsController');
         Route::resource('/internes', 'InternesController');
         Route::resource('/directions', 'DirectionsController');
+        Route::resource('/services', 'ServicesController');
         Route::resource('/beneficiaires', 'BeneficiairesController');
-
-        Route::get('myproducts', 'ProductController@index');
-        Route::delete('myproducts/{id}', 'ProductController@destroy');
-        Route::delete('myproductsDeleteAll', 'ProductController@deleteAll');
 
     }         
 );

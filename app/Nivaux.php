@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:21 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -10,31 +10,39 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Typesformation
+ * Class Nivaux
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property int $beneficiaires_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \App\Beneficiaire $beneficiaire
  *
  * @package App
  */
-class Typesformation extends Eloquent
+class Nivaux extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
+	protected $table = 'nivauxs';
+
+	protected $casts = [
+		'beneficiaires_id' => 'int'
+	];
 
 	protected $fillable = [
 		'uuid',
-		'name'
+		'name',
+		'beneficiaires_id'
 	];
 
-	public function formations()
+	public function beneficiaire()
 	{
-		return $this->hasMany(\App\Formation::class, 'typesformations_id');
+		return $this->belongsTo(\App\Beneficiaire::class, 'beneficiaires_id');
 	}
 }

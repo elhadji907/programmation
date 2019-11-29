@@ -11,7 +11,8 @@ $factory->define(App\Interne::class, function (Faker $faker) {
             return factory(App\Courrier::class)->create()->id;
         },
     ];
-}); */
+});
+ */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

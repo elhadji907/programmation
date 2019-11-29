@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:20 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -24,7 +24,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $bp
  * @property string $type
  * @property string $message
- * @property string $imputation
  * @property string $legende
  * @property string $file
  * @property string $statut
@@ -70,7 +69,6 @@ class Courrier extends Eloquent
 		'bp',
 		'type',
 		'message',
-		'imputation',
 		'legende',
 		'file',
 		'statut',
@@ -109,10 +107,5 @@ class Courrier extends Eloquent
 	public function recues()
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
-	}
-
-	public function getFile(){
-		$filePath = $this->file ?? 'recues/default.jpg';
-		return "/storage/" . $filePath;
 	}
 }

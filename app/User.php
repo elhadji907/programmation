@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:21 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -30,7 +30,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $password
  * @property int $roles_id
  * @property int $directions_id
- * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -78,10 +77,9 @@ class User extends Authenticatable
 		'email_verified_at',
 		'password',
 		'roles_id',
-		'directions_id',
-		'remember_token'
+		'directions_id'
 	];
-	
+
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -97,6 +95,7 @@ class User extends Authenticatable
 	{
 		return 'username';
 	}
+
 
 	public function direction()
 	{

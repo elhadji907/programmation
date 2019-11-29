@@ -10,5 +10,8 @@ $factory->define(App\Direction::class, function (Faker $faker) {
         'name' => $faker->name,
         'sigle' => $faker->word,
         'chef_id' => $faker->randomNumber(),
+        'types_directions_id' => function () {
+            return factory(App\TypesDirection::class)->create()->id;
+        },
     ];
 });

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesdomainesTable extends Migration
+class CreateDirectionsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modulesdomaines';
+    public $tableName = 'directions';
 
     /**
      * Run the migrations.
-     * @table modulesdomaines
+     * @table directions
      *
      * @return void
      */
@@ -23,23 +23,19 @@ class CreateModulesdomainesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('modules_id');
-            $table->unsignedInteger('domaines_id');
+            $table->char('uuid', 36);
+            $table->string('name', 200);
+            $table->string('sigle', 10);
+            $table->integer('chef_id')->nullable();
+            $table->unsignedInteger('types_directions_id')->nullable();
 
-            $table->index(["modules_id"], 'fk_modules_has_domaines_modules1_idx');
-
-            $table->index(["domaines_id"], 'fk_modules_has_domaines_domaines1_idx');
+            $table->index(["types_directions_id"], 'fk_directions_types_directions1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('modules_id', 'fk_modules_has_domaines_modules1_idx')
-                ->references('id')->on('modules')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('domaines_id', 'fk_modules_has_domaines_domaines1_idx')
-                ->references('id')->on('domaines')
+            $table->foreign('types_directions_id', 'fk_directions_types_directions1_idx')
+                ->references('id')->on('types_directions')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

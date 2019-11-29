@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:20 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -17,10 +17,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $sigle
  * @property int $chef_id
+ * @property int $types_directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\TypesDirection $types_direction
+ * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $users
  *
@@ -32,15 +35,27 @@ class Direction extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'chef_id' => 'int'
+		'chef_id' => 'int',
+		'types_directions_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'sigle',
-		'chef_id'
+		'chef_id',
+		'types_directions_id'
 	];
+
+	public function types_direction()
+	{
+		return $this->belongsTo(\App\TypesDirection::class, 'types_directions_id');
+	}
+
+	public function antennes()
+	{
+		return $this->hasMany(\App\Antenne::class, 'directions_id');
+	}
 
 	public function courriers()
 	{

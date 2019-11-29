@@ -17,7 +17,6 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         'bp' => $faker->word,
         'type' => $faker->word,
         'message' => $faker->word,
-        'imputation' => $faker->word,
         'legende' => $faker->word,
         'file' => $faker->word,
         'statut' => $faker->word,

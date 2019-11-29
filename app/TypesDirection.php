@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:21 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -10,33 +10,33 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Nivaus
+ * Class TypesDirection
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property string $categorie
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $directions
  *
  * @package App
  */
-class Nivaus extends Eloquent
+class TypesDirection extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
-	protected $table = 'nivaus';
 
 	protected $fillable = [
 		'uuid',
-		'name'
+		'name',
+		'categorie'
 	];
 
-	public function beneficiaires()
+	public function directions()
 	{
-		return $this->hasMany(\App\Beneficiaire::class);
+		return $this->hasMany(\App\Direction::class, 'types_directions_id');
 	}
 }

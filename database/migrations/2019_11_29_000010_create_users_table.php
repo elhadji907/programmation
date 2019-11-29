@@ -37,7 +37,6 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->unsignedInteger('roles_id');
             $table->unsignedInteger('directions_id');
-            $table->rememberToken();
 
             $table->index(["directions_id"], 'fk_users_directions1_idx');
 

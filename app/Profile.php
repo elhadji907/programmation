@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:21 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
@@ -48,10 +48,5 @@ class Profile extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
-	}
-
-	public function getImage(){
-		$imagePath = $this->image ?? 'avatars/default.png';
-		return "/storage/" . $imagePath;
 	}
 }

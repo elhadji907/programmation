@@ -10,43 +10,46 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Commune
+ * Class Antenne
  * 
  * @property int $id
  * @property string $uuid
  * @property string $nom
- * @property int $arrondissements_id
+ * @property int $chef_id
+ * @property int $directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Arrondissement $arrondissement
- * @property \Illuminate\Database\Eloquent\Collection $villages
+ * @property \App\Direction $direction
+ * @property \Illuminate\Database\Eloquent\Collection $regions
  *
  * @package App
  */
-class Commune extends Eloquent
+class Antenne extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'arrondissements_id' => 'int'
+		'chef_id' => 'int',
+		'directions_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'nom',
-		'arrondissements_id'
+		'chef_id',
+		'directions_id'
 	];
 
-	public function arrondissement()
+	public function direction()
 	{
-		return $this->belongsTo(\App\Arrondissement::class, 'arrondissements_id');
+		return $this->belongsTo(\App\Direction::class, 'directions_id');
 	}
 
-	public function villages()
+	public function regions()
 	{
-		return $this->hasMany(\App\Village::class, 'communes_id');
+		return $this->hasMany(\App\Region::class, 'antennes_id');
 	}
 }

@@ -2,13 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 27 Nov 2019 16:42:20 +0000.
+ * Date: Fri, 29 Nov 2019 12:31:45 +0000.
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use \App\Helpers\UuidForKey;
 
 /**
  * Class Certification
@@ -21,13 +20,13 @@ use \App\Helpers\UuidForKey;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $evaluations
- * @property \Illuminate\Database\Eloquent\Collection $formations
  *
  * @package App
  */
 class Certification extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
@@ -37,10 +36,5 @@ class Certification extends Eloquent
 	public function evaluations()
 	{
 		return $this->hasMany(\App\Evaluation::class, 'certifications_id');
-	}
-
-	public function formations()
-	{
-		return $this->hasMany(\App\Formation::class, 'certifications_id');
 	}
 }

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreateRegionsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modules';
+    public $tableName = 'regions';
 
     /**
      * Run the migrations.
-     * @table modules
+     * @table regions
      *
      * @return void
      */
@@ -24,9 +24,18 @@ class CreateModulesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200);
+            $table->string('nom', 200)->nullable();
+            $table->unsignedInteger('antennes_id')->nullable();
+
+            $table->index(["antennes_id"], 'fk_regions_antennes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
+
+            $table->foreign('antennes_id', 'fk_regions_antennes1_idx')
+                ->references('id')->on('antennes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

@@ -3,7 +3,6 @@
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
   <div class="sidebar-brand-icon rotate-n-15">
-   {{--   <i class="fas fa-laugh-wink"></i>  --}}
    <img src="{{ asset('img/ONFP.png') }}" class="img-fluid logo_onfp w-75" alt="LOGO">
   </div>
   <div class="sidebar-brand-text mx-3">ONFP<sup>{{ __("1") }}</sup></div>
@@ -36,15 +35,6 @@
         <span data-feather="plus-circle"></span>
       </a>
   </h6>
-<!-- Nav Item - Pages Collapse Menu -->
-
-{{--  <li class="nav-item">
-  <a class="nav-link" href="{{ route('administrateurs.index') }}">
-      <span data-feather="users"></span>
-    <span>Administrer utilisateurs</span>
-  </a>
-</li>  --}}
-
 <li class="nav-item">
     @roles('Administrateur|Gestionnaire')
   <a class="nav-link" href="{{ route('courriers.index') }}">
@@ -55,65 +45,37 @@
 </li>
 <li class="nav-item">
   <a class="nav-link" href="#">
-      <span data-feather="user-plus"></span>
-    <span>Gestion personnel</span>
+      <span data-feather="users"></span>
+    <span>Gestion opérateurs</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('beneficiaires.index') }}">
+      <span data-feather="layers"></span>
+    <span>Gestion demandes</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="#">
+      <span data-feather="layers"></span>
+    <span>Gestion formations</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('directions.index') }}">
+      <span data-feather="layers"></span>
+    <span>Directions</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('services.index') }}">
+      <span data-feather="layers"></span>
+    <span>Services</span>
   </a>
 </li>
 
-{{-- @roles('Administrateur|Gestionnaire')
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('administrateurs.index') }}">
-        <span data-feather="user"></span>
-      <span>Gestion administrateurs</span>
-    </a>
-  </li>
-  @endroles
-  @roles('Administrateur|Gestionnaire')
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('gestionnaires.index') }}">
-        <span data-feather="user"></span>
-      <span>Gestion gestionnaires</span>
-    </a>
-  </li>
-  @endroles
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('administrateurs.index') }}">
-        <span data-feather="user"></span>
-      <span>Gestion beneficiaires</span>
-    </a>
-  </li> --}}
-
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-        <span data-feather="users"></span>
-      <span>Gestion opérateurs</span>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('beneficiaires.index') }}">
-        <span data-feather="layers"></span>
-      <span>Gestion demandes</span>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-        <span data-feather="layers"></span>
-      <span>Gestion formations</span>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('directions.index') }}">
-        <span data-feather="layers"></span>
-      <span>Directions / Services</span>
-    </a>
-  </li>
-
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-    {{--  <i class="fas fa-fw fa-folder"></i>  --}}
     <span data-feather="folder"></span>
     <span>Pages</span>
   </a>
@@ -143,39 +105,6 @@
         <span data-feather="user"></span>
         <span>Bénéficiaires</span>
       </a>
-    {{--   <a class="collapse-item" href="#">DIOF</a>
-      <a class="collapse-item" href="#">DEC</a>
-      <a class="collapse-item" href="#">DPP</a> --}}
-    {{--        
-      <h6 class="collapse-header">DIRECTIONS</h6>
-      <a class="collapse-item" href="#">DIOF</a>
-      <a class="collapse-item" href="#">DEC</a>
-      <a class="collapse-item" href="#">DPP</a>
-      <a class="collapse-item" href="#">DAF</a>
-      <a class="collapse-item" href="#">CG</a>
-      <a class="collapse-item" href="#">AC</a>
-      <h6 class="collapse-header">SERVICES</h6>
-      <a class="collapse-item" href="#">Service Courrier</a>      
-      <a class="collapse-item" href="#">COM</a>
-      <a class="collapse-item" href="#">URD</a>      
-      <a class="collapse-item" href="#">EDITION</a>
-      <a class="collapse-item" href="#">SI</a>
-      <a class="collapse-item" href="#">CONSTRUCTION</a>
-      <h6 class="collapse-header">ANTENNES</h6>
-      <a class="collapse-item" href="#">KOLDA</a>
-      <a class="collapse-item" href="#">KAOLACK</a>
-      <a class="collapse-item" href="#">SAINT-LOUIS</a>
-      <a class="collapse-item" href="#">KEDOUGOU</a>
-      <a class="collapse-item" href="#">MATAM</a>  
-      --}}
-
-      {{-- 
-      <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-      <div class="collapse-divider"></div>
-      <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="404.html">404 Page</a>
-      <a class="collapse-item" href="blank.html">Blank Page</a>
-      --}}
       @endguest
     </div>
   </div>
