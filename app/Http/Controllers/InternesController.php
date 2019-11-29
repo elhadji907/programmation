@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
 use Auth;
+use App\Courrier;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 
@@ -34,13 +35,14 @@ class InternesController extends Controller
      */
     public function create()
     {
+        $numCourrier = date('YmdHis');
+
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
+        $courriers = \App\Courrier::get()->count();
 
-        $types = TypesCourrier::get();
-        return view('internes.create', compact('types','courriers', 'recues', 'internes', 'departs'));
+        return view('internes.create', compact('numCourrier','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**
@@ -51,7 +53,55 @@ class InternesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'objet'         =>  'required|string|max:100',
+                'expediteur'    =>  'required|string|max:100',
+                'adresse'       =>  'required|string|max:100',
+                'telephone'     =>  'required|string|max:50',
+                'email'         =>  'required|email|max:255',
+                'date_r'        =>  'required|date',
+                'legende'       =>  'required|string|max:100',
+                'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
+
+            ]
+        );
+        $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
+        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $courrier_id = Courrier::get()->last()->id;
+        $annee = date('Y');
+        $numCourrier = "10000".$courrier_id;
+
+        $direction = \App\Direction::first();
+        $courrier = \App\Courrier::first();
+       
+        $filePath = request('file')->store('internes', 'public');
+        $courrier = new Courrier([
+            'numero'             =>      "CI-".$annee."-".$numCourrier,
+            'objet'              =>      $request->input('objet'),
+            'expediteur'         =>      $request->input('expediteur'),
+            'telephone'          =>      $request->input('telephone'),
+            'email'              =>      $request->input('email'),
+            'adresse'            =>      $request->input('adresse'),
+            'fax'                =>      $request->input('fax'),
+            'bp'                 =>      $request->input('bp'),
+            'date'               =>      $request->input('date_r'),
+            'legende'            =>      $request->input('legende'),
+            'types_courriers_id' =>      $types_courrier_id,
+            'gestionnaires_id'   =>      $gestionnaire_id,
+            'file'               =>      $filePath
+        ]);
+
+        $courrier->save();
+
+        $interne = new Interne([
+            'courriers_id'  =>   $courrier->id
+        ]);
+        
+        $interne->save();
+        $direction->courriers()->attach($courrier);
+
+        return redirect()->route('internes.index')->with('success','courrier ajouté avec succès !');
     }
 
     /**
@@ -100,7 +150,6 @@ class InternesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'imputation'    =>  'required|string|max:50',
                 'legende'       =>  'required|string|max:100',
                 'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
@@ -121,7 +170,6 @@ class InternesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->imputation         =      $request->input('imputation');
         $courrier->date               =      $request->input('date_r');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
@@ -150,7 +198,6 @@ class InternesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->imputation         =      $request->input('imputation');
         $courrier->date               =      $request->input('date_r');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;

@@ -14,7 +14,7 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des utilisateurs
+                      Liste des bénéficiaires
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">

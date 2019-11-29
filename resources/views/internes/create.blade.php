@@ -12,17 +12,25 @@
                     <p class="card-category">Courriers internes</p>
                 </div>
                 <div class="card-body">
-        <form method="POST" action="{{ url('recues') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('internes') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-9">
                     <label for="objet"><b>Objet:</b></label>
                     <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
                         id="objet" value="{{ old('objet') }}">
                     <div class="invalid-feedback">
                         {{ $errors->first('objet') }}
                     </div>
-                </div>                   
+                </div>            
+                <div class="form-group col-md-3">
+                    <label for="date_r"><b>Date:</b></label>
+                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
+                        id="date_r" value="{{ old('date_r') }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_r') }}
+                    </div>
+                </div>                
             </div>  
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -79,22 +87,22 @@
                     </div>                   
                 </div>
                 <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="date_r"><b>Date:</b></label>
-                            <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
-                                id="date_r" value="{{ old('date_r') }}">
-                            <div class="invalid-feedback">
-                                {{ $errors->first('date_r') }}
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
+                    <div class="form-group col-md-6">
+                        <label for="legende"><b>Légende</b></label>                            
+                            <input id="legende" type="text" class="form-control @error('legende') is-invalid @enderror" name="legende" value="{{ old('legende') }}" placeholder="donner un nom à ce fichier..." autocomplete="legende" autofocus>                               
+                            @error('legende')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                    </div> 
+                    <div class="form-group col-md-6">
                             <label for="file"><b>Joindre le courrier:</b></label>
-                            <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="{{ old('file') }}" id="validatedCustomFile">
-                            <div class="invalid-feedback">
-                                {{ $errors->first('file') }}
+                            <input type="file" class="form-control-file @error('file') is-invalid @enderror" name="file" value="" id="validatedCustomFile">
+                            <div class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('file') }}</strong>
                             </div>
                         </div>
-
                     </div>
                 <button class="btn btn-outline-primary" type="submit">
                     <span data-feather="save"></span> Enregistrer

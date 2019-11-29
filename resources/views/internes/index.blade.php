@@ -29,7 +29,7 @@
                               <th>Numéro</th>
                               <th>Objet</th>
                               <th>Expediteur</th>
-                              <th>Destinataires</th>
+                              <th>Telephone</th>
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -39,7 +39,7 @@
                                 <th>Numéro</th>
                                 <th>Objet</th>
                                 <th>Expediteur</th>
-                                <th>Destinataires</th>
+                                <th>Telephone</th>
                                 <th>Action</th>
                               </tr>
                             </tfoot>
@@ -91,7 +91,7 @@
                     { data: 'courrier.numero', name: 'courrier.numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
-                    { data: 'courrier.imputation', name: 'courrier.imputation' },
+                    { data: 'courrier.telephone', name: 'courrier.telephone' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],

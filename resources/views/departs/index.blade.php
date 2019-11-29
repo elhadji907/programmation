@@ -1,8 +1,16 @@
 @extends('layout.default')
 @section('content')
 <div class="container-fluid">
+    @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+    @endif 
     <div class="row">
     <div class="col-md-12">
+        @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+        @endif
         <div class="card"> 
             <div class="card-header">
                 <i class="fas fa-table"></i>
@@ -21,10 +29,7 @@
                           <th>Numéro</th>
                           <th>Objet</th>
                           <th>Expediteur</th>
-                          <th>Adresse</th>
                           <th>Telephone</th>
-                          <th>Email</th>
-                          <th>Destinataires</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -34,10 +39,7 @@
                             <th>Numéro</th>
                             <th>Objet</th>
                             <th>Expediteur</th>
-                            <th>Adresse</th>
                             <th>Telephone</th>
-                            <th>Email</th>
-                            <th>Destinataires</th>
                             <th>Action</th>
                           </tr>
                         </tfoot>
@@ -50,6 +52,29 @@
     </div>
 </div>
 </div>
+<div class="modal fade" id="modal_delete_depart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-depart">
+          @csrf
+          @method('DELETE')
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                cliquez sur close pour annuler
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
 @endsection
 
 @push('scripts')
@@ -64,10 +89,7 @@
                     { data: 'courrier.numero', name: 'courrier.numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
-                    { data: 'courrier.adresse', name: 'courrier.adresse' },
                     { data: 'courrier.telephone', name: 'courrier.telephone' },
-                    { data: 'courrier.email', name: 'courrier.email' },
-                    { data: 'courrier.imputation', name: 'courrier.imputation' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -78,9 +100,9 @@
                         url_e =  "{!! route('departs.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('departs.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_recue ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        '<div class="btn btn-danger delete btn_delete_depart ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 8
+                        "targets": 5
                         },
                 ],
                 language: {
@@ -113,6 +135,12 @@
                   }
                 },
               
+          });
+          $('#table-departs').off('click', '.btn_delete_depart').on('click', '.btn_delete_depart',
+          function() { 
+            var href=$(this).data('href');
+            $('#form-delete-depart').attr('action', href);
+            $('#modal_delete_depart').modal();
           });
       });
     </script> 

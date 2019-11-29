@@ -46,7 +46,7 @@ class RecuesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
+        $courriers = \App\Courrier::get()->count();
 
         return view('recues.create',compact('types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
     }
@@ -81,17 +81,6 @@ class RecuesController extends Controller
         $direction = \App\Direction::first();
         $courrier = \App\Courrier::first();
        
-        
-     /*    if($request->file->getClientOriginalName()){
-            $ext =  $request->file->getClientOriginalExtension();
-            $filePath = $request->input('legende')." ".date('YmdHis').rand(1,99999).'.'.$ext;
-            $request->file->storeAs('public/recues',$filePath);
-        }
-        else
-        {
-            $filePath = '';
-        } */
-
         $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
             'numero'             =>      "CA-".$annee."-".$numCourrier,
@@ -102,7 +91,6 @@ class RecuesController extends Controller
             'adresse'            =>      $request->input('adresse'),
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
-            'imputation'         =>      $request->input('imputation'),
             'date'               =>      $request->input('date_r'),
             'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
@@ -145,7 +133,7 @@ class RecuesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-       $courriers = \App\Courrier::get()->count();
+        $courriers = \App\Courrier::get()->count();
 
          $recue = Recue::find($id);
          return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs'));
@@ -169,7 +157,6 @@ class RecuesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'imputation'    =>  'required|string|max:50',
                 'legende'       =>  'required|string|max:100',
                 'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
@@ -190,7 +177,6 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->imputation         =      $request->input('imputation');
         $courrier->date               =      $request->input('date_r');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
@@ -219,7 +205,6 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->imputation         =      $request->input('imputation');
         $courrier->date               =      $request->input('date_r');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;

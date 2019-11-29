@@ -15,14 +15,22 @@
         <form method="POST" action="{{ url('recues') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-9">
                     <label for="objet"><b>Objet:</b></label>
                     <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
                         id="objet" value="{{ old('objet') }}">
                     <div class="invalid-feedback">
                         {{ $errors->first('objet') }}
                     </div>
-                </div>                   
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="date_r"><b>Date:</b></label>
+                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
+                        id="date_r" value="{{ old('date_r') }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_r') }}
+                    </div>
+                </div>                
             </div>  
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -97,16 +105,6 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="date_r"><b>Date:</b></label>
-                        <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
-                            id="date_r" value="{{ old('date_r') }}">
-                        <div class="invalid-feedback">
-                            {{ $errors->first('date_r') }}
-                        </div>
-                    </div>
-                </div>
                 <button class="btn btn-outline-primary" type="submit">
                     <span data-feather="save"></span> Enregistrer
                 </button>
@@ -114,7 +112,8 @@
             </div>
         </div>
     </div>
-</div></div>
+</div>
+</div>
 
 @endsection
 
