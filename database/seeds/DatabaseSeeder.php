@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GestionnairesTableSeeder::class);
         $this->call(NivauxsTableSeeder::class);
         $this->call(VillagesTableSeeder::class);
-        $this->call(BeneficiairesTableSeeder::class);
+        /* $this->call(BeneficiairesTableSeeder::class); */
         $this->call(RecuesTableSeeder::class);
         $this->call(DepartsTableSeeder::class);
         $this->call(InternesTableSeeder::class);

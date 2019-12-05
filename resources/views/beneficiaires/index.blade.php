@@ -29,7 +29,6 @@
                               <th>Matricule</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Email</th>
                               <th>Téléphone</th>
                               <th>Action</th>
                             </tr>
@@ -40,7 +39,6 @@
                                 <th>Matricule</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
-                                <th>Email</th>
                                 <th>Téléphone</th>
                                 <th>Action</th>
                               </tr>
@@ -93,7 +91,6 @@
                     { data: 'matricule', name: 'matricule' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
-                    { data: 'user.email', name: 'user.email' },
                     { data: 'user.telephone', name: 'user.telephone' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -107,7 +104,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
                         '<div class="btn btn-danger delete btn_delete_beneficiaire ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 6
+                        "targets": 5
                         },
                 ],
                 language: {
