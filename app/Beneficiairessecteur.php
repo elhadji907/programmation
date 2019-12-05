@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 05 Dec 2019 20:14:21 +0000.
+ * Date: Thu, 05 Dec 2019 20:15:09 +0000.
  */
 
 namespace App;
@@ -10,43 +10,41 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Domaine
+ * Class Beneficiairessecteur
  * 
  * @property int $id
- * @property string $uuid
- * @property string $name
+ * @property int $beneficiaires_id
  * @property int $secteurs_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Beneficiaire $beneficiaire
  * @property \App\Secteur $secteur
- * @property \Illuminate\Database\Eloquent\Collection $modules
  *
  * @package App
  */
-class Domaine extends Eloquent
+class Beneficiairessecteur extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
+		'beneficiaires_id' => 'int',
 		'secteurs_id' => 'int'
 	];
 
 	protected $fillable = [
-		'uuid',
-		'name',
+		'beneficiaires_id',
 		'secteurs_id'
 	];
+
+	public function beneficiaire()
+	{
+		return $this->belongsTo(\App\Beneficiaire::class, 'beneficiaires_id');
+	}
 
 	public function secteur()
 	{
 		return $this->belongsTo(\App\Secteur::class, 'secteurs_id');
-	}
-
-	public function modules()
-	{
-		return $this->hasMany(\App\Module::class, 'domaines_id');
 	}
 }

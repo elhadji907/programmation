@@ -4,8 +4,8 @@
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
-          <div class="row">
-            <div class="col-md-12">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -14,19 +14,18 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des domaines
+                      Liste des secteurs
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('domaines.create')}}"><div class="btn btn-success">Nouveau domaine&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{route('secteurs.create')}}"><div class="btn btn-success">Nouveau secteur&nbsp;<i class="fas fa-user-plus"></i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-domaines">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-secteurs">
                           <thead class="table-dark">
                             <tr>
                               <th>ID</th>
-                              <th>Domaine</th>
                               <th>Secteur</th>
                               <th>Action</th>
                             </tr>
@@ -34,7 +33,6 @@
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
-                                <th>Domaine</th>
                                 <th>Secteur</th>
                                 <th>Action</th>
                               </tr>
@@ -50,8 +48,8 @@
         </div>
       </div>
 
-      <div class="modal fade" id="modal_delete_domaine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-domaine">
+      <div class="modal fade" id="modal_delete_secteur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-secteur">
           @csrf
           @method('DELETE')
           <div class="modal-dialog" role="document">
@@ -78,14 +76,13 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-domaines').DataTable( { 
+          $('#table-secteurs').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('domaines.list')}}",
+            "ajax": "{{route('secteurs.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'secteur.name', name: 'secteur.name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -93,12 +90,12 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('domaines.edit',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('domaines.destroy',':id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('secteurs.edit',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('secteurs.destroy',':id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_domaine ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        '<div class="btn btn-danger delete btn_delete_secteur ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 3
+                        "targets": 2
                         },
                 ],
                 language: {
@@ -133,11 +130,11 @@
           });
 
           
-        $('#table-domaines').off('click', '.btn_delete_domaine').on('click', '.btn_delete_domaine',
+        $('#table-secteurs').off('click', '.btn_delete_secteur').on('click', '.btn_delete_secteur',
         function() { 
           var href=$(this).data('href');
-          $('#form-delete-domaine').attr('action', href);
-          $('#modal_delete_domaine').modal();
+          $('#form-delete-secteur').attr('action', href);
+          $('#modal_delete_secteur').modal();
         });
       });
       

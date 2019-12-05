@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Domaine;
+use App\Secteur;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class DomainesController extends Controller
+class SecteursController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class DomainesController extends Controller
      */
     public function index()
     {
-        return view('domaines.index');
+        return view('secteurs.index');
     }
 
     /**
@@ -42,10 +42,10 @@ class DomainesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Domaine  $domaine
+     * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function show(Domaine $domaine)
+    public function show(Secteur $secteur)
     {
         //
     }
@@ -53,10 +53,10 @@ class DomainesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Domaine  $domaine
+     * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function edit(Domaine $domaine)
+    public function edit(Secteur $secteur)
     {
         //
     }
@@ -65,10 +65,10 @@ class DomainesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Domaine  $domaine
+     * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Domaine $domaine)
+    public function update(Request $request, Secteur $secteur)
     {
         //
     }
@@ -76,17 +76,17 @@ class DomainesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Domaine  $domaine
+     * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Domaine $domaine)
+    public function destroy(Secteur $secteur)
     {
         //
     }
 
     public function list(Request $request)
     {
-        $domaines=Domaine::with('secteur')->get();
-        return Datatables::of($domaines)->make(true);
+        $secteurs=Secteur::get();
+        return Datatables::of($secteurs)->make(true);
     }
 }

@@ -41,6 +41,7 @@ Route::group([
         Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
         Route::get('/domaines/list', 'DomainesController@list')->name('domaines.list');
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
+        Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
 
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
@@ -65,6 +66,7 @@ Route::group([
         Route::resource('/beneficiaires', 'BeneficiairesController');
         Route::resource('/domaines', 'DomainesController');
         Route::resource('/modules', 'ModulesController');
+        Route::resource('/secteurs', 'SecteursController');
 
     }         
 );

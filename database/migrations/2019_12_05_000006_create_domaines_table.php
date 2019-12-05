@@ -25,8 +25,17 @@ class CreateDomainesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
+            $table->unsignedInteger('secteurs_id');
+
+            $table->index(["secteurs_id"], 'fk_domaines_secteurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
+
+            $table->foreign('secteurs_id', 'fk_domaines_secteurs1_idx')
+                ->references('id')->on('secteurs')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

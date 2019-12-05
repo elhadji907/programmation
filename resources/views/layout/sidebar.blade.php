@@ -68,6 +68,12 @@
   </a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="{{ route('secteurs.index') }}">
+      <span data-feather="layers"></span>
+    <span>Secteurs</span>
+  </a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="{{ route('domaines.index') }}">
       <span data-feather="layers"></span>
     <span>Domaines</span>
