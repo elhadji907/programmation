@@ -47,6 +47,7 @@
           </div>
         </div>
       </div>
+    </div>
 
       <div class="modal fade" id="modal_delete_secteur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="POST" action="" id="form-delete-secteur">
