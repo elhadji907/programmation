@@ -43,12 +43,17 @@ class RecuesController extends Controller
         // $numCourrier = date('YmdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
 
+        $date = Carbon::parse('now');
+        $date = $date->format('Y-m-d');
+
+        /* dd($date); */
+        
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
         $courriers = \App\Courrier::get()->count();
 
-        return view('recues.create',compact('types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
+        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

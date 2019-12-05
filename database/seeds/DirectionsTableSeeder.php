@@ -30,10 +30,10 @@ class DirectionsTableSeeder extends Seeder
     $direction4=App\Direction::firstOrCreate(
                                             ["name"=>"Direction Administrative et Financière"],
                                             ["sigle"=> "DAF" ],
-                                            ["chef_id"=> "4"],["types_directions_id"=> "1" ],
+                                            ["chef_id"=> "4"],["types_directions_id"=> "2" ],
                                             ["uuid"=>Str::uuid()
                                             ]);
-    $direction5=App\Direction::firstOrCreate                                                    
+    $direction5=App\Direction::firstOrCreate(                                                 
                                             ["name"=>"Direction de l'Ingénierie et de la Formation"],
                                             ["sigle"=> "DIOF" ],
                                             ["chef_id"=> "1" ], ["types_directions_id"=> "1" ],["uuid"=>Str::uuid()

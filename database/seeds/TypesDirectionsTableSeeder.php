@@ -14,6 +14,6 @@ class TypesDirectionsTableSeeder extends Seeder
     {
         $type1=App\TypesDirection::firstOrCreate(["name"=>"Direction"],["uuid"=>Str::uuid()]);
         $type2=App\TypesDirection::firstOrCreate(["name"=>"Service"],["uuid"=>Str::uuid()]);
-        $type3=App\TypesDirection::firstOrCreate(["name"=>"Aucune"],["uuid"=>Str::uuid()]);
+        $type3=App\TypesDirection::firstOrCreate(["name"=>"Cellule"],["uuid"=>Str::uuid()]);
     }
 }

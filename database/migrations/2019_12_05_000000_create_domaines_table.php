@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormationsTable extends Migration
+class CreateDomainesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formations';
+    public $tableName = 'domaines';
 
     /**
      * Run the migrations.
-     * @table formations
+     * @table domaines
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class CreateFormationsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('code', 200)->nullable();
+            $table->string('name', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

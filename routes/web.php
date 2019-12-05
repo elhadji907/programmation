@@ -39,6 +39,9 @@ Route::group([
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
         Route::get('/services/list', 'ServicesController@list')->name('services.list');
         Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
+        Route::get('/domaines/list', 'DomainesController@list')->name('domaines.list');
+        Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
+
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
@@ -60,6 +63,8 @@ Route::group([
         Route::resource('/directions', 'DirectionsController');
         Route::resource('/services', 'ServicesController');
         Route::resource('/beneficiaires', 'BeneficiairesController');
+        Route::resource('/domaines', 'DomainesController');
+        Route::resource('/modules', 'ModulesController');
 
     }         
 );

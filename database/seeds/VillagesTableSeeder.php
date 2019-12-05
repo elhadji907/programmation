@@ -91,7 +91,7 @@ class VillagesTableSeeder extends Seeder
                             $nivaus_id = App\Nivaux::all()->random()->id;
 
                             $beneficiaire=App\Beneficiaire::firstOrNew( [
-                                "matricule"=>$village->attributes->id,
+                                'matricule' => "BENEF".$faker->word,
                                 "cin" =>$faker->phoneNumber
                             ],
                             [

@@ -42,6 +42,46 @@ class SnNameGenerator
         "Mme",
     );
 
+    public static $domaine = array(
+
+        "Accueil - Secrétariat",
+        "Agriculture - Agroalimentaire",
+        "Architecture - Urbanisme",
+        "Artisanat",
+        "Arts - Audiovisuel",
+        "Banque - Assurance",
+        "Bâtiment - Travaux publics",
+        "Bureautique",
+        "Commerce - Vente",
+        "Comptabilité - Finance - Gestion",
+        "Développement personnel",
+        "Droit - Juridique",
+        "Édition - Presse - Médias",
+        "Enseignement - Formation",
+        "Esthétique - Beauté",
+        "Graphisme - PAO CAO DAO",
+        "Immobilier",
+        "Industrie",
+        "Informatique - Réseaux - Télécom",
+        "Internet - Web",
+        "Langues",
+        "Lettres - Sciences humaines et sociales",
+        "Management - Direction d'entreprise",
+        "Marketing - Communication",
+        "Mode - Textile",
+        "Qualité - Sécurité - Environnement",
+        "Ressources humaines",
+        "Santé - Social",
+        "Sciences",
+        "Sport - Loisirs",
+        "Tourisme - Hôtellerie - Restauration",
+        "Transport - Achat - Logistique",
+
+
+
+    );
+
+
     public static $name = array(
         "Badiane",
         "Badiatte",
@@ -998,5 +1038,13 @@ class SnNameGenerator
 
     }
 
+    static function getDomaine()
+    {
+        $dimension=count(self::$domaine);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$domaine[$random_index];
+
+
+    }
 }
 

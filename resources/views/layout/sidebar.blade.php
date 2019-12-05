@@ -68,6 +68,18 @@
   </a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="{{ route('domaines.index') }}">
+      <span data-feather="layers"></span>
+    <span>Domaines</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('modules.index') }}">
+      <span data-feather="layers"></span>
+    <span>Modules</span>
+  </a>
+</li>
+<li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
     <span data-feather="folder"></span>
     <span>Pages</span>

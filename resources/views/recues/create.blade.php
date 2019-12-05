@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="date_r"><b>Date:</b></label>
-                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
+                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" value="{{ $date }}" name="date_r" placeholder="date réception courrier..."
                         id="date_r" value="{{ old('date_r') }}">
                     <div class="invalid-feedback">
                         {{ $errors->first('date_r') }}

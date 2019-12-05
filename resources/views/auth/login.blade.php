@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -14,11 +13,10 @@
                     </ul>
                 </div>
                 @endif
-            <div class="card">
-                
-                <div class="card card-header text-center bg-gradient-success">
-                        <h1 class="h4 text-white mb-0"><span data-feather="log-in"></span> CONNEXION</h1>
-                </div>
+            <div class="card">                
+            <div class="card card-header text-center bg-gradient-success">
+                    <h1 class="h4 text-white mb-0"><span data-feather="log-in"></span> CONNEXION</h1>
+            </div>
 
                 <div class="card-body">
                     <form class="user" method="POST" action="{{ route('login') }}">
