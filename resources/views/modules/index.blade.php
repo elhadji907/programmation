@@ -28,7 +28,8 @@
                               <th>ID</th>
                               <th>Module</th>
                               <th>Domaine</th>
-                              <th>ACTION</th>
+                              <th>Secteur</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -36,7 +37,8 @@
                                 <th>ID</th>
                                 <th>Module</th>
                                 <th>Domaine</th>
-                                <th>ACTION</th>
+                                <th>Secteur</th>
+                                <th>Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -86,6 +88,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'domaine.name', name: 'domaine.name' },
+                    { data: 'domaine.secteur.name', name: 'domaine.secteur.name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -98,7 +101,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
                         '<div class="btn btn-danger delete btn_delete_module ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 3
+                        "targets": 4
                         },
                 ],
                 language: {

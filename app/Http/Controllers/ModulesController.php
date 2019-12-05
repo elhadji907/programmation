@@ -86,7 +86,7 @@ class ModulesController extends Controller
 
     public function list(Request $request)
     {
-        $modules=Module::with('domaine')->get();
+        $modules=Module::with('domaine.secteur')->get();
         return Datatables::of($modules)->make(true);
     }
 }
