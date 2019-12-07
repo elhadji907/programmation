@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 29 Nov 2019 12:31:45 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
@@ -15,34 +15,26 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property int $beneficiaires_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Beneficiaire $beneficiaire
+ * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  *
  * @package App
  */
 class Nivaux extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	
 	protected $table = 'nivauxs';
-
-	protected $casts = [
-		'beneficiaires_id' => 'int'
-	];
 
 	protected $fillable = [
 		'uuid',
-		'name',
-		'beneficiaires_id'
+		'name'
 	];
 
-	public function beneficiaire()
+	public function beneficiaires()
 	{
-		return $this->belongsTo(\App\Beneficiaire::class, 'beneficiaires_id');
+		return $this->hasMany(\App\Beneficiaire::class, 'nivauxs_id');
 	}
 }

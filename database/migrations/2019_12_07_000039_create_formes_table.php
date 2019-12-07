@@ -26,6 +26,9 @@ class CreateFormesTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->unsignedInteger('beneficiaires_id');
+            $table->unsignedInteger('formations_id');
+
+            $table->index(["formations_id"], 'fk_formes_formations1_idx');
 
             $table->index(["beneficiaires_id"], 'fk_formes_beneficiaires1_idx');
             $table->softDeletes();
@@ -34,6 +37,11 @@ class CreateFormesTable extends Migration
 
             $table->foreign('beneficiaires_id', 'fk_formes_beneficiaires1_idx')
                 ->references('id')->on('beneficiaires')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('formations_id', 'fk_formes_formations1_idx')
+                ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

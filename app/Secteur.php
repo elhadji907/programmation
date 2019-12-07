@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 05 Dec 2019 20:13:51 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Secteur extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',

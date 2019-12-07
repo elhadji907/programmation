@@ -4,13 +4,13 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Beneficiairesdomaine::class, function (Faker $faker) {
+$factory->define(App\Beneficiairessecteur::class, function (Faker $faker) {
     return [
         'beneficiaires_id' => function () {
             return factory(App\Beneficiaire::class)->create()->id;
         },
-        'domaines_id' => function () {
-            return factory(App\Domaine::class)->create()->id;
+        'secteurs_id' => function () {
+            return factory(App\Secteur::class)->create()->id;
         },
     ];
 });

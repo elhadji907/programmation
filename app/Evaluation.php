@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 29 Nov 2019 12:31:45 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
@@ -23,13 +23,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Certification $certification
  * @property \App\Forme $forme
+ * @property \Illuminate\Database\Eloquent\Collection $retraits
  *
  * @package App
  */
 class Evaluation extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'formes_id' => 'int',
@@ -51,5 +51,10 @@ class Evaluation extends Eloquent
 	public function forme()
 	{
 		return $this->belongsTo(\App\Forme::class, 'formes_id');
+	}
+
+	public function retraits()
+	{
+		return $this->hasMany(\App\Retrait::class, 'evaluations_id');
 	}
 }

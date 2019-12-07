@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 05 Dec 2019 20:14:21 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Domaine extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'secteurs_id' => 'int'

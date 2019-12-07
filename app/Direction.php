@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 29 Nov 2019 12:31:45 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\TypesDirection $types_direction
  * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $courriers
+ * @property \Illuminate\Database\Eloquent\Collection $personnels
  * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * @package App
@@ -32,7 +33,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Direction extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'chef_id' => 'int',
@@ -62,6 +62,11 @@ class Direction extends Eloquent
 		return $this->belongsToMany(\App\Courrier::class, 'courriersdirections', 'directions_id', 'courriers_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
+	}
+
+	public function personnels()
+	{
+		return $this->hasMany(\App\Personnel::class, 'directions_id');
 	}
 
 	public function users()

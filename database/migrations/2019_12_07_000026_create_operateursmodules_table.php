@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormationsTable extends Migration
+class CreateOperateursmodulesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formations';
+    public $tableName = 'operateursmodules';
 
     /**
      * Run the migrations.
-     * @table formations
+     * @table operateursmodules
      *
      * @return void
      */
@@ -23,16 +23,22 @@ class CreateFormationsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->char('uuid', 36);
-            $table->string('code', 200)->nullable();
+            $table->unsignedInteger('operateurs_id');
             $table->unsignedInteger('modules_id');
 
-            $table->index(["modules_id"], 'fk_formations_modules1_idx');
+            $table->index(["modules_id"], 'fk_operateurs_has_modules_modules1_idx');
+
+            $table->index(["operateurs_id"], 'fk_operateurs_has_modules_operateurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('modules_id', 'fk_formations_modules1_idx')
+            $table->foreign('operateurs_id', 'fk_operateurs_has_modules_operateurs1_idx')
+                ->references('id')->on('operateurs')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('modules_id', 'fk_operateurs_has_modules_modules1_idx')
                 ->references('id')->on('modules')
                 ->onDelete('no action')
                 ->onUpdate('no action');

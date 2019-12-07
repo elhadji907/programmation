@@ -2,15 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 29 Nov 2019 12:31:45 +0000.
+ * Date: Sat, 07 Dec 2019 11:31:38 +0000.
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
@@ -38,16 +35,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
+ * @property \Illuminate\Database\Eloquent\Collection $operateurs
+ * @property \Illuminate\Database\Eloquent\Collection $personnels
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
  *
  * @package App
  */
-class User extends Authenticatable
+class User extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'roles_id' => 'int',
@@ -80,23 +79,6 @@ class User extends Authenticatable
 		'directions_id'
 	];
 
-	protected static function boot(){
-		parent::boot();
-		static::created(function ($user){
-			$user->profile()->create([
-				'titre'	=>	'',
-				'description'	=>	'',
-				'url'	=>	''
-			]);
-		});
-	} 
-
-	public function getRouteKeyName()
-	{
-		return 'username';
-	}
-
-
 	public function direction()
 	{
 		return $this->belongsTo(\App\Direction::class, 'directions_id');
@@ -107,19 +89,34 @@ class User extends Authenticatable
 		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateur()
+	public function administrateurs()
 	{
-		return $this->hasOne(\App\Administrateur::class, 'users_id');
+		return $this->hasMany(\App\Administrateur::class, 'users_id');
 	}
 
-	public function beneficiaire()
+	public function beneficiaires()
 	{
-		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
+		return $this->hasMany(\App\Beneficiaire::class, 'users_id');
 	}
 
-	public function gestionnaire()
+	public function evaluateurs()
 	{
-		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
+		return $this->hasMany(\App\Evaluateur::class, 'users_id');
+	}
+
+	public function gestionnaires()
+	{
+		return $this->hasMany(\App\Gestionnaire::class, 'users_id');
+	}
+
+	public function operateurs()
+	{
+		return $this->hasMany(\App\Operateur::class, 'users_id');
+	}
+
+	public function personnels()
+	{
+		return $this->hasMany(\App\Personnel::class, 'users_id');
 	}
 
 	public function postes()
@@ -127,19 +124,8 @@ class User extends Authenticatable
 		return $this->hasMany(\App\Poste::class, 'users_id');
 	}
 
-	public function profile()
+	public function profiles()
 	{
-		return $this->hasOne(\App\Profile::class, 'users_id');
-	}
-
-	//gestion des roles
-	public function hasRole($roleName)
-	{
-		return $this->role->name === $roleName;
-	}
-
-	public function hasAnyRoles($roles)
-	{
-		return in_array($this->role->name, $roles);
+		return $this->hasMany(\App\Profile::class, 'users_id');
 	}
 }

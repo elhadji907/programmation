@@ -11,5 +11,8 @@ $factory->define(App\Forme::class, function (Faker $faker) {
         'beneficiaires_id' => function () {
             return factory(App\Beneficiaire::class)->create()->id;
         },
+        'formations_id' => function () {
+            return factory(App\Formation::class)->create()->id;
+        },
     ];
 });

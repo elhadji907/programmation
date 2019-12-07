@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreateDiplomesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modules';
+    public $tableName = 'diplomes';
 
     /**
      * Run the migrations.
-     * @table modules
+     * @table diplomes
      *
      * @return void
      */
@@ -24,16 +24,17 @@ class CreateModulesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200)->nullable();
-            $table->unsignedInteger('domaines_id');
+            $table->string('name', 200);
+            $table->string('autre', 200)->nullable();
+            $table->unsignedInteger('options_id');
 
-            $table->index(["domaines_id"], 'fk_modules_domaines1_idx');
+            $table->index(["options_id"], 'fk_diplomes_options1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('domaines_id', 'fk_modules_domaines1_idx')
-                ->references('id')->on('domaines')
+            $table->foreign('options_id', 'fk_diplomes_options1_idx')
+                ->references('id')->on('options')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
