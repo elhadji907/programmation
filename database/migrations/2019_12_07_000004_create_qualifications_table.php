@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQualificationTable extends Migration
+class CreateQualificationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'qualification';
+    public $tableName = 'qualifications';
 
     /**
      * Run the migrations.
-     * @table qualification
+     * @table qualifications
      *
      * @return void
      */

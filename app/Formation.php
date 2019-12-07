@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Formation extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'modules_id' => 'int',

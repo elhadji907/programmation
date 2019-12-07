@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 07 Dec 2019 11:31:38 +0000.
+ * Date: Sat, 07 Dec 2019 14:04:01 +0000.
  */
 
 namespace App;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $name
  * @property int $domaines_id
- * @property int $qualification_id
+ * @property int $qualifications_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -32,17 +32,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Module extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'domaines_id' => 'int',
-		'qualification_id' => 'int'
+		'qualifications_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'domaines_id',
-		'qualification_id'
+		'qualifications_id'
 	];
 
 	public function domaine()
@@ -52,7 +53,7 @@ class Module extends Eloquent
 
 	public function qualification()
 	{
-		return $this->belongsTo(\App\Qualification::class);
+		return $this->belongsTo(\App\Qualification::class, 'qualifications_id');
 	}
 
 	public function formations()

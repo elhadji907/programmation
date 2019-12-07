@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Courrier extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'types_courriers_id' => 'int',
@@ -106,5 +107,10 @@ class Courrier extends Eloquent
 	public function recues()
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
+	}
+
+	public function getFile(){
+		$filePath = $this->file ?? 'recues/default.jpg';
+		return "/storage/" . $filePath;
 	}
 }

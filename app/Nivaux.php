@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Nivaux extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 	protected $table = 'nivauxs';
 
 	protected $fillable = [

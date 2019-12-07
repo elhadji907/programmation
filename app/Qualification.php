@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 07 Dec 2019 11:31:38 +0000.
+ * Date: Sat, 07 Dec 2019 14:03:22 +0000.
  */
 
 namespace App;
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Qualification extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	protected $table = 'qualification';
+	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
@@ -35,6 +35,6 @@ class Qualification extends Eloquent
 
 	public function modules()
 	{
-		return $this->hasMany(\App\Module::class);
+		return $this->hasMany(\App\Module::class, 'qualifications_id');
 	}
 }

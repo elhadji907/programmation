@@ -8,6 +8,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * Class User
@@ -44,9 +48,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  *
  * @package App
  */
-class User extends Eloquent
+class User extends Authenticatable
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'roles_id' => 'int',
@@ -79,6 +84,22 @@ class User extends Eloquent
 		'directions_id'
 	];
 
+	protected static function boot(){
+		parent::boot();
+		static::created(function ($user){
+			$user->profile()->create([
+				'titre'	=>	'',
+				'description'	=>	'',
+				'url'	=>	''
+			]);
+		});
+	} 
+
+	public function getRouteKeyName()
+	{
+		return 'username';
+	}
+
 	public function direction()
 	{
 		return $this->belongsTo(\App\Direction::class, 'directions_id');
@@ -91,32 +112,32 @@ class User extends Eloquent
 
 	public function administrateurs()
 	{
-		return $this->hasMany(\App\Administrateur::class, 'users_id');
+		return $this->hasOne(\App\Administrateur::class, 'users_id');
 	}
 
-	public function beneficiaires()
+	public function beneficiaire()
 	{
-		return $this->hasMany(\App\Beneficiaire::class, 'users_id');
+		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
 	}
 
-	public function evaluateurs()
+	public function evaluateur()
 	{
-		return $this->hasMany(\App\Evaluateur::class, 'users_id');
+		return $this->hasOne(\App\Evaluateur::class, 'users_id');
 	}
 
-	public function gestionnaires()
+	public function gestionnaire()
 	{
-		return $this->hasMany(\App\Gestionnaire::class, 'users_id');
+		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
 	}
 
-	public function operateurs()
+	public function operateur()
 	{
-		return $this->hasMany(\App\Operateur::class, 'users_id');
+		return $this->hasOne(\App\Operateur::class, 'users_id');
 	}
 
-	public function personnels()
+	public function personnel()
 	{
-		return $this->hasMany(\App\Personnel::class, 'users_id');
+		return $this->hasOne(\App\Personnel::class, 'users_id');
 	}
 
 	public function postes()
@@ -124,8 +145,19 @@ class User extends Eloquent
 		return $this->hasMany(\App\Poste::class, 'users_id');
 	}
 
-	public function profiles()
+	public function profile()
 	{
-		return $this->hasMany(\App\Profile::class, 'users_id');
+		return $this->hasOne(\App\Profile::class, 'users_id');
+	}
+
+	//gestion des roles
+	public function hasRole($roleName)
+	{
+		return $this->role->name === $roleName;
+	}
+
+	public function hasAnyRoles($roles)
+	{
+		return in_array($this->role->name, $roles);
 	}
 }

@@ -25,6 +25,7 @@ class CreateDiplomesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200);
+            $table->string('sigle', 45)->nullable();
             $table->string('autre', 200)->nullable();
             $table->unsignedInteger('options_id');
 

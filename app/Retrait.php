@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Retrait extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'evaluations_id' => 'int'

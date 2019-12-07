@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Region extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'antennes_id' => 'int'

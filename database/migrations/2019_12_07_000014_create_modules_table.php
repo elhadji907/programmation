@@ -26,9 +26,9 @@ class CreateModulesTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->unsignedInteger('domaines_id');
-            $table->unsignedInteger('qualification_id');
+            $table->unsignedInteger('qualifications_id')->nullable();
 
-            $table->index(["qualification_id"], 'fk_modules_qualification1_idx');
+            $table->index(["qualifications_id"], 'fk_modules_qualification1_idx');
 
             $table->index(["domaines_id"], 'fk_modules_domaines1_idx');
             $table->softDeletes();
@@ -40,8 +40,8 @@ class CreateModulesTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('qualification_id', 'fk_modules_qualification1_idx')
-                ->references('id')->on('qualification')
+            $table->foreign('qualifications_id', 'fk_modules_qualification1_idx')
+                ->references('id')->on('qualifications')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

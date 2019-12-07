@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property string $sigle
  * @property string $autre
  * @property int $options_id
  * @property string $deleted_at
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Diplome extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'options_id' => 'int'
@@ -37,6 +39,7 @@ class Diplome extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'name',
+		'sigle',
 		'autre',
 		'options_id'
 	];

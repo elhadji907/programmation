@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Operateursmodule extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'operateurs_id' => 'int',

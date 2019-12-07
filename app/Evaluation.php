@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Evaluation extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'formes_id' => 'int',

@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Forme extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'beneficiaires_id' => 'int',

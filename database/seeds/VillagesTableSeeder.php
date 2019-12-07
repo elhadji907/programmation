@@ -89,6 +89,8 @@ class VillagesTableSeeder extends Seeder
                             $user->save();
 
                             $nivaus_id = App\Nivaux::all()->random()->id;
+                            $diplomes_id = App\Diplome::all()->random()->id;
+                            $situations_id = App\Situation::all()->random()->id;
 
                             $beneficiaire=App\Beneficiaire::firstOrNew( [
                                 'matricule' => "BENEF".$faker->word,
@@ -97,6 +99,8 @@ class VillagesTableSeeder extends Seeder
                             [
                             "villages_id"=>$village_->id,
                             "nivauxs_id"=>$nivaus_id,
+                            "diplomes_id"=>$diplomes_id,
+                            "situations_id"=>$situations_id,
                             "users_id"=>$user->id
                             ]);
                             $beneficiaire->save();
