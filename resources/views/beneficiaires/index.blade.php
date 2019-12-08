@@ -14,12 +14,12 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des bénéficiaires
+                      Liste des demandeurs
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('beneficiaires.create')}}"><div class="btn btn-success">Nouveau Utilisateur&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{route('beneficiaires.create')}}"><div class="btn btn-success">Nouvelle demande&nbsp;<i class="fas fa-user-plus"></i></div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-beneficiaires">
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> </div>
 
       <div class="modal fade" id="modal_delete_beneficiaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="POST" action="" id="form-delete-beneficiaire">
