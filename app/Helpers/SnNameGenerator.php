@@ -42,6 +42,18 @@ class SnNameGenerator
         "Mme",
     );
 
+    public static $diplome = array(
+
+        "Certificat de fin d'étude élémentaire",
+        "Brevet de fin d'étude moyen",
+        "Baccalauréat",
+        "Licence 1",
+        "Licence 2",
+        "Licence 3",
+        "Master 1",
+        "Master 2",
+    );
+
     public static $domaine = array(
 
         "Accueil - Secrétariat",
@@ -1044,6 +1056,14 @@ class SnNameGenerator
         $random_index=random_int(0, (int)$dimension-1);
         return self::$domaine[$random_index];
 
+
+    }
+
+    static function getDiplome()
+    {
+        $dimension=count(self::$diplome);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$diplome[$random_index];
 
     }
 }

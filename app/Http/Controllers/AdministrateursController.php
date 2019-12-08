@@ -146,7 +146,7 @@ class AdministrateursController extends Controller
        /*  $roles_id = Role::where('name','Administrateur')->first()->id; */
 
 
-        $utilisateur->civilite      =        $request->input('civilite');
+        $utilisateur->civilite       =       $request->input('civilite');
         $utilisateur->firstname      =      $request->input('prenom');
         $utilisateur->name           =      $request->input('nom');
         $utilisateur->telephone      =      $request->input('telephone');

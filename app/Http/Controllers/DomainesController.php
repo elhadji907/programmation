@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Domaine;
+use App\Secteur;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -25,7 +26,8 @@ class DomainesController extends Controller
      */
     public function create()
     {
-        //
+        $secteurs = Secteur::get();
+        return view('domaines.create', compact('secteurs'));
     }
 
     /**
@@ -36,7 +38,25 @@ class DomainesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+               
+                'name'      =>  'required|string|max:50|unique:domaines,name',
+                'secteur'   =>  'required|string',
+            ]
+        );
+        $secteur_id = $request->input('secteur');
+       /*  dd($secteur_id); */
+        $domaine = new Domaine([      
+            'name'           =>      $request->input('name'),
+            'secteurs_id'    =>      $secteur_id
+
+        ]);
+
+
+        
+        $domaine->save();
+        return redirect()->route('domaines.index')->with('success','enregistrement effectué avec succès !');
     }
 
     /**
@@ -56,9 +76,13 @@ class DomainesController extends Controller
      * @param  \App\Domaine  $domaine
      * @return \Illuminate\Http\Response
      */
-    public function edit(Domaine $domaine)
+    public function edit($id)
     {
-        //
+        $domaines = Domaine::find($id);
+        $secteur = $domaines->secteur;
+        $secteurs = Secteur::get();
+        /* dd("$secteurs"); */
+        return view('domaines.update', compact('domaines','secteurs','secteur','id'));
     }
 
     /**
@@ -68,9 +92,19 @@ class DomainesController extends Controller
      * @param  \App\Domaine  $domaine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Domaine $domaine)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'name'      =>  'required|string|max:50',
+                'secteur'   =>  'required|string'
+            ]);   
+        $domaine = Domaine::find($id);
+        $domaine->name          =   $request->input('name');
+        $domaine->secteurs_id   =   $request->input('secteur');
+        $domaine->save();
+        return redirect()->route('domaines.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**
@@ -81,7 +115,9 @@ class DomainesController extends Controller
      */
     public function destroy(Domaine $domaine)
     {
-        //
+        $domaine->delete();
+        $message = $domaine->name.' a été supprimé(e)';
+        return redirect()->route('domaines.index')->with(compact('message'));
     }
 
     public function list(Request $request)

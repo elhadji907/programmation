@@ -1,11 +1,11 @@
 @extends('layout.default')
 @section('content')
         <div class="container-fluid">
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif 
           <div class="row justify-content-center">
             <div class="col-md-8">
+                @if (session()->has('success'))
+                  <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                @endif 
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}

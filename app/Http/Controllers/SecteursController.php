@@ -25,7 +25,7 @@ class SecteursController extends Controller
      */
     public function create()
     {
-        //
+        return view('secteurs.create');
     }
 
     /**
@@ -36,7 +36,19 @@ class SecteursController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+               
+                'name' =>  'required|string|max:50|unique:secteurs,name',
+            ]
+        );
+        $secteur = new Secteur([      
+            'name'           =>      $request->input('name'),
+
+        ]);
+        
+        $secteur->save();
+        return redirect()->route('secteurs.index')->with('success','enregistrement effectué avec succès !');
     }
 
     /**
@@ -56,9 +68,10 @@ class SecteursController extends Controller
      * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function edit(Secteur $secteur)
+    public function edit($id)
     {
-        //
+        $secteur = Secteur::find($id);
+        return view('secteurs.update', compact('secteur','id'));
     }
 
     /**
@@ -68,9 +81,17 @@ class SecteursController extends Controller
      * @param  \App\Secteur  $secteur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Secteur $secteur)
-    {
-        //
+    public function update(Request $request, $id)
+    {       
+        $this->validate(
+            $request, 
+            [
+                'name' =>  'required|string|max:50'
+            ]);   
+        $secteur = Secteur::find($id);
+        $secteur->name  =   $request->input('name');
+        $secteur->save();
+        return redirect()->route('secteurs.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**
@@ -81,7 +102,9 @@ class SecteursController extends Controller
      */
     public function destroy(Secteur $secteur)
     {
-        //
+        $secteur->delete();
+        $message = $secteur->name.' a été supprimé(e)';
+        return redirect()->route('secteurs.index')->with(compact('message'));
     }
 
     public function list(Request $request)

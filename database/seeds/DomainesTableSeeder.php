@@ -12,7 +12,7 @@ class DomainesTableSeeder extends Seeder
      */
     public function run()
     {
-        $domaine1  = App\Domaine::firstOrCreate(["name"=>"Accueil - Secrétariat"],["secteurs_id"=>"1"],["uuid"=>Str::uuid()]);
+        $domaine1  = App\Domaine::firstOrCreate(["name"=>"Accueil - Secrétariat"],["secteurs_id"=>"2"],["uuid"=>Str::uuid()]);
         $domaine2  = App\Domaine::firstOrCreate(["name"=>"Agriculture - Agroalimentaire"],["secteurs_id"=>"1"],["uuid"=>Str::uuid()]);
         $domaine3  = App\Domaine::firstOrCreate(["name"=>"Architecture - Urbanisme"],["secteurs_id"=>"2"],["uuid"=>Str::uuid()]);
         $domaine4  = App\Domaine::firstOrCreate(["name"=>"Artisanat"],["secteurs_id"=>"2"],["uuid"=>Str::uuid()]);
