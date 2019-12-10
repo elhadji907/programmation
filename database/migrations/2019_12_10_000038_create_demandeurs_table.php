@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonnelsTable extends Migration
+class CreateDemandeursTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'personnels';
+    public $tableName = 'demandeurs';
 
     /**
      * Run the migrations.
-     * @table personnels
+     * @table demandeurs
      *
      * @return void
      */
@@ -25,26 +25,33 @@ class CreatePersonnelsTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('matricule', 200)->nullable();
-            $table->timestamp('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->integer('nbrefant')->nullable()->default('0');
+            $table->string('cin', 200)->nullable();
+            $table->string('status', 45)->nullable();
+            $table->unsignedInteger('courriers_id');
             $table->unsignedInteger('users_id');
-            $table->unsignedInteger('directions_id');
+            $table->unsignedInteger('typedemandes_id');
 
-            $table->index(["users_id"], 'fk_personnels_users1_idx');
+            $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
-            $table->index(["directions_id"], 'fk_personnels_directions1_idx');
+            $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
+
+            $table->index(["courriers_id"], 'fk_demandeformations_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_personnels_users1_idx')
+            $table->foreign('courriers_id', 'fk_demandeformations_courriers1_idx')
+                ->references('id')->on('courriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('users_id', 'fk_demandeurs_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('directions_id', 'fk_personnels_directions1_idx')
-                ->references('id')->on('directions')
+            $table->foreign('typedemandes_id', 'fk_demandeurs_typedemandes1_idx')
+                ->references('id')->on('typedemandes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

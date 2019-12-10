@@ -33,11 +33,11 @@ class CreateUsersTable extends Migration
             $table->dateTime('date_naissance')->nullable();
             $table->string('lieu_naissance', 200)->nullable();
             $table->string('situation_familiale', 200)->nullable();
+            $table->char('status', 10)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->unsignedInteger('roles_id');
             $table->unsignedInteger('directions_id');
-            $table->rememberToken();
 
             $table->index(["directions_id"], 'fk_users_directions1_idx');
 

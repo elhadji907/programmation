@@ -24,23 +24,24 @@ class CreateBeneficiairesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200);
-            $table->string('cin', 200)->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('villages_id');
             $table->unsignedInteger('nivauxs_id');
             $table->unsignedInteger('diplomes_id');
             $table->unsignedInteger('situations_id');
+            $table->unsignedInteger('demandeurs_id')->nullable();
 
-            $table->index(["situations_id"], 'fk_beneficiaires_situations1_idx');
+            $table->index(["demandeurs_id"], 'fk_beneficiaires_demandeurs1_idx');
 
-            $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
+            $table->index(["users_id"], 'fk_beneficiaires_users1_idx');
 
             $table->index(["diplomes_id"], 'fk_beneficiaires_diplomes1_idx');
 
             $table->index(["nivauxs_id"], 'fk_beneficiaires_nivauxs1_idx');
 
-            $table->index(["users_id"], 'fk_beneficiaires_users1_idx');
+            $table->index(["situations_id"], 'fk_beneficiaires_situations1_idx');
+
+            $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -67,6 +68,11 @@ class CreateBeneficiairesTable extends Migration
 
             $table->foreign('situations_id', 'fk_beneficiaires_situations1_idx')
                 ->references('id')->on('situations')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('demandeurs_id', 'fk_beneficiaires_demandeurs1_idx')
+                ->references('id')->on('demandeurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

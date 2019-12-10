@@ -26,6 +26,8 @@ class CreateFormationsTable extends Migration
             $table->char('uuid', 36);
             $table->string('code', 200)->nullable();
             $table->string('numero', 200)->nullable();
+            $table->timestamp('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('modules_id');
             $table->unsignedInteger('operateurs_id');
             $table->unsignedInteger('categories_id');

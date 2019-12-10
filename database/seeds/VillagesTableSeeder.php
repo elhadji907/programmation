@@ -93,8 +93,6 @@ class VillagesTableSeeder extends Seeder
                             $situations_id = App\Situation::all()->random()->id;
 
                             $beneficiaire=App\Beneficiaire::firstOrNew( [
-                                'matricule' => "BENEF".$faker->word,
-                                "cin" =>$faker->phoneNumber
                             ],
                             [
                             "villages_id"=>$village_->id,
