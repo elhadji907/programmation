@@ -11,7 +11,7 @@ $factory->define(App\Module::class, function (Faker $faker) {
         'domaines_id' => function () {
             return factory(App\Domaine::class)->create()->id;
         },
-        'qualification_id' => function () {
+        'qualifications_id' => function () {
             return factory(App\Qualification::class)->create()->id;
         },
     ];

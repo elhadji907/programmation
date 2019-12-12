@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 07 Dec 2019 11:31:38 +0000.
+ * Date: Thu, 12 Dec 2019 13:29:57 +0000.
  */
 
 namespace App;
@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $code
  * @property string $numero
+ * @property \Carbon\Carbon $debut
+ * @property \Carbon\Carbon $fin
  * @property int $modules_id
  * @property int $operateurs_id
  * @property int $categories_id
@@ -27,6 +29,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Module $module
  * @property \App\Operateur $operateur
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $conventions
+ * @property \Illuminate\Database\Eloquent\Collection $detfs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
  * @property \Illuminate\Database\Eloquent\Collection $formes
  *
@@ -43,10 +47,17 @@ class Formation extends Eloquent
 		'categories_id' => 'int'
 	];
 
+	protected $dates = [
+		'debut',
+		'fin'
+	];
+
 	protected $fillable = [
 		'uuid',
 		'code',
 		'numero',
+		'debut',
+		'fin',
 		'modules_id',
 		'operateurs_id',
 		'categories_id'
@@ -72,6 +83,16 @@ class Formation extends Eloquent
 		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiairesformations', 'formations_id', 'beneficiaires_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
+	}
+
+	public function conventions()
+	{
+		return $this->hasMany(\App\Convention::class, 'formations_id');
+	}
+
+	public function detfs()
+	{
+		return $this->hasMany(\App\Detf::class, 'formations_id');
 	}
 
 	public function evaluateurs()

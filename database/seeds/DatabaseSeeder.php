@@ -21,11 +21,12 @@ class DatabaseSeeder extends Seeder
         $this->call(OptionsTableSeeder::class);
         $this->call(SituationsTableSeeder::class);
         $this->call(DiplomesTableSeeder::class);
-        $this->call(VillagesTableSeeder::class);
-        $this->call(BeneficiairesTableSeeder::class);
         $this->call(RecuesTableSeeder::class);
         $this->call(DepartsTableSeeder::class);
         $this->call(InternesTableSeeder::class);
+        $this->call(DemandeursTableSeeder::class);
+        $this->call(VillagesTableSeeder::class);
+        $this->call(BeneficiairesTableSeeder::class);
         $this->call(SecteursTableSeeder::class);
         $this->call(DomainesTableSeeder::class);
         $this->call(QualificationsTableSeeder::class);

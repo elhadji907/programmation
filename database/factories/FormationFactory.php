@@ -9,6 +9,8 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'uuid' => $faker->uuid,
         'code' => $faker->word,
         'numero' => $faker->word,
+        'debut' => $faker->dateTime(),
+        'fin' => $faker->dateTime(),
         'modules_id' => function () {
             return factory(App\Module::class)->create()->id;
         },

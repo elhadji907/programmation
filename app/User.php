@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 07 Dec 2019 11:31:38 +0000.
+ * Date: Thu, 12 Dec 2019 13:29:57 +0000.
  */
 
 namespace App;
@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 /**
  * Class User
@@ -27,6 +26,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
  * @property string $situation_familiale
+ * @property string $status
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
  * @property int $roles_id
@@ -39,6 +39,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
@@ -78,6 +79,7 @@ class User extends Authenticatable
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
+		'status',
 		'email_verified_at',
 		'password',
 		'roles_id',
@@ -110,7 +112,7 @@ class User extends Authenticatable
 		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateurs()
+	public function administrateur()
 	{
 		return $this->hasOne(\App\Administrateur::class, 'users_id');
 	}
@@ -118,6 +120,11 @@ class User extends Authenticatable
 	public function beneficiaire()
 	{
 		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
+	}
+
+	public function demandeur()
+	{
+		return $this->hasOne(\App\Demandeur::class, 'users_id');
 	}
 
 	public function evaluateur()

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 07 Dec 2019 11:31:38 +0000.
+ * Date: Thu, 12 Dec 2019 13:29:57 +0000.
  */
 
 namespace App;
@@ -37,8 +37,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Gestionnaire $gestionnaire
  * @property \App\TypesCourrier $types_courrier
  * @property \Illuminate\Database\Eloquent\Collection $directions
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $internes
+ * @property \Illuminate\Database\Eloquent\Collection $programmes
  * @property \Illuminate\Database\Eloquent\Collection $recues
  *
  * @package App
@@ -94,6 +96,11 @@ class Courrier extends Eloquent
 					->withTimestamps();
 	}
 
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'courriers_id');
+	}
+
 	public function departs()
 	{
 		return $this->hasMany(\App\Depart::class, 'courriers_id');
@@ -104,11 +111,16 @@ class Courrier extends Eloquent
 		return $this->hasMany(\App\Interne::class, 'courriers_id');
 	}
 
+	public function programmes()
+	{
+		return $this->hasMany(\App\Programme::class, 'courriers_id');
+	}
+
 	public function recues()
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
 	}
-
+	
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
 		return "/storage/" . $filePath;

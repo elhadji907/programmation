@@ -8,6 +8,7 @@ $factory->define(App\Personnel::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'matricule' => $faker->word,
+        'cin' => $faker->word,
         'debut' => $faker->dateTime(),
         'fin' => $faker->dateTime(),
         'nbrefant' => $faker->randomNumber(),

@@ -16,6 +16,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'date_naissance' => $faker->dateTime(),
         'lieu_naissance' => $faker->word,
         'situation_familiale' => $faker->word,
+        'status' => $faker->word,
         'email_verified_at' => $faker->dateTime(),
         'password' => bcrypt($faker->password),
         'roles_id' => function () {
@@ -25,10 +26,8 @@ $factory->define(App\User::class, function (Faker $faker) {
             return factory(App\Direction::class)->create()->id;
         },
     ];
-});
- */
+}); */
 
- 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -43,6 +42,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'date_naissance' => $faker->dateTime(),
         'lieu_naissance' => $faker->word,
         'situation_familiale' => $faker->word,
+        'status' => "",
         'email' => Str::random(5).".".$faker->safeEmail,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt('secret'),
