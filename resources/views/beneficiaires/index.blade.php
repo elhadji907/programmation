@@ -26,7 +26,7 @@
                           <thead class="table-dark">
                             <tr>
                               <th>Civilité</th>
-                              <th>Matricule</th>
+                              {{--  <th>Matricule</th>  --}}
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Téléphone</th>
@@ -36,7 +36,7 @@
                           <tfoot class="table-dark">
                               <tr>
                                 <th>Civilité</th>
-                                <th>Matricule</th>
+                                {{--  <th>Matricule</th>  --}}
                                 <th>Prenom</th>
                                 <th>Nom</th>
                                 <th>Téléphone</th>
@@ -88,7 +88,7 @@
             "ajax": "{{route('beneficiaires.list')}}",
             columns: [
                     { data: 'user.civilite', name: 'user.civilite' },
-                    { data: 'matricule', name: 'matricule' },
+                    //{ data: 'matricule', name: 'matricule' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.telephone', name: 'user.telephone' },
@@ -104,7 +104,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
                         '<div class="btn btn-danger delete btn_delete_beneficiaire ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 5
+                        "targets": 4
                         },
                 ],
                 language: {
