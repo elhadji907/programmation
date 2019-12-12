@@ -200,14 +200,14 @@ return [
     'max'                  => [
         'numeric' => 'La valeur de :attribute ne peut être supérieure à :max.',
         'file'    => 'Le fichier :attribute ne peut être plus gros que :max kilo-octets.',
-        'string'  => 'Le texte de :attribute ne peut contenir plus de :max caractères.',
+        'string'  => 'Le champ de :attribute ne peut contenir plus de :max caractères.',
         'array'   => 'Le tableau :attribute ne peut avoir plus de :max éléments.',
     ],
     'mimes'                => 'Le champ :attribute doit être un fichier de type : :values.',
     'min'                  => [
         'numeric' => 'La valeur de :attribute doit être supérieure à :min.',
         'file'    => 'Le fichier :attribute doit être plus gros que :min kilo-octets.',
-        'string'  => 'Le texte :attribute doit contenir au moins :min caractères.',
+        'string'  => 'Le champ :attribute doit contenir au moins :min caractères.',
         'array'   => 'Le tableau :attribute doit avoir au moins :min éléments.',
     ],
     'not_in'               => "Le champ :attribute sélectionné n'est pas valide.",
