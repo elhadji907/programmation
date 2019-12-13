@@ -25,8 +25,8 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>Civilité</th>
                               <th>Matricule</th>
+                              <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Téléphone</th>
@@ -35,8 +35,8 @@
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                                <th>Civilité</th>
                                 <th>Matricule</th>
+                                <th>Civilité</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
                                 <th>Téléphone</th>
@@ -87,8 +87,8 @@
             "serverSide": true,
             "ajax": "{{route('demandeurs.list')}}",
             columns: [
-                    { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'matricule', name: 'matricule' },
+                    { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.telephone', name: 'user.telephone' },

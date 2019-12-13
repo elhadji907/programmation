@@ -293,6 +293,7 @@ return [
         'available'             => 'Disponible',
         'size'                  => 'Taille',
         'file'                  => 'fichier',
+        'cin'                  => "carte nationale d'identité",
     ],
 
 ];

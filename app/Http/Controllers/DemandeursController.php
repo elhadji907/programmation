@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Demandeur;
 use App\Role;
+use App\Objet;
 use App\User;
 use App\Courrier;
 use Auth;
@@ -37,7 +38,10 @@ class DemandeursController extends Controller
 
         $roles = Role::get();
         $civilites = User::select('civilite')->distinct()->get();
-        return view('demandeurs.create',compact('date', 'roles', 'civilites'));
+        $objets = Objet::select('name')->distinct()->get();
+
+        // dd($objets);
+        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets'));
     }
 
     /**
@@ -52,7 +56,7 @@ class DemandeursController extends Controller
             $request, [
                 'objet'         =>  'required|string|max:50',
                 'civilite'      =>  'required|string|max:10',
-                'cin'           =>  'required|string|min:12|max:18',
+                'cin'           =>  'required|string|min:12|max:18|unique:demandeurs,cin',
                 'prenom'        =>  'required|string|max:50',
                 'nom'           =>  'required|string|max:50',
                 'date_nais'     =>  'required|date|max:50',
@@ -77,7 +81,6 @@ class DemandeursController extends Controller
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = "10000".$courrier_id;
-
         $direction = \App\Direction::first();
         $courrier = Courrier::first();
        
@@ -116,27 +119,42 @@ class DemandeursController extends Controller
         ]);
         
         $utilisateur->save();
-        
+       /*  
         $letter1 = chr(rand(65,90));
-        $letter2 = chr(rand(65,90));
-        $letter3 = chr(rand(65,90));
-        $letter4 = chr(rand(65,90));
-        $letter5 = chr(rand(65,90));
-        $letter6 = chr(rand(65,90));
-        $annee  =   date('yms');
-        $matricule = $letter5.$letter6.$annee.$letter1.$letter2.'/'.$letter3.$letter4;
-        // dd($matricule);
+       
+        $matricule = $letter5.$letter6.$annee.$letter1.$letter2.'/'.$letter3.$letter4; */
         
+       /*  $matricule = date('YmdHis');
+
+        dd($matricule); */
+
+        // dd($matricule);
+
+        $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
+        /* dd($objets_id); */
+
+        $matricule = 'FP'.date('ymdHis');
+        $letter1 = chr(rand(65,90));
+        $matricule = $matricule.$letter1;
+        // dd($matricule);
+
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
             'matricule'         =>     $matricule,
             'users_id'          =>     $utilisateur->id,
             'courriers_id'      =>     $courrier_id,
-            'typedemandes_id'   =>     $type_demande_id
+            'typedemandes_id'   =>     $type_demande_id,
+            'objets_id'         =>     $objets_id
         ]);
 
         $demandeurs->save();
-        return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
+
+        if ( Auth::user()->role()->first()->name == 'Demandeur' ){
+            return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
+        }
+        else{
+            return redirect()->route('beneficiaires.create')->with('success','bienvenue, merci de compléter votre demande !');
+        }
     }
 
     /**
@@ -186,7 +204,7 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs=Demandeur::with('user')->orderBy('created_at', 'asc')->get();
+        $demandeurs=Demandeur::with('user')->orderBy('created_at', 'desc')->get();
         return Datatables::of($demandeurs)->make(true);
     }
 }

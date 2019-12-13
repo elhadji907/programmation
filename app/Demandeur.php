@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Fri, 13 Dec 2019 12:13:47 +0000.
  */
 
 namespace App;
@@ -20,11 +20,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $courriers_id
  * @property int $users_id
  * @property int $typedemandes_id
+ * @property int $objets_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
+ * @property \App\Objet $objet
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
@@ -40,7 +42,8 @@ class Demandeur extends Eloquent
 	protected $casts = [
 		'courriers_id' => 'int',
 		'users_id' => 'int',
-		'typedemandes_id' => 'int'
+		'typedemandes_id' => 'int',
+		'objets_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -50,12 +53,18 @@ class Demandeur extends Eloquent
 		'status',
 		'courriers_id',
 		'users_id',
-		'typedemandes_id'
+		'typedemandes_id',
+		'objets_id'
 	];
 
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function objet()
+	{
+		return $this->belongsTo(\App\Objet::class, 'objets_id');
 	}
 
 	public function typedemande()

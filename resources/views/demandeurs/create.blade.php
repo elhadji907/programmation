@@ -18,8 +18,14 @@
                         <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="objet"><b>Objet:</b></label>
-                                    <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
-                                        id="objet" value="{{ old('objet') }}">
+                                    <select name="objet" id="objet" class="form-control" value="{{ old('objet') }}">
+                                        <option value="">-----Selectionnez-----</option>
+                                    @foreach($objets as $objet)
+                                        <option value="{{ $objet->name }}">{{ $objet->name }}</option>
+                                    @endforeach
+                                    </select>
+                                   {{--   <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
+                                        id="objet" value="{{ old('objet') }}">  --}}
                                     <div class="invalid-feedback">
                                         {{ $errors->first('objet') }}
                                     </div>
@@ -48,11 +54,11 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1"><b>Civilité</b></label>
                                     <select name="civilite" id="civilite" class="form-control">
-                                            <option value="">Selectionnez</option>
+                                            <option value="">-----Selectionnez-----</option>
                                         @foreach($civilites as $civilite)
                                             <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
                                         @endforeach
-                                        </select>
+                                    </select>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('civilite'))
                                         @foreach ($errors->get('civilite') as $message)

@@ -29,7 +29,7 @@ class CreateBeneficiairesTable extends Migration
             $table->unsignedInteger('nivauxs_id');
             $table->unsignedInteger('diplomes_id');
             $table->unsignedInteger('situations_id');
-            $table->unsignedInteger('demandeurs_id')->nullable();
+            $table->unsignedInteger('demandeurs_id');
 
             $table->index(["demandeurs_id"], 'fk_beneficiaires_demandeurs1_idx');
 
