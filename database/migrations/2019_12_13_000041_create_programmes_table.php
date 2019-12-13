@@ -26,7 +26,7 @@ class CreateProgrammesTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->timestamp('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('effectif')->nullable();
             $table->unsignedInteger('courriers_id');
             $table->unsignedInteger('demandeformations_id');
