@@ -40,7 +40,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) {
     $matricule = $matricule.$letter1;
     return [
         'matricule' => $matricule,
-        'cin' => $faker->word,
+        'cin' => $faker->randomNumber($nbDigit=9),
         'status' => '',
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;

@@ -50,7 +50,7 @@
   </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('beneficiaires.index') }}">
+  <a class="nav-link" href="{{ route('demandeurs.index') }}">
       <span data-feather="layers"></span>
     <span>Gestion demandes</span>
   </a>

@@ -27,6 +27,7 @@
                             <tr>
                               <th>Matricule</th>
                               <th>Civilité</th>
+                              <th>Cin</th>
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Téléphone</th>
@@ -37,6 +38,7 @@
                               <tr>
                                 <th>Matricule</th>
                                 <th>Civilité</th>
+                                <th>Cin</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
                                 <th>Téléphone</th>
@@ -67,11 +69,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                cliquez sur close pour annuler
+                cliquez sur fermer pour annuler
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Supprimer</i></button>
               </div>
             </div>
           </div>
@@ -89,6 +91,7 @@
             columns: [
                     { data: 'matricule', name: 'matricule' },
                     { data: 'user.civilite', name: 'user.civilite' },
+                    { data: 'cin', name: 'cin' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.telephone', name: 'user.telephone' },
@@ -104,7 +107,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
                         '<div class="btn btn-danger delete btn_delete_demandeur ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 5
+                        "targets": 6
                         },
                 ],
                 language: {
