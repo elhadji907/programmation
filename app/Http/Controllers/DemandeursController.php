@@ -189,9 +189,21 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function edit(Demandeur $demandeur)
+    public function edit($id)
     {
-        //
+        $demandeur = Demandeur::find($id);
+        $utilisateur=$demandeur->user;      
+          /* dd($utilisateur); */
+          $date = Carbon::parse('now');
+          $date = $date->format('Y-m-d');
+  
+          $roles = Role::get();
+          $civilites = User::select('civilite')->distinct()->get();
+          $objets = Objet::select('name')->distinct()->get();
+  
+       /*  dd($objets); */
+        //return $utilisateur;
+        return view('demandeurs.update', compact('demandeur', 'utilisateur', 'id', 'roles', 'civilites', 'objets', 'date'));
     }
 
     /**
@@ -219,7 +231,7 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs=Demandeur::with('user')->orderBy('created_at', 'desc')->get();
+        $demandeurs = Demandeur::with('user','courrier')->orderBy('created_at', 'desc')->get();
         return Datatables::of($demandeurs)->make(true);
     }
 }
