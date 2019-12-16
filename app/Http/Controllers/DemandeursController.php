@@ -78,15 +78,30 @@ class DemandeursController extends Controller
         $types_courrier_id = \App\TypesCourrier::where('name','Demande')->first()->id;
         $type_demande_id = \App\Typedemande::where('name','Individuelle')->first()->id;
         $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
-        $courrier_id = Courrier::get()->last()->id;
-        $annee = date('Y');
-        $numCourrier = "10000".$courrier_id;
+        $annee = 'FP'.date('ymdHis');
         $direction = \App\Direction::first();
         $courrier = Courrier::first();
+        
+        $courrier_id =  Courrier::get()->last()->id;
+
+        $longueur = strlen($courrier_id);
+
+        if ($longueur <= '1' ) {
+            $numero_courrier  = "000".$courrier_id;
+        }
+        elseif($longueur <= '2'){
+            $numero_courrier  = "00".$courrier_id;
+
+        }elseif($longueur <= '3') {
+             $numero_courrier  = "0".$courrier_id;
+
+        }else {
+            $numero_courrier  = $courrier_id;
+        }
        
         // $filePath = request('file')->store('demandes', 'public');
         $courrier = new Courrier([
-            'numero'             =>      "D-".$annee."-".$numCourrier,
+            'numero'             =>      "FP-".$annee."-".$numero_courrier,
             'objet'              =>      $request->input('objet'),
             'expediteur'         =>      $request->input('prenom').' '.$request->input('nom'),
             'telephone'          =>      $request->input('telephone1'),

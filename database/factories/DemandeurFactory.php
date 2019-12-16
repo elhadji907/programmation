@@ -35,9 +35,10 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) {
     $types_courrier_id=App\TypesCourrier::where('name','Demande')->first()->id;
     $typedemandes_id = App\Typedemande::all()->random()->id;
     $objets_id = App\Objet::all()->random()->id;
-    $matricule = 'FP'.date('ymdHis');
+    $matricule = 'N'.date('YdmHis');
     $letter1 = chr(rand(65,90));
-    $matricule = $matricule.$letter1;
+    $nombre1 = rand(1000, 9999);
+    $matricule = $matricule.$letter1.$nombre1;
     return [
         'matricule' => $matricule,
         'cin' => $faker->randomNumber($nbDigit=9),

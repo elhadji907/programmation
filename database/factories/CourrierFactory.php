@@ -36,8 +36,32 @@ use Illuminate\Support\Str;
 $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     $gestionnaire_id=App\Gestionnaire::all()->random()->id;
     $annee = date('Y');
+
+    $nbr_courrier =  \App\Courrier::get()->count();
+
+    if ($nbr_courrier != '0') {       
+        $courrier_id =  App\Courrier::get()->last()->id;
+    }else {
+        $courrier_id = '0';
+    }
+
+        $longueur = strlen($courrier_id);
+
+    if ($longueur <= '1' ) {
+        $numero_courrier  = "000".$courrier_id;
+    }
+    elseif($longueur <= '2'){
+        $numero_courrier  = "00".$courrier_id;
+
+    }elseif($longueur <= '3') {
+         $numero_courrier  = "0".$courrier_id;
+
+    }else {
+        $numero_courrier  = $courrier_id;
+    }
+
     return [        
-        'numero' => "SN-".$annee."-".$faker->randomNumber($nbDigit=7,$strict=true),
+        'numero' => $annee."-".$numero_courrier,
         'objet' => "Demande de ".$faker->name,
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'adresse' => $faker->address,
