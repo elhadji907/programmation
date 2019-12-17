@@ -23,7 +23,7 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="firstname"><b>{{ __('Prénom') }}</b>(*)</label>
+                                <label for="firstname"><b>{{ __('Prénom') }}</b>(<span class="text-danger">*</span>)</label>
                                     <input id="firstname" type="text" class="form-control form-control-user @error('firstname') is-invalid @enderror" name="firstname" placeholder="Votre et prenom" value="{{ old('firstname') }}" autocomplete="firstname" autofocus>
                                     @error('firstname')
                                         <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                                     @enderror
                             </div>                            
                             <div class="form-group col-md-6">
-                                <label for="name"><b>{{ __('Nom') }}</b>(*)</label>
+                                <label for="name"><b>{{ __('Nom') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" placeholder="Votre et nom" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                 @error('name')
@@ -45,8 +45,8 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                            <label for="username"><b>{{ __('Username') }}</b>(*)</label>
-                                <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" placeholder="Votre username" value="{{ old('username') }}" autocomplete="username" autofocus>
+                            <label for="username"><b>{{ __('Pseudo') }}</b>(<span class="text-danger">*</span>)</label>
+                                <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" placeholder="Ex: jean21" value="{{ old('username') }}" autocomplete="username" autofocus>
 
                                 @error('username')
                                     <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                            <label for="email"><b>{{ __('Addresse E-Mail') }}</b>(*)</label>
+                            <label for="email"><b>{{ __('Addresse E-Mail') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" placeholder="Votre adresse e-mail" value="{{ old('email') }}" autocomplete="email">
 
                                 @error('email')
@@ -68,7 +68,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                            <label for="password"><b>{{ __('Mot de passe') }}</b>(*)</label>
+                            <label for="password"><b>{{ __('Mot de passe') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" placeholder="Votre mot de passe" autocomplete="new-password">
 
                                 @error('password')
@@ -78,7 +78,7 @@
                                 @enderror
                             </div>                            
                             <div class="form-group col-md-6">
-                            <label for="password-confirm"><b>{{ __('Mot de passe confirmation') }}</b>(*)</label>
+                            <label for="password-confirm"><b>{{ __('Mot de passe confirmation') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="password-confirm" type="password" class="form-control form-control-user" name="password_confirmation" placeholder="Répéter votre mot de passe" autocomplete="new-password">
                             </div>
                         </div>
