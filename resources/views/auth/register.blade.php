@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group col-md-6">
                             <label for="lieu_naissance"><b>{{ __('Lieu de naissance') }}</b>(<span class="text-danger">*</span>)</label>
-                                <input id="lieu_naissance" type="text" class="form-control @error('lieu_naissance') is-invalid @enderror" name="lieu_naissance" placeholder="Votre lieu_naissance de naissance" value="{{ old('lieu_naissance') }}" autocomplete="lieu_naissance">
+                                <input id="lieu_naissance" type="text" class="form-control @error('lieu_naissance') is-invalid @enderror" name="lieu_naissance" placeholder="Votre lieu de naissance" value="{{ old('lieu_naissance') }}" autocomplete="lieu_naissance">
                                 @error('lieu_naissance')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
