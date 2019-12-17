@@ -20,8 +20,9 @@
         </div>
       </form>
     
-     {{--   <!-- Nav Item - Alerts -->  --}}
-      <li class="nav-item dropdown no-arrow mx-1">
+     {{--   <!-- Nav Item - Alerts -->  --}}       
+    @roles('Administrateur|Gestionnaire|Courrier')
+      <li class="nav-item dropdown no-arrow mx-1"> 
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{-- <i class="fas fa-bell fa-fw"></i> --}}
           <span data-feather="bell"></span>
@@ -127,6 +128,7 @@
         </div>
       </li>
 
+      @endroles
       <div class="topbar-divider d-none d-sm-block"></div>
 
       <!-- Nav Item - User Information -->

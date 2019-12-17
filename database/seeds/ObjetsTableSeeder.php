@@ -14,5 +14,6 @@ class ObjetsTableSeeder extends Seeder
         $objet1=App\Objet::firstOrCreate(["name"=>"Demande de formation"],["uuid"=>Str::uuid()]);
         $objet2=App\Objet::firstOrCreate(["name"=>"Demande de prise en charge"],["uuid"=>Str::uuid()]);
         $objet3=App\Objet::firstOrCreate(["name"=>"Demande d'agrément"],["uuid"=>Str::uuid()]);
+        $objet4=App\Objet::firstOrCreate(["name"=>"Demande d'emploi"],["uuid"=>Str::uuid()]);
     }
 }

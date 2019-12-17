@@ -1,5 +1,6 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+@roles('Administrateur|Gestionnaire|Courrier')
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
   <div class="sidebar-brand-icon rotate-n-15">
@@ -7,15 +8,18 @@
   </div>
   <div class="sidebar-brand-text mx-3">ONFP<sup>{{ __("1") }}</sup></div>
 </a>
+@endroles
 
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ url('/home') }}">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Tableau de bord</span></a>
+    @endroles
 </li>
 
 <!-- Divider -->
@@ -28,15 +32,15 @@
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
-      <span data-feather="settings"></span>
-    </a>
-      <span>Gérer mon profil</span>
-      <a class="d-flex align-items-center text-white" href="{{ route('profiles.show', ['user'=>auth()->user()]) }}">
-        <span data-feather="plus-circle"></span>
+      <a class="nav-link d-flex align-items-center text-white" href="{{ route('profiles.show', ['user'=>auth()->user()]) }}">
+      {{--  <span data-feather="settings"></span>  --}}
+      
+      <span data-feather="user"></span>
+      <span> Gérer mon profil </span>
       </a>
   </h6>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('courriers.index') }}">
       <span data-feather="mail"></span>
     <span>Gestion courriers</span>
@@ -44,52 +48,68 @@
   @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="#">
       <span data-feather="users"></span>
     <span>Gestion opérateurs</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('demandeurs.index') }}">
       <span data-feather="layers"></span>
     <span>Gestion demandes</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="#">
       <span data-feather="layers"></span>
     <span>Gestion formations</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('directions.index') }}">
       <span data-feather="layers"></span>
     <span>Directions</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('secteurs.index') }}">
       <span data-feather="layers"></span>
     <span>Secteurs</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('domaines.index') }}">
       <span data-feather="layers"></span>
     <span>Domaines</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('modules.index') }}">
       <span data-feather="layers"></span>
     <span>Modules</span>
   </a>
+  @endroles
 </li>
 <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
     <span data-feather="folder"></span>
     <span>Pages</span>
   </a>
+  @endroles
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Écrans de connexion:</h6>
@@ -121,6 +141,7 @@
   </div>
 </li>
 
+{{--  
 <!-- Nav Item - Charts -->
 <li class="nav-item">
   <a class="nav-link" href="charts.html">
@@ -133,7 +154,8 @@
   <a class="nav-link" href="{{ url('/table')  }}">
     <i class="fas fa-fw fa-table"></i>
     <span>Tables</span></a>
-</li>
+</li>  
+--}}
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
@@ -142,5 +164,4 @@
 <div class="text-center d-none d-md-inline">
   <button class="rounded-circle border-0" id="sidebarToggle"></button>
 </div>
-
 </ul>
