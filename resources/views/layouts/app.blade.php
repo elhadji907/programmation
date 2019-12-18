@@ -25,6 +25,8 @@
     <link rel="dns-prefetch" href="{{ asset('fonts.gstatic.com') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -86,7 +88,8 @@
         </main>
     </div>
 </div>
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 {{--   <!-- Core plugin JavaScript--> --}}
@@ -107,9 +110,19 @@
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
+
   <!-- Page level custom scripts -->
   <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
   <script src="{{ asset('js/feather.min.js') }}"></script>
+  
+  <script type="text/javascript">
+  
+    $("#civilite").select2({
+          placeholder: "selectioner votre civilite",
+          allowClear: true
+      });
+    </script>
+    
   <script>
       feather.replace()
   </script>
