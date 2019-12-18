@@ -14,6 +14,25 @@
   <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  
+  <script type="text/javascript">
+  
+        $("#objet").select2({
+              placeholder: "selectioner un objet",
+              allowClear: true
+          });
+  </script>
+
+  <script type="text/javascript">
+  
+    $("#civilite").select2({
+          placeholder: "selectioner un un sexe",
+          allowClear: true
+      });
+</script>
   
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>

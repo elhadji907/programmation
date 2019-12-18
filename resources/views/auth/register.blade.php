@@ -6,7 +6,8 @@
                 @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
-                    <li>{{ __('Les champs (*) sont obligatoires') }}</li>
+                   {{--  <li>{{ __('Les champs (*) sont obligatoires') }}</li> --}}
+                    {{ __('Les champs (*) sont obligatoires') }}
                     @foreach($errors->all() as $error)
                    {{--  <li>{{$error}}</li> --}}
                     @endforeach

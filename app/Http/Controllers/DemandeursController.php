@@ -8,6 +8,8 @@ use App\Objet;
 use App\User;
 use App\Courrier;
 use Auth;
+
+use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Date;

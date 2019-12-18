@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Role;
+use App\Objet;
+use App\User;
+use DB;
+use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 class HomeController extends Controller
 {  
@@ -23,6 +30,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layout.default');
+        /* return view('demandeurs.create'); */
+        $date = Carbon::parse('now');
+        $date = $date->format('Y-m-d');
+
+        $roles = Role::get();
+        $civilites = User::select('civilite')->distinct()->get();
+        $objets = Objet::select('name')->distinct()->get();
+        /* $data=DB::table('domaines')->get(); */
+
+        // dd($objets);
+        return view('demandeurs.show',compact('date', 'roles', 'civilites', 'objets'));
     }
 }
