@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $matricule
+ * @property string $numero
  * @property string $cin
  * @property string $status
  * @property int $courriers_id
@@ -49,6 +50,7 @@ class Demandeur extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'matricule',
+		'numero',
 		'cin',
 		'status',
 		'courriers_id',

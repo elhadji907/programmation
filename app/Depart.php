@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $numero
  * @property int $courriers_id
  * @property string $destinataire
  * @property string $deleted_at
@@ -35,6 +36,7 @@ class Depart extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'numero',
 		'courriers_id',
 		'destinataire'
 	];

@@ -7,6 +7,7 @@ use App\Role;
 use App\Objet;
 use App\User;
 use DB;
+use Auth;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,6 +41,11 @@ class HomeController extends Controller
         /* $data=DB::table('domaines')->get(); */
 
         // dd($objets);
+        if ( Auth::user()->role()->first()->name != 'Demandeur' ) {            
+            return view('layout.default',compact('date', 'roles', 'civilites', 'objets'));
+        } else {           
         return view('demandeurs.show',compact('date', 'roles', 'civilites', 'objets'));
+        }
+        
     }
 }

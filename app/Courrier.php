@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $numero
  * @property string $objet
  * @property string $expediteur
  * @property string $telephone
@@ -61,7 +60,6 @@ class Courrier extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'numero',
 		'objet',
 		'expediteur',
 		'telephone',

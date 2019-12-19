@@ -86,7 +86,7 @@
             "ajax": "{{route('recues.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'courrier.numero', name: 'courrier.numero' },
+                    { data: 'numero', name: 'numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
                     { data: null ,orderable: false, searchable: false}

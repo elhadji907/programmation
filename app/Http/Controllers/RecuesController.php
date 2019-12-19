@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Courrier;
 use App\Recue;
 use Auth;
+use App\Objet;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -46,6 +47,8 @@ class RecuesController extends Controller
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
+        $objets = Objet::select('name')->distinct()->get();
+
         /* dd($date); */
         
         $recues = \App\Recue::get()->count();
@@ -53,7 +56,7 @@ class RecuesController extends Controller
         $departs = \App\Depart::get()->count();
         $courriers = \App\Courrier::get()->count();
 
-        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs'));
+        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs', 'objets'));
     }
 
     /**
@@ -78,7 +81,7 @@ class RecuesController extends Controller
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $gestionnaire_id  = Auth::user()->first()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = "10000".$courrier_id;
@@ -88,7 +91,6 @@ class RecuesController extends Controller
        
         $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
-            'numero'             =>      "CA-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'expediteur'         =>      $request->input('expediteur'),
             'telephone'          =>      $request->input('telephone'),
@@ -106,6 +108,7 @@ class RecuesController extends Controller
         $courrier->save();
 
         $recue = new Recue([
+            'numero'        =>  "CA-".$annee."-".$numCourrier,
             'courriers_id'  =>   $courrier->id
         ]);
         
@@ -139,9 +142,10 @@ class RecuesController extends Controller
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
         $courriers = \App\Courrier::get()->count();
+        $objets = Objet::select('name')->distinct()->get();
 
          $recue = Recue::find($id);
-         return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs'));
+         return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs', 'objets'));
         /*  dd($recue); */
     }
 
@@ -173,7 +177,7 @@ class RecuesController extends Controller
         $recue = Recue::find($id);
         $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $gestionnaire_id  = Auth::user()->first()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');
@@ -201,7 +205,7 @@ class RecuesController extends Controller
         /* dd($courrier); */
  
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $gestionnaire_id  = Auth::user()->first()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');

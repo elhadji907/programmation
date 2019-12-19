@@ -39,8 +39,27 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) {
     $letter1 = chr(rand(65,90));
     $nombre1 = rand(1000, 9999);
     $matricule = $matricule.$letter1.$nombre1;
+    $annee = date('Y');
+    $nbr_courrier =  \App\Demandeur::get()->count();
+    if ($nbr_courrier != '0') {       
+        $courrier_id =  App\Demandeur::get()->last()->id;
+    }else {
+        $courrier_id = '0';
+    }
+        $longueur = strlen($courrier_id);
+    if ($longueur <= '1' ) {
+        $numero_courrier  = "000".$courrier_id;
+    }
+    elseif($longueur <= '2'){
+        $numero_courrier  = "00".$courrier_id;
+    }elseif($longueur <= '3') {
+         $numero_courrier  = "0".$courrier_id;
+    }else {
+        $numero_courrier  = $courrier_id;
+    }
     return [
         'matricule' => $matricule,
+        'numero' => 'DF-'.$annee."-".$numero_courrier,
         'cin' => $faker->randomNumber($nbDigit=9),
         'status' => '',
         'courriers_id' => function () use($types_courrier_id) {

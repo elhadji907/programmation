@@ -25,6 +25,7 @@ class CreateDemandeursTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('matricule', 200);
+            $table->string('numero', 200);
             $table->string('cin', 200);
             $table->string('status', 45)->nullable();
             $table->unsignedInteger('courriers_id');

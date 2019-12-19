@@ -125,7 +125,6 @@
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Numéro</th>
                         <th>Objet</th>
                         <th>Type</th>
                         <th>Date</th>
@@ -135,7 +134,6 @@
                     <tfoot class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Numéro</th>
                         <th>Objet</th>
                         <th>Type</th>
                         <th>Date</th>
@@ -162,7 +160,6 @@
             "ajax": "{{route('courriers.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'numero', name: 'numero' },
                     { data: 'objet', name: 'objet' },
                     { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: 'created_at', name: 'created_at' },
@@ -178,7 +175,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="voir"><i class="far fa-eye"></i></a>'
                         //+'<a class="btn btn-danger delete ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 5
+                        "targets": 4
                         },
                 ],
                 language: {

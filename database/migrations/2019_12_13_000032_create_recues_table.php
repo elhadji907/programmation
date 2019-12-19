@@ -24,6 +24,7 @@ class CreateRecuesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('numero', 200);
             $table->unsignedInteger('courriers_id');
 
             $table->index(["courriers_id"], 'fk_categories_courriers1_idx');

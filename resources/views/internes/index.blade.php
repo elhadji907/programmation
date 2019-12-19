@@ -88,7 +88,7 @@
             "ajax": "{{route('internes.list')}}",
             columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'courrier.numero', name: 'courrier.numero' },
+                    { data: 'numero', name: 'numero' },
                     { data: 'courrier.objet', name: 'courrier.objet' },
                     { data: 'courrier.expediteur', name: 'courrier.expediteur' },
                     { data: 'courrier.telephone', name: 'courrier.telephone' },
