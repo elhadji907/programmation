@@ -7,7 +7,6 @@
                 <div class="card card-header text-center bg-gradient-success">
                     <h1 class="h4 text-white mb-0"><span data-feather="info"></span> INSCRIPTION</h1>
                 </div>
-
                 <div class="card-body">
                     <form class="user" method="POST" action="{{ route('register') }}">
                         @csrf

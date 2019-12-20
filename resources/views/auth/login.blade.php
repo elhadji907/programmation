@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-                @include('flash::message')
+           {{--      @include('flash::message')
                 @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
@@ -12,7 +12,7 @@
                     @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif --}}
             <div class="card">                
             <div class="card card-header text-center bg-gradient-success">
                     <h1 class="h4 text-white mb-0"><span data-feather="log-in"></span> CONNEXION</h1>

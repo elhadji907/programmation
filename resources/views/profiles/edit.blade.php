@@ -11,7 +11,21 @@
                     <form method="POST" action="{{ route('profiles.update', ['$user' => $user]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
-
+                        <div class="form-group row">
+                            <label for="civilite" class="col-md-4 col-form-label text-md-right">{{ __('Civilité') }}</label>   
+                            <div class="col-md-6">
+                                <select name="civilite" id="civilite" class="form-control">
+                                    @foreach($civilites as $civilite)
+                                        <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
+                                    @endforeach
+                                </select>
+                            @error('civilite')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('Prénom') }}</label>   
                             <div class="col-md-6">
@@ -74,56 +88,6 @@
                                 @enderror
                             </div>
                         </div>
-                       {{--  <div class="form-group">
-                            <label for="description">Description</label>                            
-                            <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" autocomplete="description" autofocus>{{ old('description') ?? auth::user()->description }}
-                            </textarea>                               
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror    
-                        </div>  --}}
-                       {{--  <div class="form-group">
-                            <label for="url">URL</label>                            
-                            <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ old('url') ?? auth::user()->url }}" autocomplete="url" autofocus>                                   
-                            @error('url')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror        
-                        </div> --}}
-                        {{--  <div class="form-group row">
-                            <label for="sexe" class="col-md-4 col-form-label text-md-right">{{ __('Sexe') }}</label>   
-                            <div class="col-md-6">
-                                <select name="sexe" id="sexe" class="form-control selectpicker">
-                                    <option class="text-gray-600 small">--Sélectionner--</option>
-                                @foreach($sexes as $sexe)
-                                    <option value="{{ $sexe->id }}">{{ $sexe->name }}</option>
-                                @endforeach
-                                </select>
-                                @error('sexe')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>  --}}
-{{-- 
-                        <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Photo de profil') }}</label>   
-                            <div class="col-md-6 custom-file">
-                                <input id="image" type="image" class="form-control form-control-user @error('image') is-invalid @enderror" name="image" placeholder="Votre image de profil" value="{{ old('image') ?? auth::user()->image }}" autocomplete="image" autofocus>    
-                                <label class="custom-file-label" for="validatedCustomFile">Chisir une image...</label> 
-                                @error('image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <img class="img-profile img-fluid" src="{{ asset(Auth::user()->profile->getImage()) }}" width="50" height="auto">
-                        </div> --}}
-
                        <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Photo de profil') }}</label> 
                             <div class="custom-file col-md-6">

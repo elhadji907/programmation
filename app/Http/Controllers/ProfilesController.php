@@ -22,14 +22,10 @@ class ProfilesController extends Controller
 
     public function edit(User $user)
     {
-        // dd($user);      
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
-
+        
+        $civilites = User::select('civilite')->distinct()->get();
         $this->authorize('update', $user->profile);
-        return view('profiles.edit', compact('user','courriers', 'recues', 'internes', 'departs'));
+        return view('profiles.edit', compact('user','courriers', 'recues', 'internes', 'departs', 'civilites'));
     }
 
 
@@ -37,6 +33,7 @@ class ProfilesController extends Controller
     {
         $this->authorize('update', $user->profile);
         $data = request()->validate([
+            'civilite'        => ['required', 'string', 'max:50'],
             'firstname'        => ['required', 'string', 'max:50'],
             'name'             => ['required', 'string', 'max:50'],
             'username'         => ['string', 'min:5', 'max:10', 'unique:users'],
@@ -59,6 +56,7 @@ class ProfilesController extends Controller
             ]);
 
             auth()->user()->update([
+            'civilite' => $data['civilite'],
             'firstname' => $data['firstname'],
             'name' => $data['name'],
             'date_naissance' => $data['date_naissance'],
@@ -70,6 +68,7 @@ class ProfilesController extends Controller
             auth()->user()->profile->update($data);
 
             auth()->user()->update([
+                'civilite' => $data['civilite'],
                 'firstname' => $data['firstname'],
                 'name' => $data['name'],
                 'date_naissance' => $data['date_naissance'],

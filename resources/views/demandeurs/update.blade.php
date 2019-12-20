@@ -19,8 +19,6 @@
                                 <div class="form-group col-md-6">
                                     <label for="objet"><b>Objet:</b></label>
                                     <select name="objet" id="objet" class="form-control" value="{{ old('objet') }}">
-                                        <option value="{{  $demandeur->courrier->id }}">{{ $demandeur->courrier->objet }}</option>
-                                        <option value="">---Selectionnez pour modifier---</option>
                                     @foreach($objets as $objet)
                                         <option value="{{ $objet->name }}">{{ $objet->name }}</option>
                                     @endforeach
@@ -53,8 +51,6 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1"><b>Civilité</b></label>
                                     <select name="civilite" id="civilite" class="form-control">
-                                            <option value="{{  $utilisateur->civilite}}">{{ $utilisateur->civilite }}</option>
-                                            <option value="">---Selectionnez pour modifier---</option>
                                         @foreach($civilites as $civilite)
                                             <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
                                         @endforeach

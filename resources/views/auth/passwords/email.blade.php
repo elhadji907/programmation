@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if(count($errors) > 0)
+         {{--    @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
                 @foreach($errors->all() as $error)
@@ -12,7 +12,7 @@
                 @endforeach
                 </ul>
             </div>
-            @endif
+            @endif --}}
             <div class="card">
                 <div class="card card-header text-center bg-gradient-success">
                     <h1 class="h4 text-white mb-0"><span data-feather="x"></span> {{ __('REINITIALISER LE MOT DE PASSE') }}</h1>
