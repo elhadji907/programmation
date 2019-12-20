@@ -51,6 +51,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'civilite' => ['required', 'string', 'max:12'],
             'firstname' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'date_naissance'   => ['required', 'date'],
@@ -73,6 +74,7 @@ class RegisterController extends Controller
         $role = Role::where('name','Demandeur')->first()->id;
         $direction_id = Direction::where('sigle','DG')->first()->id;
         return User::create([
+            'civilite' => $data['civilite'],
             'firstname' => $data['firstname'],
             'name' => $data['name'],
             'date_naissance' => $data['date_naissance'],

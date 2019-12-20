@@ -30,50 +30,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>                            
-                            <div class="form-group col-md-4">
-                                <label for="date_naissance"><b>{{ __('Date de naissance') }}</b>(<span class="text-danger">*</span>)</label>
-                                    <input id="date_naissance" {{ $errors->has('date_r') ? 'is-invalid' : '' }} type="date" class="form-control @error('date_naissance') is-invalid @enderror" name="date_naissance" placeholder="Votre date de naissance" value="{{ old('date_naissance') }}" autocomplete="username" autofocus>    
-                                    @error('date_naissance')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                            <label for="lieu_naissance"><b>{{ __('Lieu de naissance') }}</b>(<span class="text-danger">*</span>)</label>
-                                <input id="lieu_naissance" type="text" class="form-control @error('lieu_naissance') is-invalid @enderror" name="lieu_naissance" placeholder="Votre lieu de naissance" value="{{ old('lieu_naissance') }}" autocomplete="lieu_naissance">
-                                @error('lieu_naissance')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                            <label for="email"><b>{{ __('Addresse E-Mail') }}</b>(<span class="text-danger">*</span>)</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Votre adresse e-mail" value="{{ old('email') }}" autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                            <label for="telephone"><b>{{ __('Telephone') }}</b>(<span class="text-danger">*</span>)</label>
-                                <input id="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" placeholder="Votre numero de telephone" value="{{ old('telephone') }}" autocomplete="telephone" autofocus>
-
-                                @error('telephone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-row">                                                       
+                            </div>                                                       
                             <div class="form-group col-md-4">
                                 <label for="username"><b>{{ __('Pseudo') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Ex: jean21" value="{{ old('username') }}" autocomplete="username" autofocus>    
@@ -83,7 +40,66 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="form-row">
+                                                        
                             <div class="form-group col-md-4">
+                                <label for="date_naissance"><b>{{ __('Date de naissance') }}</b>(<span class="text-danger">*</span>)</label>
+                                    <input id="date_naissance" {{ $errors->has('date_r') ? 'is-invalid' : '' }} type="date" class="form-control @error('date_naissance') is-invalid @enderror" name="date_naissance" placeholder="Votre date de naissance" value="{{ old('date_naissance') }}" autocomplete="username" autofocus>    
+                                    @error('date_naissance')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                            <label for="lieu_naissance"><b>{{ __('Lieu de naissance') }}</b>(<span class="text-danger">*</span>)</label>
+                                <input id="lieu_naissance" type="text" class="form-control @error('lieu_naissance') is-invalid @enderror" name="lieu_naissance" placeholder="Votre lieu de naissance" value="{{ old('lieu_naissance') }}" autocomplete="lieu_naissance">
+                                @error('lieu_naissance')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                                                    
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1"><b>Civilité</b></b>(<span class="text-danger">*</span>)</label>
+                                <select name="civilite" id="civilite" class="form-control {{ $errors->has('civilite') ? 'is-invalid' : '' }}">
+                                        <option value="">-selectionnez-</option>
+                                        <option value="civilite">{{ ('M.') }}</option>
+                                        <option value="civilite">{{ ('Mme') }}</option>
+                                </select>
+                                @error('civilite')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                            <label for="email"><b>{{ __('Addresse E-Mail') }}</b>(<span class="text-danger">*</span>)</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Votre adresse e-mail" value="{{ old('email') }}" autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                            <label for="telephone"><b>{{ __('Telephone') }}</b>(<span class="text-danger">*</span>)</label>
+                                <input id="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" placeholder="Votre numero de telephone" value="{{ old('telephone') }}" autocomplete="telephone" autofocus>
+
+                                @error('telephone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>  <div class="form-row">
+                            <div class="form-group col-md-6">
                             <label for="password"><b>{{ __('Mot de passe') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Votre mot de passe" autocomplete="new-password">
 
@@ -93,7 +109,7 @@
                                     </span>
                                 @enderror
                             </div>                            
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                             <label for="password-confirm"><b>{{ __('Mot de passe confirmation') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Répéter votre mot de passe" autocomplete="new-password">
                             </div>

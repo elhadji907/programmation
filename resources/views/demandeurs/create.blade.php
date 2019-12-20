@@ -18,8 +18,8 @@
                         <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="objet"><b>Objet:</b></label>
-                                    <select name="objet" id="objet" class="form-control" value="{{ old('objet') }}">
-                                        <option value="">-----Selectionnez-----</option>
+                                    <select name="objet" id="objet" class="form-control @error('objet') is-invalid @enderror" value="{{ old('objet') }}">
+                                        <option value=""></option>
                                     @foreach($objets as $objet)
                                         <option value="{{ $objet->name }}">{{ $objet->name }}</option>
                                     @endforeach
@@ -49,22 +49,6 @@
                                             <p class="text-danger">{{ $message }}</p>
                                             @endforeach
                                             @endif
-                                    </small>
-                                </div>                               
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1"><b>Civilité</b></label>
-                                    <select name="civilite" id="civilite" class="form-control">
-                                            <option value="">-----Selectionnez-----</option>
-                                        @foreach($civilites as $civilite)
-                                            <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('civilite'))
-                                        @foreach ($errors->get('civilite') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
                                     </small>
                                 </div>
                             </div>
