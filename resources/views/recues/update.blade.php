@@ -17,9 +17,6 @@
             <input type="hidden" name="_method" value="PATCH" />       
             <div class="form-row">
                 <div class="form-group col-md-12">
-                   {{--   <label for="objet"><b>Objet:</b></label>
-                    <input class="form-control {{ $errors->has('objet') ? 'is-invalid' : '' }}" type="text" name="objet" placeholder="Objet du courrier..."
-                        id="objet" value="{{ old('objet') ?? $recue->courrier->objet }} ">  --}}
                         <label for="objet"><b>Objet:</b></label>
                         <select name="objet" id="objet" class="form-control @error('objet') is-invalid @enderror" value="{{ old('objet') ?? $recue->courrier->objet }}">
                             <option value="{{ $recue->courrier->objet }}">{{ $recue->courrier->objet }}</option>

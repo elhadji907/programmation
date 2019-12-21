@@ -18,17 +18,11 @@ Route::get('/', function () {
 /* Auth::routes(); */
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
-    {   
-        
- /*        $direction = \App\Direction::first();
-        $courrier = \App\Courrier::all();
-        $direction->courriers()->attach($courrier);
-        dd($direction); */
-
+    { 
         Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
         Route::get('/directions.selectresponsable', function() { return view('directions.selectresponsable'); })->name('directions.selectresponsable');
         Route::get('/services.selectresponsable', function() { return view('services.selectresponsable'); })->name('services.selectresponsable');
