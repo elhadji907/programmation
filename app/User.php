@@ -105,52 +105,52 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function direction()
 	{
-		return $this->belongsTo(\App\Direction::class, 'directions_id');
+		return $this->belongsTo(\App\Direction::class, 'directions_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function role()
 	{
-		return $this->belongsTo(\App\Role::class, 'roles_id');
+		return $this->belongsTo(\App\Role::class, 'roles_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function administrateur()
 	{
-		return $this->hasOne(\App\Administrateur::class, 'users_id');
+		return $this->hasOne(\App\Administrateur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function beneficiaire()
 	{
-		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
+		return $this->hasOne(\App\Beneficiaire::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function demandeur()
 	{
-		return $this->hasOne(\App\Demandeur::class, 'users_id');
+		return $this->hasOne(\App\Demandeur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function evaluateur()
 	{
-		return $this->hasOne(\App\Evaluateur::class, 'users_id');
+		return $this->hasOne(\App\Evaluateur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function gestionnaire()
 	{
-		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
+		return $this->hasOne(\App\Gestionnaire::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function operateur()
 	{
-		return $this->hasOne(\App\Operateur::class, 'users_id');
+		return $this->hasOne(\App\Operateur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function personnel()
 	{
-		return $this->hasOne(\App\Personnel::class, 'users_id');
+		return $this->hasOne(\App\Personnel::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function postes()
 	{
-		return $this->hasMany(\App\Poste::class, 'users_id');
+		return $this->hasMany(\App\Poste::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function profile()

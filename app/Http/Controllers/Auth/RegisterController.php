@@ -73,6 +73,7 @@ class RegisterController extends Controller
     {
         $role = Role::where('name','Demandeur')->first()->id;
         $direction_id = Direction::where('sigle','DG')->first()->id;
+      
         return User::create([
             'civilite' => $data['civilite'],
             'firstname' => $data['firstname'],

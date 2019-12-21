@@ -65,8 +65,8 @@
                                 <label for="exampleInputEmail1"><b>Civilité</b></b>(<span class="text-danger">*</span>)</label>
                                 <select name="civilite" id="civilite" class="form-control {{ $errors->has('civilite') ? 'is-invalid' : '' }}">
                                         <option value="">-selectionnez-</option>
-                                        <option value="civilite">{{ ('M.') }}</option>
-                                        <option value="civilite">{{ ('Mme') }}</option>
+                                        <option value="M.">{{ ('M.') }}</option>
+                                        <option value="Mme">{{ ('Mme') }}</option>
                                 </select>
                                 @error('civilite')
                                         <span class="invalid-feedback" role="alert">
@@ -120,21 +120,6 @@
                                 {{ __("Créer un compte") }}
                             </button>
                         </div>
-                        {{--   
-                        <hr>
-                        <div class="form-row">
-                       <div class="col-md-6">
-                            <a href="#" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Inscrivez-vous avec Google
-                            </a>
-                        </div>
-                         <br>
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Inscrivez-vous avec Facebook
-                            </a>
-                        </div> 
-                        </div> --}}
                         <hr>
                         <div class="text-center">
                           <a class="small" href="{{ route('password.request') }}">{{ __('Mot de passe oublié?') }}</a>

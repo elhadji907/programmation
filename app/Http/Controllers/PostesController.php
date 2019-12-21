@@ -35,12 +35,7 @@ class PostesController extends Controller
      */
     public function create()
     {
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
-
-        return view('postes.create', compact('courriers', 'recues', 'internes', 'departs'));
+        return view('postes.create');
     }
 
     /**
@@ -53,7 +48,7 @@ class PostesController extends Controller
     {
         $data = request()->validate([
             'legende'   =>  ['required', 'string'],
-            'image'   =>  ['required', 'image']
+            'image'     =>  ['required', 'image']
 
         ]);
 
@@ -79,13 +74,7 @@ class PostesController extends Controller
      */
     public function show(Poste $poste)
     {
-        //dd($poste);
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
-
-        return view('postes.show', compact('poste','courriers', 'recues', 'internes', 'departs'));
+        return view('postes.show', compact('poste'));
     }
 
     /**

@@ -16,6 +16,7 @@
             @endcan
             
             <div class="mt-3 d-flex">
+                <div class="mr-1"><b>{{ auth::user()->civilite }}</b></div>
                 <div class="mr-1"><b>{{ auth::user()->firstname }}</b></div>
                 <div class="mr-1"><b>{{ auth::user()->name }}</b></div>
 

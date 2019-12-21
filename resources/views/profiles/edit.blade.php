@@ -15,6 +15,7 @@
                             <label for="civilite" class="col-md-4 col-form-label text-md-right">{{ __('Civilité') }}</label>   
                             <div class="col-md-6">
                                 <select name="civilite" id="civilite" class="form-control">
+                                    <option value="{{ auth::user()->civilite }}">{{ auth::user()->civilite }}</option>
                                     @foreach($civilites as $civilite)
                                         <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
                                     @endforeach
