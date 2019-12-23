@@ -151,17 +151,11 @@ class RecuesController extends Controller
      * @param  \App\Recue  $recue
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
-        $objets = Objet::select('name')->distinct()->get();
-
-         $recue = Recue::find($id);
-         return view('recues.update', compact('recue','id','courriers', 'recues', 'internes', 'departs', 'objets'));
+    public function edit(Recue $recue)
+    {        
+        $objets = Objet::pluck('name','name');
+        $directions = Direction::pluck('sigle','id');
+         return view('recues.update', compact('recue', 'directions', 'objets'));
         /*  dd($recue); */
     }
 
@@ -172,7 +166,7 @@ class RecuesController extends Controller
      * @param  \App\Recue  $recue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recue $recue)
     {
         $this->validate(
             $request, [
@@ -190,7 +184,6 @@ class RecuesController extends Controller
 
         if (request('file')) { 
              $filePath = request('file')->store('recues', 'public');
-        $recue = Recue::find($id);
         $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
         $gestionnaire_id  = Auth::user()->first()->id;
@@ -213,9 +206,9 @@ class RecuesController extends Controller
         $recue->courriers_id          =      $courrier->id; 
 
         $recue->save();
+        $courrier->directions()->sync($request->input('directions'));
          }
          else{            
-        $recue = Recue::find($id);
         /*  dd($id); */
         $courrier = $recue->courrier;
         /* dd($courrier); */
@@ -240,7 +233,7 @@ class RecuesController extends Controller
         $recue->courriers_id          =      $courrier->id;
  
         $recue->save();
- 
+        $courrier->directions()->sync($request->input('directions'));
 
          }
 
@@ -260,8 +253,8 @@ class RecuesController extends Controller
         $courrier = \App\Courrier::find($courriers_id);
        /*  dd($courrier); */
         // dd($recue);
-        $numero = $recue->courrier->numero;
-
+        $numero = $recue->numero;
+        $courrier->directions()->detach();
         $courrier->delete();
         $recue->delete();
         

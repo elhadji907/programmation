@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('Imputation') !!}                    
-                            {!! Form::select('directions[]', $directions, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
+                            {!! Form::select('directions[]', $directions, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'direction']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">

@@ -35,7 +35,7 @@
 
   <script type="text/javascript">
   
-    $("#imputation").select2({
+    $("#direction").select2({
           placeholder: "selectioner pour imputer le courrier",
           allowClear: true
       });
@@ -52,3 +52,5 @@
         feather.replace()
     </script>    
 @stack('scripts')
+
+@yield('javascripts')
