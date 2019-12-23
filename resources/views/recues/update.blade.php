@@ -2,6 +2,15 @@
 @section('content')
 <div class="container">
     <div class="container-fluid">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif                    
@@ -18,7 +27,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                         <label for="objet"><b>Objet:</b></label>
-                        <select name="objet" id="objet" class="form-control @error('objet') is-invalid @enderror" value="{{ old('objet') ?? $recue->courrier->objet }}">
+                        <select name="objet" id="objet" class="form-control @error('objet') is-invalid @enderror" value="{{ old('objet') ?? $recue->courrier->objet }}" autofocus>
                             <option value="{{ $recue->courrier->objet }}">{{ $recue->courrier->objet }}</option>
                         @foreach($objets as $objet)
                             <option value="{{ $objet->name }}">{{ $objet->name }}</option>
@@ -83,16 +92,16 @@
                         </div>
                     </div>                     
                     <div class="form-group col-md-4">
-                        <label for="date_r"><b>Date:</b></label>
+                        <label for="date"><b>Date:</b></label>
                         @if ($recue->courrier->date !== NULL)
-                        <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
-                            id="date_r" value="{{ old('date_r') ?? $recue->courrier->date->format('Y-m-d') }}">
+                        <input class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" placeholder="date réception courrier..."
+                            id="date" value="{{ old('date') ?? $recue->courrier->date->format('Y-m-d') }}">
                         @else
-                        <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" name="date_r" placeholder="date réception courrier..."
-                        id="date_r" value="{{ old('date_r') ?? $recue->courrier->date }}">
+                        <input class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date" placeholder="date réception courrier..."
+                        id="date" value="{{ old('date') ?? $recue->courrier->date }}">
                         @endif
                         <div class="invalid-feedback">
-                            {{ $errors->first('date_r') }}
+                            {{ $errors->first('date') }}
                         </div>
                     </div>                   
                 </div>
@@ -116,7 +125,7 @@
                     </div>
                     <div class="form-group col-md-6">
                             <label for="legende"><b>Légende</b></label>                            
-                            <input id="legende" type="text" class="form-control @error('legende') is-invalid @enderror" name="legende" value="{{ old('legende') ?? $recue->courrier->legende}}" placeholder="donner un nom à ce fichier..." autocomplete="legende" autofocus>                               
+                            <input id="legende" type="text" class="form-control @error('legende') is-invalid @enderror" name="legende" value="{{ old('legende') ?? $recue->courrier->legende}}" placeholder="donner un nom à ce fichier..." autocomplete="legende">                               
                             @error('legende')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -41,6 +41,6 @@ class Recue extends Eloquent
 
 	public function courrier()
 	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id')->orderBy('created_at', 'DESC');;
 	}
 }

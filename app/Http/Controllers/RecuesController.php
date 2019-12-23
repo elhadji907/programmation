@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Courrier;
 use App\Recue;
+use App\Interne;
+use App\Depart;
+use App\Direction;
 use Auth;
 use App\Objet;
 use Illuminate\Http\Request;
@@ -25,11 +28,11 @@ class RecuesController extends Controller
         $date = Carbon::today()->locale('fr_FR');
         $date = $date->copy()->addDays(0);
         $date = $date->isoFormat('LLLL'); // M/D/Y
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
-        
+        $recues = Recue::all();
+        $internes = Interne::get()->count();
+        $departs = Depart::get()->count();
+        $courriers = Courrier::all();
+       
         return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
@@ -47,7 +50,8 @@ class RecuesController extends Controller
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
-        $objets = Objet::select('name')->distinct()->get();
+        $objets = Objet::pluck('name','name');
+        $directions = Direction::pluck('sigle','id');
 
         /* dd($date); */
         
@@ -56,7 +60,7 @@ class RecuesController extends Controller
         $departs = \App\Depart::get()->count();
         $courriers = \App\Courrier::get()->count();
 
-        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs', 'objets'));
+        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs', 'objets', 'directions'));
     }
 
     /**
@@ -67,14 +71,22 @@ class RecuesController extends Controller
      */
     public function store(Request $request)
     {
+        
+/* 
+        $imputation = $request->input('imputation', array());
+
+        dd($imputation); */
+
+
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
+                /* 'imputation'    =>  'required|string|max:200', */
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
+                'date'          =>  'required|date',
                 'legende'       =>  'required|string|max:100',
                 'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
@@ -88,6 +100,7 @@ class RecuesController extends Controller
 
         $direction = \App\Direction::first();
         $courrier = \App\Courrier::first();
+        
        
         $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
@@ -98,7 +111,7 @@ class RecuesController extends Controller
             'adresse'            =>      $request->input('adresse'),
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
-            'date'               =>      $request->input('date_r'),
+            'date'               =>      $request->input('date'),
             'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
             'gestionnaires_id'   =>      $gestionnaire_id,
@@ -113,7 +126,10 @@ class RecuesController extends Controller
         ]);
         
         $recue->save();
-        $direction->courriers()->attach($courrier);
+        
+        $courrier->directions()->sync($request->directions);
+
+        /* $direction->courriers()->attach($courrier); */
 
         return redirect()->route('recues.index')->with('success','courrier ajouté avec succès !');
     }
@@ -165,7 +181,7 @@ class RecuesController extends Controller
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
+                'date'          =>  'required|date',
                 'legende'       =>  'required|string|max:100',
                 'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
@@ -186,7 +202,7 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->date               =      $request->input('date_r');
+        $courrier->date               =      $request->input('date');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
         $courrier->gestionnaires_id   =      $gestionnaire_id;
@@ -214,7 +230,7 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->date               =      $request->input('date_r');
+        $courrier->date               =      $request->input('date');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
         $courrier->gestionnaires_id   =      $gestionnaire_id;

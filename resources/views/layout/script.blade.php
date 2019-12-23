@@ -32,6 +32,14 @@
           allowClear: true
       });
 </script>
+
+  <script type="text/javascript">
+  
+    $("#imputation").select2({
+          placeholder: "selectioner pour imputer le courrier",
+          allowClear: true
+      });
+</script>
   
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>

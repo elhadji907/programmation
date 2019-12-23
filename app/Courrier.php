@@ -116,7 +116,7 @@ class Courrier extends Eloquent
 
 	public function recues()
 	{
-		return $this->hasMany(\App\Recue::class, 'courriers_id');
+		return $this->hasMany(\App\Recue::class, 'courriers_id')->orderBy('created_at', 'DESC');;
 	}
 	
 	public function getFile(){

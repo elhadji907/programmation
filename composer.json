@@ -17,6 +17,7 @@
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.8.0",
         "mpociot/laravel-test-factory-helper": "^1.2",
         "reliese/laravel": "^0.0.13",
         "yajra/laravel-datatables-oracle": "~9.0"
