@@ -56,14 +56,30 @@ class CourriersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Courrier $courrier)
-    {        
-      /*  dd($id); */
-      $recues = \App\Recue::get()->count();
-      $internes = \App\Interne::get()->count();
-      $departs = \App\Depart::get()->count();    
-      $courriers = \App\Courrier::get()->count();
-      
-      return view('courriers.show', compact('courriers','courrier', 'recues', 'internes', 'departs'));
+    {
+        $typescourrier = $courrier->types_courrier->name;
+        /* dd($typescourrier); */
+
+        $recues = $courrier->recues;
+        $depart = $courrier->departs;
+        $interne = $courrier->internes;
+        $demande = $courrier->demandeurs;
+        if ($typescourrier == 'Courrier arrives') {            
+        return view('recues.show', compact('recues', 'courrier'));
+
+        } elseif($typescourrier == 'Courrier departs') {    
+        return view('departs.show', compact('depart'));
+
+        } elseif($typescourrier == 'Courrier internes') {    
+            return view('internes.show', compact('interne'));
+
+        } elseif($typescourrier == $typescourrier) {
+            return view('demandeurs.show', compact('demande'));
+        } 
+        else {
+            return view('courriers.show', compact('courrier'));
+        }
+        
     }
 
     /**

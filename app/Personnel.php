@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Tue, 24 Dec 2019 23:03:05 +0000.
  */
 
 namespace App;
@@ -21,11 +21,15 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $nbrefant
  * @property int $users_id
  * @property int $directions_id
+ * @property int $categories_id
+ * @property int $fonctions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Category $category
  * @property \App\Direction $direction
+ * @property \App\Fonction $fonction
  * @property \App\User $user
  *
  * @package App
@@ -38,7 +42,9 @@ class Personnel extends Eloquent
 	protected $casts = [
 		'nbrefant' => 'int',
 		'users_id' => 'int',
-		'directions_id' => 'int'
+		'directions_id' => 'int',
+		'categories_id' => 'int',
+		'fonctions_id' => 'int'
 	];
 
 	protected $dates = [
@@ -54,12 +60,24 @@ class Personnel extends Eloquent
 		'fin',
 		'nbrefant',
 		'users_id',
-		'directions_id'
+		'directions_id',
+		'categories_id',
+		'fonctions_id'
 	];
+
+	public function category()
+	{
+		return $this->belongsTo(\App\Category::class, 'categories_id');
+	}
 
 	public function direction()
 	{
 		return $this->belongsTo(\App\Direction::class, 'directions_id');
+	}
+
+	public function fonction()
+	{
+		return $this->belongsTo(\App\Fonction::class, 'fonctions_id');
 	}
 
 	public function user()

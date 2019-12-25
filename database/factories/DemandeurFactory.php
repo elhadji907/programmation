@@ -32,7 +32,7 @@ use Carbon\Carbon;
 
 $factory->define(App\Demandeur::class, function (Faker\Generator $faker) {
     $role_id=App\Role::where('name','Demandeur')->first()->id;
-    $types_courrier_id=App\TypesCourrier::where('name','Demande')->first()->id;
+    $types_courrier_id=App\TypesCourrier::where('name','Demande de formation')->first()->id;
     $typedemandes_id = App\Typedemande::all()->random()->id;
     $objets_id = App\Objet::all()->random()->id;
     $matricule = 'N'.date('YdmHis');

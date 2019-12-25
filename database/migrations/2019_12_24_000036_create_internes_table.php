@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormesmodulesTable extends Migration
+class CreateInternesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formesmodules';
+    public $tableName = 'internes';
 
     /**
      * Run the migrations.
-     * @table formesmodules
+     * @table internes
      *
      * @return void
      */
@@ -23,23 +23,17 @@ class CreateFormesmodulesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('formes_id');
-            $table->unsignedInteger('modules_id');
+            $table->char('uuid', 36);
+            $table->string('numero', 200)->nullable();
+            $table->unsignedInteger('courriers_id');
 
-            $table->index(["formes_id"], 'fk_formes_has_modules_formes1_idx');
-
-            $table->index(["modules_id"], 'fk_formes_has_modules_modules1_idx');
+            $table->index(["courriers_id"], 'fk_interne_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('formes_id', 'fk_formes_has_modules_formes1_idx')
-                ->references('id')->on('formes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('modules_id', 'fk_formes_has_modules_modules1_idx')
-                ->references('id')->on('modules')
+            $table->foreign('courriers_id', 'fk_interne_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

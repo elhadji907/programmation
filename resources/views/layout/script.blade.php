@@ -52,5 +52,4 @@
         feather.replace()
     </script>    
 @stack('scripts')
-
 @yield('javascripts')

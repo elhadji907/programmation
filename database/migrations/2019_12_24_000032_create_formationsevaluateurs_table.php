@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBeneficiairesformationsTable extends Migration
+class CreateFormationsevaluateursTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'beneficiairesformations';
+    public $tableName = 'formationsevaluateurs';
 
     /**
      * Run the migrations.
-     * @table beneficiairesformations
+     * @table formationsevaluateurs
      *
      * @return void
      */
@@ -23,23 +23,23 @@ class CreateBeneficiairesformationsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('beneficiaires_id');
             $table->unsignedInteger('formations_id');
+            $table->unsignedInteger('evaluateurs_id');
 
-            $table->index(["formations_id"], 'fk_beneficiaires_has_formations_formations1_idx');
+            $table->index(["formations_id"], 'fk_formationsevaluateurs_formations1_idx');
 
-            $table->index(["beneficiaires_id"], 'fk_beneficiaires_has_formations_beneficiaires1_idx');
+            $table->index(["evaluateurs_id"], 'fk_formationsevaluateurs_evaluateurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('beneficiaires_id', 'fk_beneficiaires_has_formations_beneficiaires1_idx')
-                ->references('id')->on('beneficiaires')
+            $table->foreign('formations_id', 'fk_formationsevaluateurs_formations1_idx')
+                ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('formations_id', 'fk_beneficiaires_has_formations_formations1_idx')
-                ->references('id')->on('formations')
+            $table->foreign('evaluateurs_id', 'fk_formationsevaluateurs_evaluateurs1_idx')
+                ->references('id')->on('evaluateurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

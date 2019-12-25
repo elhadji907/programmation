@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCourriersdirectionsTable extends Migration
+class CreateBeneficiairesformationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'courriersdirections';
+    public $tableName = 'beneficiairesformations';
 
     /**
      * Run the migrations.
-     * @table courriersdirections
+     * @table beneficiairesformations
      *
      * @return void
      */
@@ -23,23 +23,23 @@ class CreateCourriersdirectionsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('courriers_id');
-            $table->unsignedInteger('directions_id');
+            $table->unsignedInteger('beneficiaires_id');
+            $table->unsignedInteger('formations_id');
 
-            $table->index(["courriers_id"], 'fk_courriers_has_directions_courriers1_idx');
+            $table->index(["formations_id"], 'fk_beneficiairesformations_formations1_idx');
 
-            $table->index(["directions_id"], 'fk_courriers_has_directions_directions1_idx');
+            $table->index(["beneficiaires_id"], 'fk_beneficiairesformations_beneficiaires1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('courriers_id', 'fk_courriers_has_directions_courriers1_idx')
-                ->references('id')->on('courriers')
+            $table->foreign('beneficiaires_id', 'fk_beneficiairesformations_beneficiaires1_idx')
+                ->references('id')->on('beneficiaires')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('directions_id', 'fk_courriers_has_directions_directions1_idx')
-                ->references('id')->on('directions')
+            $table->foreign('formations_id', 'fk_beneficiairesformations_formations1_idx')
+                ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

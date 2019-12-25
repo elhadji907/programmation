@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternesTable extends Migration
+class CreateFonctionsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'internes';
+    public $tableName = 'fonctions';
 
     /**
      * Run the migrations.
-     * @table internes
+     * @table fonctions
      *
      * @return void
      */
@@ -24,18 +24,11 @@ class CreateInternesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('numero', 200);
-            $table->unsignedInteger('courriers_id');
-
-            $table->index(["courriers_id"], 'fk_interne_courriers1_idx');
+            $table->string('name', 200)->nullable();
+            $table->string('sigle', 45)->nullable();
+            $table->string('profile', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('courriers_id', 'fk_interne_courriers1_idx')
-                ->references('id')->on('courriers')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

@@ -31,10 +31,16 @@ class CreatePersonnelsTable extends Migration
             $table->integer('nbrefant')->nullable()->default('0');
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('directions_id');
+            $table->unsignedInteger('categories_id');
+            $table->unsignedInteger('fonctions_id');
+
+            $table->index(["fonctions_id"], 'fk_personnels_fonctions1_idx');
 
             $table->index(["users_id"], 'fk_personnels_users1_idx');
 
             $table->index(["directions_id"], 'fk_personnels_directions1_idx');
+
+            $table->index(["categories_id"], 'fk_personnels_categories1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -46,6 +52,16 @@ class CreatePersonnelsTable extends Migration
 
             $table->foreign('directions_id', 'fk_personnels_directions1_idx')
                 ->references('id')->on('directions')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('categories_id', 'fk_personnels_categories1_idx')
+                ->references('id')->on('categories')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('fonctions_id', 'fk_personnels_fonctions1_idx')
+                ->references('id')->on('fonctions')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

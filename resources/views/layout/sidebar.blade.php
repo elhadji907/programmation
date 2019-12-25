@@ -72,6 +72,14 @@
   @endroles
 </li>
 <li class="nav-item">
+  @roles('Administrateur|DAF')
+<a class="nav-link" href="{{ route('personnels.index') }}">
+    <span data-feather="layers"></span>
+  <span>Gestion personnel</span>
+</a>
+@endroles
+</li>
+<li class="nav-item">
     @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('directions.index') }}">
       <span data-feather="layers"></span>

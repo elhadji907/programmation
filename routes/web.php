@@ -31,6 +31,7 @@ Route::group([
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
+        Route::get('/personnels/list', 'PersonnelsController@list')->name('personnels.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
         Route::get('/services/list', 'ServicesController@list')->name('services.list');
@@ -52,6 +53,7 @@ Route::group([
         Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
 
         Route::resource('/administrateurs', 'AdministrateursController');
+        Route::resource('/personnels', 'PersonnelsController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
         Route::resource('/presentations', 'PresentationsController');

@@ -1,23 +1,6 @@
 @extends('layout.default')
 @section('content')
 <div class="container-fluid">
-    {{-- <div class="col-md-12">
-        <a class="btn btn-info btn-block" href="{{ route('arrives.show') }}"><span data-feather="book-open"></span> Courriers arrivés</a>
-    </div>
-    <br />
-    <div class="col-md-12">
-        <a class="btn btn-dark btn-block" href="#"><span data-feather="book-open"></span> Courriers départs</a>
-    </div>
-    <br />
-    <div class="col-md-12">
-        <a class="btn btn-info btn-block" href="#"><span data-feather="book-open"></span> Courriers internes</a>
-    </div> --}}
-
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Courriers</h1>
-      {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
-    </div>
-
     <div class="row">     
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -29,7 +12,6 @@
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $courriers }}</div>
                   </div>
                   <div class="col-auto">
-                    {{-- <i class="fas fa-calendar fa-2x text-gray-300"></i> --}}
                     <span data-feather="mail"></span>
                   </div>
                 </div>
@@ -49,7 +31,6 @@
                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{  $recues }}</div>
                   </div>
                   <div class="col-auto">
-                    {{-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> --}}
                     <span data-feather="mail"></span>
                   </div>
                 </div>
@@ -69,15 +50,9 @@
                           <div class="col-auto">
                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{  $departs }}</div>
                           </div>
-                         {{--  <div class="col">
-                            <div class="progress progress-sm mr-2">
-                              <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </div> --}}
                         </div>
                       </div>
                       <div class="col-auto">
-                        {{-- <i class="fas fa-clipboard-list fa-2x text-gray-300"></i> --}}
                         <span data-feather="mail"></span>
                       </div>
                     </div>
@@ -96,7 +71,6 @@
                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $internes }}</div>
                 </div>
                 <div class="col-auto">
-                  {{-- <i class="fas fa-comments fa-2x text-gray-300"></i> --}}
                   <span data-feather="mail"></span>
                 </div>
               </div>
@@ -123,22 +97,29 @@
                     <br />
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">
                     <thead class="table-dark">
-                    <tr>
+                      <tr>
                         <th>ID</th>
                         <th>Objet</th>
-                        <th>Type</th>
+                        <th>Expediteur</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                        <th>Type de courrier</th>
                         <th>Action</th>
-                    </tr>
+                      </tr>
                     </thead>
                     <tfoot class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Objet</th>
-                        <th>Type</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
-                    <tbody                           
+                        <tr>
+                          <th>ID</th>
+                          <th>Objet</th>
+                          <th>Expediteur</th>
+                          <th>Email</th>
+                          <th>Telephone</th>
+                          <th>Type de courrier</th>
+                          <th>Action</th>
+                        </tr>
+                      </tfoot>
+                    <tbody>
+                     
                     </tbody>
                 </table>                        
         </div>
@@ -159,6 +140,9 @@
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'objet', name: 'objet' },
+                    { data: 'expediteur', name: 'expediteur' },
+                    { data: 'email', name: 'email' },
+                    { data: 'telephone', name: 'telephone' },
                     { data: 'types_courrier.name', name: 'types_courrier.name' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -172,7 +156,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit " title="voir"><i class="far fa-eye"></i></a>'
                         //+'<a class="btn btn-danger delete ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 3
+                        "targets": 6
                         },
                 ],
                 language: {
