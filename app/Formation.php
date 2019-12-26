@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Wed, 25 Dec 2019 22:35:31 +0000.
  */
 
 namespace App;
@@ -20,12 +20,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $fin
  * @property int $modules_id
  * @property int $operateurs_id
- * @property int $categories_id
+ * @property int $categorietitres_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Category $category
+ * @property \App\Categorietitre $categorietitre
  * @property \App\Module $module
  * @property \App\Operateur $operateur
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
@@ -39,12 +39,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Formation extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'modules_id' => 'int',
 		'operateurs_id' => 'int',
-		'categories_id' => 'int'
+		'categorietitres_id' => 'int'
 	];
 
 	protected $dates = [
@@ -60,12 +59,12 @@ class Formation extends Eloquent
 		'fin',
 		'modules_id',
 		'operateurs_id',
-		'categories_id'
+		'categorietitres_id'
 	];
 
-	public function category()
+	public function categorietitre()
 	{
-		return $this->belongsTo(\App\Category::class, 'categories_id');
+		return $this->belongsTo(\App\Categorietitre::class, 'categorietitres_id');
 	}
 
 	public function module()

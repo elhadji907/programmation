@@ -30,13 +30,13 @@ class CreateFormationsTable extends Migration
             $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('modules_id');
             $table->unsignedInteger('operateurs_id');
-            $table->unsignedInteger('categories_id');
+            $table->unsignedInteger('categorietitres_id')->nullable();
 
             $table->index(["operateurs_id"], 'fk_formations_operateurs1_idx');
 
-            $table->index(["modules_id"], 'fk_formations_modules1_idx');
+            $table->index(["categorietitres_id"], 'fk_formations_categorietitres1_idx');
 
-            $table->index(["categories_id"], 'fk_formations_categories1_idx');
+            $table->index(["modules_id"], 'fk_formations_modules1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -51,8 +51,8 @@ class CreateFormationsTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('categories_id', 'fk_formations_categories1_idx')
-                ->references('id')->on('categories')
+            $table->foreign('categorietitres_id', 'fk_formations_categorietitres1_idx')
+                ->references('id')->on('categorietitres')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

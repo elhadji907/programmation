@@ -85,27 +85,4 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="modal_delete_recue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form method="POST" action="" id="form-delete-recue">
-      @csrf
-      @method('DELETE')
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer ce courrier ?</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            cliquez sur fermer pour annuler
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-            <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
 @endsection

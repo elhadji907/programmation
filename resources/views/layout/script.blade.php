@@ -28,9 +28,23 @@
   <script type="text/javascript">
   
     $("#civilite").select2({
-          placeholder: "selectioner un un sexe",
+          placeholder: "selectioner un sexe",
           allowClear: true
       });
+</script>  
+  <script type="text/javascript">
+  
+  $("#secteur").select2({
+        placeholder: "selectione un secteur",
+        allowClear: true
+    });
+</script>
+  <script type="text/javascript">
+  
+  $("#domaine").select2({
+        placeholder: "selectioner un domaine",
+        allowClear: true
+    });
 </script>
 
   <script type="text/javascript">

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBeneficiairessecteursTable extends Migration
+class CreateFormesmodulesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'beneficiairessecteurs';
+    public $tableName = 'formesmodules';
 
     /**
      * Run the migrations.
-     * @table beneficiairessecteurs
+     * @table formesmodules
      *
      * @return void
      */
@@ -23,23 +23,23 @@ class CreateBeneficiairessecteursTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('beneficiaires_id');
-            $table->unsignedInteger('secteurs_id');
+            $table->unsignedInteger('formes_id');
+            $table->unsignedInteger('modules_id');
 
-            $table->index(["secteurs_id"], 'fk_beneficiairessecteurs_secteurs1_idx');
+            $table->index(["formes_id"], 'fk_formes_has_modules_formes1_idx');
 
-            $table->index(["beneficiaires_id"], 'fk_beneficiairessecteurs_beneficiaires1_idx');
+            $table->index(["modules_id"], 'fk_formes_has_modules_modules1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('beneficiaires_id', 'fk_beneficiairessecteurs_beneficiaires1_idx')
-                ->references('id')->on('beneficiaires')
+            $table->foreign('formes_id', 'fk_formes_has_modules_formes1_idx')
+                ->references('id')->on('formes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('secteurs_id', 'fk_beneficiairessecteurs_secteurs1_idx')
-                ->references('id')->on('secteurs')
+            $table->foreign('modules_id', 'fk_formes_has_modules_modules1_idx')
+                ->references('id')->on('modules')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
