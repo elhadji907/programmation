@@ -54,6 +54,20 @@
           allowClear: true
       });
 </script>
+  <script type="text/javascript">
+  
+    $("#fonction").select2({
+          placeholder: "selectioner la fonction",
+          allowClear: true
+      });
+</script>
+  <script type="text/javascript">
+  
+    $("#categorie").select2({
+          placeholder: "selectionerla categorie",
+          allowClear: true
+      });
+</script>
   
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>

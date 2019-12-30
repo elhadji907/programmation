@@ -7,6 +7,8 @@ use App\User;
 use App\Role;
 use App\Objet;
 use App\Direction;
+use App\Categorie;
+use App\Fonction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
@@ -31,10 +33,12 @@ class PersonnelsController extends Controller
     public function create()
     {
         $roles = Role::get();
-        $civilites = User::pluck('civilite','civilite');
-        $objets = Objet::pluck('name','name');
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','id')->unique();
+        $objets = Objet::distinct('name')->pluck('name','id');
         $directions = Direction::pluck('sigle','id');
-        return view('personnels.create',compact('roles', 'civilites','objets','directions'));
+        $categories = Categorie::pluck('name','id');
+        $fonctions = Fonction::pluck('name','id');
+        return view('personnels.create',compact('roles', 'civilites','objets','directions','categories','fonctions'));
     }
 
     /**
@@ -45,7 +49,30 @@ class PersonnelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'civilite'     =>  'required|string|max:10',
+                'direction'     =>  'required|string|max:10',
+                'matricule'     =>  'required|string|max:50',
+                'categorie'     =>  'required|string|max:50',
+                'fistname'        =>  'required|string|max:50',
+                'fonction'        =>  'required|string|max:50',
+                'name'           =>  'required|string|max:50',
+                'username'           =>  'required|string|max:50',
+                'telephone'     =>  'required|string|max:50',
+                'email'         =>  'required|email|max:255|unique:users,email',
+                'cin'         =>   'required|string|max:50',
+                'familiale'         =>  'required|string|max:50',
+                'enfant'         =>   'required|int|max:50',
+                'date'         =>  'date',
+                'lieu'         =>   'required|string|max:50',
+                'fax'         =>   'required|string|max:50',
+                'bp'         =>   'required|string|max:50',
+                'file'         =>   'required|string|max:50',
+                'legende'         =>   'required|string|max:50',
+                'password'      =>  'required|confirmed|string|min:8|max:50',
+            ]
+        );
     }
 
     /**
