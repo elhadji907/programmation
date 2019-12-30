@@ -1,5 +1,5 @@
 @extends('layout.default') 
-@section('title', 'ONFP - Enregistrement courrier !')
+@section('title', 'ONFP - Modification courrier !')
 @section('content')
 <div class="container">
     <div class="container-fluid">
@@ -18,7 +18,7 @@
             <div class="row pt-5"></div>
             <div class="card">
                 <div class="card-header card-header-primary text-center">
-                    <h3 class="card-title">Enregistrement</h3>
+                    <h3 class="card-title">Modification</h3>
                     <p class="card-category">Courriers arrivés</p>
                 </div>
 

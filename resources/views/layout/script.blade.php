@@ -50,7 +50,7 @@
   <script type="text/javascript">
   
     $("#direction").select2({
-          placeholder: "selectioner pour imputer le courrier",
+          placeholder: "selectioner",
           allowClear: true
       });
 </script>

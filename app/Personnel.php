@@ -65,9 +65,9 @@ class Personnel extends Eloquent
 		'fonctions_id'
 	];
 
-	public function category()
+	public function categorie()
 	{
-		return $this->belongsTo(\App\Category::class, 'categories_id');
+		return $this->belongsTo(\App\Categorie::class, 'categories_id');
 	}
 
 	public function direction()

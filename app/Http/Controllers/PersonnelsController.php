@@ -33,7 +33,7 @@ class PersonnelsController extends Controller
     public function create()
     {
         $roles = Role::get();
-        $civilites = User::distinct('civilite')->get()->pluck('civilite','id')->unique();
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
         $objets = Objet::distinct('name')->pluck('name','id');
         $directions = Direction::pluck('sigle','id');
         $categories = Categorie::pluck('name','id');
@@ -61,25 +61,27 @@ class PersonnelsController extends Controller
                 'username'      =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
-                'cin'           =>   'required|string|max:50',
-                'familiale'     =>  'required|string|max:50',
-                'enfant'        =>   'required|int|max:50',
-                'date_naiss'    =>  'date',
-                'date_debut'    =>  'date',
-                'lieu'          =>   'required|string|max:50',
+                'cin'           =>  'required|string|min:12|max:15',
+                'familiale'     =>  'required|string',
+                'enfant'        =>  'required|int',
+                'date_naiss'    =>  'required|date',
+                'date_debut'    =>  'required|date',
+                'lieu'          =>  'required|string',
             ]
         );   
         $roles_id = Role::where('name','Administrateur')->first()->id;
         $utilisateur = new User([      
-            'civilite'       =>       $request->input('civilite'),      
-            'firstname'      =>      $request->input('firstname'),
-            'name'           =>      $request->input('name'),
-            'date_naissance' =>      $request->input('date_naiss'),
-            'lieu_naissance' =>      $request->input('lieu'),
-            'email'          =>      $request->input('email'),
-            'telephone'      =>      $request->input('telephone'),
-            'password'       =>      Hash::make($request->input('password')),
-            'roles_id'       =>      $roles_id
+            'civilite'              =>      $request->input('civilite'),      
+            'firstname'             =>      $request->input('firstname'),
+            'name'                  =>      $request->input('name'),
+            'username'              =>      $request->input('username'),
+            'date_naissance'        =>      $request->input('date_naiss'),
+            'lieu_naissance'        =>      $request->input('lieu'),
+            'situation_familiale'   =>      $request->input('familiale'),
+            'email'                 =>      $request->input('email'),
+            'telephone'             =>      $request->input('telephone'),
+            'password'              =>      Hash::make($request->input('password')),
+            'roles_id'              =>      $roles_id
         ]);
         $utilisateur->save();
 
@@ -89,12 +91,13 @@ class PersonnelsController extends Controller
             'debut'         =>     $request->input('date_debut'),
             'nbrefant'      =>     $request->input('enfant'),
             'users_id'      =>     $utilisateur->id,
-            'categories_id' =>     $utilisateur->id,
-            'directions_id' =>     $utilisateur->id,
-            'fonctions_id'  =>     $utilisateur->id
+            'categories_id' =>     $request->input('categorie'),
+            'directions_id' =>     $request->input('direction'),
+            'fonctions_id'  =>     $request->input('fonction')
         ]);
         
         $personnel->save();
+        return redirect()->route('personnels.index')->with('success','personnel ajouté avec succès !');
     }
 
     /**
@@ -116,7 +119,13 @@ class PersonnelsController extends Controller
      */
     public function edit(Personnel $personnel)
     {
-        //
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
+        $objets = Objet::distinct('name')->pluck('name','name');
+        $directions = Direction::pluck('name','name');
+        $categories = Categorie::pluck('name','name');
+        $fonctions = Fonction::pluck('name','name');
+
+        return view('personnels.update', compact('personnel', 'objets', 'directions', 'civilites', 'categories', 'fonctions'));
     }
 
     /**
@@ -128,7 +137,24 @@ class PersonnelsController extends Controller
      */
     public function update(Request $request, Personnel $personnel)
     {
-        //
+        $this->validate(
+            $request, [
+                'civilite'      =>  'required|string|max:10',
+                'direction'     =>  'required|string|max:10',
+                'matricule'     =>  'required|string|max:50',
+                'categorie'     =>  'required|string|max:50',
+                'firstname'     =>  'required|string|max:50',
+                'fonction'      =>  'required|string|max:50',
+                'name'          =>  'required|string|max:50',
+                'telephone'     =>  'required|string|max:50',
+                'cin'           =>  'required|string|min:12|max:15',
+                'familiale'     =>  'required|string',
+                'enfant'        =>  'required|int',
+                'date_naiss'    =>  'required|date',
+                'date_debut'    =>  'required|date',
+                'lieu'          =>  'required|string',
+            ]
+        );  
     }
 
     /**
@@ -139,7 +165,10 @@ class PersonnelsController extends Controller
      */
     public function destroy(Personnel $personnel)
     {
-        //
+        $personnel->user->delete();
+        $personnel->delete();
+        $message = $personnel->user->firstname.' '.$personnel->user->name.' a été supprimé(e)';
+        return redirect()->route('personnels.index')->with(compact('message'));
     }
 
     public function list(Request $request)

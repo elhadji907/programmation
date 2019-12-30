@@ -83,8 +83,7 @@ class User extends Authenticatable implements MustVerifyEmail
 		'status',
 		'email_verified_at',
 		'password',
-		'roles_id',
-		'directions_id'
+		'roles_id'
 	];
 
 	protected static function boot(){

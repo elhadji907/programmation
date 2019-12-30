@@ -78,7 +78,6 @@ class VillagesTableSeeder extends Seeder
                             "password"=>bcrypt("secret"),
                             "roles_id"=>$role_beneficiaire->id,
                             'username' => Str::random(7),
-                            'directions_id'=>$direction_id,
                             'civilite' => SnmG::getCivilite(),   
                             'date_naissance' => $faker->dateTime(),
                             'lieu_naissance' => $faker->word,

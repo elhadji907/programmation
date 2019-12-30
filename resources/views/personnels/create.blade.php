@@ -1,5 +1,5 @@
 @extends('layout.default') 
-@section('title', 'ONFP - Enregistrement courrier !')
+@section('title', 'ONFP - Enregistrement personnel !')
 @section('content')
 <div class="container">
     <div class="container-fluid">
@@ -109,7 +109,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label("date d'entrée en fonction", null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_recrutement', null, ['placeholder'=>"La date de recrutement", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_debut', null, ['placeholder'=>"La date de recrutement", 'class'=>'form-control']) !!}                    
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('Telephone') !!}                    
