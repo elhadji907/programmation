@@ -51,28 +51,50 @@ class PersonnelsController extends Controller
     {
         $this->validate(
             $request, [
-                'civilite'     =>  'required|string|max:10',
+                'civilite'      =>  'required|string|max:10',
                 'direction'     =>  'required|string|max:10',
                 'matricule'     =>  'required|string|max:50',
                 'categorie'     =>  'required|string|max:50',
-                'fistname'        =>  'required|string|max:50',
-                'fonction'        =>  'required|string|max:50',
-                'name'           =>  'required|string|max:50',
-                'username'           =>  'required|string|max:50',
+                'firstname'     =>  'required|string|max:50',
+                'fonction'      =>  'required|string|max:50',
+                'name'          =>  'required|string|max:50',
+                'username'      =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
-                'cin'         =>   'required|string|max:50',
-                'familiale'         =>  'required|string|max:50',
-                'enfant'         =>   'required|int|max:50',
-                'date'         =>  'date',
-                'lieu'         =>   'required|string|max:50',
-                'fax'         =>   'required|string|max:50',
-                'bp'         =>   'required|string|max:50',
-                'file'         =>   'required|string|max:50',
-                'legende'         =>   'required|string|max:50',
-                'password'      =>  'required|confirmed|string|min:8|max:50',
+                'cin'           =>   'required|string|max:50',
+                'familiale'     =>  'required|string|max:50',
+                'enfant'        =>   'required|int|max:50',
+                'date_naiss'    =>  'date',
+                'date_debut'    =>  'date',
+                'lieu'          =>   'required|string|max:50',
             ]
-        );
+        );   
+        $roles_id = Role::where('name','Administrateur')->first()->id;
+        $utilisateur = new User([      
+            'civilite'       =>       $request->input('civilite'),      
+            'firstname'      =>      $request->input('firstname'),
+            'name'           =>      $request->input('name'),
+            'date_naissance' =>      $request->input('date_naiss'),
+            'lieu_naissance' =>      $request->input('lieu'),
+            'email'          =>      $request->input('email'),
+            'telephone'      =>      $request->input('telephone'),
+            'password'       =>      Hash::make($request->input('password')),
+            'roles_id'       =>      $roles_id
+        ]);
+        $utilisateur->save();
+
+        $personnel = new Personnel([
+            'matricule'     =>     $request->input('matricule'),
+            'cin'           =>     $request->input('cin'),
+            'debut'         =>     $request->input('date_debut'),
+            'nbrefant'      =>     $request->input('enfant'),
+            'users_id'      =>     $utilisateur->id,
+            'categories_id' =>     $utilisateur->id,
+            'directions_id' =>     $utilisateur->id,
+            'fonctions_id'  =>     $utilisateur->id
+        ]);
+        
+        $personnel->save();
     }
 
     /**
