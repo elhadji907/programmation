@@ -264,8 +264,8 @@ class RecuesController extends Controller
 
     public function list(Request $request)
     {
-        $date = Carbon::today();
-        $date = $date->copy()->addDays(-7);
+        /* $date = Carbon::today();
+        $date = $date->copy()->addDays(-7); */
 
         $recues=Recue::with('courrier')->get();
         return Datatables::of($recues)->make(true);

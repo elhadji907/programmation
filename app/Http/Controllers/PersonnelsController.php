@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Personnel;
 use App\User;
 use App\Role;
+use App\Objet;
+use App\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
@@ -29,8 +31,10 @@ class PersonnelsController extends Controller
     public function create()
     {
         $roles = Role::get();
-        $civilites = User::select('civilite')->distinct()->get();
-        return view('personnels.create',compact('roles', 'civilites'));
+        $civilites = User::pluck('civilite','civilite');
+        $objets = Objet::pluck('name','name');
+        $directions = Direction::pluck('sigle','id');
+        return view('personnels.create',compact('roles', 'civilites','objets','directions'));
     }
 
     /**
