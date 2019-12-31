@@ -95,12 +95,11 @@
     }
     </style>
     
-    @foreach ($recues as $recue)  
     <div class="invoice-box justify-content-center">
-        <h1 class="h4 text-black mb-0 text-center"> {!! $recue->courrier->types_courrier->name !!}</h1>
+        <h1 class="h4 text-black mb-0 text-center"> {!! ("Fiche personnel") !!}</h1>
         <div class="card">
         <div class="card card-header text-center bg-gradient-default">
-            <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
+            <a href="{!! url('personnels/' .$personnel->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
             </a>
         </div>
@@ -115,9 +114,8 @@
                                 <img style="width:50%; max-width:100px;" src="{{ asset('images/image_onfp.jpg') }}">
                             </td>
                             <td>
-                                Numéro #:                                   
-                                {!! $recue->numero !!}<br>
-                                Date de réception:  {!! $recue->courrier->date->format('d/m/Y') !!}<br>
+                                Matricule: {!! $personnel->matricule !!}<br>
+                                {!! ("Date d'enregistrement") !!}:  {!! $personnel->created_at->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -129,19 +127,18 @@
                     <table>
                         <tr>
                             <td>
-                                <h3>{{ __('EXPEDITEUR') }}</h3>
-                                <b>Nom:</b> {{ $recue->courrier->expediteur }}<br>
-                                <b>Adresse:</b> {{ $recue->courrier->adresse }}<br>
-                                <b>E-mail:</b> {{ $recue->courrier->email }}<br>
-                                <b>Tel:</b> {{ $recue->courrier->telephone }}<br>
-                                <b>Fax:</b> {{ $recue->courrier->fax }}<br>
-                                <b>BP:</b> {{ $recue->courrier->bp }}<br>
+                                <b>Prenom: </b> {{ $personnel->user->firstname }}<br>
+                                <b>Date naissance: </b> {{ $personnel->user->date_naissance->format('d/m/Y') }}<br>
+                                <b>E-mail: </b> {{ $personnel->user->email }}<br>
+                                <b>Situation familiale: </b> {{ $personnel->user->situation_familiale }}<br>
+                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $personnel->nbrefant }}<br>
                             </td>
                             
                             <td>
-                                <h3>{{ __('GESTIONNAIRE') }}</h3>
-                                <b>Nom:</b> {{ $recue->courrier->gestionnaire->user->firstname }}&nbsp;&nbsp;{{ $recue->courrier->gestionnaire->user->name }}<br>
-                                <b>Tel:</b> {{ $recue->courrier->gestionnaire->user->telephone }}
+                                <b>Nom: </b> {{ $personnel->user->name }}<br>
+                                <b>Lieu naissance: </b> {{ $personnel->user->lieu_naissance}}<br>
+                                <b>Tel: </b> {{ $personnel->user->telephone }}<br>
+                                <b>Cin: </b> {{ $personnel->cin }}<br>
                             </td>
                         </tr>
                     </table>
@@ -150,29 +147,23 @@
             
             <tr class="heading">
                 <td>
-                    {{ __('OBJET') }}
+                    {{ __("Date d'entrée en fonction") }}
                 </td>
                 
                 <td>
-                        {{ __('FICHIER') }}
+                        {{ __("Date de la retraite") }}
                 </td>
             </tr>
             
             <tr class="details">
                 <td>
-                        {{ $recue->courrier->objet }}
+                        {{ $personnel->debut->format('d/m/Y') }}
                 </td>                
                 <td>
-                    @if ($recue->courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
-                            <i class="fas fa-download">&nbsp;Dossier</i>
-                        </a>                                            
-                    @else
-                        Aucun fichier joint
-                    @endif
+                {!! $personnel->user->date_naissance->format('d/m/Y') !!}
                 </td>
             </tr>
-            <tr class="heading">
+           {{--  <tr class="heading">
                 <td>
                    IMPUTATION
                 </td>
@@ -180,19 +171,19 @@
                 <td>
                     RESPONSABLE
                 </td>
-            </tr>
+            </tr> --}}
             
             <tr class="item">
                 <td>
-                    @foreach ($recue->courrier->directions as $direction)
+                   {{--  @foreach ($personnel->courrier->directions as $direction)
                       <span class="btn">{!! $direction->name !!}</span><br>
-                    @endforeach
+                    @endforeach --}}
                </td>
                 
                 <td>
-                    @foreach ($recue->courrier->directions as $direction)
+                  {{--   @foreach ($personnel->courrier->directions as $direction)
                     <span class="btn">{!! $direction->sigle !!}</span><br>
-                    @endforeach
+                    @endforeach --}}
                 </td>
             </tr>
             
@@ -210,8 +201,6 @@
     </div>
 </div>
 </div>
-@endforeach
-
 </div>
 
 @endsection

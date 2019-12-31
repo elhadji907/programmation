@@ -136,15 +136,15 @@ class PersonnelsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Personnel $personnel)
-    {
+    {        
         $this->validate(
             $request, [
                 'civilite'      =>  'required|string|max:10',
-                'direction'     =>  'required|string|max:10',
-                'matricule'     =>  'required|string|max:50',
+                'direction'     =>  'required|string',
+                'matricule'     =>  'required|string|max:15',
                 'categorie'     =>  'required|string|max:50',
                 'firstname'     =>  'required|string|max:50',
-                'fonction'      =>  'required|string|max:50',
+                'fonction'      =>  'required|string',
                 'name'          =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
                 'cin'           =>  'required|string|min:12|max:15',
@@ -154,7 +154,48 @@ class PersonnelsController extends Controller
                 'date_debut'    =>  'required|date',
                 'lieu'          =>  'required|string',
             ]
-        );  
+        );
+        
+        $user = $personnel->user;
+
+        $direction=$request->input('direction');
+        $directions_id = Direction::where('name', $direction)->first()->id;
+
+        $fonction=$request->input('fonction');
+        $fonctions_id = Fonction::where('name', $fonction)->first()->id;
+
+        $categorie=$request->input('categorie');
+        $categories_id = Categorie::where('name', $categorie)->first()->id;
+
+        $roles_id = Role::where('name','Administrateur')->first()->id;
+
+
+        $user->civilite              =      $request->input('civilite');
+        $user->firstname             =      $request->input('firstname');
+        $user->name                  =      $request->input('name');
+        $user->date_naissance        =      $request->input('date_naiss');
+        $user->lieu_naissance        =      $request->input('lieu');
+        $user->situation_familiale   =      $request->input('familiale');
+        $user->telephone             =      $request->input('telephone');
+        $user->roles_id              =      $roles_id;
+
+        $user->save();
+
+        $personnel->matricule       =      $request->input('matricule');
+        $personnel->cin             =      $request->input('cin');
+        $personnel->debut           =      $request->input('date_debut');
+        $personnel->nbrefant        =      $request->input('enfant');
+        $personnel->directions_id   =      $directions_id;
+        $personnel->fonctions_id    =      $fonctions_id;
+        $personnel->categories_id   =      $categories_id;
+        $personnel->users_id        =      $personnel->id;
+        
+       /*  $a = $request->input('date_naiss');
+        $ab = substr($a, 0,4);
+        $ac = $a+60; */
+        $personnel->save();
+        $success = $personnel->user->firstname.' '.$personnel->user->name.' a été modifié(e) avec succès';
+        return redirect()->route('personnels.index')->with(compact('success'));
     }
 
     /**
