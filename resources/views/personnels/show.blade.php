@@ -95,13 +95,10 @@
     }
     </style>
     
-    <div class="invoice-box justify-content-center">
-        <h1 class="h4 text-black mb-0 text-center"> {!! ("Fiche personnel") !!}</h1>
+    <div class="invoice-box">
         <div class="card">
-        <div class="card card-header text-center bg-gradient-default">
-            <a href="{!! url('personnels/' .$personnel->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
-                <i class="far fa-edit">&nbsp;Modifier</i>
-            </a>
+        <div class="card card-header text-center bg-gradient-success">
+            <h1 class="h4 text-white mb-0">FICHE DE RENSEIGNEMENT AGENT</h1>
         </div>
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
@@ -111,11 +108,13 @@
                         <tr>
                             <td class="title">
                                 {{-- <img src="" style="width:100%; max-width:300px;"> --}}
-                                <img style="width:50%; max-width:100px;" src="{{ asset('images/image_onfp.jpg') }}">
+                               {{--  <img style="width:50%; max-width:100px;" src="{{ asset('images/image_onfp.jpg') }}"> --}}                             
+                                <img style="width:100%; max-width:100px;" src="{{ asset($personnel->user->profile->getImage()) }}"/>
+                          
                             </td>
                             <td>
-                                Matricule: {!! $personnel->matricule !!}<br>
-                                {!! ("Date d'enregistrement") !!}:  {!! $personnel->created_at->format('d/m/Y') !!}<br>
+                                Matricule de solde: {!! $personnel->matricule !!}<br>
+                                {!! __("Date") !!}:  {!! $personnel->created_at->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -127,77 +126,119 @@
                     <table>
                         <tr>
                             <td>
-                                <b>Prenom: </b> {{ $personnel->user->firstname }}<br>
-                                <b>Date naissance: </b> {{ $personnel->user->date_naissance->format('d/m/Y') }}<br>
-                                <b>E-mail: </b> {{ $personnel->user->email }}<br>
-                                <b>Situation familiale: </b> {{ $personnel->user->situation_familiale }}<br>
-                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $personnel->nbrefant }}<br>
-                            </td>
-                            
+                                <b>{!!  $personnel->user->civilite." ".$personnel->user->firstname." ". $personnel->user->name !!}<br>                                
+                                @if ($personnel->user->civilite=="Mme")
+                                    {!! ("née le") !!}
+                                @else
+                                    {!! ("né le") !!}
+                                @endif
+                                </b>
+                                <b>{!! $personnel->user->date_naissance->format('d/m/Y')." "."à"." ".$personnel->user->lieu_naissance !!}</b><br>
+                                <b>{!! $personnel->user->email !!}</b><br>
+                                <b>{!! $personnel->user->telephone !!}</b><br>
+                                <b>{!! $personnel->user->adresse !!}</b><br>
+                                
+                            </td>                            
                             <td>
-                                <b>Nom: </b> {{ $personnel->user->name }}<br>
-                                <b>Lieu naissance: </b> {{ $personnel->user->lieu_naissance}}<br>
-                                <b>Tel: </b> {{ $personnel->user->telephone }}<br>
-                                <b>Cin: </b> {{ $personnel->cin }}<br>
+                                <b>Numero Cin: </b> {{ $personnel->cin }}<br>
+                                <b>Situation familiale: </b>{{ $personnel->user->situation_familiale }}<br>
+                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $personnel->nbrefant }}<br>
                             </td>
                         </tr>
                     </table>
                 </td>
-            </tr>
-            
+            </tr>            
             <tr class="heading">
+                <td>
+                    {{ __("Fonction") }}
+                </td>                
                 <td>
                     {{ __("Date d'entrée en fonction") }}
                 </td>
-                
+            </tr>            
+            <tr class="item">
                 <td>
-                        {{ __("Date de la retraite") }}
-                </td>
-            </tr>
-            
-            <tr class="details">
-                <td>
-                        {{ $personnel->debut->format('d/m/Y') }}
+                    {{ $personnel->fonction->name }}
                 </td>                
                 <td>
-                {!! $personnel->user->date_naissance->format('d/m/Y') !!}
+                    {{ $personnel->debut->format('d/m/Y') }}
                 </td>
             </tr>
-           {{--  <tr class="heading">
+            <tr class="heading">
                 <td>
-                   IMPUTATION
+                    {{ __("Catégorie") }}
                 </td>
                 
                 <td>
-                    RESPONSABLE
+                    {{ __("Annnée de retraite") }}
                 </td>
-            </tr> --}}
+            </tr>
             
             <tr class="item">
                 <td>
-                   {{--  @foreach ($personnel->courrier->directions as $direction)
-                      <span class="btn">{!! $direction->name !!}</span><br>
-                    @endforeach --}}
+                    {{ $personnel->categorie->name }}
                </td>
                 
                 <td>
-                  {{--   @foreach ($personnel->courrier->directions as $direction)
-                    <span class="btn">{!! $direction->sigle !!}</span><br>
-                    @endforeach --}}
+                    {{ $personnel->fin->format('d/m/Y') }}
                 </td>
             </tr>
-            
-            
-            <tr class="total">
+            <tr class="heading">
                 <td>
-                    
+                    {{ __("Age") }}
                 </td>
                 
                 <td>
-                   {{-- Total: $385.00 --}}
+                    {{ __("Année(s) avant la retraite") }}
                 </td>
             </tr>
+            
+            <tr class="item">
+                <td>
+                    {!! $age =  \Carbon\Carbon::now()->diffInYears($personnel->user->date_naissance) !!} an(s)
+               </td>
+                
+                <td>
+                    {{ 60 - $age }} an(s)
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                    {{ __("Année(s) en fonction") }}
+                </td>
+                
+                <td>
+                    {{ __("Mois en fonction") }}
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    {!! \Carbon\Carbon::now()->diffInYears($personnel->debut) !!} an(s)
+               </td>
+                
+                <td>
+                    {!! \Carbon\Carbon::now()->diffInMonths($personnel->debut) !!} mois
+                    {{-- {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jour(s) --}}
+                </td>
+            </tr>
+            
+            
+           {{--  <tr class="total">
+                <td>
+                    {!! ("Nombre d'année(s) en fonction") !!}
+                </td>
+                
+                <td>
+                    {!! \Carbon\Carbon::now()->diffInYears($personnel->user->debut) !!}  an(s)
+                </td>
+            </tr> --}}
         </table>
+        <div class="text-center bg-gradient-default"><br/>
+            <a href="{!! url('personnels/' .$personnel->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
+                <i class="far fa-edit">&nbsp;Modifier</i>
+            </a>
+        </div>
     </div>
 </div>
 </div>

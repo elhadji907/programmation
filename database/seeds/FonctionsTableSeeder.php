@@ -35,9 +35,33 @@ class FonctionsTableSeeder extends Seeder
             ["name"=>"Directeur Général"],
             ["uuid"=>Str::uuid()],
             ["sigle"=>"DG"]);
-        $fonction=App\Fonction::firstOrCreate(
+        $fonction7=App\Fonction::firstOrCreate(
             ["name"=>"Directeur de la planification et des projets"],
             ["uuid"=>Str::uuid()],
             ["sigle"=>"DPP"]);
+        $fonction8=App\Fonction::firstOrCreate(
+            ["name"=>"Directeur administratif et financier"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"DAF"]);
+        $fonction9=App\Fonction::firstOrCreate(
+            ["name"=>"Agent DAF"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"A-DAF"]);
+        $fonction10=App\Fonction::firstOrCreate(
+            ["name"=>"Agent DIOF"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"A-DIOF"]);
+        $fonction11=App\Fonction::firstOrCreate(
+            ["name"=>"Agent DEC"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"A-DEC"]);
+        $fonction12=App\Fonction::firstOrCreate(
+            ["name"=>"Prestatire"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"P-DG"]);
+        $fonction13=App\Fonction::firstOrCreate(
+            ["name"=>"Stagiaire"],
+            ["uuid"=>Str::uuid()],
+            ["sigle"=>"S-DG"]);
     }
 }

@@ -80,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
+		'adresse',
 		'status',
 		'email_verified_at',
 		'password',

@@ -9,9 +9,11 @@ use App\Objet;
 use App\Direction;
 use App\Categorie;
 use App\Fonction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use Intervention\Image\Facades\Image;
 
 class PersonnelsController extends Controller
 {
@@ -48,7 +50,7 @@ class PersonnelsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {                
         $this->validate(
             $request, [
                 'civilite'      =>  'required|string|max:10',
@@ -69,6 +71,7 @@ class PersonnelsController extends Controller
                 'lieu'          =>  'required|string',
             ]
         );   
+
         $roles_id = Role::where('name','Administrateur')->first()->id;
         $utilisateur = new User([      
             'civilite'              =>      $request->input('civilite'),      
@@ -85,10 +88,14 @@ class PersonnelsController extends Controller
         ]);
         $utilisateur->save();
 
+        $date = Carbon::createFromFormat('Y-m-d', $request->input('date_naiss'));
+        $fin = $date->addYears(60);
+
         $personnel = new Personnel([
             'matricule'     =>     $request->input('matricule'),
             'cin'           =>     $request->input('cin'),
             'debut'         =>     $request->input('date_debut'),
+            'fin'           =>     $fin,
             'nbrefant'      =>     $request->input('enfant'),
             'users_id'      =>     $utilisateur->id,
             'categories_id' =>     $request->input('categorie'),
@@ -108,6 +115,7 @@ class PersonnelsController extends Controller
      */
     public function show(Personnel $personnel)
     {
+        
         return view('personnels.show', compact('personnel'));
     }
 
@@ -137,8 +145,7 @@ class PersonnelsController extends Controller
      */
     public function update(Request $request, Personnel $personnel)
     {        
-        $this->validate(
-            $request, [
+        $data = request()->validate([
                 'civilite'      =>  'required|string|max:10',
                 'direction'     =>  'required|string',
                 'matricule'     =>  'required|string|max:15',
@@ -153,6 +160,7 @@ class PersonnelsController extends Controller
                 'date_naiss'    =>  'required|date',
                 'date_debut'    =>  'required|date',
                 'lieu'          =>  'required|string',
+                'image'         =>  'sometimes|image|max:3000',
             ]
         );
         
@@ -169,7 +177,72 @@ class PersonnelsController extends Controller
 
         $roles_id = Role::where('name','Administrateur')->first()->id;
 
+        $date = Carbon::createFromFormat('Y-m-d', $request->input('date_naiss'));
+        $fin = $date->addYears(60);
+        
+        if (request('image')) {
+            $imagePath = request('image')->store('avatars', 'public');
+    
+            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
+            $image->save();
+    
+                $user->profile->update([
+                'image' => $imagePath
+                ]);
+    
+                $user->update([
+                'civilite' => $data['civilite'],
+                'firstname' => $data['firstname'],
+                'name' => $data['name'],
+                'date_naissance' => $data['date_naiss'],
+                'lieu_naissance' => $data['lieu'],
+                'situation_familiale' => $data['familiale'],
+                'telephone' => $data['telephone'],
+                'roles_id' => $roles_id,
 
+                ]);
+                $personnel->update([
+                'matricule'         =>      $data['matricule'],
+                'cin'               =>      $data['cin'],
+                'debut'             =>      $data['date_debut'],
+                'fin'               =>      $fin,
+                'nbrefant'          =>      $data['enfant'],
+                'directions_id'     =>      $directions_id,
+                'fonctions_id'      =>      $fonctions_id,
+                'categories_id'     =>      $categories_id,
+                'roles_id'          =>      $roles_id,
+
+                ]);
+    
+            }  else {
+                $user->profile->update($data);
+
+                  $user->update([
+                'civilite' => $data['civilite'],
+                'firstname' => $data['firstname'],
+                'name' => $data['name'],
+                'date_naissance' => $data['date_naiss'],
+                'lieu_naissance' => $data['lieu'],
+                'situation_familiale' => $data['familiale'],
+                'telephone' => $data['telephone'],
+                'roles_id' => $roles_id,
+
+                ]);
+                $personnel->update([
+                'matricule'         =>      $data['matricule'],
+                'cin'               =>      $data['cin'],
+                'debut'             =>      $data['date_debut'],
+                'fin'               =>      $fin,
+                'nbrefant'          =>      $data['enfant'],
+                'directions_id'     =>      $directions_id,
+                'fonctions_id'      =>      $fonctions_id,
+                'categories_id'     =>      $categories_id,
+                'roles_id'          =>      $roles_id,
+
+                ]);
+            }
+
+/* 
         $user->civilite              =      $request->input('civilite');
         $user->firstname             =      $request->input('firstname');
         $user->name                  =      $request->input('name');
@@ -181,19 +254,22 @@ class PersonnelsController extends Controller
 
         $user->save();
 
+        $date = Carbon::createFromFormat('Y-m-d', $request->input('date_naiss'));
+        $fin = $date->addYears(50);
+
         $personnel->matricule       =      $request->input('matricule');
         $personnel->cin             =      $request->input('cin');
         $personnel->debut           =      $request->input('date_debut');
+        $personnel->fin             =      $fin;
         $personnel->nbrefant        =      $request->input('enfant');
         $personnel->directions_id   =      $directions_id;
         $personnel->fonctions_id    =      $fonctions_id;
         $personnel->categories_id   =      $categories_id;
         $personnel->users_id        =      $personnel->id;
         
-       /*  $a = $request->input('date_naiss');
-        $ab = substr($a, 0,4);
-        $ac = $a+60; */
-        $personnel->save();
+        $personnel->save(); */
+
+
         $success = $personnel->user->firstname.' '.$personnel->user->name.' a été modifié(e) avec succès';
         return redirect()->route('personnels.index')->with(compact('success'));
     }

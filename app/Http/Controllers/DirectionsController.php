@@ -123,7 +123,7 @@ class DirectionsController extends Controller
 
     public function list(Request $request)
     {
-        $directions=Direction::with('users')->get();
+        $directions=Direction::with('personnels')->get();
         return Datatables::of($directions)->make(true);
 
     }

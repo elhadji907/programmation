@@ -127,15 +127,13 @@
                                 {!! Form::text('bp', $personnel->user->bp, ['placeholder'=>'Votre Boite postale', 'class'=>'form-control']) !!}                    
                             </div> 
                         </div>
-                       {{--   <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {!! Form::label('', null, ['class' => 'control-label']) !!}                    
-                                {!! Form::file('file', null, ['class'=>'form-control-file']) !!}                    
-                            </div>
+                        <div class="form-row">
                             <div class="form-group col-md-6">                
-                                {!! Form::text('legende', null, ['placeholder'=>'Le nom du fichier joint', 'class'=>'form-control']) !!}                    
-                            </div> 
-                        </div>  --}}
+                                {!! Form::label('Image de profile') !!}<br/>
+                                {!! Form::file('image',null, ['class'=>'form-control-file rounded-circle w-100']) !!} 
+                                <img class="pt-1" src="{{ asset($personnel->user->profile->getImage()) }}" width="50" height="auto">
+                            </div>
+                        </div> 
                         {!! Form::submit('Modifier', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                     {!! Form::close() !!}
                 </div>

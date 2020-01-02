@@ -27,7 +27,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             {!! Form::label('Objet') !!}                    
-                            {!! Form::select('objet', $objets, $recue->courrier->objet, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'objet']) !!}                    
+                            {!! Form::text('objet', $recue->courrier->objet, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'objet']) !!}                    
                         </div> 
                     </div>
 

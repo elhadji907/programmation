@@ -26,8 +26,8 @@ class CreatePersonnelsTable extends Migration
             $table->char('uuid', 36);
             $table->string('matricule', 200)->nullable();
             $table->string('cin', 200)->nullable();
-            $table->timestamp('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('nbrefant')->nullable()->default('0');
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('directions_id');

@@ -126,15 +126,6 @@
                             {!! Form::text('bp', null, ['placeholder'=>'Votre Boite postale', 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
-                   {{--   <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {!! Form::label('', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::file('file', null, ['class'=>'form-control-file']) !!}                    
-                        </div>
-                        <div class="form-group col-md-6">                
-                            {!! Form::text('legende', null, ['placeholder'=>'Le nom du fichier joint', 'class'=>'form-control']) !!}                    
-                        </div> 
-                    </div>  --}}
                     {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                 {!! Form::close() !!}
             </div>

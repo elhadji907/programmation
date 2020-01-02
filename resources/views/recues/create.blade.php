@@ -27,7 +27,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             {!! Form::label('Objet') !!}                    
-                            {!! Form::select('objet', $objets, null, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'objet']) !!}                    
+                            {!! Form::text('objet', null, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'objet']) !!}                    
                         </div> 
                     </div>
 
