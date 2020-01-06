@@ -37,7 +37,6 @@ $factory->define(App\Beneficiaire::class, function (Faker\Generator $faker) {
     $id_nivaux=App\Nivaux::get()->random()->id;
     $diplomes_id=App\Diplome::get()->random()->id;
     $situations_id=App\Situation::get()->random()->id;
-    $demandeurs_id=App\Demandeur::get()->random()->id;
     return [
         'users_id' =>  function () use($role_id) {
             return factory(App\User::class)->create(["roles_id"=>$role_id])->id;
@@ -54,8 +53,5 @@ $factory->define(App\Beneficiaire::class, function (Faker\Generator $faker) {
         'situations_id' => function () use($situations_id) {
             return $situations_id;
        },
-        'demandeurs_id'  => function () use($demandeurs_id) {
-            return $demandeurs_id;
-        },
     ];
 }); 

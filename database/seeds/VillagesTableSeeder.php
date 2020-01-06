@@ -90,7 +90,6 @@ class VillagesTableSeeder extends Seeder
                             $nivaus_id = App\Nivaux::all()->random()->id;
                             $diplomes_id = App\Diplome::all()->random()->id;
                             $situations_id = App\Situation::all()->random()->id;
-                            $demandeurs_id=App\Demandeur::get()->random()->id;
 
                             $beneficiaire=App\Beneficiaire::firstOrNew( [
                             ],
@@ -99,7 +98,6 @@ class VillagesTableSeeder extends Seeder
                             "nivauxs_id"=>$nivaus_id,
                             "diplomes_id"=>$diplomes_id,
                             "situations_id"=>$situations_id,
-                            "demandeurs_id"=>$demandeurs_id,
                             "users_id"=>$user->id
                             ]);
                             $beneficiaire->save();

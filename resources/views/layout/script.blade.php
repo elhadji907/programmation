@@ -20,7 +20,7 @@
   <script type="text/javascript">
   
         $("#objet").select2({
-              placeholder: "selectioner un objet",
+              placeholder: "sélectionner un objet",
               allowClear: true
           });
   </script>
@@ -28,7 +28,7 @@
   <script type="text/javascript">
   
     $("#civilite").select2({
-          placeholder: "selectioner un sexe",
+          placeholder: "sélectionner un sexe",
           allowClear: true
       });
 </script>  
@@ -42,7 +42,7 @@
   <script type="text/javascript">
   
   $("#domaine").select2({
-        placeholder: "selectioner un domaine",
+        placeholder: "sélectionner un domaine",
         allowClear: true
     });
 </script>
@@ -50,21 +50,28 @@
   <script type="text/javascript">
   
     $("#direction").select2({
-          placeholder: "selectioner",
+          placeholder: "sélectionner une direction ou un service",
           allowClear: true
       });
 </script>
   <script type="text/javascript">
   
     $("#fonction").select2({
-          placeholder: "selectioner la fonction",
+          placeholder: "sélectionner la fonction",
           allowClear: true
       });
 </script>
   <script type="text/javascript">
   
     $("#categorie").select2({
-          placeholder: "selectionerla categorie",
+          placeholder: "sélectionner la catégorie",
+          allowClear: true
+      });
+</script>
+  <script type="text/javascript">
+  
+    $("#niveau").select2({
+          placeholder: "sélectionner un niveau d'étude",
           allowClear: true
       });
 </script>

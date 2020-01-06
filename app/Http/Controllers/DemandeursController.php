@@ -7,6 +7,7 @@ use App\Role;
 use App\Objet;
 use App\User;
 use App\Courrier;
+use App\Nivaux;
 use Auth;
 
 use DB;
@@ -39,11 +40,12 @@ class DemandeursController extends Controller
         $date = $date->format('Y-m-d');
 
         $roles = Role::get();
-        $civilites = User::select('civilite')->distinct()->get();
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
+        $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
         $objets = Objet::select('name')->distinct()->get();
 
         // dd($objets);
-        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets'));
+        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux'));
     }
 
     /**

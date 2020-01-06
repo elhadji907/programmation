@@ -29,6 +29,7 @@ class CreatePersonnelsTable extends Migration
             $table->dateTime('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('nbrefant')->nullable()->default('0');
+            $table->double('salaire')->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('directions_id');
             $table->unsignedInteger('categories_id');
