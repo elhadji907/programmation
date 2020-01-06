@@ -170,7 +170,7 @@
                 </td>
                 
                 <td>
-                    {{ __("Annnée de retraite") }}
+                    {{ __("Salaire") }}
                 </td>
             </tr>
             
@@ -180,7 +180,7 @@
                </td>
                 
                 <td>
-                    {{ $personnel->fin->format('d/m/Y') }}
+                   
                 </td>
             </tr>
             <tr class="heading">
@@ -189,40 +189,51 @@
                 </td>
                 
                 <td>
-                    {{ __("Année(s) avant la retraite") }}
+                  {{--   {{ __("Année(s) avant la retraite") }} --}}
+                  {{ __("Ancienneté") }}
                 </td>
             </tr>
             
             <tr class="item">
                 <td>
-                    {!! $age =  \Carbon\Carbon::now()->diffInYears($personnel->user->date_naissance) !!} an(s)
+                    {!! $age =  \Carbon\Carbon::now()->diffInYears($personnel->user->date_naissance) !!}
+                    @if ($age >1)
+                        {!! __('ans') !!}
+                    @else
+                        {!! __('an') !!}           
+                    @endif
                </td>
                 
                 <td>
-                    {{ 60 - $age }} an(s)
+                    {!! $an = \Carbon\Carbon::now()->diffInYears($personnel->debut) !!}
+                    @if ( $an >1)
+                        {!! __('ans') !!}
+                    @else
+                        {!! __('an') !!}           
+                    @endif
                 </td>
             </tr>
-            <tr class="heading">
+          {{--   <tr class="heading">
                 <td>
-                    {{ __("Année(s) en fonction") }}
+                    {{ __("Ancienneté") }}
                 </td>
                 
                 <td>
-                    {{ __("Mois en fonction") }}
+                    {{ __("Annnée de retraite") }}
                 </td>
-            </tr>
+            </tr> --}}
             
-            <tr class="item">
+           {{--  <tr class="item">
                 <td>
                     {!! \Carbon\Carbon::now()->diffInYears($personnel->debut) !!} an(s)
                </td>
                 
                 <td>
                     {!! \Carbon\Carbon::now()->diffInMonths($personnel->debut) !!} mois
-                    {{-- {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jour(s) --}}
+                    {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jour(s)
                 </td>
             </tr>
-            
+             --}}
             
            {{--  <tr class="total">
                 <td>
