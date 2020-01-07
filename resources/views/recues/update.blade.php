@@ -56,22 +56,26 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            {!! Form::label('Adresse') !!}                    
+                            {!! Form::text('adresse', $recue->courrier->adresse, ['placeholder'=>'Votre adresse de résidence', 'class'=>'form-control']) !!}                    
+                        </div>
+                        <div class="form-group col-md-3">
+                            {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
+                            {!! Form::date('date_c', $recue->courrier->date_c->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
+                        </div> 
+                        <div class="form-group col-md-3">
+                            {!! Form::label('Date réception', null, ['class' => 'control-label']) !!}                    
+                            {!! Form::date('date_r', $recue->courrier->date_r->format('Y-m-d'), ['placeholder'=>"La date de réception du courrier", 'class'=>'form-control']) !!}                    
+                        </div> 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
                             {!! Form::label('Numero fax') !!}                    
                             {!! Form::text('fax', $recue->courrier->fax, ['placeholder'=>"Votre numero fax", 'class'=>'form-control']) !!}                    
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('Boite postale') !!}                    
                             {!! Form::text('bp', $recue->courrier->bp, ['placeholder'=>'Votre Boite postale', 'class'=>'form-control']) !!}                    
-                        </div> 
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            {!! Form::label('Date du courrier', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date', $recue->courrier->date->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
-                        </div>
-                        <div class="form-group col-md-6">
-                            {!! Form::label('Adresse') !!}                    
-                            {!! Form::text('adresse', $recue->courrier->adresse, ['placeholder'=>'Votre adresse de résidence', 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Tue, 07 Jan 2020 12:21:48 +0000.
  */
 
 namespace App;
@@ -26,7 +26,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $legende
  * @property string $file
  * @property string $statut
- * @property \Carbon\Carbon $date
+ * @property \Carbon\Carbon $date_c
+ * @property \Carbon\Carbon $date_r
  * @property int $types_courriers_id
  * @property int $gestionnaires_id
  * @property string $deleted_at
@@ -55,7 +56,8 @@ class Courrier extends Eloquent
 	];
 
 	protected $dates = [
-		'date'
+		'date_c',
+		'date_r'
 	];
 
 	protected $fillable = [
@@ -72,10 +74,16 @@ class Courrier extends Eloquent
 		'legende',
 		'file',
 		'statut',
-		'date',
+		'date_c',
+		'date_r',
 		'types_courriers_id',
 		'gestionnaires_id'
 	];
+
+	public function getFile(){
+		$filePath = $this->file ?? 'recues/default.jpg';
+		return "/storage/" . $filePath;
+	}
 
 	public function gestionnaire()
 	{
@@ -116,11 +124,6 @@ class Courrier extends Eloquent
 
 	public function recues()
 	{
-		return $this->hasMany(\App\Recue::class, 'courriers_id')->orderBy('created_at', 'DESC');;
-	}
-	
-	public function getFile(){
-		$filePath = $this->file ?? 'recues/default.jpg';
-		return "/storage/" . $filePath;
+		return $this->hasMany(\App\Recue::class, 'courriers_id')->orderBy('created_at', 'DESC');
 	}
 }

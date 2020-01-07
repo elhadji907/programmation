@@ -117,7 +117,8 @@
                             <td>
                                 Numéro #:                                   
                                 {!! $recue->numero !!}<br>
-                                Date de réception:  {!! $recue->courrier->date->format('d/m/Y') !!}<br>
+                                Date correspondance:  {!! $recue->courrier->date_c->format('d/m/Y') !!}<br>
+                                Date réception:  {!! $recue->courrier->date_r->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>

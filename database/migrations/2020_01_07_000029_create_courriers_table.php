@@ -36,7 +36,8 @@ class CreateCourriersTable extends Migration
             $table->string('legende', 200)->nullable();
             $table->string('file', 200)->nullable();
             $table->string('statut', 200)->nullable();
-            $table->timestamp('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('date_c')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('date_r')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('types_courriers_id');
             $table->unsignedInteger('gestionnaires_id');
 

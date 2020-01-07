@@ -33,11 +33,13 @@ class CreateUsersTable extends Migration
             $table->dateTime('date_naissance')->nullable();
             $table->string('lieu_naissance', 200)->nullable();
             $table->string('situation_familiale', 200)->nullable();
+            $table->string('situation_professionnelle', 200)->nullable();
             $table->string('adresse', 200)->nullable();
             $table->char('status', 10)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->unsignedInteger('roles_id');
+            $table->rememberToken();
 
             $table->index(["roles_id"], 'fk_users_roles1_idx');
 

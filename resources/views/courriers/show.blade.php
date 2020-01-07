@@ -113,8 +113,8 @@
                             </td>
                             <td>
                                 Numéro #: {{ $courrier->numero }}<br>
-                                Date de réception: {{ $courrier->date->format('d/m/Y') }}<br>
-                                Heure: {{ $courrier->date->format('H:i:s') }}
+                                Date de réception: {{ $courrier->date_r->format('d/m/Y') }}<br>
+                                Heure: {{ $courrier->date_r->format('H:i:s') }}
                             </td>
                         </tr>
                     </table>

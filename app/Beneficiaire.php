@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Tue, 07 Jan 2020 10:11:06 +0000.
  */
 
 namespace App;
@@ -19,12 +19,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $nivauxs_id
  * @property int $diplomes_id
  * @property int $situations_id
- * @property int $demandeurs_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Demandeur $demandeur
  * @property \App\Diplome $diplome
  * @property \App\Nivaux $nivaux
  * @property \App\Situation $situation
@@ -46,8 +44,7 @@ class Beneficiaire extends Eloquent
 		'villages_id' => 'int',
 		'nivauxs_id' => 'int',
 		'diplomes_id' => 'int',
-		'situations_id' => 'int',
-		'demandeurs_id' => 'int'
+		'situations_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -56,14 +53,8 @@ class Beneficiaire extends Eloquent
 		'villages_id',
 		'nivauxs_id',
 		'diplomes_id',
-		'situations_id',
-		'demandeurs_id'
+		'situations_id'
 	];
-
-	public function demandeur()
-	{
-		return $this->belongsTo(\App\Demandeur::class, 'demandeurs_id');
-	}
 
 	public function diplome()
 	{

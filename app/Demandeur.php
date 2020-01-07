@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 13 Dec 2019 12:13:47 +0000.
+ * Date: Tue, 07 Jan 2020 10:10:41 +0000.
  */
 
 namespace App;
@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Objet $objet
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $programmes
  *
  * @package App
@@ -77,11 +76,6 @@ class Demandeur extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
-	}
-
-	public function beneficiaires()
-	{
-		return $this->hasMany(\App\Beneficiaire::class, 'demandeurs_id');
 	}
 
 	public function programmes()

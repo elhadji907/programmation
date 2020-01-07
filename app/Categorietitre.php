@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 25 Dec 2019 22:34:59 +0000.
+ * Date: Tue, 07 Jan 2020 10:12:47 +0000.
  */
 
 namespace App;
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Categorietitre extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
