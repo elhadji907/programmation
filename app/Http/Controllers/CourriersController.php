@@ -61,20 +61,20 @@ class CourriersController extends Controller
         /* dd($typescourrier); */
 
         $recues = $courrier->recues;
-        $depart = $courrier->departs;
-        $interne = $courrier->internes;
-        $demande = $courrier->demandeurs;
+        $departs = $courrier->departs;
+        $internes = $courrier->internes;
+        $demandes = $courrier->demandeurs;
         if ($typescourrier == 'Courrier arrives') {            
-        return view('recues.show', compact('recues', 'courrier'));
+        return view('recues.show', compact('recues','courrier'));
 
-        } elseif($typescourrier == 'Courrier departs') {    
-        return view('departs.show', compact('depart'));
+        } elseif($typescourrier == 'Courrier departs') {   
+        return view('departs.show', compact('departs','courrier'));
 
         } elseif($typescourrier == 'Courrier internes') {    
-            return view('internes.show', compact('interne'));
+            return view('internes.show', compact('internes','courrier'));
 
         } elseif($typescourrier == $typescourrier) {
-            return view('demandeurs.show', compact('demande'));
+            return view('demandeurs.show', compact('demandes','courrier'));
         } 
         else {
             return view('courriers.show', compact('courrier'));

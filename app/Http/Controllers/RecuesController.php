@@ -53,18 +53,12 @@ class RecuesController extends Controller
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
-        /* dd($date); */
-        
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
-
+        /* dd($date); */      
         $date_r = Carbon::now();
 
        /*  dd($date_r); */
 
-        return view('recues.create',compact('date', 'types', 'numCourrier','courriers', 'recues', 'internes', 'departs', 'objets', 'directions', 'date_r'));
+        return view('recues.create',compact('date', 'types', 'objets', 'directions', 'date_r'));
     }
 
     /**
@@ -182,7 +176,7 @@ class RecuesController extends Controller
             ]
         );
 
-        if (request('file')) { 
+        if (request('file')) {
              $filePath = request('file')->store('recues', 'public');
         $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;

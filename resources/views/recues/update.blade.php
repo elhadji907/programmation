@@ -1,5 +1,5 @@
 @extends('layout.default') 
-@section('title', 'ONFP - Modification courrier !')
+@section('title', 'ONFP - Modification des courriers reçus !')
 @section('content')
 <div class="container">
     <div class="container-fluid">
@@ -81,7 +81,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label('', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::file('file', null, ['class'=>'form-control-file']) !!}                    
+                            {!! Form::file('file', null, ['class'=>'form-control-file']) !!}
+                            @if ($recue->courrier->file !== "")
+                            <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($recue->courrier->getFile()) }}">
+                                <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
+                            </a>
+                            @endif                   
                         </div>
                         <div class="form-group col-md-6">                
                             {!! Form::text('legende', $recue->courrier->legende, ['placeholder'=>'Le nom du fichier joint', 'class'=>'form-control']) !!}                    

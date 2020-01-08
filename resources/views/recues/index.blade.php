@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Liste des courriers arrives !')
 @section('content')
   <div class="container-fluid">
     <div class="row">
@@ -8,7 +9,7 @@
               {{ session('success') }}
           </div>
           @elseif (session('message'))
-          <div class="alert alert-danger">
+          <div class="alert alert-success">
               {{ session('message') }}
           </div>
           @endif
@@ -62,7 +63,7 @@
                       @endforeach
                     </td>             
                     <td class="d-flex align-items-baseline">
-                        <a href="{!! url('recues/' .$recue->courrier->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                        <a href="{!! url('recues/' .$recue->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
                         &nbsp; <a href="{!! url('courriers/' .$recue->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">

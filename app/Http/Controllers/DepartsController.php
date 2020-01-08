@@ -6,7 +6,9 @@ use App\Depart;
 use Illuminate\Http\Request;
 use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
+use App\Direction;
 use Auth;
+use App\Objet;
 use App\Courrier;
 
 use Illuminate\Support\Facades\Date;
@@ -26,7 +28,7 @@ class DepartsController extends Controller
         $date = $date->isoFormat('LLLL'); // M/D/Y
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
+        $departs = \App\Depart::all();
        $courriers = \App\Courrier::get()->count();
         
         return view('departs.index',compact('date','courriers', 'recues', 'internes', 'departs'));
@@ -39,14 +41,22 @@ class DepartsController extends Controller
      */
     public function create()
     {
+        $types = TypesCourrier::get();
+        // $numCourrier = date('YmdHis').rand(1,99999);
         $numCourrier = date('YmdHis');
 
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
+        $date = Carbon::parse('now');
+        $date = $date->format('Y-m-d');
 
-        return view('departs.create', compact('numCourrier','courriers', 'recues', 'internes', 'departs'));
+        $objets = Objet::pluck('name','name');
+        $directions = Direction::pluck('sigle','id');
+
+        /* dd($date); */      
+        $date_r = Carbon::now();
+
+       /*  dd($date_r); */
+
+        return view('departs.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r' ));
     }
 
     /**
@@ -65,23 +75,19 @@ class DepartsController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'legende'       =>  'required|string|max:100',
-                'file'          => 'required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
-
+                'date_c'        =>  'required|date',
             ]
         );
-        $types_courrier_id = TypesCourrier::where('name','Departs')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
+        $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
+        $gestionnaire_id  = Auth::user()->first()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
-        $numCourrier = "10000".$courrier_id;
+        $numCourrier = $courrier_id;
 
         $direction = \App\Direction::first();
         $courrier = \App\Courrier::first();
-       
-        $filePath = request('file')->store('departs', 'public');
+        // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
-            'numero'             =>      "CD-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'expediteur'         =>      $request->input('expediteur'),
             'telephone'          =>      $request->input('telephone'),
@@ -89,22 +95,25 @@ class DepartsController extends Controller
             'adresse'            =>      $request->input('adresse'),
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
-            'date'               =>      $request->input('date_r'),
-            'legende'            =>      $request->input('legende'),
+            'date_r'             =>      $request->input('date_r'),
+            'date_c'             =>      $request->input('date_c'),
+            // 'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
             'gestionnaires_id'   =>      $gestionnaire_id,
-            'file'               =>      $filePath
+            'file'               =>      ""
         ]);
 
         $courrier->save();
 
         $depart = new Depart([
+            'numero'        =>  "CD-".$annee."-".$numCourrier,
             'courriers_id'  =>   $courrier->id
         ]);
         
         $depart->save();
-        $direction->courriers()->attach($courrier);
-
+        
+        $courrier->directions()->sync($request->directions);
+        
         return redirect()->route('departs.index')->with('success','courrier ajouté avec succès !');
 
     }
@@ -126,17 +135,12 @@ class DepartsController extends Controller
      * @param  \App\Depart  $depart
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Depart $depart)
     {
           
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
-
-         $depart = Depart::find($id);
-         
-         return view('departs.update', compact('depart','id','courriers', 'recues', 'internes', 'departs'));
+        $objets = Objet::pluck('name','name');
+        $directions = Direction::pluck('sigle','id');
+         return view('departs.update', compact('depart', 'directions', 'objets'));
     }
 
     /**
@@ -146,7 +150,7 @@ class DepartsController extends Controller
      * @param  \App\Depart  $depart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, Depart $depart)
     {
         $this->validate(
             $request, [
@@ -156,64 +160,64 @@ class DepartsController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
-                'legende'       =>  'required|string|max:100',
+                'date_c'        =>  'required|date',
                 'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
             ]
         );
 
+       
         if (request('file')) { 
-             $filePath = request('file')->store('departs', 'public');
-        $depart = Depart::find($id);
-        $courrier = $depart->courrier; 
-        $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
- 
-        $courrier->objet              =      $request->input('objet');
-        $courrier->expediteur         =      $request->input('expediteur');
-        $courrier->telephone          =      $request->input('telephone');
-        $courrier->email              =      $request->input('email');
-        $courrier->adresse            =      $request->input('adresse');
-        $courrier->fax                =      $request->input('fax');
-        $courrier->bp                 =      $request->input('bp');
-        $courrier->date               =      $request->input('date_r');
-        $courrier->legende            =      $request->input('legende');
-        $courrier->types_courriers_id =      $types_courrier_id;
-        $courrier->gestionnaires_id   =      $gestionnaire_id;
-        $courrier->file               =      $filePath;
+            $filePath = request('file')->store('departs', 'public');
+       $courrier = $depart->courrier; 
+       $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
+       $gestionnaire_id  = Auth::user()->first()->id;
 
-        $courrier->save(); 
+       $courrier->objet              =      $request->input('objet');
+       $courrier->expediteur         =      $request->input('expediteur');
+       $courrier->telephone          =      $request->input('telephone');
+       $courrier->email              =      $request->input('email');
+       $courrier->adresse            =      $request->input('adresse');
+       $courrier->fax                =      $request->input('fax');
+       $courrier->bp                 =      $request->input('bp');
+       $courrier->date_r             =      $request->input('date_r');
+       $courrier->date_c             =      $request->input('date_c');
+       $courrier->legende            =      $request->input('legende');
+       $courrier->types_courriers_id =      $types_courrier_id;
+       $courrier->gestionnaires_id   =      $gestionnaire_id;
+       $courrier->file               =      $filePath;
 
-        $depart->courriers_id          =      $courrier->id; 
+       $courrier->save(); 
 
-        $depart->save();
-         }
-         else{            
-        $depart = Depart::find($id);
-        /*  dd($id); */
-        $courrier = $depart->courrier;
-        /* dd($courrier); */
- 
-        $types_courrier_id = TypesCourrier::where('name','Arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
- 
-        $courrier->objet              =      $request->input('objet');
-        $courrier->expediteur         =      $request->input('expediteur');
-        $courrier->telephone          =      $request->input('telephone');
-        $courrier->email              =      $request->input('email');
-        $courrier->adresse            =      $request->input('adresse');
-        $courrier->fax                =      $request->input('fax');
-        $courrier->bp                 =      $request->input('bp');
-        $courrier->date               =      $request->input('date_r');
-        $courrier->legende            =      $request->input('legende');
-        $courrier->types_courriers_id =      $types_courrier_id;
-        $courrier->gestionnaires_id   =      $gestionnaire_id;
- 
-        $courrier->save();
- 
-        $depart->courriers_id          =      $courrier->id;
- 
-        $depart->save();
+       $depart->courriers_id          =      $courrier->id; 
+
+       $depart->save();
+       $courrier->directions()->sync($request->input('directions'));
+        }
+         else{   
+            $courrier = $depart->courrier;
+            $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
+            $gestionnaire_id  = Auth::user()->first()->id;
+     
+            $courrier->objet              =      $request->input('objet');
+            $courrier->expediteur         =      $request->input('expediteur');
+            $courrier->telephone          =      $request->input('telephone');
+            $courrier->email              =      $request->input('email');
+            $courrier->adresse            =      $request->input('adresse');
+            $courrier->fax                =      $request->input('fax');
+            $courrier->bp                 =      $request->input('bp');
+            $courrier->date_r             =      $request->input('date_r');
+            $courrier->date_c             =      $request->input('date_c');
+            $courrier->legende            =      $request->input('legende');
+            $courrier->types_courriers_id =      $types_courrier_id;
+            $courrier->gestionnaires_id   =      $gestionnaire_id;
+     
+            $courrier->save();
+     
+            $depart->courriers_id          =      $courrier->id;
+     
+            $depart->save();
+            $courrier->directions()->sync($request->input('directions'));
  
 
          }
