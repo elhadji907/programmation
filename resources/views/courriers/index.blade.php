@@ -98,7 +98,7 @@
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">
                     <thead class="table-dark">
                       <tr>
-                        <th>ID</th>
+                        {{-- <th>ID</th> --}}
                         <th>Objet</th>
                         <th>Expediteur</th>
                         <th>Email</th>
@@ -109,7 +109,7 @@
                     </thead>
                     <tfoot class="table-dark">
                         <tr>
-                          <th>ID</th>
+                          {{-- <th>ID</th> --}}
                           <th>Objet</th>
                           <th>Expediteur</th>
                           <th>Email</th>
@@ -138,7 +138,7 @@
             "serverSide": true,
             "ajax": "{{route('courriers.list')}}",
             columns: [
-                    { data: 'id', name: 'id' },
+                    //{ data: 'id', name: 'id' },
                     { data: 'objet', name: 'objet' },
                     { data: 'expediteur', name: 'expediteur' },
                     { data: 'email', name: 'email' },
@@ -153,12 +153,19 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('courriers.show',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('courriers.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="voir"><i class="far fa-eye"></i></a>'
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="voir"><i class="far fa-eye"></i></a>'
                         //+'<a class="btn btn-danger delete ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 6
+                        "targets": 5
                         },
                 ],
+
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                ],
+
+                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
                 language: {
                   "sProcessing":     "Traitement en cours...",
                   "sSearch":         "Rechercher&nbsp;:",
