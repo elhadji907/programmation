@@ -20,7 +20,7 @@
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('demandeurs.create')}}"><div class="btn btn-success">Nouvelle demande&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{route('demandeurs.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
@@ -105,8 +105,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('demandeurs.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('demandeurs.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_demandeur ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_demandeur ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt">&nbsp;Delete</i></div>';
                         },
                         "targets": 6
                         },

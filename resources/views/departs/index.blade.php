@@ -21,7 +21,7 @@
           <div class="card-body">
             <div class="table-responsive">
               <div align="right">
-                <a href="{!! url('departs/create') !!}"><div class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
+                <a href="{!! url('departs/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
               </div>
                 <br />
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">

@@ -93,7 +93,7 @@
         <div class="card-body">
                 <div class="table-responsive">
                     <div align="right">
-                    <a href="{{ route('courriers.create') }}"><div class="btn btn-success">Nouveau Courrier&nbsp; <span data-feather="plus"></span></div></a>
+                    <a href="{{ route('courriers.create') }}"><div class="btn btn-success btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                     </div>
                     <br />
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">

@@ -20,7 +20,7 @@
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('beneficiaires.create')}}"><div class="btn btn-success">Nouvelle demande&nbsp;<i class="fas fa-user-plus"></i></div></a>
+                            <a href="{{route('beneficiaires.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-beneficiaires">
