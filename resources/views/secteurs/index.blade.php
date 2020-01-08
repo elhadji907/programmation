@@ -1,8 +1,9 @@
 @extends('layout.default')
+@section('title', 'ONFP - Secteurs !')
 @section('content')
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 @if (session()->has('success'))
                   <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                 @endif 
@@ -27,14 +28,14 @@
                             <tr>
                               <th>ID</th>
                               <th>Secteur</th>
-                              <th>Action</th>
+                              <th class="text-center" style="width:15%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
                                 <th>Secteur</th>
-                                <th>Action</th>
+                                <th class="text-center" style="width:15%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -93,8 +94,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('secteurs.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('secteurs.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_secteur ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_secteur btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt">&nbsp;Delete</i></div>';
                         },
                         "targets": 2
                         },

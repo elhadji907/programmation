@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Enregistrement direction!')
 @section('content')
     <div class="container">
         <div class="container-fluid">

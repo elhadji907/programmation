@@ -1,4 +1,5 @@
-@extends('layout.default') 
+@extends('layout.default')
+@section('title', 'ONFP - Fiche Courier reçue!')
 @section('content')
     
     <style>

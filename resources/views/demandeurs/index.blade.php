@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Liste des demanandeurs!')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))

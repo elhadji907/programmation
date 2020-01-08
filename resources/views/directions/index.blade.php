@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Liste directions!')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -95,8 +96,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('directions.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('directions.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger btn_delete_direction ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="Modifier"><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger btn_delete_direction btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 3
                         },

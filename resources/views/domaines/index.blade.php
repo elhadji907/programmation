@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Domaines !')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -28,7 +29,7 @@
                               <th>ID</th>
                               <th>Domaine</th>
                               <th>Secteur</th>
-                              <th>Action</th>
+                              <th class="text-center" style="width:15%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -36,7 +37,7 @@
                                 <th>ID</th>
                                 <th>Domaine</th>
                                 <th>Secteur</th>
-                                <th>Action</th>
+                                <th class="text-center" style="width:15%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -96,8 +97,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('domaines.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('domaines.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_domaine ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit" title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_domaine btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt">&nbsp;Delete</i></div>';
                         },
                         "targets": 3
                         },
