@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Enregistrement domaines')
 @section('content')
 <div class="content">
     <div class="container col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -16,33 +17,33 @@
                         <form method="POST" action="{{ url('domaines') }}">
                            @csrf
                             <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="input-name"><b>{{ __("Nom du domaine") }}:</b></label>
-                                <input type="text" name="name" class="form-control" id="input-name" placeholder="ex: industrie" value="{{ old('name') }}">
-                                <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('name'))
-                                        @foreach ($errors->get('name') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                </small>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="input-name"><b>{{ __("Secteur d'activité") }}:</b></label>
-                                <select name="secteur" id="secteur" class="form-control">
-                                        <option value="">{{ ("--sélectionner--") }}</option>
-                                        @foreach($secteurs as $secteur)
-                                            <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
-                                        @endforeach
-                                </select>
+                                <div class="form-group col-md-12">
+                                    <label for="input-name"><b>{{ __("Secteur d'activité") }}:</b></label>
+                                    <select name="secteur" id="secteur" class="form-control">
+                                            <option value="">{{ ("--sélectionner--") }}</option>
+                                            @foreach($secteurs as $secteur)
+                                                <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
+                                            @endforeach
+                                    </select>
+                                        <small id="emailHelp" class="form-text text-muted">
+                                            @if ($errors->has('secteur'))
+                                            @foreach ($errors->get('secteur') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                            @endif
+                                        </small>
+                                </div>  
+                                <div class="form-group col-md-12">
+                                    <label for="input-name"><b>{{ __("Nom du domaine") }}:</b></label>
+                                    <input type="text" name="name" class="form-control" id="input-name" placeholder="ex: industrie" value="{{ old('name') }}">
                                     <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('secteur'))
-                                        @foreach ($errors->get('secteur') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
+                                            @if ($errors->has('name'))
+                                            @foreach ($errors->get('name') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                            @endif
                                     </small>
-                            </div>                          
+                                </div>                        
                         </div>                          
                         <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>

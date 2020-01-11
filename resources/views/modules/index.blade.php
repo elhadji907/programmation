@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Modules !')
+@section('title', 'ONFP - Liste des modules')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -29,8 +29,8 @@
                               <th>ID</th>
                               <th>Module</th>
                               <th>Domaine</th>
-                              <th>Secteur</th>
-                              <th class="text-center" style="width:15%;">Action</th>
+                              <th>{!! __("Secteur d'activité") !!}</th>
+                              <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -38,8 +38,8 @@
                                 <th>ID</th>
                                 <th>Module</th>
                                 <th>Domaine</th>
-                                <th>Secteur</th>
-                                <th class="text-center" style="width:15%;">Action</th>
+                                <th>{!! __("Secteur d'activité") !!}</th>
+                                <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -100,12 +100,19 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('modules.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('modules.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_module btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt">&nbsp;Delete</i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="Modifier"><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_module btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 4
                         },
                 ],
+
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                ],
+
+                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
                 language: {
                   "sProcessing":     "Traitement en cours...",
                   "sSearch":         "Rechercher&nbsp;:",

@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des courriers arrives !')
+@section('title', 'ONFP - Liste des courriers arrives')
 @section('content')
   <div class="container-fluid">
     <div class="row">

@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Fiche demandeur')
 @section('content')
 {{-- 
 <div class="content">

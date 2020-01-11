@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Charts\Courrierchart;
 use App\Role;
 use App\Objet;
 use App\User;
@@ -32,20 +33,34 @@ class HomeController extends Controller
     public function index()
     {
         /* return view('demandeurs.create'); */
-        $date = Carbon::parse('now');
+      /*   $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
         $roles = Role::get();
         $civilites = User::select('civilite')->distinct()->get();
-        $objets = Objet::select('name')->distinct()->get();
+        $objets = Objet::select('name')->distinct()->get(); */
         /* $data=DB::table('domaines')->get(); */
 
         // dd($objets);
-        if ( Auth::user()->role()->first()->name != 'Demandeur' ) {            
+       /*  if ( Auth::user()->role()->first()->name != 'Demandeur' ) {            
             return view('layout.default',compact('date', 'roles', 'civilites', 'objets'));
         } else {           
         return view('demandeurs.show',compact('date', 'roles', 'civilites', 'objets'));
-        }
+        } */
+
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = \App\Courrier::get()->count();
+        $demandeurs = \App\Demandeur::get()->count();
+        $operateurs = \App\Operateur::get()->count();
+        $Personnels = \App\Personnel::get()->count();
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['Demandeurs', 'Courriers', 'Operateurs', 'Personnel']);
+        $chart->dataset('STATISTIQUES', 'line', collect([$demandeurs, $courriers, $operateurs, $Personnels]));
+        
+        return view('layout.default', compact('courriers', 'recues', 'internes', 'departs','chart'));
         
     }
 }

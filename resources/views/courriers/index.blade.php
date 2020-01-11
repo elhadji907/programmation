@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des courriers!')
+@section('title', 'ONFP - Liste des courriers')
 @section('content')
 <div class="container-fluid">
     <div class="row">     
@@ -81,7 +81,24 @@
         </div>          
     </div>
 </div>
-<hr />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card"> 
+            <div class="card-header">
+               {{--  <i class="fas fa-table"></i> --}}               
+               <img src="{{ asset("img/stats_15267.png") }}" class="w-5"/>
+                Statistiques des courriers
+            </div>             
+          <div class="card-body">
+              {!! $chart->container() !!}              
+          {{-- <canvas id="bar-chart" width="800" height="450"></canvas> --}}
+          </div>
+      </div>
+    </div>          
+  </div>
+</div>
+<br />
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-12">
@@ -129,6 +146,7 @@
     </div>
 </div>
 </div>
+<br />
 @endsection
 
 @push('scripts')
@@ -199,5 +217,29 @@
               
           });
       });
-    </script> 
+      
+      //new Chart(document.getElementById("bar-chart"), {
+        //type: 'bar',
+        //data: {
+          //labels: ['Départs', 'Arrivés', 'Internes'],
+          //datasets: [
+            //{
+              //label: "Statistiques (chiffres)",
+              //backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+              //data: [2478,5267,734]
+            //}
+          //]
+        //},
+        //options: {
+          //legend: { display: false },
+          //title: {
+            //display: true,
+            //text: 'Statistiques des courriers'
+          //}
+        //}
+    //});
+ 
+    </script>
+    
+  {!! $chart->script() !!}
 @endpush

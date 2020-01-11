@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste directions!')
+@section('title', 'ONFP - Liste directions')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -29,7 +29,7 @@
                               <th>ID</th>
                               <th>direction</th>
                               <th>Sigle</th>
-                              <th>Action</th>
+                              <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -37,7 +37,7 @@
                                 <th>ID</th>
                                 <th>direction</th>
                                 <th>Sigle</th>
-                                <th>Action</th>
+                                <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -102,6 +102,13 @@
                         "targets": 3
                         },
                 ],
+
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                ],
+
+                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
                 language: {
                   "sProcessing":     "Traitement en cours...",
                   "sSearch":         "Rechercher&nbsp;:",

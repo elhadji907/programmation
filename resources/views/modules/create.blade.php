@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Enregistrement modules')
 @section('content')
 <div class="content">
     <div class="container col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -16,6 +17,22 @@
                         <form method="POST" action="{{ url('modules') }}">
                            @csrf
                             <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="input-domaine"><b>{{ __("Domaine") }}:</b></label>
+                                    <select name="domaine" id="domaine" class="form-control">
+                                        <option value="">{{ ("--sélectionner--") }}</option>
+                                        @foreach($domaines as $domaine)
+                                            <option value="{{ $domaine->id }}">{{ $domaine->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('domaine'))
+                                        @foreach ($errors->get('domaine') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                    </small>
+                                </div> 
                             <div class="form-group col-md-12">
                                 <label for="input-module"><b>{{ __("Nom du module") }}:</b></label>
                                 <input type="text" name="module" class="form-control" id="input-module" placeholder="ex: assistanat de direction" value="{{ old('module') }}">
@@ -26,39 +43,7 @@
                                         @endforeach
                                         @endif
                                 </small>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="input-domaine"><b>{{ __("Domaine") }}:</b></label>
-                                <select name="domaine" id="domaine" class="form-control">
-                                    <option value="">{{ ("--sélectionner--") }}</option>
-                                    @foreach($domaines as $domaine)
-                                        <option value="{{ $domaine->id }}">{{ $domaine->name }}</option>
-                                    @endforeach
-                                </select>
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('domaine'))
-                                    @foreach ($errors->get('domaine') as $message)
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                    @endif
-                                </small>
-                            </div>  
-                           {{--   <div class="form-group col-md-12">
-                                <label for="input-secteur"><b>{{ __("Secteur d'activité") }}:</b></label>
-                                <select name="secteur" id="secteur" class="form-control">
-                                        <option value="">{{ ("--sélectionner--") }}</option>
-                                        @foreach($secteurs as $secteur)
-                                            <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
-                                        @endforeach
-                                        </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('secteur'))
-                                        @foreach ($errors->get('secteur') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                    </small>
-                            </div>       --}}                     
+                            </div>                 
                         </div>                          
                         <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>

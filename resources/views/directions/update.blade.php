@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Modification directions!')
+@section('title', 'ONFP - Modification directions')
 @section('content')
     <div class="container">
         <div class="container-fluid">

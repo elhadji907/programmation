@@ -1,4 +1,5 @@
 @extends('layout.default')
+@section('title', 'ONFP - Modification modules')
 @section('content')
 <div class="content">
     <div class="container col-8 col-sm-12 col-md-8 col-lg-8 col-xl-8">

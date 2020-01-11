@@ -54,6 +54,7 @@
 
            {{-- @include('layout.main')  --}}
            @include('presentations.index') 
+           
           {{--  <!-- End of Main Content --> --}}
           @show
           </div>       

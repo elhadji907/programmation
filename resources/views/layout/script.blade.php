@@ -13,7 +13,8 @@
  {{--  <!-- Page level custom scripts --> --}}
   <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
   <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
-
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
   <script src="{{ asset('dist/js/select2.min.js') }}"></script>
   

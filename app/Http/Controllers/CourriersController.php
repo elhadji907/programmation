@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Courrier;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Charts\Courrierchart;
 
 class CourriersController extends Controller
 {
@@ -15,12 +17,21 @@ class CourriersController extends Controller
      */
     public function index()
     {
+
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
+        $courriers = Courrier::get()->count();
+
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
         
-        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs'));
+        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart'));
     }
 
     /**
@@ -33,9 +44,11 @@ class CourriersController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();       
-        $courriers = \App\Courrier::get()->count();
+        $courriers = Courrier::get()->count();
+        $demandes = \App\Demandeur::get()->count();
 
-        return view('courriers.create', compact('courriers', 'recues', 'internes', 'departs'));
+
+        return view('courriers.create', compact('courriers', 'recues', 'demandes', 'internes', 'departs'));
     }
 
     /**

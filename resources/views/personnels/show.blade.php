@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Personnel !')
+@section('title', 'ONFP - Fiche Personnel')
 @section('content')
     
     <style>

@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des bénéficiaires!')
+@section('title', 'ONFP - Liste des bénéficiaires')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
