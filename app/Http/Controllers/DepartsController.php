@@ -10,6 +10,7 @@ use App\Direction;
 use Auth;
 use App\Objet;
 use App\Courrier;
+use App\Charts\Courrierchart;
 
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
@@ -30,8 +31,13 @@ class DepartsController extends Controller
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::all();
        $courriers = \App\Courrier::get()->count();
+       $chart = new Courrierchart;
+       $chart->labels(['Départs', 'Arrivés', 'Internes']);
+       $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
         
-        return view('departs.index',compact('date','courriers', 'recues', 'internes', 'departs'));
+        return view('departs.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
     }
 
     /**
@@ -55,8 +61,14 @@ class DepartsController extends Controller
         $date_r = Carbon::now();
 
        /*  dd($date_r); */
-
-        return view('departs.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r' ));
+       $chart      = Courrier::all();
+       $chart = new Courrierchart;
+       $chart->labels(['', '', '']);
+       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
+       
+        return view('departs.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r','chart'));
     }
 
     /**
@@ -140,7 +152,15 @@ class DepartsController extends Controller
           
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
-         return view('departs.update', compact('depart', 'directions', 'objets'));
+        
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+         return view('departs.update', compact('depart', 'directions', 'objets','chart'));
     }
 
     /**
@@ -233,16 +253,11 @@ class DepartsController extends Controller
      */
     public function destroy(Depart $depart)
     {
-        $courriers_id = $depart->courriers_id;
-        $courrier = \App\Courrier::find($courriers_id);
-       /*  dd($courrier); */
-        // dd($depart);
-        $numero = $depart->courrier->numero;
-
-        $courrier->delete();
+        $depart->courrier->directions()->detach();
+        $depart->courrier->delete();
         $depart->delete();
         
-        $message = "Le courrier enregistré sous le numéro ".$numero.' a été supprimé';
+        $message = "Le courrier enregistré sous le numéro ".$depart->numero.' a été supprimé';
         return redirect()->route('departs.index')->with(compact('message'));
     }
 

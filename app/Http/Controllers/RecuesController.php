@@ -13,6 +13,7 @@ use Yajra\Datatables\Datatables;
 
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
+use App\Charts\Courrierchart;
 
 use App\TypesCourrier;
 
@@ -32,8 +33,13 @@ class RecuesController extends Controller
         $internes = Interne::get()->count();
         $departs = Depart::get()->count();
         $courriers = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
        
-        return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
+        return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
     }
 
     /**
@@ -57,8 +63,14 @@ class RecuesController extends Controller
         $date_r = Carbon::now();
 
        /*  dd($date_r); */
+       $chart      = Courrier::all();
+       $chart = new Courrierchart;
+       $chart->labels(['', '', '']);
+       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
 
-        return view('recues.create',compact('date', 'types', 'objets', 'directions', 'date_r'));
+        return view('recues.create',compact('date', 'types', 'objets', 'directions', 'date_r', 'chart'));
     }
 
     /**
@@ -149,7 +161,15 @@ class RecuesController extends Controller
     {        
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
-         return view('recues.update', compact('recue', 'directions', 'objets'));
+
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+         return view('recues.update', compact('recue', 'directions', 'objets','chart'));
         /*  dd($recue); */
     }
 
@@ -245,16 +265,11 @@ class RecuesController extends Controller
      */
     public function destroy(Recue $recue)
     {
-        $courriers_id = $recue->courriers_id;
-        $courrier = \App\Courrier::find($courriers_id);
-       /*  dd($courrier); */
-        // dd($recue);
-        $numero = $recue->numero;
-        $courrier->directions()->detach();
-        $courrier->delete();
+        $recue->courrier->directions()->detach();
+        $recue->courrier->delete();
         $recue->delete();
         
-        $message = "Le courrier enregistré sous le numéro ".$numero.' a été supprimé';
+        $message = "Le courrier enregistré sous le numéro ".$recue->numero.' a été supprimé';
         return redirect()->route('recues.index')->with(compact('message'));
     }
 

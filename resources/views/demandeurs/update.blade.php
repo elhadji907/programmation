@@ -15,7 +15,8 @@
                 </div>
                 <div class="card-body">                                               
                         <form method="POST" action="{{ action('DemandeursController@update', $id) }}">
-                           @csrf                                    
+                           @csrf
+                        <input type="hidden" name="_method" value="PATCH" />                                
                         <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="objet"><b>Objet:</b></label>
@@ -30,7 +31,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="date_r"><b>Date:</b></label>
-                                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" value="{{ old('date') ?? $demandeur->courrier->date->format('Y-m-d') }}" name="date_r" placeholder="date réception courrier..."
+                                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" value="{{ old('date') ?? $demandeur->courrier->date_r->format('Y-m-d') }}" name="date_r" placeholder="date réception courrier..."
                                         id="date_r" value="{{ old('date_r') }}">
                                     <div class="invalid-feedback">
                                         {{ $errors->first('date_r') }}

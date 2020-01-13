@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use App\Objet;
 use App\Direction;
+use App\Courrier;
 use App\Categorie;
 use App\Fonction;
 use Carbon\Carbon;
@@ -14,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
+
+use App\Charts\Courrierchart;
 
 class PersonnelsController extends Controller
 {
@@ -24,7 +27,22 @@ class PersonnelsController extends Controller
      */
     public function index()
     {
-        return view('personnels.index');
+        $date = Carbon::today()->locale('fr_FR');
+        $date = $date->copy()->addDays(0);
+        $date = $date->isoFormat('LLLL'); // M/D/Y
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::all();
+        $departs = \App\Depart::all();
+       $courriers = \App\Courrier::get()->count();
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('personnels.index', compact('chart'));
     }
 
     /**
@@ -40,7 +58,15 @@ class PersonnelsController extends Controller
         $directions = Direction::pluck('sigle','id');
         $categories = Categorie::pluck('name','id');
         $fonctions = Fonction::pluck('name','id');
-        return view('personnels.create',compact('roles', 'civilites','objets','directions','categories','fonctions'));
+
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('personnels.create',compact('roles', 'civilites','objets','directions','categories','fonctions', 'chart'));
     }
 
     /**
@@ -133,7 +159,14 @@ class PersonnelsController extends Controller
         $categories = Categorie::pluck('name','name');
         $fonctions = Fonction::pluck('name','name');
 
-        return view('personnels.update', compact('personnel', 'objets', 'directions', 'civilites', 'categories', 'fonctions'));
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('personnels.update', compact('personnel', 'objets', 'directions', 'civilites', 'categories', 'fonctions', 'chart'));
     }
 
     /**

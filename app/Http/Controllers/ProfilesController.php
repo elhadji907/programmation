@@ -2,8 +2,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Courrier;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use App\Charts\Courrierchart;
+
 
 class ProfilesController extends Controller
 {
@@ -15,17 +18,32 @@ class ProfilesController extends Controller
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
         $courriers = $recues + $internes + $departs;
+
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
         
-        return view('profiles.show', compact('user','courriers', 'recues', 'internes', 'departs'));
+        return view('profiles.show', compact('user','courriers', 'recues', 'internes', 'departs','chart'));
     }
 
 
     public function edit(User $user)
     {
+
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
         
         $civilites = User::select('civilite')->distinct()->get();
         $this->authorize('update', $user->profile);
-        return view('profiles.edit', compact('user', 'civilites'));
+        return view('profiles.edit', compact('user', 'civilites','chart'));
     }
 
 
@@ -77,6 +95,6 @@ class ProfilesController extends Controller
                 ]);
         }
 
-        return redirect()->route('profiles.show', ['user'=>auth()->user()]);
+        return redirect()->route('profiles.show', ['user'=>auth()->user(), 'chart']);
     }
 }

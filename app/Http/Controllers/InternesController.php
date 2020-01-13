@@ -12,6 +12,7 @@ use App\Objet;
 use App\Direction;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
+use App\Charts\Courrierchart;
 
 class InternesController extends Controller
 {
@@ -29,8 +30,17 @@ class InternesController extends Controller
         $internes = \App\Interne::all();
         $departs = \App\Depart::all();
        $courriers = \App\Courrier::get()->count();
+
+       $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
         
-        return view('internes.index',compact('date','courriers', 'recues', 'internes', 'departs'));
+        
+        return view('internes.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
     }
 
     /**
@@ -54,8 +64,15 @@ class InternesController extends Controller
         $date_r = Carbon::now();
 
        /*  dd($date_r); */
+       $chart      = Courrier::all();
+       $chart = new Courrierchart;
+       $chart->labels(['', '', '']);
+       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
+       
 
-        return view('internes.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r' ));
+        return view('internes.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r','chart'));
     }
 
     /**
@@ -137,7 +154,15 @@ class InternesController extends Controller
     {
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
-         return view('internes.update', compact('interne', 'directions', 'objets'));
+
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+         return view('internes.update', compact('interne', 'directions', 'objets','chart'));
     }
 
     /**
@@ -230,14 +255,11 @@ class InternesController extends Controller
      */
     public function destroy(Interne $interne)
     {
-        $courriers_id = $interne->courriers_id;
-        $courrier = \App\Courrier::find($courriers_id);
-        $numero = $interne->courrier->numero;
-
-        $courrier->delete();
+        $interne->courrier->directions()->detach();
+        $interne->courrier->delete();
         $interne->delete();
         
-        $message = "Le courrier enregistré sous le numéro ".$numero.' a été supprimé';
+        $message = "Le courrier enregistré sous le numéro ".$interne->numero.' a été supprimé';
         return redirect()->route('internes.index')->with(compact('message'));
     }
 

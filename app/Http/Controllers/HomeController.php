@@ -58,7 +58,9 @@ class HomeController extends Controller
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['Demandeurs', 'Courriers', 'Operateurs', 'Personnel']);
-        $chart->dataset('STATISTIQUES', 'line', collect([$demandeurs, $courriers, $operateurs, $Personnels]));
+        $chart->dataset('STATISTIQUES', 'bar', collect([$demandeurs, $courriers, $operateurs, $Personnels]))->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2", "#3cba9f", '#ff3838'],
+        ]);
         
         return view('layout.default', compact('courriers', 'recues', 'internes', 'departs','chart'));
         

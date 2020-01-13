@@ -77,20 +77,33 @@ class CourriersController extends Controller
         $departs = $courrier->departs;
         $internes = $courrier->internes;
         $demandes = $courrier->demandeurs;
+        
+        $recue = \App\Recue::get()->count();
+        $interne = \App\Interne::get()->count();
+        $depart = \App\Depart::get()->count();
+        $courrier = Courrier::get()->count();
+
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$interne, $recue, $depart])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
         if ($typescourrier == 'Courrier arrives') {            
-        return view('recues.show', compact('recues','courrier'));
+        return view('recues.show', compact('recues','courrier','chart'));
 
         } elseif($typescourrier == 'Courrier departs') {   
-        return view('departs.show', compact('departs','courrier'));
+        return view('departs.show', compact('departs','courrier','chart'));
 
         } elseif($typescourrier == 'Courrier internes') {    
-            return view('internes.show', compact('internes','courrier'));
+            return view('internes.show', compact('internes','courrier','chart'));
 
         } elseif($typescourrier == $typescourrier) {
-            return view('demandeurs.show', compact('demandes','courrier'));
+            return view('demandeurs.show', compact('demandes','courrier','chart'));
         } 
         else {
-            return view('courriers.show', compact('courrier'));
+            return view('courriers.show', compact('courrier','chart'));
         }
         
     }

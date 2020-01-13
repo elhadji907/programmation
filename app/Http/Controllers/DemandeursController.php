@@ -16,6 +16,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use App\Charts\Courrierchart;
 
 class DemandeursController extends Controller
 {
@@ -26,7 +27,19 @@ class DemandeursController extends Controller
      */
     public function index()
     {
-        return view('demandeurs.index');
+        $date = Carbon::today()->locale('fr_FR');
+        $date = $date->copy()->addDays(0);
+        $date = $date->isoFormat('LLLL'); // M/D/Y
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::all();
+       $courriers = \App\Courrier::get()->count();
+       $chart = new Courrierchart;
+       $chart->labels(['Départs', 'Arrivés', 'Internes']);
+       $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
+        return view('demandeurs.index', compact('chart'));
     }
 
     /**
@@ -38,7 +51,7 @@ class DemandeursController extends Controller
     {
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
-
+            
         $roles = Role::get();
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
@@ -207,7 +220,21 @@ class DemandeursController extends Controller
   
        /*  dd($objets); */
         //return $utilisateur;
-        return view('demandeurs.update', compact('demandeur', 'utilisateur', 'id', 'roles', 'civilites', 'objets', 'date'));
+        
+        $recues = \App\Recue::get()->count();
+        $internes = \App\Interne::get()->count();
+        $departs = \App\Depart::get()->count();
+        $courriers = Courrier::get()->count();
+
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('demandeurs.update', compact('demandeur', 'utilisateur', 'id', 'roles', 'civilites', 'objets', 'date', 'chart'));
     }
 
     /**
@@ -230,7 +257,12 @@ class DemandeursController extends Controller
      */
     public function destroy(Demandeur $demandeur)
     {
-        //
+       
+        $demandeur->user->delete();
+        $demandeur->delete();
+        
+        $message = $demandeur->user->firstname.' '.$demandeur->user->name.' a été supprimé(e)';
+        return redirect()->route('demandeurs.index')->with(compact('message'));
     }
 
     public function list(Request $request)
