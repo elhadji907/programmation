@@ -33,8 +33,9 @@ class ProfilesController extends Controller
     public function edit(User $user)
     {
 
-        $chart      = Courrier::all();
+        $this->authorize('update', $user->profile);
 
+        $chart      = Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
@@ -42,7 +43,6 @@ class ProfilesController extends Controller
         ]);
         
         $civilites = User::select('civilite')->distinct()->get();
-        $this->authorize('update', $user->profile);
         return view('profiles.edit', compact('user', 'civilites','chart'));
     }
 
@@ -50,6 +50,7 @@ class ProfilesController extends Controller
     public function update(User $user)
     {
         $this->authorize('update', $user->profile);
+        
         $data = request()->validate([
             'civilite'        => ['required', 'string', 'max:50'],
             'firstname'        => ['required', 'string', 'max:50'],

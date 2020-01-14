@@ -11,10 +11,10 @@
             </div>
             <div class="d-flex mt-3">
             </div>            
-            @can('update', auth::user()->profile)
-            <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" class="btn btn-outline-secondary mt-3">Modifier mon profile</a>             
-            @endcan
-            
+            @can('update', $user->profile)
+            <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" 
+                class="btn btn-outline-secondary mt-3">Modifier mon profile</a>             
+            @endcan            
             <div class="mt-3 d-flex">
                 <div class="mr-1"><b>{{ auth::user()->civilite }}</b></div>
                 <div class="mr-1"><b>{{ auth::user()->firstname }}</b></div>

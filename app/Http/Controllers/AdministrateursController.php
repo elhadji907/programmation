@@ -27,6 +27,17 @@ class AdministrateursController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+      /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('roles:Administrateur');
+    }
+
     public function index()
     {
         $chart      = \App\Courrier::all();

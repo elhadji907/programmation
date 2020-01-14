@@ -56,7 +56,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Gestionnaire')
   <a class="nav-link" href="{{ route('demandeurs.index') }}">
       <span data-feather="layers"></span>
     <span>Gestion demandes</span>
