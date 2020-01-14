@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Direction;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Charts\Courrierchart;
 
 class DirectionsController extends Controller
 {
@@ -16,7 +17,13 @@ class DirectionsController extends Controller
     public function index()
     {
         //
-        return view('directions.index');
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+        return view('directions.index', compact('chart'));
     }
 
     /**
@@ -26,13 +33,14 @@ class DirectionsController extends Controller
      */
     public function create(Request $request)
     {
+       $chart      = \App\Courrier::all();
+       $chart = new Courrierchart;
+       $chart->labels(['', '', '']);
+       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
 
-        $directeur_id=$request->input('user');
-       /*  dd($directeur_id); */
-        $user=\App\User::find($directeur_id);
-       /*  dd($user); */
-
-        return view('directions.create',compact('user'));
+        return view('directions.create',compact('user', 'chart'));
     }
 
     /**
@@ -81,7 +89,13 @@ class DirectionsController extends Controller
     public function edit($id)
     {
         $direction = Direction::find($id);
-        return view('directions.update', compact('direction','id'));
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+        return view('directions.update', compact('direction','id','chart'));
     }
 
     /**

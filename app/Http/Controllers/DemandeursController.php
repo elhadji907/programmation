@@ -58,7 +58,13 @@ class DemandeursController extends Controller
         $objets = Objet::select('name')->distinct()->get();
 
         // dd($objets);
-        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux'));
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux','chart'));
     }
 
     /**

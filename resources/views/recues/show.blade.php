@@ -166,7 +166,7 @@
                 </td>                
                 <td>
                     @if ($recue->courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($recue->courrier->getFile()) }}">
                             <i class="fas fa-download">&nbsp;Dossier</i>
                         </a>                                            
                     @else

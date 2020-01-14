@@ -221,7 +221,9 @@ class RecuesController extends Controller
         $recue->courriers_id          =      $courrier->id; 
 
         $recue->save();
+        
         $courrier->directions()->sync($request->input('directions'));
+
          }
          else{            
         /*  dd($id); */

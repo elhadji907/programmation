@@ -8,6 +8,7 @@ use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use App\Charts\Courrierchart;
 
 class BeneficiairesController extends Controller
 {
@@ -18,7 +19,14 @@ class BeneficiairesController extends Controller
      */
     public function index()
     {
-        return view('beneficiaires.index');
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('beneficiaires.index', compact('chart'));
     }
 
     /**
@@ -101,7 +109,7 @@ class BeneficiairesController extends Controller
      */
     public function edit(Beneficiaire $beneficiaire)
     {
-        //
+        
     }
 
     /**

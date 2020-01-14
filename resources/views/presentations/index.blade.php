@@ -99,9 +99,7 @@
        </a>
       </div>
     </div>
-  
   @endroles
-  
   </div>
   <div class="container-fluid">
     <div class="row">
@@ -113,10 +111,11 @@
                   Statistiques Générales
               </div>             
           <div class="card-body">
-              {!! $chart->container() !!}
+              {{-- {!! $chart->container() !!} --}}
           </div>
         </div>
       </div>          
   </div>
+</div>
 </div><br/>
-{!! $chart->script() !!}
+{{-- {!! $chart->script() !!} --}}

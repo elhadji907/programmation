@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Role;
 use App\User;
+use App\Charts\Courrierchart;
 
 class GestionnairesController extends Controller
 {
@@ -17,7 +18,14 @@ class GestionnairesController extends Controller
      */
     public function index()
     {
-        return view('gestionnaires.index');
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('gestionnaires.index', compact('chart'));
     }
 
     /**

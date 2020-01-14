@@ -26,7 +26,7 @@ class CourriersController extends Controller
         $chart      = Courrier::all();
 
         $chart = new Courrierchart;
-        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->labels(['Courriers départs', 'Courriers arrivés', 'Courriers internes']);
         $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);

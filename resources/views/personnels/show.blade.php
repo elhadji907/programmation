@@ -209,8 +209,11 @@
                     {!! $an = \Carbon\Carbon::now()->diffInYears($personnel->debut) !!}
                     @if ( $an >1)
                         {!! __('ans') !!}
-                    @else
-                        {!! __('an') !!}           
+                    @elseif( $an == 1)
+                    {!! __('an') !!}
+                    @elseif( $an < 1)
+                    {!!$mois = \Carbon\Carbon::now()->diffInMonths($personnel->debut) !!} mois {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jours
+                   
                     @endif
                 </td>
             </tr>

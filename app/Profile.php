@@ -49,6 +49,7 @@ class Profile extends Eloquent
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
+	
 	public function getImage(){
 		$imagePath = $this->image ?? 'avatars/default.png';
 		return "/storage/" . $imagePath;

@@ -8,6 +8,7 @@ use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use App\Charts\Courrierchart;
 
 class AdministrateursController extends Controller
 {  
@@ -28,7 +29,14 @@ class AdministrateursController extends Controller
      */
     public function index()
     {
-        return view('administrateurs.index');
+        $chart      = \App\Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('administrateurs.index', compact('chart'));
     }
 
     /**
@@ -40,7 +48,15 @@ class AdministrateursController extends Controller
     {
         $roles = Role::get();
         $civilites = User::select('civilite')->distinct()->get();
-        return view('administrateurs.create',compact('roles', 'civilites'));
+
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('administrateurs.create',compact('roles', 'civilites', 'chart'));
     }
 
     /**
@@ -117,7 +133,14 @@ class AdministrateursController extends Controller
         $roles = Role::get();
         $civilites = User::select('civilite')->distinct()->get();
         //return $utilisateur;
-        return view('administrateurs.update', compact('administrateur','utilisateur','id','roles','civilites'));
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+
+        return view('administrateurs.update', compact('administrateur','utilisateur','id','roles','civilites','chart'));
     }
 
     /**
