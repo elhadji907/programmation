@@ -141,7 +141,7 @@
                                 
                             </td>                            
                             <td>
-                                <b>Numero Cin: </b> {{ $personnel->cin }}<br>
+                                <b>Cin: </b> {{ $personnel->cin }}<br>
                                 <b>Situation familiale: </b>{{ $personnel->user->situation_familiale }}<br>
                                 <b>{!! __("Nombre d'enfant") !!}: </b> {{ $personnel->nbrefant }}<br>
                             </td>

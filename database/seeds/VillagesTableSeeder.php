@@ -35,7 +35,7 @@ class VillagesTableSeeder extends Seeder
                         $commune_=App\Commune::firstOrNew(["nom"=>$commune->nom]);
                         $arrondissement_->communes()->save($commune_);
                         foreach ((array)$commune->village as $village) {
-                            if(App\Village::count()<30){
+                            if(App\Village::count()<14958){
                             $village_=App\Village::firstOrNew(["nom"=>$village->nom]);
                             $commune_->villages()->save($village_);
 
@@ -91,8 +91,7 @@ class VillagesTableSeeder extends Seeder
                             $diplomes_id = App\Diplome::all()->random()->id;
                             $situations_id = App\Situation::all()->random()->id;
 
-                            $beneficiaire=App\Beneficiaire::firstOrNew( [
-                            ],
+                            $beneficiaire=App\Beneficiaire::firstOrNew(
                             [
                             "villages_id"=>$village_->id,
                             "nivauxs_id"=>$nivaus_id,

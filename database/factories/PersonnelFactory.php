@@ -31,7 +31,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Personnel::class, function (Faker\Generator $faker) {
-    $role_id=App\Role::where('name','Administrateur')->first()->id;
+    $role_id=App\Role::all()->random()->id;
     $directions_id = App\Direction::all()->random()->id;
     $categories_id = App\Categorie::all()->random()->id;
     $fonctions_id = App\Fonction::all()->random()->id;

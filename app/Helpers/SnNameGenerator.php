@@ -42,6 +42,11 @@ class SnNameGenerator
         "Mme",
     );
 
+    public static $lieunaissance = array(
+
+     
+    );
+
     public static $diplome = array(
 
         "Certificat de fin d'étude élémentaire",

@@ -40,11 +40,25 @@
                     Choisir le role svp
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownId">
-                  <a href="{{route('loginfor','Administrateur')}}" class="btn btn-lg btn-secondary">Administrateur</a>
-                      <a href="{{route('loginfor','Gestionnaire')}}" class="btn btn-lg btn-secondary">Gestionnaire</a>
-                      <a href="{{route('loginfor','Demandeur')}}" class="btn btn-lg btn-secondary">Demandeur</a>
-                      <a href="{{route('loginfor','Operateur')}}" class="btn btn-lg btn-secondary">Operateur</a>
-                      <a href="{{route('loginfor','Agent')}}" class="btn btn-lg btn-secondary">Agent</a>
+                      <a href="{{route('loginfor','Administrateur')}}" class="btn btn-lg btn-secondary">Administrateur</a><br />
+                      <a href="{{route('loginfor','Gestionnaire')}}" class="btn btn-lg btn-secondary">Gestionnaire</a><br />
+                      <a href="{{route('loginfor','Beneficiaire')}}" class="btn btn-lg btn-secondary">Beneficiaire</a><br />
+                      <a href="{{route('loginfor','Comptable')}}" class="btn btn-lg btn-secondary">Comptable</a><br />
+                      {{--  <a href="{{route('loginfor','AComptable')}}" class="btn btn-lg btn-secondary">A-Comptable</a><br />  --}}
+                      <a href="{{route('loginfor','Courrier')}}" class="btn btn-lg btn-secondary">Courrier</a><br />
+                      {{--  <a href="{{route('loginfor','ACourrier')}}" class="btn btn-lg btn-secondary">A-Courrier</a><br />  --}}
+                      <a href="{{route('loginfor','DPP')}}" class="btn btn-lg btn-secondary">DPP</a><br />
+                      {{--  <a href="{{route('loginfor','ADPP')}}" class="btn btn-lg btn-secondary">A-DPP</a><br />  --}}
+                      <a href="{{route('loginfor','DIOF')}}" class="btn btn-lg btn-secondary">DIOF</a><br />
+                      {{--  <a href="{{route('loginfor','ADIOF')}}" class="btn btn-lg btn-secondary">A-DIOF</a><br />  --}}
+                      <a href="{{route('loginfor','DEC')}}" class="btn btn-lg btn-secondary">DEC</a><br />
+                      {{--  <a href="{{route('loginfor','ADEC')}}" class="btn btn-lg btn-secondary">A-DEC</a><br />  --}}
+                      <a href="{{route('loginfor','Ingenieur')}}" class="btn btn-lg btn-secondary">Ingenieur</a><br />
+                      {{--  <a href="{{route('loginfor','COM')}}" class="btn btn-lg btn-secondary">COM</a><br />  --}}
+                      {{--  <a href="{{route('loginfor','ACOM')}}" class="btn btn-lg btn-secondary">A-COM</a><br />  --}}
+                      <a href="{{route('loginfor','Demandeur')}}" class="btn btn-lg btn-secondary">Demandeur</a><br />
+                      <a href="{{route('loginfor','Visiteur')}}" class="btn btn-lg btn-secondary">Visiteur</a><br />
+                      <a href="{{route('loginfor','Nologin')}}" class="btn btn-lg btn-secondary">Nologin</a><br />
                   </div>
                 </div>
               </div>

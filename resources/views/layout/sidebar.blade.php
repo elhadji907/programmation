@@ -144,6 +144,11 @@
         <span data-feather="user"></span>
         <span>Bénéficiaires</span>
       </a>
+      </a>
+      <a class="collapse-item" href="{{ route('villages.index') }}">
+        <span data-feather="user"></span>
+        <span>Villages</span>
+      </a>
       @endguest
     </div>
   </div>

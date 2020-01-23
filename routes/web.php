@@ -40,6 +40,7 @@ Route::group([
         Route::get('/domaines/list', 'DomainesController@list')->name('domaines.list');
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
+        Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
 
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
@@ -67,6 +68,7 @@ Route::group([
         Route::resource('/domaines', 'DomainesController');
         Route::resource('/modules', 'ModulesController');
         Route::resource('/secteurs', 'SecteursController');
+        Route::resource('/villages', 'VillagesController');
 
     }         
 );
