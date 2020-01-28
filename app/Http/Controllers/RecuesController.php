@@ -191,7 +191,7 @@ class RecuesController extends Controller
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
                 'date_c'        =>  'required|date',
-                'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
+                'file'          =>  'sometimes|required|file|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp|max:100000',
 
             ]
         );
