@@ -100,7 +100,7 @@ class RecuesController extends Controller
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->first()->id;
+        $users_id  = Auth::user()->first()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = $courrier_id;
@@ -120,7 +120,7 @@ class RecuesController extends Controller
             'date_c'             =>      $request->input('date_c'),
             // 'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
-            'gestionnaires_id'   =>      $gestionnaire_id,
+            'users_id'           =>      $users_id,
             'file'               =>      ""
         ]);
 
@@ -200,7 +200,7 @@ class RecuesController extends Controller
              $filePath = request('file')->store('recues', 'public');
         $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->first()->id;
+        $user_id           = Auth::user()->first()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');
@@ -213,7 +213,7 @@ class RecuesController extends Controller
         $courrier->date_c             =      $request->input('date_c');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
-        $courrier->gestionnaires_id   =      $gestionnaire_id;
+        $courrier->users_id           =      $user_id;
         $courrier->file               =      $filePath;
 
         $courrier->save(); 
@@ -231,7 +231,7 @@ class RecuesController extends Controller
         /* dd($courrier); */
  
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $gestionnaire_id  = Auth::user()->first()->id;
+        $user_id          = Auth::user()->first()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');
@@ -244,7 +244,7 @@ class RecuesController extends Controller
         $courrier->date_c             =      $request->input('date_c');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
-        $courrier->gestionnaires_id   =      $gestionnaire_id;
+        $courrier->users_id           =      $user_id;
  
         $courrier->save();
  

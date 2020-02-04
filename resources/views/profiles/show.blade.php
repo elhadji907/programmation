@@ -4,17 +4,15 @@
 <div class="container">
     <div class="row mt-4">
        <div class="col-4 text-center">
-            <img src="{{ asset(auth::user()->profile->getImage()) }}" class="rounded-circle w-100"/>
+            <img src="{{ asset(auth::user()->profile->getImage()) }}" class="rounded-circle w-50"/>
        </div>
        <div class="col-8">
-            <div class="d-flex align-items-baseline">
+            {{--  <div class="d-flex align-items-baseline">
             </div>
             <div class="d-flex mt-3">
-            </div>            
+            </div>              --}}
             @can('update', $user->profile)
-            <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" 
-                class="btn btn-outline-secondary mt-3">Modifier mon profile</a>             
-            @endcan            
+                   
             <div class="mt-3 d-flex">
                 <div class="mr-1"><b>{{ auth::user()->civilite }}</b></div>
                 <div class="mr-1"><b>{{ auth::user()->firstname }}</b></div>
@@ -34,21 +32,32 @@
                 <div class="mr-1"><b>{{ auth::user()->lieu_naissance }}</b></div>
                 @endif
             </div>
-           
-            <div class="mt-3">
+    
+            <div class="mt-0">
                 <div class="mr-3"><b>{{ __("Nom d'utilisateur") }}:</b> {{ auth::user()->username }}</div>
                 <div class="mr-3"><b>Adresse e-mail:</b> {{ auth::user()->email }}</div>
                 <div class="mr-3"><b>Téléphone:</b> {{ auth::user()->telephone }}</div>
             </div>
+            <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" 
+                class="btn btn-outline-secondary mt-3">Modifier mon profile</a>             
+            @endcan 
         </div>
     </div>
 
     <div class="mt-5 row">
+        @foreach (auth::user()->courriers as $courrier)
+        <div class="col-4 pb-3">
+            {!! $courrier->objet !!}
+        </div>            
+        @endforeach
+    </div>
+
+    {{--  <div class="mt-5 row">
         @foreach (auth::user()->postes as $post)
         <div class="col-4 pb-3">
             <a href="{{ route('postes.show', ['poste' => $post->id ]) }}"><img src="{{ asset('storage').'/'.$post->image }}" class="w-100"/></a>
         </div>            
         @endforeach
-    </div>
+    </div>  --}}
 </div></div>
 @endsection

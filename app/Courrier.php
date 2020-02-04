@@ -62,6 +62,7 @@ class Courrier extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'numero',
 		'objet',
 		'expediteur',
 		'telephone',
@@ -77,7 +78,8 @@ class Courrier extends Eloquent
 		'date_c',
 		'date_r',
 		'types_courriers_id',
-		'gestionnaires_id'
+		'gestionnaires_id',
+		'users_id'
 	];
 
 	public function getFile(){
@@ -88,6 +90,10 @@ class Courrier extends Eloquent
 	public function gestionnaire()
 	{
 		return $this->belongsTo(\App\Gestionnaire::class, 'gestionnaires_id');
+	}
+	public function user()
+	{
+		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
 	public function types_courrier()

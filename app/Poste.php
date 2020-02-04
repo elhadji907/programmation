@@ -43,6 +43,6 @@ class Poste extends Eloquent
 
 	public function user()
 	{
-		return $this->belongsTo(\App\User::class, 'users_id');
+		return $this->belongsTo(\App\User::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 }

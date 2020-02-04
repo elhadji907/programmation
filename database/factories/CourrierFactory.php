@@ -34,7 +34,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
-    $gestionnaire_id=App\Gestionnaire::all()->random()->id;
+    $user_id=App\User::all()->random()->id;
     $objet = App\Objet::all()->random()->name;
   
     return [        
@@ -52,8 +52,8 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'statut' => $faker->word,
         'date_c' => $faker->dateTime(),
         'date_r' => $faker->dateTime(),
-        'gestionnaires_id' => function () use($gestionnaire_id) {
-            return $gestionnaire_id;
+        'users_id' => function () use($user_id) {
+            return $user_id;
         },
     ];
 });

@@ -1,3 +1,6 @@
+@extends('layout.default')
+@section('title', 'ONFP - Liste personnel')
+@section('content')
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
@@ -111,11 +114,12 @@
                   Statistiques Générales
               </div>             
           <div class="card-body">
-              {{-- {!! $chart->container() !!} --}}
+              {!! $chart->container() !!}
           </div>
         </div>
       </div>          
   </div>
 </div>
 </div><br/>
-{{-- {!! $chart->script() !!} --}}
+@endsection
+{!! $chart->script() !!}

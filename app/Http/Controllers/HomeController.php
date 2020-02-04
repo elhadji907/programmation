@@ -32,21 +32,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /* return view('demandeurs.create'); */
-      /*   $date = Carbon::parse('now');
-        $date = $date->format('Y-m-d');
-
-        $roles = Role::get();
-        $civilites = User::select('civilite')->distinct()->get();
-        $objets = Objet::select('name')->distinct()->get(); */
-        /* $data=DB::table('domaines')->get(); */
-
-        // dd($objets);
-       /*  if ( Auth::user()->role()->first()->name != 'Demandeur' ) {            
-            return view('layout.default',compact('date', 'roles', 'civilites', 'objets'));
-        } else {           
-        return view('demandeurs.show',compact('date', 'roles', 'civilites', 'objets'));
-        } */
 
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
@@ -62,7 +47,7 @@ class HomeController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2", "#3cba9f", '#ff3838'],
         ]);
         
-        return view('layout.default', compact('courriers', 'recues', 'internes', 'departs','chart'));
+        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart'));
         
     }
 }

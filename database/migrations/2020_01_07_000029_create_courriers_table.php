@@ -24,6 +24,7 @@ class CreateCourriersTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('numero', 200)->nullable();
             $table->string('objet', 200)->nullable();
             $table->string('expediteur', 200)->nullable();
             $table->string('telephone', 200)->nullable();
@@ -39,11 +40,12 @@ class CreateCourriersTable extends Migration
             $table->timestamp('date_c')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('date_r')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('types_courriers_id');
-            $table->unsignedInteger('gestionnaires_id');
+            $table->unsignedInteger('users_id');
 
-            $table->index(["gestionnaires_id"], 'fk_courriers_gestionnaires1_idx');
 
             $table->index(["types_courriers_id"], 'fk_courriers_types_courriers1_idx');
+
+            $table->index(["users_id"], 'fk_courriers_users1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -53,8 +55,8 @@ class CreateCourriersTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('gestionnaires_id', 'fk_courriers_gestionnaires1_idx')
-                ->references('id')->on('gestionnaires')
+            $table->foreign('users_id', 'fk_courriers_users1_idx')
+                ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -91,7 +91,7 @@ class DepartsController extends Controller
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-        $gestionnaire_id  = Auth::user()->first()->id;
+        $user_id  = Auth::user()->first()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = $courrier_id;
@@ -111,7 +111,7 @@ class DepartsController extends Controller
             'date_c'             =>      $request->input('date_c'),
             // 'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
-            'gestionnaires_id'   =>      $gestionnaire_id,
+            'users_id'   =>      $user_id,
             'file'               =>      ""
         ]);
 
@@ -191,7 +191,7 @@ class DepartsController extends Controller
             $filePath = request('file')->store('departs', 'public');
        $courrier = $depart->courrier; 
        $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-       $gestionnaire_id  = Auth::user()->first()->id;
+       $user_id  = Auth::user()->first()->id;
 
        $courrier->objet              =      $request->input('objet');
        $courrier->expediteur         =      $request->input('expediteur');
@@ -204,7 +204,7 @@ class DepartsController extends Controller
        $courrier->date_c             =      $request->input('date_c');
        $courrier->legende            =      $request->input('legende');
        $courrier->types_courriers_id =      $types_courrier_id;
-       $courrier->gestionnaires_id   =      $gestionnaire_id;
+       $courrier->users_id   =      $user_id;
        $courrier->file               =      $filePath;
 
        $courrier->save(); 
@@ -217,7 +217,7 @@ class DepartsController extends Controller
          else{   
             $courrier = $depart->courrier;
             $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-            $gestionnaire_id  = Auth::user()->first()->id;
+            $user_id  = Auth::user()->first()->id;
      
             $courrier->objet              =      $request->input('objet');
             $courrier->expediteur         =      $request->input('expediteur');
@@ -230,7 +230,7 @@ class DepartsController extends Controller
             $courrier->date_c             =      $request->input('date_c');
             $courrier->legende            =      $request->input('legende');
             $courrier->types_courriers_id =      $types_courrier_id;
-            $courrier->gestionnaires_id   =      $gestionnaire_id;
+            $courrier->users_id   =      $user_id;
      
             $courrier->save();
      

@@ -142,8 +142,8 @@
                             
                             <td>
                                 <h3>{{ __('GESTIONNAIRE') }}</h3>
-                                <b>Nom:</b> {{ $recue->courrier->gestionnaire->user->firstname }}&nbsp;&nbsp;{{ $recue->courrier->gestionnaire->user->name }}<br>
-                                <b>Tel:</b> {{ $recue->courrier->gestionnaire->user->telephone }}
+                                <b>Nom:</b> {{ $recue->courrier->user->firstname }}&nbsp;&nbsp;{{ $recue->courrier->user->name }}<br>
+                                <b>Tel:</b> {{ $recue->courrier->user->telephone }}
                             </td>
                         </tr>
                     </table>

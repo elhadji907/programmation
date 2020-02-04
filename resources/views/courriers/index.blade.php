@@ -82,24 +82,6 @@
     </div>
 </div>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-        <div class="card"> 
-            <div class="card-header">
-               {{--  <i class="fas fa-table"></i> --}}               
-               <img src="{{ asset("img/stats_15267.png") }}" class="w-5"/>
-                Statistiques des courriers
-            </div>             
-          <div class="card-body">
-              {!! $chart->container() !!}              
-          {{-- <canvas id="bar-chart" width="800" height="450"></canvas> --}}
-          </div>
-      </div>
-    </div>          
-  </div>
-</div>
-<br />
-<div class="container-fluid">
     <div class="row">
     <div class="col-md-12">
         <div class="card"> 
@@ -147,8 +129,25 @@
 </div>
 </div>
 <br />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card"> 
+            <div class="card-header">
+               {{--  <i class="fas fa-table"></i> --}}               
+               <img src="{{ asset("img/stats_15267.png") }}" class="w-5"/>
+                Statistiques des courriers
+            </div>             
+          <div class="card-body">
+              {!! $chart->container() !!}              
+          {{-- <canvas id="bar-chart" width="800" height="450"></canvas> --}}
+          </div>
+      </div>
+    </div>          
+  </div>
+</div>
+<br />
 @endsection
-
 @push('scripts')
     <script type="text/javascript">
       $(document).ready(function () {

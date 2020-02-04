@@ -111,6 +111,14 @@
   </a>
   @endroles
 </li>
+{{--  <li class="nav-item">
+    @roles('Administrateur|Gestionnaire|Courrier')
+  <a class="nav-link" href="{{ route('presentations.index') }}">
+      <span data-feather="layers"></span>
+    <span>Statistiques</span>
+  </a>
+  @endroles
+</li>  --}}
 <li class="nav-item">
     @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">

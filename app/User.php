@@ -152,6 +152,10 @@ class User extends Authenticatable implements MustVerifyEmail
 	{
 		return $this->hasMany(\App\Poste::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
+	public function courriers()
+	{
+		return $this->hasMany(\App\Courrier::class, 'users_id')->orderBy('created_at', 'DESC');
+	}
 
 	public function profile()
 	{

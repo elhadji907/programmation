@@ -53,7 +53,7 @@
           @section('content')  
 
            {{-- @include('layout.main')  --}}
-           @include('presentations.index') 
+          {{--   @include('presentations.index')   --}}
            
           {{--  <!-- End of Main Content --> --}}
           @show
