@@ -100,7 +100,10 @@ class RecuesController extends Controller
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $users_id  = Auth::user()->first()->id;
+        $users_id  = Auth::user()->id;
+
+        // dd($users_id);
+
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = $courrier_id;
@@ -200,7 +203,7 @@ class RecuesController extends Controller
              $filePath = request('file')->store('recues', 'public');
         $courrier = $recue->courrier; 
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $user_id           = Auth::user()->first()->id;
+        $user_id           = Auth::user()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');
@@ -231,7 +234,7 @@ class RecuesController extends Controller
         /* dd($courrier); */
  
         $types_courrier_id = TypesCourrier::where('name','Courrier arrives')->first()->id;
-        $user_id          = Auth::user()->first()->id;
+        $user_id           = Auth::user()->id;
  
         $courrier->objet              =      $request->input('objet');
         $courrier->expediteur         =      $request->input('expediteur');

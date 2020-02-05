@@ -91,7 +91,7 @@ class DepartsController extends Controller
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-        $user_id  = Auth::user()->first()->id;
+        $user_id  = Auth::user()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
         $numCourrier = $courrier_id;
@@ -191,7 +191,7 @@ class DepartsController extends Controller
             $filePath = request('file')->store('departs', 'public');
        $courrier = $depart->courrier; 
        $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-       $user_id  = Auth::user()->first()->id;
+       $user_id  = Auth::user()->id;
 
        $courrier->objet              =      $request->input('objet');
        $courrier->expediteur         =      $request->input('expediteur');
@@ -217,7 +217,7 @@ class DepartsController extends Controller
          else{   
             $courrier = $depart->courrier;
             $types_courrier_id = TypesCourrier::where('name','Courrier departs')->first()->id;
-            $user_id  = Auth::user()->first()->id;
+            $user_id  = Auth::user()->id;
      
             $courrier->objet              =      $request->input('objet');
             $courrier->expediteur         =      $request->input('expediteur');
