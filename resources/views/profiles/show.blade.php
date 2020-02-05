@@ -43,13 +43,49 @@
             @endcan 
         </div>
     </div>
-
-    <div class="mt-5 row">
-        @foreach (auth::user()->courriers as $courrier)
-        <div class="col-4 pb-3">
+    <div class="mt-5">
+        <h1 class="text-center">La liste des courriers</h1>
+    </div>
+    <div>
+        {{--  @foreach (auth::user()->courriers as $courrier)  --}}
+        {{--  <div class="col-4 pb-3">
             {!! $courrier->objet !!}
-        </div>            
-        @endforeach
+        </div>              --}}
+
+         <div class="card-body">
+            <div class="table-responsive">
+              <div align="right">
+                {{--  <a href="#"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a>   --}}
+              </div>
+                <br />
+              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Objet</th>
+                    <th>Expediteur</th>
+                    <th style="width:500px;">Message</th>
+                  </tr>
+                </thead>
+                <tfoot class="table-dark">
+                    <tr>
+                        <th>Objet</th>
+                        <th>Expediteur</th>
+                        <th>Message</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (auth::user()->courriers as $courrier)
+                    <tr>                    
+                        <td> <a href="{!! route('courriers.show',['id'  => $courrier->id]) !!}">{!! $courrier->objet !!}</a></td>
+                        <td> {!! $courrier->expediteur !!}</td>
+                        <td> {!! $courrier->message !!}</td>
+                    </tr>
+                    @endforeach 
+                </tbody>                
+              </table>
+            </div>
+          </div>
+        {{--  @endforeach  --}}
     </div>
 
     {{--  <div class="mt-5 row">

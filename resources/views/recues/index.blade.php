@@ -18,6 +18,7 @@
                 <i class="fas fa-table"></i>
                 Liste des recues
             </div> 
+            
           <div class="card-body">
             <div class="table-responsive">
               <div align="right">
@@ -81,6 +82,7 @@
               </table>
             </div>
           </div>
+
         </div>
       </div>
     </div>

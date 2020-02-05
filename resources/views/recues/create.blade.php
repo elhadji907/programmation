@@ -27,7 +27,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             {!! Form::label('Objet') !!}                    
-                            {!! Form::text('objet', null, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'objet']) !!}                    
+                            {!! Form::text('objet', null, ['placeholder'=>'Objet du courrier', 'class'=>'form-control', 'id'=>'objet']) !!}                    
+                        </div> 
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            {!! Form::label('Message') !!}                    
+                            {!! Form::textarea('message', null, ['placeholder'=>'Message du courrier', 'rows' => 2, 'class'=>'form-control', 'id'=>'message']) !!}                    
                         </div> 
                     </div>
 
