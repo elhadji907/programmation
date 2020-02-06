@@ -29,13 +29,8 @@ class CreateProgrammesTable extends Migration
             $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('effectif')->nullable();
             $table->unsignedInteger('courriers_id');
-            $table->unsignedInteger('demandeformations_id');
 
             $table->index(["courriers_id"], 'fk_programmes_courriers1_idx');
-
-            $table->index(["demandeformations_id"], 'fk_programmes_demandeformations1_idx');
-            $table->softDeletes();
-            $table->nullableTimestamps();
 
 
             $table->foreign('courriers_id', 'fk_programmes_courriers1_idx')
@@ -43,10 +38,6 @@ class CreateProgrammesTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('demandeformations_id', 'fk_programmes_demandeformations1_idx')
-                ->references('id')->on('demandeurs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

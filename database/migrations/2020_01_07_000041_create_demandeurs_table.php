@@ -28,7 +28,6 @@ class CreateDemandeursTable extends Migration
             $table->string('numero', 200)->nullable();
             $table->string('cin', 200);
             $table->string('status', 45)->nullable();
-            $table->unsignedInteger('courriers_id');
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('typedemandes_id');
             $table->unsignedInteger('objets_id');
@@ -37,17 +36,9 @@ class CreateDemandeursTable extends Migration
 
             $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
 
-            $table->index(["courriers_id"], 'fk_demandeformations_courriers1_idx');
-
             $table->index(["objets_id"], 'fk_demandeurs_objets1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('courriers_id', 'fk_demandeformations_courriers1_idx')
-                ->references('id')->on('courriers')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('users_id', 'fk_demandeurs_users1_idx')
                 ->references('id')->on('users')

@@ -7,8 +7,7 @@
             <img src="{{ asset(auth::user()->profile->getImage()) }}" class="rounded-circle w-50"/>
        </div>
        <div class="col-8">
-            @can('update', $user->profile)
-                   
+            @can('update', $user->profile)                   
             <div class="mt-3 d-flex">
                 <div class="mr-1"><b>{{ auth::user()->civilite }}</b></div>
                 <div class="mr-1"><b>{{ auth::user()->firstname }}</b></div>
@@ -43,8 +42,9 @@
     <div class="list-group mt-5">
         @foreach ($courriers as $courrier) 
         <div class="list-group-item">
-            <h4><a href="#">{!! $courrier->objet !!}</a></h4>
+            <h4><a href="{!! route('courriers.show', $courrier->id) !!}">{!! $courrier->objet !!}</a></h4>
             <p>{!! $courrier->message !!}</p>
+            <p><strong>Type de courrier : </strong> {!! $courrier->types_courrier->name !!}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <small>Posté le {!! $courrier->created_at->format('d/m/Y à H:m') !!}</small>
                 <span class="badge badge-primary">{!! $courrier->user->firstname !!}</span>

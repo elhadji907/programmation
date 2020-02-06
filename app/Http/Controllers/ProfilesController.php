@@ -10,6 +10,16 @@ use App\Charts\Courrierchart;
 
 class ProfilesController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        /* $this->middleware('auth'); */
+        $this->middleware(['auth']);
+    }
     public function show(User $user){
         //dd($user);
         //dd($user->profile);

@@ -76,7 +76,7 @@ class CourriersController extends Controller
         $recues = $courrier->recues;
         $departs = $courrier->departs;
         $internes = $courrier->internes;
-        $demandes = $courrier->demandeurs;
+        // $demandes = $courrier->demandeurs;
         
         $recue = \App\Recue::get()->count();
         $interne = \App\Interne::get()->count();
@@ -99,10 +99,7 @@ class CourriersController extends Controller
         } elseif($typescourrier == 'Courrier internes') {    
             return view('internes.show', compact('internes','courrier','chart'));
 
-        } elseif($typescourrier == $typescourrier) {
-            return view('demandeurs.show', compact('demandes','courrier','chart'));
-        } 
-        else {
+        } else {
             return view('courriers.show', compact('courrier','chart'));
         }
         
