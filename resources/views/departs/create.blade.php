@@ -32,6 +32,13 @@
                     </div>
 
                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                            {!! Form::label('Message') !!}                    
+                            {!! Form::textarea('message', null, ['placeholder'=>'Message du courrier', 'rows' => 2, 'class'=>'form-control', 'id'=>'message']) !!}                    
+                        </div> 
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label('Expéditeur') !!}                    
                             {!! Form::text('expediteur', null, ['placeholder'=>"Nom et prénom de l'expéditeur", 'class'=>'form-control']) !!}                    

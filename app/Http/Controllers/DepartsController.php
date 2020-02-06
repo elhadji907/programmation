@@ -82,6 +82,7 @@ class DepartsController extends Controller
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
+                'message'       =>  'required|string|max:255',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
@@ -101,6 +102,7 @@ class DepartsController extends Controller
         // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
             'objet'              =>      $request->input('objet'),
+            'message'            =>      $request->input('message'),
             'expediteur'         =>      $request->input('expediteur'),
             'telephone'          =>      $request->input('telephone'),
             'email'              =>      $request->input('email'),
@@ -175,6 +177,7 @@ class DepartsController extends Controller
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
+                'message'       =>  'required|string|max:255',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
@@ -194,6 +197,7 @@ class DepartsController extends Controller
        $user_id  = Auth::user()->id;
 
        $courrier->objet              =      $request->input('objet');
+       $courrier->message            =      $request->input('message');
        $courrier->expediteur         =      $request->input('expediteur');
        $courrier->telephone          =      $request->input('telephone');
        $courrier->email              =      $request->input('email');
@@ -220,6 +224,7 @@ class DepartsController extends Controller
             $user_id  = Auth::user()->id;
      
             $courrier->objet              =      $request->input('objet');
+            $courrier->message            =      $request->input('message');
             $courrier->expediteur         =      $request->input('expediteur');
             $courrier->telephone          =      $request->input('telephone');
             $courrier->email              =      $request->input('email');

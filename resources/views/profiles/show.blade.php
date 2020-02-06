@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="mt-5">
-        <h1 class="text-center">La liste des courriers</h1>
+        <h1 class="text-center">Mes courriers</h1>
     </div>
     <div>
         {{--  @foreach (auth::user()->courriers as $courrier)  --}}
@@ -64,6 +64,7 @@
                     <th>Objet</th>
                     <th>Expediteur</th>
                     <th style="width:500px;">Message</th>
+                    <th style="width:50px;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
@@ -71,14 +72,18 @@
                         <th>Objet</th>
                         <th>Expediteur</th>
                         <th>Message</th>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
-                <tbody>
+                <tbody class="text-black">
                     @foreach (auth::user()->courriers as $courrier)
                     <tr>                    
-                        <td> <a href="{!! route('courriers.show',['id'  => $courrier->id]) !!}">{!! $courrier->objet !!}</a></td>
+                        <td> {!! $courrier->objet !!} </td>
                         <td> {!! $courrier->expediteur !!}</td>
                         <td> {!! $courrier->message !!}</td>
+                        <td> <a href="{!! route('courriers.show',['id'  => $courrier->id]) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                            <i class="far fa-eye">&nbsp;</i></a>
+                        </td>
                     </tr>
                     @endforeach 
                 </tbody>                

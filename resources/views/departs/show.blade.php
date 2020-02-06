@@ -198,7 +198,23 @@
                 </td>
             </tr>
             
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
             
+            <tr class="item">
+                
+                <td>
+                    {{ $depart->courrier->message }}
+                </td>
+            </tr>
+
             <tr class="total">
                 <td>
                     

@@ -197,6 +197,23 @@
                     @endforeach
                 </td>
             </tr>
+
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
+            
+            <tr class="item">
+                
+                <td>
+                    {{ $interne->courrier->message }}
+                </td>
+            </tr>
             
             
             <tr class="total">
