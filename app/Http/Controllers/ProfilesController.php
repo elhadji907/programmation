@@ -17,16 +17,9 @@ class ProfilesController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = $recues + $internes + $departs;
+        $courriers = Courrier::latest()->paginate(5);
 
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-        
-        return view('profiles.show', compact('user','courriers', 'recues', 'internes', 'departs','chart'));
+        return view('profiles.show', compact('user','courriers'));
     }
 
 
@@ -35,13 +28,7 @@ class ProfilesController extends Controller
 
         $this->authorize('update', $user->profile);
 
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-        
+               
         $civilites = User::select('civilite')->distinct()->get();
         return view('profiles.edit', compact('user', 'civilites','chart'));
     }

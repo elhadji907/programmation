@@ -7,10 +7,6 @@
             <img src="{{ asset(auth::user()->profile->getImage()) }}" class="rounded-circle w-50"/>
        </div>
        <div class="col-8">
-            {{--  <div class="d-flex align-items-baseline">
-            </div>
-            <div class="d-flex mt-3">
-            </div>              --}}
             @can('update', $user->profile)
                    
             <div class="mt-3 d-flex">
@@ -43,62 +39,21 @@
             @endcan 
         </div>
     </div>
-    <div class="mt-5">
-        <h1 class="text-center">Mes courriers</h1>
-    </div>
-    <div>
-        {{--  @foreach (auth::user()->courriers as $courrier)  --}}
-        {{--  <div class="col-4 pb-3">
-            {!! $courrier->objet !!}
-        </div>              --}}
 
-         <div class="card-body">
-            <div class="table-responsive">
-              <div align="right">
-                {{--  <a href="#"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a>   --}}
-              </div>
-                <br />
-              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Objet</th>
-                    <th>Expediteur</th>
-                    <th style="width:500px;">Message</th>
-                    <th style="width:50px;">Action</th>
-                  </tr>
-                </thead>
-                <tfoot class="table-dark">
-                    <tr>
-                        <th>Objet</th>
-                        <th>Expediteur</th>
-                        <th>Message</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                <tbody class="text-black">
-                    @foreach (auth::user()->courriers as $courrier)
-                    <tr>                    
-                        <td> {!! $courrier->objet !!} </td>
-                        <td> {!! $courrier->expediteur !!}</td>
-                        <td> {!! $courrier->message !!}</td>
-                        <td> <a href="{!! route('courriers.show',['id'  => $courrier->id]) !!}" class= 'btn btn-primary btn-sm' title="voir">
-                            <i class="far fa-eye">&nbsp;</i></a>
-                        </td>
-                    </tr>
-                    @endforeach 
-                </tbody>                
-              </table>
+    <div class="list-group mt-5">
+        @foreach ($courriers as $courrier) 
+        <div class="list-group-item">
+            <h4><a href="#">{!! $courrier->objet !!}</a></h4>
+            <p>{!! $courrier->message !!}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <small>Posté le {!! $courrier->created_at->format('d/m/Y à H:m') !!}</small>
+                <span class="badge badge-primary">{!! $courrier->user->firstname !!}</span>
             </div>
-          </div>
-        {{--  @endforeach  --}}
+        </div>
+        @endforeach 
     </div>
-
-    {{--  <div class="mt-5 row">
-        @foreach (auth::user()->postes as $post)
-        <div class="col-4 pb-3">
-            <a href="{{ route('postes.show', ['poste' => $post->id ]) }}"><img src="{{ asset('storage').'/'.$post->image }}" class="w-100"/></a>
-        </div>            
-        @endforeach
-    </div>  --}}
+    <div class="d-flex justify-content-center pt-2">
+        {!! $courriers->links() !!}
+    </div>
 </div></div>
 @endsection

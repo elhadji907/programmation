@@ -33,7 +33,7 @@ class CreateCourriersTable extends Migration
             $table->string('fax', 200)->nullable();
             $table->string('bp', 200)->nullable();
             $table->string('type', 200)->nullable();
-            $table->string('message', 255)->nullable();
+            $table->string('message', 500)->nullable();
             $table->string('legende', 200)->nullable();
             $table->string('file', 200)->nullable();
             $table->string('statut', 200)->nullable();

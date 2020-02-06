@@ -38,7 +38,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
     $objet = App\Objet::all()->random()->name;
   
     return [        
-        'objet' => $objet,
+        'objet' => $faker->sentence,
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'adresse' => $faker->address,
         'telephone' => $faker->phoneNumber,
@@ -46,7 +46,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'fax' => $faker->tollFreePhoneNumber,
         'bp' => $faker->postcode,
         'type' => $faker->word,
-        'message' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+        'message' => $faker->paragraph,
         'legende' => "",
         'file' => "",
         'statut' => $faker->word,
