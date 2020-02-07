@@ -5,8 +5,6 @@ use App\User;
 use App\Courrier;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-use App\Charts\Courrierchart;
-
 
 class ProfilesController extends Controller
 {
@@ -40,7 +38,7 @@ class ProfilesController extends Controller
 
                
         $civilites = User::select('civilite')->distinct()->get();
-        return view('profiles.edit', compact('user', 'civilites','chart'));
+        return view('profiles.edit', compact('user', 'civilites'));
     }
 
 
@@ -93,6 +91,6 @@ class ProfilesController extends Controller
                 ]);
         }
 
-        return redirect()->route('profiles.show', ['user'=>auth()->user(), 'chart']);
+        return redirect()->route('profiles.show', ['user'=>auth()->user()]);
     }
 }
