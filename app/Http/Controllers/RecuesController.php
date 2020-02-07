@@ -190,7 +190,7 @@ class RecuesController extends Controller
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
-                'message'       =>  'required|string|max:255',
+                'message'       =>  'required|string|max:550',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
