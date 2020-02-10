@@ -163,7 +163,9 @@ class RecuesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Recue $recue)
-    {        
+    {
+        $this->authorize('update', $recue);
+
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
@@ -187,6 +189,8 @@ class RecuesController extends Controller
      */
     public function update(Request $request, Recue $recue)
     {
+        $this->authorize('update',  $recue);
+        
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',

@@ -70,6 +70,8 @@ class CourriersController extends Controller
      */
     public function show(Courrier $courrier)
     {
+        $this->authorize('update', $courrier);
+        
         $typescourrier = $courrier->types_courrier->name;
         /* dd($typescourrier); */
 
@@ -157,6 +159,7 @@ class CourriersController extends Controller
      */
     public function update(Request $request, Courrier $courrier)
     {
+        $this->authorize('update', $courrier);
         dd($courrier);
     }
 

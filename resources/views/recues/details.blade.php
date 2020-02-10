@@ -101,9 +101,11 @@
         <h1 class="h4 text-black mb-0 text-center"> {!! $recue->courrier->types_courrier->name !!}</h1>
         <div class="card">
         <div class="card card-header text-center bg-gradient-default">
+            @can('update', $courrier)    
             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
             </a>
+            @endcan 
         </div>
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">

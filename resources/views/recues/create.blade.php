@@ -1,5 +1,10 @@
 @extends('layout.default') 
 @section('title', 'ONFP - Enregistrement des courriers reçus')
+
+@section('extra-js')
+{!! NoCaptcha::renderJs() !!}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="container-fluid">
@@ -85,6 +90,11 @@
                             {!! Form::text('bp', null, ['placeholder'=>'Votre Boite postale', 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
+
+                    {{--  <div class="form-row">
+                        {!! NoCaptcha::display() !!}
+                    </div>  --}}
+                    
                    {{--  <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label('', null, ['class' => 'control-label']) !!}                    
