@@ -98,15 +98,17 @@
     
     @foreach ($recues as $recue)  
     <div class="invoice-box justify-content-center">
-        <h1 class="h4 text-black mb-0 text-center"> {!! $recue->courrier->types_courrier->name !!}</h1>
-        <div class="card">
-        <div class="card card-header text-center bg-gradient-default">
-            @can('update', $courrier)    
+        <div class="card">            
+        @can('update', $recue->courrier)  
+            <div class="card card-header text-center bg-gradient-success">
+                <h1 class="h4 text-white mb-0">{!! $recue->courrier->types_courrier->name !!}</h1>
+            </div>
+        @endcan 
+        {{-- <div class="card card-header text-center bg-gradient-default">
             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
             </a>
-            @endcan 
-        </div>
+        </div> --}}
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -199,7 +201,7 @@
                     @endforeach
                 </td>
             </tr>
-            <tr class="heading">
+            {{-- <tr class="heading">
                 <td>
                    MESSAGE
                 </td>
@@ -216,16 +218,16 @@
                 </td>
             </tr>
             
-            
-            <tr class="total">
+             --}}
+            {{-- <tr class="total">
                 <td>
                     
                 </td>
                 
                 <td>
-                   {{-- Total: $385.00 --}}
+                   Total: $385.00
                 </td>
-            </tr>
+            </tr> --}}
           {{--   <tr>
                 <a class="btn btn-outline-primary mt-0" title="modifier le courrier" 
                 href="{{ route('courriers.create',['courrier'=>$courrier->id]) }}">
@@ -233,6 +235,19 @@
                 </a>   
             </tr> --}}
         </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            
+            @can('update', $recue->courrier) 
+                <a href="{!! url('departs/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                    <i class="far fa-edit">&nbsp;Modifier</i>
+                </a>
+            @endcan
+            <a href="{!! route('courriers.show', $recue->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
+            </a>
+        </div>
+
     </div>
 </div>
 </div>

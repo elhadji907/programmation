@@ -98,13 +98,10 @@
     
     @foreach ($departs as $depart)  
     <div class="invoice-box justify-content-center">
-        <h1 class="h4 text-black mb-0 text-center"> {!! $depart->courrier->types_courrier->name !!}</h1>
-        <div class="card">
-        <div class="card card-header text-center bg-gradient-default">
-            <a href="{!! url('departs/' .$depart->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
-                <i class="far fa-edit">&nbsp;Modifier</i>
-            </a>
-        </div>
+        <div class="card">            
+            <div class="card card-header text-center bg-gradient-success">
+                <h1 class="h4 text-white mb-0">{!! $depart->courrier->types_courrier->name !!}</h1>
+            </div> 
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -196,41 +193,20 @@
                     <span class="btn">{!! $direction->sigle !!}</span><br>
                     @endforeach
                 </td>
-            </tr>
-            
-            <tr class="heading">
-                <td>
-                   MESSAGE
-                </td>
-                <td>
-                   
-                </td>
-                
-            </tr>
-            
-            <tr class="item">
-                
-                <td>
-                    {{ $depart->courrier->message }}
-                </td>
-            </tr>
-
-            <tr class="total">
-                <td>
-                    
-                </td>
-                
-                <td>
-                   {{-- Total: $385.00 --}}
-                </td>
-            </tr>
-          {{--   <tr>
-                <a class="btn btn-outline-primary mt-0" title="modifier le courrier" 
-                href="{{ route('courriers.create',['courrier'=>$courrier->id]) }}">
-                    <i class="fas fa-edit">&nbsp;Modifier le courrier</i>
-                </a>   
-            </tr> --}}
+            </tr>            
         </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            @can('update', $depart->courrier)
+                <a href="{!! url('departs/' .$depart->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                    <i class="far fa-edit">&nbsp;Modifier</i>
+                </a>
+            @endcan
+            <a href="{!! route('courriers.show', $depart->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
+            </a>
+        </div>
+
     </div>
 </div>
 </div>

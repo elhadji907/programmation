@@ -151,6 +151,9 @@ class DepartsController extends Controller
      */
     public function edit(Depart $depart)
     {
+        
+        $this->authorize('update', $depart);
+
           
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
@@ -174,6 +177,9 @@ class DepartsController extends Controller
      */
     public function update(Request $request, Depart $depart)
     {
+        
+        $this->authorize('update', $depart);
+
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
@@ -258,6 +264,9 @@ class DepartsController extends Controller
      */
     public function destroy(Depart $depart)
     {
+        
+        $this->authorize('update', $depart);
+
         $depart->courrier->directions()->detach();
         $depart->courrier->delete();
         $depart->delete();

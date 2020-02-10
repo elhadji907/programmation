@@ -154,6 +154,9 @@ class InternesController extends Controller
      */
     public function edit(Interne $interne)
     {
+        
+        $this->authorize('update', $interne);
+
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
@@ -176,6 +179,9 @@ class InternesController extends Controller
      */
     public function update(Request $request, Interne $interne)
     {
+        
+        $this->authorize('update', $interne);
+
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
@@ -260,6 +266,9 @@ class InternesController extends Controller
      */
     public function destroy(Interne $interne)
     {
+        
+        $this->authorize('delete', $interne);
+
         $interne->courrier->directions()->detach();
         $interne->courrier->delete();
         $interne->delete();

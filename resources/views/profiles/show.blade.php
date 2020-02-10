@@ -47,7 +47,7 @@
             <p><strong>Type de courrier : </strong> {!! $courrier->types_courrier->name !!}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <small>Posté le {!! $courrier->created_at->format('d/m/Y à H:m') !!}</small>
-                <span class="badge badge-primary">{!! $courrier->user->firstname !!}</span>
+                <span class="badge badge-primary">{!! $courrier->user->firstname !!}&nbsp;{!! $courrier->user->name !!}</span>
             </div>
         </div>
         @endforeach 

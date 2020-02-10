@@ -63,16 +63,20 @@
                       @endforeach
                     </td>             
                     <td class="d-flex align-items-baseline">
+                      @can('update', $interne->courrier)
                         <a href="{!! url('internes/' .$interne->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
+                        @endcan 
                         &nbsp; <a href="{!! url('courriers/' .$interne->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
                         &nbsp;
+                        @can('delete', $interne->courrier)
                         {!! Form::open(['method'=>'DELETE', 'url'=>'internes/' .$interne->id, 'id'=>'deleteForm']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                         {!! Form::close() !!}
+                        @endcan 
                     </td>
                   </tr>
                   @endforeach                        

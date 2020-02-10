@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Courier reçu')
+@section('title', 'ONFP - Fiche Couriers arrives')
 @section('content')
     @foreach ($recues as $recue)  
         <div class="container">
@@ -12,11 +12,11 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <small>Posté le {!! $recue->courrier->created_at->format('d/m/Y à H:m') !!}</small>
-                            <span class="badge badge-primary">{!! $recue->courrier->user->firstname !!}</span>
+                            <span class="badge badge-primary">{!! $recue->courrier->user->firstname !!}&nbsp;{!! $recue->courrier->user->name !!}</span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-5">
-                            @can('update', $courrier)     
+                            @can('update', $recue->courrier)     
                             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
@@ -27,7 +27,7 @@
                             {{--  <a href="{!! url('courriers/' .$recue->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a>  --}}
-                            @can('delete', $courrier)     
+                            @can('delete', $recue->courrier)     
                             {!! Form::open(['method'=>'DELETE', 'url'=>'recues/' .$recue->id, 'id'=>'deleteForm']) !!}
                             {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
                             {!! Form::close() !!}
