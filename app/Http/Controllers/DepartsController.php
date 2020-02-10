@@ -247,7 +247,7 @@ class DepartsController extends Controller
 
          }
 
-       return redirect()->route('departs.index')->with('success','courrier modifié avec succès !');
+       return redirect()->route('courriers.show')->with('success','courrier modifié avec succès !');
     }
 
     /**

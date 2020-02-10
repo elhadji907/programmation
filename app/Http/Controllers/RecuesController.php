@@ -177,21 +177,6 @@ class RecuesController extends Controller
          return view('recues.update', compact('recue', 'directions', 'objets','chart'));
         /*  dd($recue); */
     }
-    public function detail(Recue $recue)
-    {        
-        $objets = Objet::pluck('name','name');
-        $directions = Direction::pluck('sigle','id');
-
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
-         return view('recues.details', compact('recue', 'directions', 'objets','chart'));
-        /*  dd($recue); */
-    }
 
     /**
      * Update the specified resource in storage.

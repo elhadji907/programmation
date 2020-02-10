@@ -249,7 +249,7 @@ class InternesController extends Controller
 
          }
 
-       return redirect()->route('internes.index')->with('success','courrier modifié avec succès !');
+       return redirect()->route('courriers.show')->with('success','courrier modifié avec succès !');
     }
 
     /**
