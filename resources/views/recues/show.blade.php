@@ -6,8 +6,9 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{!! $recue->courrier->types_courrier->name !!}</h5>
-                        <p class="card-category">{{ $recue->courrier->message }}</p>
+                        <h3 class="card-title">{!! $recue->courrier->types_courrier->name !!}</h5>
+                        <h5 class="card-category">{!! $recue->courrier->objet !!}</h5>
+                        <p>{{ $recue->courrier->message }}</p>
 
                         <div class="d-flex justify-content-between align-items-center">
                             <small>Posté le {!! $recue->courrier->created_at->format('d/m/Y à H:m') !!}</small>
