@@ -34,7 +34,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             {!! Form::label('Message') !!}                    
-                            {!! Form::textarea('message', null, ['placeholder'=>'Message du courrier', 'rows' => 2, 'class'=>'form-control', 'id'=>'message']) !!}                    
+                            {!! Form::textarea('message', null, ['placeholder'=>'Message du courrier', 'rows' => 4, 'class'=>'form-control', 'id'=>'message']) !!}                    
                         </div> 
                     </div>
 
