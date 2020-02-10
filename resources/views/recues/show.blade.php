@@ -25,7 +25,6 @@
                             {{--  <a href="{!! url('courriers/' .$recue->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a>  --}}
-
                             {!! Form::open(['method'=>'DELETE', 'url'=>'recues/' .$recue->id, 'id'=>'deleteForm']) !!}
                             {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
                             {!! Form::close() !!}
