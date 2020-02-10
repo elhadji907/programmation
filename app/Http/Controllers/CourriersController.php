@@ -113,7 +113,39 @@ class CourriersController extends Controller
      */
     public function edit(Courrier $courrier)
     {
-        //
+    //    dd($courrier);
+    $typescourrier = $courrier->types_courrier->name;
+    /* dd($typescourrier); */
+
+    $recues = $courrier->recues;
+    $departs = $courrier->departs;
+    $internes = $courrier->internes;
+    // $demandes = $courrier->demandeurs;
+    
+    $recue = \App\Recue::get()->count();
+    $interne = \App\Interne::get()->count();
+    $depart = \App\Depart::get()->count();
+    $courrier = Courrier::get()->count();
+
+    $chart      = Courrier::all();
+
+    $chart = new Courrierchart;
+    $chart->labels(['Départs', 'Arrivés', 'Internes']);
+    $chart->dataset('STATISTIQUES', 'bar', [$interne, $recue, $depart])->options([
+        'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+    ]);
+    if ($typescourrier == 'Courrier arrives') {            
+    return view('recues.details', compact('recues','courrier','chart'));
+
+    } elseif($typescourrier == 'Courrier departs') {   
+    return view('departs.details', compact('departs','courrier','chart'));
+
+    } elseif($typescourrier == 'Courrier internes') {    
+        return view('internes.details', compact('internes','courrier','chart'));
+
+    } else {
+        return view('courriers.details', compact('courrier','chart'));
+    }
     }
 
     /**

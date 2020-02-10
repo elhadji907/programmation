@@ -55,5 +55,5 @@
     <div class="d-flex justify-content-center pt-2">
         {!! $courriers->links() !!}
     </div>
-</div></div>
+</div>
 @endsection

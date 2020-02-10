@@ -17,31 +17,9 @@
     </div>
     <br />
     <!-- Primary buttons -->
-    <div class="col-md-12">
+    {{--  <div class="col-md-12">
         <a class="btn btn-dark btn-block" href="{{ route('demandeurs.index') }}"><span data-feather="book-open"></span>Courriers Demande</a>
-    </div>
+    </div>  --}}
     <br />
-</div
-<hr />
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-        <div class="card"> 
-            <div class="card-header">
-               {{--  <i class="fas fa-table"></i> --}}               
-               <img src="{{ asset("img/stats_15267.png") }}" class="w-5"/>
-                Statistiques des courriers
-            </div>             
-        <div class="card-body">
-            {!! $chart->container() !!}
-        </div>
-      </div>
-    </div>          
 </div>
-<hr />
 @endsection
-
-
-@push('scripts')
-{!! $chart->script() !!}
-@endpush

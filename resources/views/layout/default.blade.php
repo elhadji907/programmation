@@ -59,6 +59,7 @@
           @show
           </div>       
      {{--       <!-- Footer --> --}}
+    </div>
      @include('layout.footer')
      {{--       <!-- End of Footer --> --}}
     </div>
