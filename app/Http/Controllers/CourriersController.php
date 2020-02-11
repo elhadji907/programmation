@@ -91,13 +91,13 @@ class CourriersController extends Controller
         $chart->dataset('STATISTIQUES', 'bar', [$interne, $recue, $depart])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
-        if ($typescourrier == 'Courrier arrives') {            
+        if ($typescourrier == 'Courriers arrives') {            
         return view('recues.show', compact('recues','courrier','chart'));
 
-        } elseif($typescourrier == 'Courrier departs') {   
+        } elseif($typescourrier == 'Courriers departs') {   
         return view('departs.show', compact('departs','courrier','chart'));
 
-        } elseif($typescourrier == 'Courrier internes') {    
+        } elseif($typescourrier == 'Courriers internes') {    
             return view('internes.show', compact('internes','courrier','chart'));
 
         } else {
@@ -135,13 +135,13 @@ class CourriersController extends Controller
     $chart->dataset('STATISTIQUES', 'bar', [$interne, $recue, $depart])->options([
         'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
     ]);
-    if ($typescourrier == 'Courrier arrives') {            
+    if ($typescourrier == 'Courriers arrives') {            
     return view('recues.details', compact('recues','courrier','chart'));
 
-    } elseif($typescourrier == 'Courrier departs') {   
+    } elseif($typescourrier == 'Courriers departs') {   
     return view('departs.details', compact('departs','courrier','chart'));
 
-    } elseif($typescourrier == 'Courrier internes') {    
+    } elseif($typescourrier == 'Courriers internes') {    
         return view('internes.details', compact('internes','courrier','chart'));
 
     } else {

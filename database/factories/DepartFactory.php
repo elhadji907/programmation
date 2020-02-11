@@ -18,7 +18,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Depart::class, function (Faker\Generator $faker) {
-    $types_courrier_id=App\TypesCourrier::where('name','Courrier departs')->first()->id;
+    $types_courrier_id=App\TypesCourrier::where('name','Courriers departs')->first()->id;
     $annee = date('Y');
     $numero_courrier = date('His');
     return [

@@ -95,7 +95,7 @@ class InternesController extends Controller
                 'date_c'        =>  'required|date',
             ]
         );
-        $types_courrier_id = TypesCourrier::where('name','Courrier internes')->first()->id;
+        $types_courrier_id = TypesCourrier::where('name','Courriers internes')->first()->id;
         $users_id  = Auth::user()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
@@ -201,7 +201,7 @@ class InternesController extends Controller
         if (request('file')) { 
             $filePath = request('file')->store('internes', 'public');
        $courrier = $interne->courrier; 
-       $types_courrier_id = TypesCourrier::where('name','Courrier internes')->first()->id;
+       $types_courrier_id = TypesCourrier::where('name','Courriers internes')->first()->id;
        $user_id  = Auth::user()->id;
 
        $courrier->objet              =      $request->input('objet');
@@ -228,7 +228,7 @@ class InternesController extends Controller
         }
          else{   
             $courrier = $interne->courrier;
-            $types_courrier_id = TypesCourrier::where('name','Courrier internes')->first()->id;
+            $types_courrier_id = TypesCourrier::where('name','Courriers internes')->first()->id;
             $user_id  = Auth::user()->id;
      
             $courrier->objet              =      $request->input('objet');

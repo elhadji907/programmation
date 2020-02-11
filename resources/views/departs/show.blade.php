@@ -1,10 +1,10 @@
 @extends('layout.default')
 @section('title', 'ONFP - Fiche Couriers departs')
 @section('content')
-    @foreach ($departs as $depart)  
         <div class="container">
             <div class="container-fluid">
                 <div class="card">
+                    @foreach ($departs as $depart)  
                     <div class="card-body">
                         <h3 class="card-title">{!! $depart->courrier->types_courrier->name !!}</h5>
                         <h5 class="card-category">{!! $depart->courrier->objet !!}</h5>
@@ -34,8 +34,41 @@
                             @endcan 
                         </div>
                     </div>
+                    @endforeach
+                </div>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Commentaires</h5>
+                            @forelse ($depart->courrier->comments as $comment)
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    {!! $comment->content !!}
+                                </div>
+                            </div>
+                            @empty
+
+                            <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
+                                
+                            @endforelse
+                            <form method="POST" action="{{ route('comments.store', $depart->courrier->id) }}" class="mt-3">
+                                @csrf                                                         
+                                 <div class="form-group">
+                                     <label for="commentaire"><b>Votre commentaire</b></label>                                   
+                                     <textarea class="form-control @error('commentaire') is-invalid @enderror" name="commentaire" id="commentaire" rows="5" placeholder="Ecrire votre commentaire"></textarea>                                     
+                                     <small id="emailHelp" class="form-text text-muted">
+                                             @if ($errors->has('commentaire'))
+                                             @foreach ($errors->get('commentaire') as $message)
+                                             <p class="text-danger">{{ $message }}</p>
+                                             @endforeach
+                                             @endif
+                                     </small>
+                                 </div>
+                                <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Poster</button>
+                            </form>
+                    </div>
                 </div>
             </div>
         </div>
-    @endforeach
 @endsection

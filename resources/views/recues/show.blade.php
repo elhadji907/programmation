@@ -1,10 +1,10 @@
 @extends('layout.default')
 @section('title', 'ONFP - Fiche Couriers arrives')
 @section('content')
-    @foreach ($recues as $recue)  
         <div class="container">
             <div class="container-fluid">
                 <div class="card">
+                    @foreach ($recues as $recue)  
                     <div class="card-body">
                         <h3 class="card-title">{!! $recue->courrier->types_courrier->name !!}</h5>
                         <h5 class="card-category">{!! $recue->courrier->objet !!}</h5>
@@ -15,7 +15,7 @@
                             <span class="badge badge-primary">{!! $recue->courrier->user->firstname !!}&nbsp;{!! $recue->courrier->user->name !!}</span>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mt-5">
+                        <div class="d-flex justify-content-between align-items-center mt-3">
                             @can('update', $recue->courrier)     
                             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
@@ -33,9 +33,43 @@
                             {!! Form::close() !!}
                             @endcan 
                         </div>
+                    </div>                    
+                    @endforeach
+                </div>
+
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Commentaires</h5>
+                            @forelse ($recue->courrier->comments as $comment)
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    {!! $comment->content !!}
+                                </div>
+                            </div>
+                            @empty
+
+                            <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
+                                
+                            @endforelse
+                            <form method="POST" action="{{ route('comments.store', $recue->courrier->id) }}" class="mt-3">
+                                @csrf                                                         
+                                 <div class="form-group">
+                                     <label for="commentaire"><b>Votre commentaire</b></label>                                   
+                                     <textarea class="form-control @error('commentaire') is-invalid @enderror" name="commentaire" id="commentaire" rows="5" placeholder="Ecrire votre commentaire"></textarea>                                     
+                                     <small id="emailHelp" class="form-text text-muted">
+                                             @if ($errors->has('commentaire'))
+                                             @foreach ($errors->get('commentaire') as $message)
+                                             <p class="text-danger">{{ $message }}</p>
+                                             @endforeach
+                                             @endif
+                                     </small>
+                                 </div>
+                                <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Poster</button>
+                            </form>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
 @endsection

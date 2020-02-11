@@ -53,6 +53,9 @@ Route::group([
         Route::post('postes', 'PostesController@store')->name('postes.store');
         Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
 
+        Route::post('comments/{courrier}', 'CommentsController@store')->name('comments.store');
+
+
         Route::resource('/administrateurs', 'AdministrateursController');
         Route::resource('/personnels', 'PersonnelsController');
         Route::resource('/gestionnaires', 'GestionnairesController');

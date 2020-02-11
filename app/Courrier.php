@@ -132,4 +132,9 @@ class Courrier extends Eloquent
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id')->orderBy('created_at', 'DESC');
 	}
+
+	public function comments()
+	{
+		return $this->morphMany('\App\Comment', 'commentable')->latest();
+	}
 }

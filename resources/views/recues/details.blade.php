@@ -98,12 +98,10 @@
     
     @foreach ($recues as $recue)  
     <div class="invoice-box justify-content-center">
-        <div class="card">            
-        @can('update', $recue->courrier)  
+        <div class="card">             
             <div class="card card-header text-center bg-gradient-success">
                 <h1 class="h4 text-white mb-0">{!! $recue->courrier->types_courrier->name !!}</h1>
             </div>
-        @endcan 
         {{-- <div class="card card-header text-center bg-gradient-default">
             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
