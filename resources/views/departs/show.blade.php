@@ -45,6 +45,10 @@
                             <div class="card mt-2">
                                 <div class="card-body">
                                     {!! $comment->content !!}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <small>Posté le {!! $comment->created_at->format('d/m/Y') !!}</small>
+                                        <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
+                                    </div>
                                 </div>
                             </div>
                             @empty
