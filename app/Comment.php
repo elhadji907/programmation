@@ -62,4 +62,11 @@ class Comment extends Eloquent
 	{
 		return $this->morphTo();
 	}
+
+	public function comments()
+	{
+		return $this->morphMany('App\Comment', 'Commentable')->latest();
+	}
+
+
 }

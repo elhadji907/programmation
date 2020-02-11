@@ -51,6 +51,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <button class="btn btn-info mt-2">
+                                Repondre
+                            </button>
+                            <form>
+                                <div class="form-group ml-5">
+                                    <label for=""></label>
+                                    <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                </div>
+                            </form>
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
