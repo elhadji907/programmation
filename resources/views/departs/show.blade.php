@@ -60,15 +60,39 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
-                                Repondre
-                            </button>
-                            <form action="" class="ml-5 d-none" id="replayComment-{{ $comment->id }}">
-                                <div class="form-group">
-                                    <label for="replayComment"></label>
-                                    <textarea class="form-control" name="replayComment" id="replayComment" rows="3"></textarea>
+                            @foreach ($comment->comments as $replayComment)
+                            <div class="card mt-2 ml-5">
+                                <div class="card-body">
+                                    {!! $replayComment->content !!}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <small>Posté le {!! $replayComment->created_at->format('d/m/Y') !!}</small>
+                                        <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
+                            @endforeach
+                            @auth
+                            <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
+                                Répondre
+                            </button>
+                            <form method="POST" action="{{ route('comments.storeReply', $comment) }}" class="ml-5 d-none" id="replayComment-{{ $comment->id }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="replayComment"><b>Ma réponse</b></label>
+                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" id="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('replayComment'))
+                                        @foreach ($errors->get('replayComment') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                </small>
+                                </div>
+                                <button class="btn btn-primary btn-sm mb-2">
+                                    Répondre à ce commentaire
+                                </button>
+                            </form>                                
+                            @endauth
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>

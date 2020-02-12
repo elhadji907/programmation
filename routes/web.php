@@ -54,6 +54,7 @@ Route::group([
         Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
 
         Route::post('comments/{courrier}', 'CommentsController@store')->name('comments.store');
+        Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
 
         Route::resource('/administrateurs', 'AdministrateursController');

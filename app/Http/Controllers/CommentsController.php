@@ -109,4 +109,23 @@ class CommentsController extends Controller
     {
         //
     }
+
+    public function storeCommentReply(Comment $comment)
+    {
+        request()->validate(
+            [
+                'replayComment'   =>  'required|min:5',
+            ]
+        );
+
+        $commentReply = new Comment();
+        $commentReply->content = request('replayComment');
+        $commentReply->users_id = auth()->user()->id;
+
+        $comment->comments()->save($commentReply);
+
+        return redirect()->back();
+        
+    }
+
 }
