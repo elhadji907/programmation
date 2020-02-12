@@ -47,11 +47,21 @@
                                 <div class="card-body">
                                     {!! $comment->content !!}
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <small>Posté le {!! $comment->created_at->format('d/m/Y à H:m') !!}</small>
+                                        <small>Posté le {!! $comment->created_at->format('d/m/Y') !!}</small>
                                         <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <button class="btn btn-info mt-2">
+                                Repondre
+                            </button>
+                            <form>
+                                <div class="form-group ml-5">
+                                    <label for=""></label>
+                                    <textarea class="form-control" name="" id="" rows="3"></textarea>
+                                </div>
+                            </form>
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
