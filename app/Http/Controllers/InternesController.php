@@ -72,7 +72,7 @@ class InternesController extends Controller
        ]);
        
 
-        return view('internes.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r','chart'));
+        return view('internes.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r','chart'));
     }
 
     /**

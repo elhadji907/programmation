@@ -68,7 +68,7 @@ class DepartsController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
        
-        return view('departs.create', compact('numCourrier','courriers', 'date', 'objets', 'directions', 'date_r','chart'));
+        return view('departs.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r','chart'));
     }
 
     /**
