@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach ($comment->comments as $replayComment)
+                            {{--  @foreach ($comment->comments as $replayComment)
                             <div class="card mt-2 ml-5">
                                 <div class="card-body">
                                     {!! $replayComment->content !!}
@@ -70,8 +70,8 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                            @auth
+                            @endforeach  --}}
+                            {{--  @auth
                             <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
                                 Répondre
                             </button>
@@ -92,7 +92,7 @@
                                     Répondre à ce commentaire
                                 </button>
                             </form>                                
-                            @endauth
+                            @endauth  --}}
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
