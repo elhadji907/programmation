@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Courrier;
+use App\Notifications\newCommentPosted;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -60,6 +61,10 @@ class CommentsController extends Controller
         $courrier->comments()->save($comment);
 
         // dd($courrier);
+
+        // Notification
+
+        $courrier->user->notify(new newCommentPosted($courrier, auth()->user()));
 
         return redirect()->route('courriers.show', $courrier->id);
 
