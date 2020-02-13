@@ -17,7 +17,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
   <script src="{{ asset('dist/js/select2.min.js') }}"></script>
-  
+    
   <script type="text/javascript">
   
         $("#objet").select2({
@@ -78,8 +78,6 @@
 </script>
 
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
   
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>

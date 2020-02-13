@@ -82,7 +82,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="replayComment"><b>Ma réponse</b></label>
-                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" id="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
+                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('replayComment'))
                                         @foreach ($errors->get('replayComment') as $message)

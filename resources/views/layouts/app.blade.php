@@ -18,6 +18,10 @@
     <!-- Custom styles for this page -->
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+    
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="{{ asset('fonts.gstatic.com') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

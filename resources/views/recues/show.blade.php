@@ -55,18 +55,12 @@
                         <h3 class="card-title text-center">Commentaires</h5>
                             @forelse ($recue->courrier->comments as $comment)
                             <div class="card mt-2">
-                                <div class="card-body d-flex justify-content-between">
-                                    <div>
-                                        {!! $comment->content !!}
-                                        <div class="d-flex justify-content-between align-items-center mt-2">
-                                            <small>Posté le {!! $comment->created_at->format('d/m/Y') !!}</small>
-                                            <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
-                                        </div>
+                                <div class="card-body">
+                                    {!! $comment->content !!}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <small>Posté le {!! $comment->created_at->format('d/m/Y') !!}</small>
+                                        <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
                                     </div>
-                                    <div>
-                                        <solution-button></solution-button>
-                                    </div>
-
                                 </div>
                             </div>
                             {{--  Réponse aux commentaires  --}}
@@ -90,7 +84,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="replayComment"><b>Ma réponse</b></label>
-                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
+                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" id="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('replayComment'))
                                         @foreach ($errors->get('replayComment') as $message)
