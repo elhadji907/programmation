@@ -67,7 +67,7 @@
                             @foreach ($comment->comments as $replayComment)
                             <div class="card mt-2 ml-5">
                                 <div class="card-body">
-                                    {!! $replayComment->content !!}
+                                    {{--  {!! $replayComment->content !!}  --}}
                                     {{--  <div class="d-flex justify-content-between align-items-center mt-2">
                                         <small>Posté le {!! $replayComment->created_at->format('d/m/Y') !!}</small>
                                         <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
