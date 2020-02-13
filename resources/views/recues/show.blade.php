@@ -64,17 +64,17 @@
                                 </div>
                             </div>
                             {{--  Réponse aux commentaires  --}}
-                            {{--  @foreach ($comment->comments as $replayComment)
+                            @foreach ($comment->comments as $replayComment)
                             <div class="card mt-2 ml-5">
                                 <div class="card-body">
                                     {!! $replayComment->content !!}
-                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                    {{--  <div class="d-flex justify-content-between align-items-center mt-2">
                                         <small>Posté le {!! $replayComment->created_at->format('d/m/Y') !!}</small>
                                         <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
-                                    </div>
+                                    </div>  --}}
                                 </div>
                             </div>
-                            @endforeach  --}}
+                            @endforeach
 
                             @auth
                             <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
