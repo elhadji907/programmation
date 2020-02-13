@@ -76,6 +76,10 @@
           allowClear: true
       });
 </script>
+
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
   
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>

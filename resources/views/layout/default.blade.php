@@ -37,6 +37,7 @@
 <body>
 
 {{--   <!-- Page Wrapper --> --}}
+<div id="app">
   <div id="wrapper">
 
     {{--    <!-- Sidebar --> --}}
@@ -64,6 +65,7 @@
     </div>
      @include('layout.footer')
      {{--       <!-- End of Footer --> --}}
+    </div>
     </div>
 
     {{--     <!-- End of Content Wrapper --> --}}

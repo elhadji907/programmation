@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'ONFP') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     {{--  <!-- Custom fonts for this template--> --}}
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     
@@ -125,6 +122,8 @@
     
   <script>
       feather.replace()
-  </script>
+  </script>  
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
