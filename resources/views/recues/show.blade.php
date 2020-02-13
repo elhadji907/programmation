@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            {{--  Réponse aux commentaires  --}}
                             @foreach ($comment->comments as $replayComment)
                             <div class="card mt-2 ml-5">
                                 <div class="card-body">
@@ -80,7 +80,7 @@
                             <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
                                 Répondre
                             </button>
-                            <form method="POST" action="{{ route('comments.storeReply', $comment) }}" class="ml-5 d-none" id="replayComment-{{ $comment->id }}">
+                            {{--  <form method="POST" action="{{ route('comments.storeReply', $comment) }}" class="ml-5 d-none" id="replayComment-{{ $comment->id }}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="replayComment"><b>Ma réponse</b></label>
@@ -96,8 +96,9 @@
                                 <button class="btn btn-primary btn-sm mb-2">
                                     Répondre à ce commentaire
                                 </button>
-                            </form>                                
+                            </form>                                  --}}
                             @endauth
+                            {{--  fin réponse aux commentaires  --}}
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
