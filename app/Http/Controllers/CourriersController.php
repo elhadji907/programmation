@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Charts\Courrierchart;
+use Illuminate\Notifications\DatabaseNotification;
 
 class CourriersController extends Controller
 {
@@ -104,6 +105,44 @@ class CourriersController extends Controller
             return view('courriers.show', compact('courrier','chart'));
         }
         
+    }
+
+
+    public function showFromNotification(Courrier $courrier, DatabaseNotification $notification){
+
+        $notification->markAsRead();
+        
+        $typescourrier = $courrier->types_courrier->name;
+        $recues = $courrier->recues;
+        $departs = $courrier->departs;
+        $internes = $courrier->internes;
+        // $demandes = $courrier->demandeurs;
+        
+        $recue = \App\Recue::get()->count();
+        $interne = \App\Interne::get()->count();
+        $depart = \App\Depart::get()->count();
+        $courrier = Courrier::get()->count();
+
+        $chart      = Courrier::all();
+
+        $chart = new Courrierchart;
+        $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        $chart->dataset('STATISTIQUES', 'bar', [$interne, $recue, $depart])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+        // dd($typescourrier);
+        if ($typescourrier == 'Courriers arrives') {            
+            return view('recues.show', compact('recues','courrier','chart'));
+    
+            } elseif($typescourrier == 'Courriers departs') {   
+            return view('departs.show', compact('departs','courrier','chart'));
+    
+            } elseif($typescourrier == 'Courriers internes') {    
+                return view('internes.show', compact('internes','courrier','chart'));
+    
+            } else {
+                return view('courriers.show', compact('courrier','chart'));
+            }
     }
 
     /**

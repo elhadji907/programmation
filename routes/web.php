@@ -52,6 +52,7 @@ Route::group([
         Route::get('postes/create', 'PostesController@create')->name('postes.create');
         Route::post('postes', 'PostesController@store')->name('postes.store');
         Route::get('postes/{poste}', 'PostesController@show')->name('postes.show');
+        Route::get('showFromNotification/{courrier}/{notification}', 'CourriersController@showFromNotification')->name('courriers.showFromNotification');
 
         Route::post('comments/{courrier}', 'CommentsController@store')->name('comments.store');
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');

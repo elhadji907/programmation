@@ -38,20 +38,19 @@
          {!! __("Centre d'alerte") !!}
         </h6>        
         @foreach (auth()->user()->unReadNotifications as $notification)
-          <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="mr-3">
-              <div class="icon-circle bg-primary">
-                {{--  <i class="fas fa-file-alt text-white"></i>  --}}
+          <a class="dropdown-item d-flex align-items-center" 
+          href="{{ route('courriers.showFromNotification', ['courrier'=>$notification->data['courrierId'], 'notification'=>$notification->id]) }}">
+           
+              {{--  <div class="icon-circle">
                 <img class="img-profile rounded-circle w-100" src="{{ asset(Auth::user()->profile->getImage()) }}">
               </div>
-            </div>
+              --}}
             <div>
-                <div class="small text-gray-500">{!! $notification->created_at->format('d/m/Y à H:m') !!}</div>
+                <div class="small text-gray-500">{!! $notification->created_at->format('d/m/Y') !!}</div>
                 <span class="font-weight-bold">{!! $notification->data['firstname'] !!}&nbsp;{!! $notification->data['name'] !!}
                 </span>
-                 a écrit
-                <br>
-               {!! $notification->data['courrierTitle'] !!}
+                 a posté un commentaire sur          
+                <span class="font-weight-bold">&laquo;{!! $notification->data['courrierTitle'] !!}&raquo;</span>
             </div>
           </a>
         @endforeach
