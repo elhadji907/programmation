@@ -152,7 +152,7 @@ class DepartsController extends Controller
     public function edit(Depart $depart)
     {
         
-        $this->authorize('update', $depart);
+        $this->authorize('update',  $depart->courrier);
 
           
         $objets = Objet::pluck('name','name');
@@ -177,8 +177,8 @@ class DepartsController extends Controller
      */
     public function update(Request $request, Depart $depart)
     {
-        
-        $this->authorize('update', $depart);
+
+        $this->authorize('update',  $depart->courrier);
 
         $this->validate(
             $request, [
@@ -190,7 +190,7 @@ class DepartsController extends Controller
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
                 'date_c'        =>  'required|date',
-                'file'          =>  'sometimes|required|file|max:100000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
+                'file'          =>  'sometimes|required|file|max:30000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
             ]
         );
@@ -264,7 +264,9 @@ class DepartsController extends Controller
      */
     public function destroy(Depart $depart)
     {
-        
+
+        $this->authorize('delete',  $depart->courrier);
+
         $this->authorize('update', $depart);
 
         $depart->courrier->directions()->detach();

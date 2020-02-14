@@ -155,7 +155,7 @@ class InternesController extends Controller
     public function edit(Interne $interne)
     {
         
-        $this->authorize('update', $interne);
+        $this->authorize('update',  $interne->courrier);
 
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
@@ -180,7 +180,7 @@ class InternesController extends Controller
     public function update(Request $request, Interne $interne)
     {
         
-        $this->authorize('update', $interne);
+        $this->authorize('update',  $interne->courrier);
 
         $this->validate(
             $request, [
@@ -267,7 +267,7 @@ class InternesController extends Controller
     public function destroy(Interne $interne)
     {
         
-        $this->authorize('delete', $interne);
+        $this->authorize('delete',  $depart->courrier);
 
         $interne->courrier->directions()->detach();
         $interne->courrier->delete();

@@ -164,6 +164,10 @@ class RecuesController extends Controller
      */
     public function edit(Recue $recue)
     {
+
+        
+        $this->authorize('update', $recue->courrier);
+
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
@@ -187,6 +191,8 @@ class RecuesController extends Controller
      */
     public function update(Request $request, Recue $recue)
     {
+        $this->authorize('update',  $recue->courrier);
+
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:100',
@@ -197,7 +203,7 @@ class RecuesController extends Controller
                 'email'         =>  'required|email|max:255',
                 'date_r'        =>  'required|date',
                 'date_c'        =>  'required|date',
-                'file'          =>  'sometimes|required|file|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp|max:100000',
+                'file'          =>  'sometimes|required|file|max:30000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp|max:100000',
 
             ]
         );
@@ -275,6 +281,8 @@ class RecuesController extends Controller
      */
     public function destroy(Recue $recue)
     {
+        $this->authorize('delete',  $recue->courrier);
+
         $recue->courrier->directions()->detach();
         $recue->courrier->delete();
         $recue->delete();
