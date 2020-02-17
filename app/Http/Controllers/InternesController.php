@@ -267,7 +267,7 @@ class InternesController extends Controller
     public function destroy(Interne $interne)
     {
         
-        $this->authorize('delete',  $depart->courrier);
+        $this->authorize('delete',  $interne->courrier);
 
         $interne->courrier->directions()->detach();
         $interne->courrier->delete();

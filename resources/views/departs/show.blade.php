@@ -1,5 +1,6 @@
 @extends('layout.default')
 @section('title', 'ONFP - Fiche Couriers departs')
+
 @section('extra-js')
     <script>
         function toggleReplayComment(id)
@@ -9,6 +10,7 @@
         }
     </script>
 @endsection
+
 @section('content')
         <div class="container">
             <div class="container-fluid">
@@ -20,12 +22,12 @@
                         <p>{{ $depart->courrier->message }}</p>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <small>Posté le {!! $depart->courrier->created_at->format('d/m/Y à H:m') !!}</small>
+                            <small>Posté le {!! $depart->courrier->created_at->format('d/m/Y à H:i:s') !!}</small>
                             <span class="badge badge-primary">{!! $depart->courrier->user->firstname !!}&nbsp;{!! $depart->courrier->user->name !!}</span>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mt-5">
-                            @can('update', $depart->courrier)
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            @can('update', $depart->courrier)     
                             <a href="{!! url('departs/' .$depart->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
@@ -36,15 +38,16 @@
                             {{--  <a href="{!! url('courriers/' .$depart->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a>  --}}
-                            @can('delete', $depart->courrier)
+                            @can('delete', $depart->courrier)     
                             {!! Form::open(['method'=>'DELETE', 'url'=>'departs/' .$depart->id, 'id'=>'deleteForm']) !!}
                             {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
                             {!! Form::close() !!}
                             @endcan 
                         </div>
-                    </div>
+                    </div>                    
                     @endforeach
                 </div>
+
                 <hr>
 
                 <div class="card">
@@ -55,23 +58,25 @@
                                 <div class="card-body">
                                     {!! $comment->content !!}
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <small>Posté le {!! $comment->created_at->format('d/m/Y') !!}</small>
+                                        <small>Posté le {!! $comment->created_at->format('d/m/Y à H:i:s') !!}</small>
                                         <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
                                     </div>
                                 </div>
                             </div>
-                            {{--  @foreach ($comment->comments as $replayComment)
+                            {{--  Réponse aux commentaires  --}}
+                            @foreach ($comment->comments as $replayComment)
                             <div class="card mt-2 ml-5">
                                 <div class="card-body">
                                     {!! $replayComment->content !!}
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <small>Posté le {!! $replayComment->created_at->format('d/m/Y') !!}</small>
+                                        <small>Posté le {!! $replayComment->created_at->format('d/m/Y à H:i:s') !!}</small>
                                         <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach  --}}
-                            {{--  @auth
+                            @endforeach
+
+                            @auth
                             <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
                                 Répondre
                             </button>
@@ -79,7 +84,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="replayComment"><b>Ma réponse</b></label>
-                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
+                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" id="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('replayComment'))
                                         @foreach ($errors->get('replayComment') as $message)
@@ -92,7 +97,8 @@
                                     Répondre à ce commentaire
                                 </button>
                             </form>                                
-                            @endauth  --}}
+                            @endauth
+                            {{--  fin réponse aux commentaires  --}}
                             @empty
 
                             <div class="alert alert-info">Aucun commentaire pour ce courrier</div>

@@ -113,6 +113,7 @@ class RecuesController extends Controller
         $courrier = \App\Courrier::first();
         // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
+            'numero'             =>     "CA-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'message'            =>      $request->input('message'),
             'expediteur'         =>      $request->input('expediteur'),

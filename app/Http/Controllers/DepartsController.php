@@ -101,6 +101,7 @@ class DepartsController extends Controller
         $courrier = \App\Courrier::first();
         // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
+            'numero'             =>     "CD-".$annee."-".$numCourrier,
             'objet'              =>      $request->input('objet'),
             'message'            =>      $request->input('message'),
             'expediteur'         =>      $request->input('expediteur'),
@@ -266,8 +267,6 @@ class DepartsController extends Controller
     {
 
         $this->authorize('delete',  $depart->courrier);
-
-        $this->authorize('update', $depart);
 
         $depart->courrier->directions()->detach();
         $depart->courrier->delete();
