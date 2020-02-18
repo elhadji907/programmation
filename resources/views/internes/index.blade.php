@@ -27,7 +27,7 @@
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Numero</th>
                     <th>Objet</th>
                     <th>Expéditeur</th>
@@ -37,7 +37,7 @@
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Numero</th>
                     <th>Objet</th>
                     <th>Expéditeur</th>
@@ -51,9 +51,10 @@
                     <td class="text-center" colspan="2"></td>
                   </tr>
                   @else 
+                  {!! $i = 1 !!}
                   @foreach ($internes as $interne)
                   <tr>
-                    {{-- <td>{!! $interne->id !!}</td> --}}
+                    <td>{!! $i !!}</td>
                     <td>{!! $interne->numero !!}</td>
                     <td>{!! $interne->courrier->objet !!}</td>
                     <td>{!! $interne->courrier->expediteur !!}</td>

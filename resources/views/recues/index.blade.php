@@ -28,7 +28,7 @@
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Numero</th>
                     <th>Objet</th>
                     <th>Expéditeur</th>
@@ -38,7 +38,7 @@
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    {{-- <th>ID</th> --}}
+                    <th>ID</th>
                     <th>Numero</th>
                     <th>Objet</th>
                     <th>Expéditeur</th>
@@ -52,9 +52,10 @@
                     <td class="text-center" colspan="2"></td>
                   </tr>
                   @else 
+                  {!! $i = 1 !!}
                   @foreach ($recues as $recue)
                   <tr>
-                    {{-- <td>{!! $recue->id !!}</td> --}}
+                    <td>{!! $i !!}</td>
                     <td>{!! $recue->numero !!}</td>
                     <td>{!! $recue->courrier->objet !!}</td>
                     <td>{!! $recue->courrier->expediteur !!}</td>
