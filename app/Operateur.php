@@ -56,7 +56,7 @@ class Operateur extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'matricule',
+		// 'matricule',
 		'numero',
 		'name',
 		'ninea',

@@ -41,6 +41,7 @@ Route::group([
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
+        Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
 
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
@@ -74,6 +75,7 @@ Route::group([
         Route::resource('/modules', 'ModulesController');
         Route::resource('/secteurs', 'SecteursController');
         Route::resource('/villages', 'VillagesController');
+        Route::resource('/operateurs', 'OperateursController');
 
     }         
 );

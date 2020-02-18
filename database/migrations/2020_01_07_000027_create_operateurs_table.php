@@ -24,7 +24,6 @@ class CreateOperateursTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200);
             $table->string('numero', 200);
             $table->string('name', 200);
             $table->string('ninea', 45);

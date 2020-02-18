@@ -49,7 +49,7 @@
 </li>
 <li class="nav-item">
     @roles('Administrateur|Gestionnaire|Courrier')
-  <a class="nav-link" href="#">
+  <a class="nav-link" href="{{ route('operateurs.index') }}">
       <span data-feather="users"></span>
     <span>Gestion opérateurs</span>
   </a>

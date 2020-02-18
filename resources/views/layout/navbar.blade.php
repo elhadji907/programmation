@@ -21,7 +21,7 @@
       </form>
     
      {{--   <!-- Nav Item - Alerts -->  --}}       
-    @roles('Administrateur|Gestionnaire|Courrier')
+    {{--  @roles('Administrateur|Gestionnaire|Courrier')  --}}
 
     {{--  start notifications  --}}
     @unless (auth()->user()->unReadNotifications->isEmpty())
@@ -139,7 +139,7 @@
         </div>
       </li>
 
-      @endroles
+      {{--  @endroles  --}}
       <div class="topbar-divider d-none d-sm-block"></div>
 
       <!-- Nav Item - User Information -->
