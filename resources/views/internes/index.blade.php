@@ -73,7 +73,7 @@
                         </a>
                         &nbsp;
                         @can('delete', $interne->courrier)
-                        {!! Form::open(['method'=>'DELETE', 'url'=>'internes/' .$interne->id, 'id'=>'deleteForm']) !!}
+                        {!! Form::open(['method'=>'DELETE', 'url'=>'internes/' .$interne->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                         {!! Form::close() !!}
                         @endcan 

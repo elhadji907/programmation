@@ -39,7 +39,7 @@
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a>  --}}
                             @can('delete', $recue->courrier)     
-                            {!! Form::open(['method'=>'DELETE', 'url'=>'recues/' .$recue->id, 'id'=>'deleteForm']) !!}
+                            {!! Form::open(['method'=>'DELETE', 'url'=>'recues/' .$recue->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                             {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
                             {!! Form::close() !!}
                             @endcan 

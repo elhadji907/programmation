@@ -125,20 +125,13 @@ class AdministrateursController extends Controller
      */
     public function edit($id)
     {
-        
-        $administrateur = Administrateur::find($id);
-        $utilisateur=$administrateur->user;        
-        $roles = Role::get();
-        $civilites = User::select('civilite')->distinct()->get();
-        //return $utilisateur;
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
-        return view('administrateurs.update', compact('administrateur','utilisateur','id','roles','civilites','chart'));
+         //$utilisateur = User::find($id);
+         $administrateur = Administrateur::find($id);
+         $utilisateur=$administrateur->user;        
+         $roles = Role::get();
+         $civilites = User::select('civilite')->distinct()->get();
+         //return $utilisateur;
+         return view('administrateurs.update', compact('administrateur','utilisateur','id','roles','civilites'));
     }
 
     /**

@@ -22,9 +22,9 @@
                             <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1"><b>Civilité</b></label>
                                     <select name="civilite" id="civilite" class="form-control">
-                                            <option value="">--Selectionnez--</option>
+                                        <option value=""></option>
                                         @foreach($civilites as $civilite)
-                                            <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
+                                        <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
                                         @endforeach
                                         </select>
                                     <small id="emailHelp" class="form-text text-muted">
