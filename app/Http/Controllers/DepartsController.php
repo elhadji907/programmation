@@ -24,20 +24,15 @@ class DepartsController extends Controller
      */
     public function index()
     {
-        $date = Carbon::today()->locale('fr_FR');
-        $date = $date->copy()->addDays(0);
-        $date = $date->isoFormat('LLLL'); // M/D/Y
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::all();
+       $date = Carbon::today()->locale('fr_FR');
+       $date = $date->copy()->addDays(0);
+       $date = $date->isoFormat('LLLL'); // M/D/Y
+       $recues = \App\Recue::get()->count();
+       $internes = \App\Interne::get()->count();
+       $departs = \App\Depart::all();
        $courriers = \App\Courrier::get()->count();
-       $chart = new Courrierchart;
-       $chart->labels(['Départs', 'Arrivés', 'Internes']);
-       $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
-           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-       ]);
-        
-        return view('departs.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
+              
+        return view('departs.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

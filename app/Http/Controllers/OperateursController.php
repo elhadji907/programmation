@@ -30,7 +30,9 @@ class OperateursController extends Controller
 
     public function index()
     {
-       return view('operateurs.index');
+       $operateurs = \App\Operateur::all();
+
+       return view('operateurs.index', compact('operateurs'));
     }
 
     /**
