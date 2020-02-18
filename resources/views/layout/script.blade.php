@@ -25,6 +25,13 @@
               allowClear: true
           });
   </script>
+  <script type="text/javascript">
+  
+        $("#structure").select2({
+              placeholder: "sélectionner une structure",
+              allowClear: true
+          });
+  </script>
 
   <script type="text/javascript">
   

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Operateur;
+use App\Role;
+use App\User;
+use App\Structure;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -37,7 +40,11 @@ class OperateursController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::get();
+        $civilites = User::select('civilite')->distinct()->get();      
+        $structures = Structure::select('name')->distinct()->get();
+
+        return view('operateurs.create',compact('roles', 'civilites','structures'));
     }
 
     /**
@@ -48,7 +55,7 @@ class OperateursController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -93,7 +100,10 @@ class OperateursController extends Controller
      */
     public function destroy(Operateur $operateur)
     {
-        //
+        
+        $operateur->delete();
+        $message = "L'opérateur ".$operateur->name.' a été supprimé avec succès';
+        return redirect()->route('operateurs.index')->with(compact('message'));
     }
 
     public function list(Request $request)

@@ -15,7 +15,7 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des utilisateurs
+                      Liste des opérateurs
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
@@ -26,7 +26,7 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-operateurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>Civilité</th>
+                              <th>Type structure</th>
                               <th>Numero</th>
                               <th>Nom</th>
                               <th>Email</th>
@@ -36,7 +36,7 @@
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                                <th>Civilité</th>
+                                <th>Type structure</th>
                                 <th>Numero</th>
                                 <th>Nom</th>
                                 <th>Email</th>
@@ -79,7 +79,6 @@
         </form>
       </div>
       @endsection
-
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {

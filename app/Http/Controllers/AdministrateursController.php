@@ -40,14 +40,8 @@ class AdministrateursController extends Controller
 
     public function index()
     {
-        $chart      = \App\Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
 
-        return view('administrateurs.index', compact('chart'));
+        return view('administrateurs.index');
     }
 
     /**
@@ -59,15 +53,8 @@ class AdministrateursController extends Controller
     {
         $roles = Role::get();
         $civilites = User::select('civilite')->distinct()->get();
-
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
-        return view('administrateurs.create',compact('roles', 'civilites', 'chart'));
+      
+        return view('administrateurs.create',compact('roles', 'civilites'));
     }
 
     /**
