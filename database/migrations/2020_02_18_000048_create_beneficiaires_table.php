@@ -27,14 +27,11 @@ class CreateBeneficiairesTable extends Migration
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('villages_id');
             $table->unsignedInteger('nivauxs_id');
-            $table->unsignedInteger('diplomes_id');
             $table->unsignedInteger('situations_id');
-
-            $table->index(["situations_id"], 'fk_beneficiaires_situations1_idx');
 
             $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
 
-            $table->index(["diplomes_id"], 'fk_beneficiaires_diplomes1_idx');
+            $table->index(["situations_id"], 'fk_beneficiaires_situations1_idx');
 
             $table->index(["nivauxs_id"], 'fk_beneficiaires_nivauxs1_idx');
 
@@ -55,11 +52,6 @@ class CreateBeneficiairesTable extends Migration
 
             $table->foreign('nivauxs_id', 'fk_beneficiaires_nivauxs1_idx')
                 ->references('id')->on('nivauxs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('diplomes_id', 'fk_beneficiaires_diplomes1_idx')
-                ->references('id')->on('diplomes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
