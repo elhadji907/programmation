@@ -33,13 +33,14 @@ class RecuesController extends Controller
         $internes = Interne::get()->count();
         $departs = Depart::get()->count();
         $courriers = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['Départs', 'Arrivés', 'Internes']);
-        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
+
+        // $chart = new Courrierchart;
+        // $chart->labels(['Départs', 'Arrivés', 'Internes']);
+        // $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
+        //     'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        // ]);
        
-        return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
+        return view('recues.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**

@@ -242,7 +242,7 @@
 
         <div class="d-flex justify-content-between align-items-center mt-5">
             @can('update', $interne->courrier) 
-                <a href="{!! url('departs/' .$interne->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                <a href="{!! url('internes/' .$interne->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                     <i class="far fa-edit">&nbsp;Modifier</i>
                 </a>
             @endcan

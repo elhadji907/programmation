@@ -22,9 +22,10 @@ class ProfilesController extends Controller
         //dd($user);
         //dd($user->profile);
         
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
+        // $recues = \App\Recue::get()->count();
+        // $internes = \App\Interne::get()->count();
+        // $departs = \App\Depart::get()->count();
+        
         $courriers = Courrier::latest()->paginate(5);
 
         return view('profiles.show', compact('user','courriers'));
@@ -36,7 +37,6 @@ class ProfilesController extends Controller
 
         $this->authorize('update', $user->profile);
 
-               
         $civilites = User::select('civilite')->distinct()->get();
         return view('profiles.edit', compact('user', 'civilites'));
     }

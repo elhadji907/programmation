@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste directions')
+@section('title', 'ONFP - Liste directions et services')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -15,7 +15,7 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des directions
+                      Liste des directions et services
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
@@ -29,6 +29,7 @@
                               <th>ID</th>
                               <th>direction</th>
                               <th>Sigle</th>
+                              <th>Responsable</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
@@ -37,6 +38,7 @@
                                 <th>ID</th>
                                 <th>direction</th>
                                 <th>Sigle</th>
+                                <th>Responsable</th>
                                 <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
@@ -87,6 +89,7 @@
                     { data: 'id', name: 'id' }, 
                     { data: 'name', name: 'name' },
                     { data: 'sigle', name: 'sigle' },
+                    { data: 'sigle', name: 'sigle' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -99,7 +102,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="Modifier"><i class="far fa-edit"></i></a>'+
                         '<div class="btn btn-danger btn_delete_direction btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 3
+                        "targets": 4
                         },
                 ],
 

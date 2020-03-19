@@ -83,7 +83,7 @@
     @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('directions.index') }}">
       <span data-feather="layers"></span>
-    <span>Directions</span>
+    <span>Directions / Services</span>
   </a>
   @endroles
 </li>

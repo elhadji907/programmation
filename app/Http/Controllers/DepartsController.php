@@ -54,16 +54,8 @@ class DepartsController extends Controller
 
         /* dd($date); */      
         $date_r = Carbon::now();
-
-       /*  dd($date_r); */
-       $chart      = Courrier::all();
-       $chart = new Courrierchart;
-       $chart->labels(['', '', '']);
-       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-       ]);
        
-        return view('departs.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r','chart'));
+        return view('departs.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r'));
     }
 
     /**
@@ -153,15 +145,8 @@ class DepartsController extends Controller
           
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
-        
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
 
-         return view('departs.update', compact('depart', 'directions', 'objets','chart'));
+         return view('departs.update', compact('depart', 'directions', 'objets'));
     }
 
     /**

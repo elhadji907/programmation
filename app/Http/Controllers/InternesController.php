@@ -23,24 +23,15 @@ class InternesController extends Controller
      */
     public function index()
     {
-        $date = Carbon::today()->locale('fr_FR');
-        $date = $date->copy()->addDays(0);
-        $date = $date->isoFormat('LLLL'); // M/D/Y
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::all();
-        $departs = \App\Depart::all();
+       $date = Carbon::today()->locale('fr_FR');
+       $date = $date->copy()->addDays(0);
+       $date = $date->isoFormat('LLLL'); // M/D/Y
+       $recues = \App\Recue::get()->count();
+       $internes = \App\Interne::all();
+       $departs = \App\Depart::all();
        $courriers = \App\Courrier::get()->count();
-
-       $chart      = Courrier::all();
-
-        $chart = new Courrierchart;
-        $chart->labels(['Départs', 'Arrivés', 'Internes']);
-        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
         
-        
-        return view('internes.index',compact('date','courriers', 'recues', 'internes', 'departs', 'chart'));
+        return view('internes.index',compact('date','courriers', 'recues', 'internes', 'departs'));
     }
 
     /**
@@ -160,14 +151,7 @@ class InternesController extends Controller
         $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
-         return view('internes.update', compact('interne', 'directions', 'objets','chart'));
+         return view('internes.update', compact('interne', 'directions', 'objets'));
     }
 
     /**
