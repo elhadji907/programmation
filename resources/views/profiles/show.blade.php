@@ -38,7 +38,7 @@
             @endcan 
         </div>
     </div>
-
+    @roles('Administrateur|Gestionnaire|Courrier')
     <div class="list-group mt-5">
         @foreach ($courriers as $courrier) 
         <div class="list-group-item">
@@ -55,5 +55,6 @@
     <div class="d-flex justify-content-center pt-2">
         {!! $courriers->links() !!}
     </div>
+    @endroles
 </div>
 @endsection

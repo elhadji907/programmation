@@ -39,6 +39,16 @@
       <span> Gérer mon profil </span>
       </a>
   </h6>
+  <hr class="sidebar-divider my-0">
+  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
+    <a class="nav-link d-flex align-items-center text-white" href="{{ route('profiles.show', ['user'=>auth()->user()]) }}">
+    {{--  <span data-feather="settings"></span>  --}}
+    
+    <span data-feather="user"></span>
+    <span>Programme PDCEJ </span>
+    </a>
+</h6>
+<hr class="sidebar-divider my-0">
 <li class="nav-item">
     @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('courriers.index') }}">

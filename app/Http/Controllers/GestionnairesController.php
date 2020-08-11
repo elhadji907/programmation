@@ -16,6 +16,11 @@ class GestionnairesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('roles:Administrateur|Gestionnaire');
+    }
     public function index()
     {
         $chart      = \App\Courrier::all();

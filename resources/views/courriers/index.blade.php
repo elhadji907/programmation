@@ -1,6 +1,7 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des courriers')
+@section('title', 'ONFP')
 @section('content')
+@roles('Administrateur|Gestionnaire|Courrier')
 <div class="container-fluid">
     <div class="row">     
         <div class="col-xl-3 col-md-6 mb-4">
@@ -147,7 +148,9 @@
   </div>
 </div>
 <br />
+@endroles
 @endsection
+
 @push('scripts')
     <script type="text/javascript">
       $(document).ready(function () {

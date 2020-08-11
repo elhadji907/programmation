@@ -21,6 +21,11 @@ class InternesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('roles:Administrateur|Gestionnaire|Courrier');
+    }
     public function index()
     {
        $date = Carbon::today()->locale('fr_FR');
