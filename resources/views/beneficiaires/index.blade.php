@@ -31,7 +31,7 @@
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Téléphone</th>
-                              <th>Action</th>
+                              <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-      </div> </div>
+      </div>
 
       <div class="modal fade" id="modal_delete_beneficiaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="POST" action="" id="form-delete-beneficiaire">
@@ -102,8 +102,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('beneficiaires.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('beneficiaires.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit">&nbsp;Edit</i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_beneficiaire ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier" btn-sm><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_beneficiaire ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 4
                         },

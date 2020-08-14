@@ -39,16 +39,40 @@
       <span> Gérer mon profil </span>
       </a>
   </h6>
+  @roles('Administrateur|Gestionnaire')
   <hr class="sidebar-divider my-0">
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
-    <a class="nav-link d-flex align-items-center text-white" href="{{ route('profiles.show', ['user'=>auth()->user()]) }}">
+    <a class="nav-link d-flex align-items-center text-white" href="{{ url('/') }}">
     {{--  <span data-feather="settings"></span>  --}}
     
     <span data-feather="user"></span>
     <span>Programme PDCEJ </span>
     </a>
 </h6>
+@endroles
 <hr class="sidebar-divider my-0">
+
+
+@roles('Demandeur')
+<li class="nav-item">
+<a class="nav-link" href="{{ url('/home') }}">
+    <span data-feather="users"></span>
+  <span>Demande de formation</span>
+</a>
+</li>
+@endroles
+
+
+<li class="nav-item">
+  @roles('Operateur|Demandeur')
+<a class="nav-link" href="{{ route('operateurs.index') }}">
+    <span data-feather="users"></span>
+  <span>Devenir opérateur</span>
+</a>
+@endroles
+</li>
+
+
 <li class="nav-item">
     @roles('Administrateur|Gestionnaire|Courrier')
   <a class="nav-link" href="{{ route('courriers.index') }}">
@@ -158,10 +182,12 @@
         <span data-feather="user"></span>
         <span>Gestionnaires</span>
       </a>
-      <a class="collapse-item" href="{{ route('beneficiaires.index') }}">
+
+     {{--   <a class="collapse-item" href="{{ route('beneficiaires.index') }}">
         <span data-feather="user"></span>
         <span>Bénéficiaires</span>
-      </a>
+      </a>  --}}
+      
       </a>
       <a class="collapse-item" href="{{ route('villages.index') }}">
         <span data-feather="user"></span>

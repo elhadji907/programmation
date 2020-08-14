@@ -24,6 +24,7 @@
 
               
                 <div class="card-body">
+
                     {!! Form::open(['url'=>'personnels/'.$personnel->id, 'method'=>"PATCH", 'files' => true]) !!}
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -136,7 +137,10 @@
                         </div> 
                         {!! Form::submit('Modifier', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                     {!! Form::close() !!}
+                    
                 </div>
+
+
         </div>
     </div>
 </div>

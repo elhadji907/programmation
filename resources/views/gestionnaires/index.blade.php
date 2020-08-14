@@ -105,8 +105,8 @@
                         "render": function (data, type, row) {
                         url_e =  "{!! route('gestionnaires.edit',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('gestionnaires.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit " title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_gestionnaire ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
+                        '<div class="btn btn-danger delete btn_delete_gestionnaire ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 6
                         },

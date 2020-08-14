@@ -58,6 +58,9 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contacts</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{ url('/demandeurs') }}">Formation</a>
+          </li>
           @if (Route::has('login'))
           <li class="nav-item">
             @auth

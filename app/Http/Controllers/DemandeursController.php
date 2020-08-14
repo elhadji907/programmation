@@ -27,19 +27,7 @@ class DemandeursController extends Controller
      */
     public function index()
     {
-        $date = Carbon::today()->locale('fr_FR');
-        $date = $date->copy()->addDays(0);
-        $date = $date->isoFormat('LLLL'); // M/D/Y
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::all();
-       $courriers = \App\Courrier::get()->count();
-       $chart = new Courrierchart;
-       $chart->labels(['Départs', 'Arrivés', 'Internes']);
-       $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
-           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-       ]);
-        return view('demandeurs.index', compact('chart'));
+        return view('demandeurs.index');
     }
 
     /**
@@ -57,13 +45,6 @@ class DemandeursController extends Controller
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
         $objets = Objet::select('name')->distinct()->get();
 
-        // dd($objets);
-        $chart      = Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
         return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux','chart'));
     }
 

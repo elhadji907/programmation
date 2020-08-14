@@ -74,7 +74,7 @@
                 cliquez sur close pour annuler
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
               </div>
             </div>
@@ -107,8 +107,8 @@
                         url_e =  "{!! route('personnels.edit',':id')!!}".replace(':id', data.id);
                         url_f =  "{!! route('personnels.show',':id')!!}".replace(':id', data.id);
                         url_d =  "{!! route('personnels.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="Modifier"><i class="far fa-edit"></i></a>&nbsp;'+
-                                '<a href='+url_f+'  class=" btn btn-success btn-sm show " title="voir"><i class="far fa-eye"></i></a>&nbsp;'+
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit" title="Modifier"><i class="far fa-edit"></i></a>&nbsp;'+
+                                '<a href='+url_f+'  class=" btn btn-success btn-sm show" title="voir"><i class="far fa-eye"></i></a>&nbsp;'+
                         '<div class="btn btn-danger btn-sm delete btn_delete_personnel ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
                         "targets": 6

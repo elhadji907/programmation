@@ -25,13 +25,6 @@ class BeneficiairesController extends Controller
     }
     public function index()
     {
-        $chart      = \App\Courrier::all();
-        $chart = new Courrierchart;
-        $chart->labels(['', '', '']);
-        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
         return view('beneficiaires.index', compact('chart'));
     }
 
@@ -113,9 +106,13 @@ class BeneficiairesController extends Controller
      * @param  \App\Beneficiaire  $beneficiaire
      * @return \Illuminate\Http\Response
      */
-    public function edit(Beneficiaire $beneficiaire)
+    public function edit($id)
     {
-        
+         $beneficiaire = Beneficiaire::find($id);
+         $utilisateur=$beneficiaire->user;        
+         $roles = Role::distinct('name')->get()->pluck('name','name')->unique();
+         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
+         return view('beneficiaires.update', compact('beneficiaire','utilisateur','id','roles','civilites'));
     }
 
     /**
@@ -125,9 +122,38 @@ class BeneficiairesController extends Controller
      * @param  \App\Beneficiaire  $beneficiaire
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Beneficiaire $beneficiaire)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'civilite'      => 'required|string|max:10',
+                'matricule'     =>  'required|string|max:50',
+                'prenom'        => 'required|string|max:100',
+                'nom'           => 'required|string|max:50',
+                'telephone'     => 'required|string|max:50',
+                'role'          => 'required|string'
+            ]);
+
+        $beneficiaire = Beneficiaire::find($id);
+        $utilisateur=$beneficiaire->user;
+
+        $utilisateur->civilite       =       $request->input('civilite');
+        $utilisateur->firstname      =      $request->input('prenom');
+        $utilisateur->name           =      $request->input('nom');
+        $utilisateur->telephone      =      $request->input('telephone');
+        $role_id = $request->input('role');
+        $roles_id = Role::where('name', $role_id)->first()->id;
+        $utilisateur->roles_id        =      $roles_id;
+
+        $utilisateur->save();
+
+        $beneficiaire->matricule   =     $request->input('matricule');
+        $beneficiaire->users_id    =     $utilisateur->id;
+
+        $beneficiaire->save();
+        
+        return redirect()->route('beneficiaires.index')->with('success','utilisateur modifié avec succès !');
     }
 
     /**
@@ -138,7 +164,9 @@ class BeneficiairesController extends Controller
      */
     public function destroy(Beneficiaire $beneficiaire)
     {
-        //
+        $beneficiaire->delete();
+        $message = $beneficiaire->user->firstname.' '.$beneficiaire->user->name.' a été supprimé(e)';
+        return redirect()->route('beneficiaires.index')->with(compact('message'));
     }
 
     public function list(Request $request)

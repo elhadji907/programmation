@@ -128,8 +128,12 @@ class AdministrateursController extends Controller
          //$utilisateur = User::find($id);
          $administrateur = Administrateur::find($id);
          $utilisateur=$administrateur->user;        
-         $roles = Role::get();
-         $civilites = User::select('civilite')->distinct()->get();
+         //$roles = Role::get();
+         $roles = Role::distinct('name')->get()->pluck('name','name')->unique();
+
+         //dd($roles);
+
+         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
          //return $utilisateur;
          return view('administrateurs.update', compact('administrateur','utilisateur','id','roles','civilites'));
     }
@@ -146,12 +150,12 @@ class AdministrateursController extends Controller
         $this->validate(
             $request, 
             [
-                'civilite'     => 'required|string|max:10',
+                'civilite'      => 'required|string|max:10',
                 'matricule'     =>  'required|string|max:50',
                 'prenom'        => 'required|string|max:100',
                 'nom'           => 'required|string|max:50',
-                'telephone'     => 'required|string|max:50'
-                // 'choixrole'     => 'required|string',
+                'telephone'     => 'required|string|max:50',
+                'role'          => 'required|string'
             ]);
 
         $administrateur = Administrateur::find($id);
@@ -165,7 +169,10 @@ class AdministrateursController extends Controller
         $utilisateur->name           =      $request->input('nom');
         $utilisateur->telephone      =      $request->input('telephone');
        /*  $utilisateur->roles_id       =      $roles_id; */
-    //    $utilisateur->roles_id        =      $request->input('choixrole');
+        $role_id = $request->input('role');
+        $roles_id = Role::where('name', $role_id)->first()->id;
+        //dd($roles_id);
+        $utilisateur->roles_id        =      $roles_id;
 
         $utilisateur->save();
 

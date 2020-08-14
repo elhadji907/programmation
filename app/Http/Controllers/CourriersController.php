@@ -222,5 +222,6 @@ class CourriersController extends Controller
     {
         $courriers=Courrier::with('types_courrier')->get();
         return Datatables::of($courriers)->make(true);
+        
     }
 }

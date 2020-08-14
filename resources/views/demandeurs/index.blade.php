@@ -32,7 +32,7 @@
                       <th>Prenom</th>
                       <th>Nom</th>
                       <th>Téléphone</th>
-                      <th>Action</th>
+                      <th style="width:10%;">Action</th>
                     </tr>
                   </thead>
                   <tfoot class="table-dark">

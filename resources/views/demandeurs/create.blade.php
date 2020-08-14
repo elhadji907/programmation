@@ -94,30 +94,6 @@
                             </div>
                            
                         </div>
-                        <div class="form-row">
-                           {{--  <div class="form-group col-md-6">
-                                {!! Form::label("date d'entrée en fonction", null, ['class' => 'control-label']) !!}                    
-                                {!! Form::date('date_debut', null, ['placeholder'=>"La date de recrutement", 'class'=>'form-control']) !!}                    
-                            </div> --}}
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Téléphone 1') !!}                    
-                                {!! Form::text('telephone_1', null, ['placeholder'=>'Numero de telephone', 'class'=>'form-control']) !!}                    
-                            </div> 
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Téléphone 2') !!}                    
-                                {!! Form::text('telephone_2', null, ['placeholder'=>'Numero de telephone secondaire', 'class'=>'form-control']) !!}                    
-                            </div> 
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Adresse') !!}                    
-                                {!! Form::text('fax', null, ['placeholder'=>"Votre numero fax", 'class'=>'form-control']) !!}                    
-                            </div>
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Boite postale') !!}                    
-                                {!! Form::text('bp', null, ['placeholder'=>'Votre Boite postale', 'class'=>'form-control']) !!}                    
-                            </div> 
-                        </div>
                         {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                     {!! Form::close() !!}
                 </div>
@@ -125,5 +101,4 @@
             </div>
             </div>
         </div>
-    </div>
 @endsection

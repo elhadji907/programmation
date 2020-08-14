@@ -17,20 +17,6 @@
                                                
                         <form method="POST" action="{{ url('administrateurs') }}">
                            @csrf
-
-                           {{--  <div class="form-group">
-                            <label for="input-civilite"><b>Civilité:</b></label>
-                            <input type="text" name="civilite" class="form-control" id="input-civilite" placeholder="civilite" value="{{ old('civilite') }}">
-                            <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('civilite'))
-                                    @foreach ($errors->get('civilite') as $message)
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                    @endif
-                            </small>
-                            </div>  
-                            --}}
-
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1"><b>Civilité</b></label>
@@ -106,21 +92,6 @@
                                     @endif
                                 </small>
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="exampleInputEmail1"><b>Choisir un role:</b></label>
-                                <select name="choixrole" id="choixrole" class="form-control">
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                    </select>
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('choixrole'))
-                                    @foreach ($errors->get('choixrole') as $message)
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                    @endif
-                                </small>
-                            </div> --}}
                             <div class="form-group col-md-6">
                                 <label for="exampleInputPassword1"><b>Mot de passe:</b></label>
                                 <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
