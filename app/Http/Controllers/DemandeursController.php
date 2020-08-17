@@ -8,6 +8,7 @@ use App\Objet;
 use App\User;
 use App\Courrier;
 use App\Nivaux;
+use App\Typedemande;
 use Auth;
 
 use DB;
@@ -37,7 +38,16 @@ class DemandeursController extends Controller
      */
     public function create()
     {
-        $date = Carbon::parse('now');
+        $roles = Role::get();
+        /* $civilites = User::select('civilite')->distinct()->get(); */
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
+        $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
+        $objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
+        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
+      
+        return view('demandeurs.create',compact('roles', 'civilites','niveaux', 'objets', 'types_demandes'));
+
+      /*   $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
             
         $roles = Role::get();
@@ -45,7 +55,7 @@ class DemandeursController extends Controller
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
         $objets = Objet::select('name')->distinct()->get();
 
-        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux','chart'));
+        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux','chart')); */
     }
 
     /**
@@ -56,6 +66,7 @@ class DemandeursController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate(
             $request, [
                 'objet'         =>  'required|string|max:50',
@@ -63,13 +74,10 @@ class DemandeursController extends Controller
                 'cin'           =>  'required|string|min:12|max:18|unique:demandeurs,cin',
                 'prenom'        =>  'required|string|max:50',
                 'nom'           =>  'required|string|max:50',
-                'date_nais'     =>  'required|date|max:50',
+                'date_naiss'     =>  'required|date|max:50',
                 'lieu'          =>  'required|string|max:50',
-                'telephone1'    =>  'required|string|max:50',
-                'telephone2'    =>  'required|string|max:50',
+                'telephone'    =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
-                'username'      =>  'required|string|min:8|unique:users,username',
-                'password'      =>  'required|confirmed|string|min:8|max:50',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
@@ -79,61 +87,24 @@ class DemandeursController extends Controller
             ]
         );
 
-        $types_courrier_id = \App\TypesCourrier::where('name','Demande')->first()->id;
-        $type_demande_id = \App\Typedemande::where('name','Individuelle')->first()->id;
-        $gestionnaire_id  = Auth::user()->gestionnaire()->first()->id;
-        $annee = 'FP'.date('ymdHis');
-        $direction = \App\Direction::first();
-        $courrier = Courrier::first();
-        
-        $courrier_id =  Courrier::get()->last()->id;
-
-        $longueur = strlen($courrier_id);
-
-        if ($longueur <= '1' ) {
-            $numero_courrier  = "000".$courrier_id;
-        }
-        elseif($longueur <= '2'){
-            $numero_courrier  = "00".$courrier_id;
-
-        }elseif($longueur <= '3') {
-             $numero_courrier  = "0".$courrier_id;
-
-        }else {
-            $numero_courrier  = $courrier_id;
-        }
-       
-        // $filePath = request('file')->store('demandes', 'public');
-        $courrier = new Courrier([
-            'numero'             =>      "FP-".$annee."-".$numero_courrier,
-            'objet'              =>      $request->input('objet'),
-            'expediteur'         =>      $request->input('prenom').' '.$request->input('nom'),
-            'telephone'          =>      $request->input('telephone1'),
-            'email'              =>      $request->input('email'),
-            'adresse'            =>      $request->input('adresse'),
-            'fax'                =>      $request->input('fax'),
-            'bp'                 =>      $request->input('bp'),
-            'date'               =>      $request->input('date_r'),
-            'legende'            =>      $request->input('legende'),
-            'types_courriers_id' =>      $types_courrier_id,
-            'gestionnaires_id'   =>      $gestionnaire_id,
-            // 'file'               =>      $filePath
-        ]);        
-
-        $courrier->save();
-
         $roles_id = Role::where('name','Demandeur')->first()->id;
+        
+        $user_id = User::latest('id')->first()->id;
+        $username   =   strtolower($request->input('nom').$user_id);
+
+       /*  dd($username); */
 
         $utilisateur = new User([      
             'civilite'       =>      $request->input('civilite'),      
             'firstname'      =>      $request->input('prenom'),
             'name'           =>      $request->input('nom'),
             'email'          =>      $request->input('email'),
-            'username'       =>      $request->input('username'),
-            'telephone'      =>      $request->input('telephone1'),
-            'password'       =>      Hash::make($request->input('password')),
-            'roles_id'       =>      $roles_id,
-            'directions_id'  =>      $gestionnaire_id
+            'username'       =>      $username,
+            'telephone'      =>      $request->input('telephone'),
+            'date_naissance' =>      $request->input('date_naiss'),
+            'lieu_naissance' =>      $request->input('lieu'),
+            'password'       =>      Hash::make($request->input('email')),
+            'roles_id'       =>      $roles_id
 
         ]);
         
@@ -152,9 +123,9 @@ class DemandeursController extends Controller
         $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
         /* dd($objets_id); */
 
-        $matricule = 'FP'.date('ymdHis');
+       /*  $matricule = 'FP'.date('ymdHis');
         $letter1 = chr(rand(65,90));
-        $matricule = $matricule.$letter1;
+        $matricule = $matricule.$letter1; */
         // dd($matricule);
 
         $demandeurs = new Demandeur([

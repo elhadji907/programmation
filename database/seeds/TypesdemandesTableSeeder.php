@@ -13,5 +13,6 @@ class TypesdemandesTableSeeder extends Seeder
     {
         $type1=App\Typedemande::firstOrCreate(["name"=>"Individuelle"],["uuid"=>Str::uuid()]);
         $type2=App\Typedemande::firstOrCreate(["name"=>"Collective"],["uuid"=>Str::uuid()]);
+        $type3=App\Typedemande::firstOrCreate(["name"=>"Programme PDCEJ"],["uuid"=>Str::uuid()]);
     }
 }

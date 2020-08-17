@@ -40,6 +40,13 @@
           allowClear: true
       });
 </script>  
+<script type="text/javascript">
+  
+  $("#type_demande").select2({
+        placeholder: "sélectionner un sexe",
+        allowClear: true
+    });
+</script>
   <script type="text/javascript">
   
   $("#secteur").select2({
