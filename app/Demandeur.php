@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 20 Aug 2020 11:08:11 +0000.
+ * Date: Thu, 20 Aug 2020 13:41:36 +0000.
  */
 
 namespace App;
@@ -26,10 +26,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $users_id
  * @property int $typedemandes_id
  * @property int $objets_id
+ * @property int $localites_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Localite $localite
  * @property \App\Objet $objet
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
@@ -42,13 +44,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Demandeur extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'note' => 'float',
 		'users_id' => 'int',
 		'typedemandes_id' => 'int',
-		'objets_id' => 'int'
+		'objets_id' => 'int',
+		'localites_id' => 'int'
 	];
 
 	protected $dates = [
@@ -68,8 +70,14 @@ class Demandeur extends Eloquent
 		'note',
 		'users_id',
 		'typedemandes_id',
-		'objets_id'
+		'objets_id',
+		'localites_id'
 	];
+
+	public function localite()
+	{
+		return $this->belongsTo(\App\Localite::class, 'localites_id');
+	}
 
 	public function objet()
 	{

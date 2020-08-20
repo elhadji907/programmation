@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 20 Aug 2020 11:05:58 +0000.
+ * Date: Thu, 20 Aug 2020 13:41:48 +0000.
  */
 
 namespace App;
@@ -25,11 +25,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Nivaux extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-
-	
 	protected $table = 'nivauxs';
 
 	protected $fillable = [
