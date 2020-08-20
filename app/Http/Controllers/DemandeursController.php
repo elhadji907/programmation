@@ -79,16 +79,17 @@ class DemandeursController extends Controller
 
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:50',
-                'civilite'      =>  'required|string|max:10',
-                'cin'           =>  'required|string|min:12|max:18|unique:demandeurs,cin',
-                'prenom'        =>  'required|string|max:50',
-                'nom'           =>  'required|string|max:50',
-                'date_naiss'     =>  'required|date|max:50',
-                'lieu'          =>  'required|string|max:50',
-                'telephone'    =>  'required|string|max:50',
-                'email'         =>  'required|email|max:255|unique:users,email',
-                'numero_courrier'           =>  'required|string|unique:demandeurs,numero_courrier',
+                'objet'               =>  'required|string|max:50',
+                'civilite'            =>  'required|string|max:10',
+                'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
+                'prenom'              =>  'required|string|max:50',
+                'nom'                 =>  'required|string|max:50',
+                'date_naiss'          =>  'required|date|max:50',
+                'date_depot'          =>  'required|date|max:50',
+                'lieu'                =>  'required|string|max:50',
+                'telephone'           =>  'required|string|max:50',
+                'email'               =>  'required|email|max:255|unique:users,email',
+                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'

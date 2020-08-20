@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 07 Jan 2020 10:11:06 +0000.
+ * Date: Thu, 20 Aug 2020 11:10:02 +0000.
  */
 
 namespace App;
@@ -17,17 +17,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $users_id
  * @property int $villages_id
  * @property int $nivauxs_id
- * @property int $diplomes_id
  * @property int $situations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Diplome $diplome
  * @property \App\Nivaux $nivaux
  * @property \App\Situation $situation
  * @property \App\User $user
  * @property \App\Village $village
+ * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $secteurs
  * @property \Illuminate\Database\Eloquent\Collection $formes
@@ -43,7 +42,6 @@ class Beneficiaire extends Eloquent
 		'users_id' => 'int',
 		'villages_id' => 'int',
 		'nivauxs_id' => 'int',
-		'diplomes_id' => 'int',
 		'situations_id' => 'int'
 	];
 
@@ -52,14 +50,8 @@ class Beneficiaire extends Eloquent
 		'users_id',
 		'villages_id',
 		'nivauxs_id',
-		'diplomes_id',
 		'situations_id'
 	];
-
-	public function diplome()
-	{
-		return $this->belongsTo(\App\Diplome::class, 'diplomes_id');
-	}
 
 	public function nivaux()
 	{
@@ -79,6 +71,13 @@ class Beneficiaire extends Eloquent
 	public function village()
 	{
 		return $this->belongsTo(\App\Village::class, 'villages_id');
+	}
+
+	public function diplomes()
+	{
+		return $this->belongsToMany(\App\Diplome::class, 'beneficiairesdiplomes', 'beneficiaires_id', 'diplomes_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function formations()

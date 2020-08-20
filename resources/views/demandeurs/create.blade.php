@@ -108,6 +108,19 @@
                                     'class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
+                                    {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
+                                    {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
+                                    'form-control']) !!}
+                                </div>
+                                
+                            <div class="form-group col-md-4">
+                                {!! Form::label("localité") !!}
+                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'localite']) !!}
+                            </div>
+                        </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
                                     {!! Form::label("Objet") !!}
                                     {!! Form::select('objet', $objets, null, ['placeholder' => '', 'class' =>
                                     'form-control', 'id' => 'objet']) !!}
@@ -131,11 +144,6 @@
                                     'form-control', 'id' => 'programme']) !!}
                                 </div>
                             
-                            <div class="form-group col-md-4">
-                                {!! Form::label("localité") !!}
-                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'localite']) !!}
-                            </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label("Niveau d'etude") !!}
                                 {!! Form::select('niveau', $niveaux, null, ['placeholder' => '', 'class' =>

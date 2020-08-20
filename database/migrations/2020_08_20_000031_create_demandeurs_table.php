@@ -28,17 +28,23 @@ class CreateDemandeursTable extends Migration
             $table->string('numero', 200)->nullable();
             $table->string('cin', 200);
             $table->string('experience', 200)->nullable();
+            $table->string('projet', 200)->nullable();
+            $table->string('information', 200)->nullable();
+            $table->timestamp('date_depot')->nullable()->default(null);
             $table->string('status', 45)->nullable();
             $table->double('note')->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('typedemandes_id');
             $table->unsignedInteger('objets_id');
+            $table->unsignedInteger('localites_id');
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
             $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
 
             $table->index(["objets_id"], 'fk_demandeurs_objets1_idx');
+
+            $table->index(["localites_id"], 'fk_demandeurs_localites1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -55,6 +61,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('objets_id', 'fk_demandeurs_objets1_idx')
                 ->references('id')->on('objets')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('localites_id', 'fk_demandeurs_localites1_idx')
+                ->references('id')->on('localites')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Thu, 20 Aug 2020 11:05:58 +0000.
  */
 
 namespace App;
@@ -20,13 +20,15 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  *
  * @package App
  */
 class Nivaux extends Eloquent
-{
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+
 	
 	protected $table = 'nivauxs';
 
@@ -38,5 +40,11 @@ class Nivaux extends Eloquent
 	public function beneficiaires()
 	{
 		return $this->hasMany(\App\Beneficiaire::class, 'nivauxs_id');
+	}
+
+	public function demandeurs()
+	{
+		return $this->belongsToMany(\App\Demandeur::class, 'demandeursnivauxs', 'nivauxs_id', 'demandeurs_id')
+					->withPivot('id', 'update_at', 'deleted_at');
 	}
 }
