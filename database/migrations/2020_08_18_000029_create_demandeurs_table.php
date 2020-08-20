@@ -24,10 +24,12 @@ class CreateDemandeursTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200);
+            $table->string('numero_courrier', 200);
             $table->string('numero', 200)->nullable();
             $table->string('cin', 200);
+            $table->string('experience', 200)->nullable();
             $table->string('status', 45)->nullable();
+            $table->double('note')->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('typedemandes_id');
             $table->unsignedInteger('objets_id');
@@ -39,6 +41,7 @@ class CreateDemandeursTable extends Migration
             $table->index(["objets_id"], 'fk_demandeurs_objets1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
 
             $table->foreign('users_id', 'fk_demandeurs_users1_idx')
                 ->references('id')->on('users')

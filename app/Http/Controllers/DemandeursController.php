@@ -9,8 +9,10 @@ use App\User;
 use App\Courrier;
 use App\Nivaux;
 use App\Typedemande;
+use App\Programme;
 use Auth;
-
+use App\Module;
+use App\Localite;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -44,8 +46,12 @@ class DemandeursController extends Controller
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
         $objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
+        
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
+        $localites = Localite::distinct('name')->get()->pluck('name','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'civilites','niveaux', 'objets', 'types_demandes'));
+        return view('demandeurs.create',compact('roles', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
 
       /*   $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
@@ -66,6 +72,10 @@ class DemandeursController extends Controller
      */
     public function store(Request $request)
     {
+        
+     /*   $modules =  $request->modules;
+
+       dd($modules); */
 
         $this->validate(
             $request, [
@@ -78,6 +88,7 @@ class DemandeursController extends Controller
                 'lieu'          =>  'required|string|max:50',
                 'telephone'    =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
+                'numero_courrier'           =>  'required|string|unique:demandeurs,numero_courrier',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
@@ -120,31 +131,33 @@ class DemandeursController extends Controller
 
         // dd($matricule);
 
-        $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
-        /* dd($objets_id); */
+        /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
 
-       /*  $matricule = 'FP'.date('ymdHis');
+        $matricule = 'FP'.date('ymdHis');
         $letter1 = chr(rand(65,90));
-        $matricule = $matricule.$letter1; */
+        $matricule = $matricule.$letter1;
         // dd($matricule);
 
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
+            'numero_courrier'   =>     $request->input('numero_courrier'),
             'matricule'         =>     $matricule,
             'users_id'          =>     $utilisateur->id,
-            'courriers_id'      =>     $courrier_id,
-            'typedemandes_id'   =>     $type_demande_id,
-            'objets_id'         =>     $objets_id
+            'typedemandes_id'   =>     $request->input('type_demande'),
+            'objets_id'         =>     $request->input('objet')
         ]);
 
         $demandeurs->save();
 
-        if ( Auth::user()->role()->first()->name == 'Demandeur' ){
+        $demandeurs->modules()->sync($request->modules);
+
+       /*  if ( Auth::user()->role()->first()->name == 'Demandeur' ){
             return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
         }
         else{
             return redirect()->route('beneficiaires.create')->with('success','bienvenue, merci de compléter votre demande !');
-        }
+        } */
+        return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
     }
 
     /**
@@ -225,7 +238,8 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs = Demandeur::with('user','courrier')->orderBy('created_at', 'desc')->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules')->orderBy('created_at', 'desc')->get();
         return Datatables::of($demandeurs)->make(true);
+
     }
 }

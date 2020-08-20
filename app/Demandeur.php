@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 07 Jan 2020 10:10:41 +0000.
+ * Date: Wed, 19 Aug 2020 13:52:59 +0000.
  */
 
 namespace App;
@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $matricule
+ * @property string $numero_courrier
  * @property string $numero
  * @property string $cin
+ * @property string $experience
  * @property string $status
- * @property int $courriers_id
+ * @property float $note
  * @property int $users_id
  * @property int $typedemandes_id
  * @property int $objets_id
@@ -26,11 +27,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Courrier $courrier
  * @property \App\Objet $objet
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $programmes
+ * @property \Illuminate\Database\Eloquent\Collection $modules
  *
  * @package App
  */
@@ -40,7 +40,7 @@ class Demandeur extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'courriers_id' => 'int',
+		'note' => 'float',
 		'users_id' => 'int',
 		'typedemandes_id' => 'int',
 		'objets_id' => 'int'
@@ -48,20 +48,16 @@ class Demandeur extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'matricule',
+		'numero_courrier',
 		'numero',
 		'cin',
+		'experience',
 		'status',
-		'courriers_id',
+		'note',
 		'users_id',
 		'typedemandes_id',
 		'objets_id'
 	];
-
-	public function courrier()
-	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
-	}
 
 	public function objet()
 	{
@@ -78,8 +74,10 @@ class Demandeur extends Eloquent
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
-	public function programmes()
+	public function modules()
 	{
-		return $this->hasMany(\App\Programme::class, 'demandeformations_id');
+		return $this->belongsToMany(\App\Module::class, 'demandeursmodules', 'demandeurs_id', 'modules_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }

@@ -47,6 +47,14 @@
         allowClear: true
     });
 </script>
+
+<script type="text/javascript">
+  
+  $("#module").select2({
+        placeholder: "sélectionner module de formation",
+        allowClear: true
+    });
+</script>
   <script type="text/javascript">
   
   $("#secteur").select2({
@@ -91,6 +99,20 @@
       });
 </script>
 
+<script type="text/javascript">
+  
+  $("#programme").select2({
+        placeholder: "sélectionner un programme",
+        allowClear: true
+    });
+</script>
+<script type="text/javascript">
+  
+  $("#localite").select2({
+        placeholder: "sélectionner un programme",
+        allowClear: true
+    });
+</script>
 
   <script>
 

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormationsevaluateursTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formationsevaluateurs';
+    public $tableName = 'comments';
 
     /**
      * Run the migrations.
-     * @table formationsevaluateurs
+     * @table comments
      *
      * @return void
      */
@@ -23,23 +23,27 @@ class CreateFormationsevaluateursTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('formations_id');
-            $table->unsignedInteger('evaluateurs_id');
+            $table->char('uuid', 36);
+            $table->text('content');
+            $table->integer('commentable_id')->nullable();
+            $table->string('commentable_type', 200)->nullable();
+            $table->unsignedInteger('users_id');
+            $table->unsignedInteger('courriers_id');
 
-            $table->index(["formations_id"], 'fk_formations_has_evaluateurs_formations1_idx');
+            $table->index(["courriers_id"], 'fk_comments_courriers1_idx');
 
-            $table->index(["evaluateurs_id"], 'fk_formations_has_evaluateurs_evaluateurs1_idx');
+            $table->index(["users_id"], 'fk_comments_users1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('formations_id', 'fk_formations_has_evaluateurs_formations1_idx')
-                ->references('id')->on('formations')
+            $table->foreign('users_id', 'fk_comments_users1_idx')
+                ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('evaluateurs_id', 'fk_formations_has_evaluateurs_evaluateurs1_idx')
-                ->references('id')->on('evaluateurs')
+            $table->foreign('courriers_id', 'fk_comments_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

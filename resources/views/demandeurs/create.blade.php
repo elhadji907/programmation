@@ -7,7 +7,7 @@
                 @if (session()->has('success'))
                     <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                 @endif
-                <div class="row pt-1"></div>
+                <div class="row pt-0"></div>
                 <div class="card">
                     <div class="card-header card-header-primary text-center">
                         <h3 class="card-title">Enregistrement demandeurs</h3>
@@ -100,7 +100,13 @@
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">Remplir la demande</p>
                             </div>
+
                             <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    {!! Form::label('Numéro courrier') !!}
+                                    {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier',
+                                    'class' => 'form-control']) !!}
+                                </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label("Objet") !!}
                                     {!! Form::select('objet', $objets, null, ['placeholder' => '', 'class' =>
@@ -111,16 +117,38 @@
                                     {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
                                     'form-control', 'id' => 'type_demande']) !!}
                                 </div>
-                                <div class="form-group col-md-4">
-                                    {!! Form::label("Niveau d'etude") !!}
-                                    {!! Form::select('niveau', $niveaux, null, ['placeholder' => '', 'class' =>
-                                    'form-control', 'id' => 'niveau']) !!}
-                                </div>
+                                                               
                                 <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                     placeholder="Mot de passe">
                                 {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
                                 'form-control']) !!}
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    {!! Form::label("Programme") !!}
+                                    {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' =>
+                                    'form-control', 'id' => 'programme']) !!}
+                                </div>
+                            
+                            <div class="form-group col-md-4">
+                                {!! Form::label("localité") !!}
+                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'localite']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label("Niveau d'etude") !!}
+                                {!! Form::select('niveau', $niveaux, null, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'niveau']) !!}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label("module") !!}
+                                {!! Form::select('modules[]', $modules, null, ['multiple'=>'multiple', 'class' =>
+                                'form-control', 'id' => 'module']) !!}
+                            </div>
+                        </div>
                             <button type="submit" class="btn btn-primary"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>

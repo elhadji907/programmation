@@ -46,7 +46,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'fax' => $faker->tollFreePhoneNumber,
         'bp' => $faker->postcode,
         'type' => $faker->word,
-        'message' => $faker->paragraph,
+        'message' => $faker->paragraph(1),
         'legende' => "",
         'file' => "",
         'statut' => $faker->word,

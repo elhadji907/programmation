@@ -33,7 +33,7 @@ class CreateCourriersTable extends Migration
             $table->string('fax', 200)->nullable();
             $table->string('bp', 200)->nullable();
             $table->string('type', 200)->nullable();
-            $table->string('message', 500)->nullable();
+            $table->string('message', 200)->nullable();
             $table->string('legende', 200)->nullable();
             $table->string('file', 200)->nullable();
             $table->string('statut', 200)->nullable();
@@ -41,7 +41,6 @@ class CreateCourriersTable extends Migration
             $table->timestamp('date_r')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('types_courriers_id');
             $table->unsignedInteger('users_id');
-
 
             $table->index(["types_courriers_id"], 'fk_courriers_types_courriers1_idx');
 

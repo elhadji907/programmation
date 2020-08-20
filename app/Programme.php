@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Wed, 19 Aug 2020 13:53:25 +0000.
  */
 
 namespace App;
@@ -15,17 +15,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
+ * @property string $sigle
  * @property \Carbon\Carbon $debut
  * @property \Carbon\Carbon $fin
  * @property int $effectif
- * @property int $courriers_id
- * @property int $demandeformations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Courrier $courrier
- * @property \App\Demandeur $demandeur
+ * @property \Illuminate\Database\Eloquent\Collection $localites
+ * @property \Illuminate\Database\Eloquent\Collection $modules
  *
  * @package App
  */
@@ -35,9 +34,7 @@ class Programme extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'effectif' => 'int',
-		'courriers_id' => 'int',
-		'demandeformations_id' => 'int'
+		'effectif' => 'int'
 	];
 
 	protected $dates = [
@@ -48,20 +45,23 @@ class Programme extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'name',
+		'sigle',
 		'debut',
 		'fin',
-		'effectif',
-		'courriers_id',
-		'demandeformations_id'
+		'effectif'
 	];
 
-	public function courrier()
+	public function localites()
 	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+		return $this->belongsToMany(\App\Localite::class, 'programmeslocalites', 'programmes_id', 'localites_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
-	public function demandeur()
+	public function modules()
 	{
-		return $this->belongsTo(\App\Demandeur::class, 'demandeformations_id');
+		return $this->belongsToMany(\App\Module::class, 'programmesmodules', 'programmes_id', 'modules_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }

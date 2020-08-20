@@ -38,6 +38,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PersonnelsTableSeeder::class);
         $this->call(StructuresTableSeeder::class);
         $this->call(OperateursTableSeeder::class);
+        $this->call(ProgrammesTableSeeder::class);
+        $this->call(LocalitesTableSeeder::class);
         
     }
 }

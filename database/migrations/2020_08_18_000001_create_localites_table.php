@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProgrammesTable extends Migration
+class CreateLocalitesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'programmes';
+    public $tableName = 'localites';
 
     /**
      * Run the migrations.
-     * @table programmes
+     * @table localites
      *
      * @return void
      */
@@ -25,19 +25,8 @@ class CreateProgrammesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
-            $table->timestamp('debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fin')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->integer('effectif')->nullable();
-            $table->unsignedInteger('courriers_id');
-
-            $table->index(["courriers_id"], 'fk_programmes_courriers1_idx');
-
-
-            $table->foreign('courriers_id', 'fk_programmes_courriers1_idx')
-                ->references('id')->on('courriers')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
+            $table->softDeletes();
+            $table->nullableTimestamps();
         });
     }
 
