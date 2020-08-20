@@ -25,13 +25,12 @@ class CreateDemandeursdiplomesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('demandeurs_id');
             $table->unsignedInteger('diplomes_id');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('deleted')->nullable()->default(null);
-            $table->timestamp('update')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->index(["diplomes_id"], 'fk_demandeursdiplomes_diplomes1_idx');
 
             $table->index(["demandeurs_id"], 'fk_demandeursdiplomes_demandeurs1_idx');
+            $table->softDeletes();
+            $table->nullableTimestamps();
 
 
             $table->foreign('demandeurs_id', 'fk_demandeursdiplomes_demandeurs1_idx')
