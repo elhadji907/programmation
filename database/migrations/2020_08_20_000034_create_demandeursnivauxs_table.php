@@ -25,13 +25,12 @@ class CreateDemandeursnivauxsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('demandeurs_id');
             $table->unsignedInteger('nivauxs_id');
-            $table->timestamp('created_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('update_at')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->index(["nivauxs_id"], 'fk_demandeursnivauxs_nivauxs1_idx');
 
             $table->index(["demandeurs_id"], 'fk_demandeursnivauxs_demandeurs1_idx');
             $table->softDeletes();
+            $table->nullableTimestamps();
 
 
             $table->foreign('demandeurs_id', 'fk_demandeursnivauxs_demandeurs1_idx')
