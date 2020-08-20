@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Demandeur extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'note' => 'float',
