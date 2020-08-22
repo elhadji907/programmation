@@ -174,7 +174,7 @@ class DemandeursController extends Controller
 
         return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
         'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'id', 'roles',
-        'civilites', 'objets', 'date', 'chart'));
+        'civilites', 'objets'));
     }
 
     /**
