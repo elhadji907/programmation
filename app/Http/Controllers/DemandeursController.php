@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Demandeur;
+use App\Diplome;
 use App\Role;
 use App\Objet;
 use App\User;
@@ -43,15 +44,16 @@ class DemandeursController extends Controller
         $roles = Role::get();
         /* $civilites = User::select('civilite')->distinct()->get(); */
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
+        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
         
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $localites = Localite::distinct('name')->get()->pluck('name','id')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
+        return view('demandeurs.create',compact('roles', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
 
       /*   $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
@@ -72,11 +74,6 @@ class DemandeursController extends Controller
      */
     public function store(Request $request)
     {
-        
-     /*   $modules =  $request->modules;
-
-       dd($modules); */
-
         $this->validate(
             $request, [
                 'objet'               =>  'required|string|max:50',
@@ -107,57 +104,40 @@ class DemandeursController extends Controller
        /*  dd($username); */
 
         $utilisateur = new User([      
-            'civilite'       =>      $request->input('civilite'),      
-            'firstname'      =>      $request->input('prenom'),
-            'name'           =>      $request->input('nom'),
-            'email'          =>      $request->input('email'),
-            'username'       =>      $username,
-            'telephone'      =>      $request->input('telephone'),
-            'date_naissance' =>      $request->input('date_naiss'),
-            'lieu_naissance' =>      $request->input('lieu'),
-            'password'       =>      Hash::make($request->input('email')),
-            'roles_id'       =>      $roles_id
+            'civilite'                  =>      $request->input('civilite'),      
+            'firstname'                 =>      $request->input('prenom'),
+            'name'                      =>      $request->input('nom'),
+            'email'                     =>      $request->input('email'),
+            'username'                  =>      $username,
+            'telephone'                 =>      $request->input('telephone'),
+            'situation_familiale'       =>      $request->input('familiale'),
+            'situation_professionnelle' =>      $request->input('professionnelle'),
+            'date_naissance'            =>      $request->input('date_naiss'),
+            'lieu_naissance'            =>      $request->input('lieu'),
+            'adresse'                   =>      $request->input('adresse'),
+            'password'                  =>      Hash::make($request->input('email')),
+            'roles_id'                  =>      $roles_id
 
         ]);
         
         $utilisateur->save();
-       /*  
-        $letter1 = chr(rand(65,90));
-       
-        $matricule = $letter5.$letter6.$annee.$letter1.$letter2.'/'.$letter3.$letter4; */
-        
-       /*  $matricule = date('YmdHis');
-
-        dd($matricule); */
-
-        // dd($matricule);
-
-        /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
-
-        $matricule = 'FP'.date('ymdHis');
-        $letter1 = chr(rand(65,90));
-        $matricule = $matricule.$letter1;
-        // dd($matricule);
 
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
             'numero_courrier'   =>     $request->input('numero_courrier'),
-            'matricule'         =>     $matricule,
+            'date_depot'        =>      $request->input('date_depot'),
             'users_id'          =>     $utilisateur->id,
             'typedemandes_id'   =>     $request->input('type_demande'),
-            'objets_id'         =>     $request->input('objet')
+            'objets_id'         =>     $request->input('objet'),
+            'localites_id'      =>     $request->input('localite')
         ]);
 
         $demandeurs->save();
 
         $demandeurs->modules()->sync($request->modules);
+        $demandeurs->nivauxes()->sync($request->niveaux);
+        $demandeurs->diplomes()->sync($request->diplomes);
 
-       /*  if ( Auth::user()->role()->first()->name == 'Demandeur' ){
-            return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
-        }
-        else{
-            return redirect()->route('beneficiaires.create')->with('success','bienvenue, merci de compléter votre demande !');
-        } */
         return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
     }
 
@@ -180,33 +160,24 @@ class DemandeursController extends Controller
      */
     public function edit($id)
     {
-        $demandeur = Demandeur::find($id);
-        $utilisateur=$demandeur->user;      
-          /* dd($utilisateur); */
+        $demandeurs = Demandeur::find($id);
+        $utilisateurs=$demandeurs->user;      
+         /*  dd($utilisateurs); */
           $date = Carbon::parse('now');
           $date = $date->format('Y-m-d');
   
           $roles = Role::get();
-          $civilites = User::select('civilite')->distinct()->get();
-          $objets = Objet::select('name')->distinct()->get();
-  
-       /*  dd($objets); */
-        //return $utilisateur;
-        
-        $recues = \App\Recue::get()->count();
-        $internes = \App\Interne::get()->count();
-        $departs = \App\Depart::get()->count();
-        $courriers = Courrier::get()->count();
+          /* $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique(); */
+          $civilites = User::pluck('civilite','civilite');
+          $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
+          $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+          $programmes = Programme::distinct('name')->get()->pluck('sigle','sigle')->unique();
+          $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
+          $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+          $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+          $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
 
-        $chart      = Courrier::all();
-
-        $chart = new Courrierchart;
-        $chart->labels(['Départs', 'Arrivés', 'Internes']);
-        $chart->dataset('STATISTIQUES', 'bar', [$internes, $recues, $departs])->options([
-            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-
-        return view('demandeurs.update', compact('demandeur', 'utilisateur', 'id', 'roles', 'civilites', 'objets', 'date', 'chart'));
+        return view('demandeurs.update', compact('demandeurs', 'niveaux', 'modules', 'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'id', 'roles', 'civilites', 'objets', 'date', 'chart'));
     }
 
     /**
@@ -218,7 +189,62 @@ class DemandeursController extends Controller
      */
     public function update(Request $request, Demandeur $demandeur)
     {
-        //
+        $this->validate(
+            $request, [
+                'objet'               =>  'required|string|max:50',
+                'civilite'            =>  'required|string|max:10',
+                'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin,'.$demandeur->id,
+                'prenom'              =>  'required|string|max:50',
+                'nom'                 =>  'required|string|max:50',
+                'date_naiss'          =>  'required|date|max:50',
+                'date_depot'          =>  'required|date|max:50',
+                'lieu'                =>  'required|string|max:50',
+                'telephone'           =>  'required|string|max:50',
+                'email'               =>  'required|email|max:255|unique:users,email,'.$demandeur->user->id,
+                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier,'.$demandeur->id,
+            ]
+        );
+
+        $utilisateurs   =   $demandeur->user;
+
+        $utilisateurs->civilite                  =      $request->input('civilite');
+        $utilisateurs->firstname                 =      $request->input('prenom');
+        $utilisateurs->name                      =      $request->input('nom');
+        $utilisateurs->email                     =      $request->input('email');
+        $utilisateurs->username                  =      $request->input('username');
+        $utilisateurs->telephone                 =      $request->input('telephone');
+        $utilisateurs->situation_familiale       =      $request->input('familiale');
+        $utilisateurs->situation_professionnelle =      $request->input('professionnelle');
+        $utilisateurs->date_naissance            =      $request->input('date_naiss');
+        $utilisateurs->lieu_naissance            =      $request->input('lieu');
+        $utilisateurs->adresse                   =      $request->input('adresse');
+        $utilisateurs->password                  =      Hash::make($request->input('email'));
+        $utilisateurs->roles_id                  =      $utilisateurs->role->id;
+
+        $utilisateurs->save();
+
+        $types_demandes_id = Typedemande::where('name',$request->input('type_demande'))->first()->id;
+        $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
+        $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
+
+
+
+        $demandeur->cin               =     $request->input('cin');
+        $demandeur->numero_courrier   =     $request->input('numero_courrier');
+        $demandeur->date_depot        =     $request->input('date_depot');
+        $demandeur->users_id          =     $utilisateurs->id;
+        $demandeur->typedemandes_id   =     $types_demandes_id;
+        $demandeur->objets_id         =     $objets_id;
+        $demandeur->localites_id      =     $localites_id;
+
+        $demandeur->save();
+
+        $demandeur->modules()->sync($request->input('modules'));
+        $demandeur->nivauxes()->sync($request->input('niveaux'));
+        $demandeur->diplomes()->sync($request->input('diplomes'));
+
+
+        return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');
     }
 
     /**
@@ -239,7 +265,7 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs = Demandeur::with('user.demandeur.modules')->orderBy('created_at', 'desc')->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->orderBy('created_at', 'desc')->get();
         return Datatables::of($demandeurs)->make(true);
 
     }

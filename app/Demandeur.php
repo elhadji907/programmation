@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 20 Aug 2020 13:41:36 +0000.
+ * Date: Fri, 21 Aug 2020 12:37:36 +0000.
  */
 
 namespace App;
@@ -98,7 +98,8 @@ class Demandeur extends Eloquent
 	public function diplomes()
 	{
 		return $this->belongsToMany(\App\Diplome::class, 'demandeursdiplomes', 'demandeurs_id', 'diplomes_id')
-					->withPivot('id', 'deleted', 'update');
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function modules()
@@ -111,6 +112,7 @@ class Demandeur extends Eloquent
 	public function nivauxes()
 	{
 		return $this->belongsToMany(\App\Nivaux::class, 'demandeursnivauxs', 'demandeurs_id', 'nivauxs_id')
-					->withPivot('id', 'update_at', 'deleted_at');
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }

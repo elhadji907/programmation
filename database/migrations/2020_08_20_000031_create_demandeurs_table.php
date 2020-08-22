@@ -30,7 +30,7 @@ class CreateDemandeursTable extends Migration
             $table->string('experience', 200)->nullable();
             $table->string('projet', 200)->nullable();
             $table->string('information', 200)->nullable();
-            $table->timestamp('date_depot')->nullable()->default(null);
+            $table->dateTime('date_depot')->nullable();
             $table->string('status', 45)->nullable();
             $table->double('note')->nullable();
             $table->unsignedInteger('users_id');

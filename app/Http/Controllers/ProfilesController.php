@@ -37,7 +37,7 @@ class ProfilesController extends Controller
 
         $this->authorize('update', $user->profile);
 
-        $civilites = User::select('civilite')->distinct()->get();
+        $civilites = User::select('civilite')->distinct()->get()->unique();
         return view('profiles.edit', compact('user', 'civilites'));
     }
 

@@ -26,24 +26,26 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
+                              <th>Numéro</th>
                               <th>Civilité</th>
-                              <th>Numéro demande</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Module de formation</th>
+                              <th>Module</th>
                               <th>Provenance</th>
+                              <th>Téléphone</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
+                              <th>Numéro</th>
                               <th>Civilité</th>
-                              <th>Numéro demande</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Module de formation</th>
+                              <th>Module</th>
                               <th>Provenance</th>
-                                <th>Action</th>
+                              <th>Téléphone</th>
+                              <th>Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -90,11 +92,12 @@
             "serverSide": true,
             "ajax": "{{route('demandeurs.list')}}",
             columns: [
-                    { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'numero_courrier', name: 'numero_courrier' },
+                    { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.demandeur.modules[].name', name: 'user.demandeur.modules[].name' },
+                    { data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
                     { data: 'user.telephone', name: 'user.telephone' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -108,7 +111,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_demandeur ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 6
+                        "targets": 7
                         },
                 ],
                 language: {

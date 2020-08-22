@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(InternesTableSeeder::class);
         $this->call(DepartsTableSeeder::class);
         $this->call(RecuesTableSeeder::class);
-        // $this->call(DemandeursTableSeeder::class);
+        $this->call(LocalitesTableSeeder::class);
+        $this->call(DemandeursTableSeeder::class);
         $this->call(VillagesTableSeeder::class);
         $this->call(BeneficiairesTableSeeder::class);
         $this->call(SecteursTableSeeder::class);
@@ -39,7 +40,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StructuresTableSeeder::class);
         $this->call(OperateursTableSeeder::class);
         $this->call(ProgrammesTableSeeder::class);
-        $this->call(LocalitesTableSeeder::class);
         
     }
 }

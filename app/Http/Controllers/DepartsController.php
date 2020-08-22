@@ -201,7 +201,7 @@ class DepartsController extends Controller
        $courrier->date_c             =      $request->input('date_c');
        $courrier->legende            =      $request->input('legende');
        $courrier->types_courriers_id =      $types_courrier_id;
-       $courrier->users_id   =      $user_id;
+       $courrier->users_id           =      $user_id;
        $courrier->file               =      $filePath;
 
        $courrier->save(); 

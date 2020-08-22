@@ -1,177 +1,204 @@
 @extends('layout.default')
-@section('title', 'ONFP - Modification demande')
+@section('title', 'ONFP - Enregistrement demandeurs')
 @section('content')
-<div class="content">
-    <div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="container-fluid">
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif                    
-            <div class="row pt-5"></div>
-            <div class="card">
-                <div class="card-header card-header-primary text-center">
-                    <h3 class="card-title">Modification</h3>
-                    <p class="card-category">demande</p>
-                </div>
-                <div class="card-body">                                               
-                        <form method="POST" action="{{ action('DemandeursController@update', $id) }}">
-                           @csrf
-                        <input type="hidden" name="_method" value="PATCH" />                                
+    <div class="content">
+        <div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="container-fluid">
+                @if (session()->has('success'))
+                    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                @endif
+                <div class="row pt-0"></div>
+                <div class="card">
+                    <div class="card-header card-header-primary text-center">
+                        <h3 class="card-title">Modification demandeurs</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="bg-gradient-secondary text-center">
+                            <p class="h4 text-white mb-2 mt-0">IDENTIFICATION</p>
+                        </div>
+                        {!! Form::open(['url' => 'demandeurs/' . $demandeurs->id, 'method' => 'PATCH', 'files' => true]) !!}
+                        @csrf
                         <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="objet"><b>Objet:</b></label>
-                                    <select name="objet" id="objet" class="form-control" value="{{ old('objet') }}">
-                                    @foreach($objets as $objet)
-                                        <option value="{{ $objet->name }}">{{ $objet->name }}</option>
-                                    @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('objet') }}
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="date_r"><b>Date:</b></label>
-                                    <input class="form-control {{ $errors->has('date_r') ? 'is-invalid' : '' }}" type="date" value="{{ old('date') ?? $demandeur->courrier->date_r->format('Y-m-d') }}" name="date_r" placeholder="date réception courrier..."
-                                        id="date_r" value="{{ old('date_r') }}">
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('date_r') }}
-                                    </div>
-                                </div>                
+                            <div class="form-group col-md-4">
+                                {!! Form::label('CIN') !!}
+                                {!! Form::text('cin', $demandeurs->cin, ['placeholder' => 'Votre numéro national d\'identité', 'class'
+                                => 'form-control']) !!}
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="input-cin"><b>Numero CIN:</b></label>
-                                    <input type="text" name="cin" class="form-control" id="input-cin" placeholder="numero cin" value="{{ old('cin') ?? $demandeur->cin }}">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                            @if ($errors->has('cin'))
-                                            @foreach ($errors->get('cin') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                            @endif
-                                    </small>
-                                </div>                               
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1"><b>Civilité</b></label>
-                                    <select name="civilite" id="civilite" class="form-control">
-                                        @foreach($civilites as $civilite)
-                                            <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('civilite'))
-                                        @foreach ($errors->get('civilite') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                    </small>
-                                </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Prénom') !!}
+                                {!! Form::text('prenom', $utilisateurs->firstname, ['placeholder' => 'Votre prénom', 'class' => 'form-control'])
+                                !!}
                             </div>
-                            <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="input-prenom"><b>Prenom:</b></label>
-                                <input type="text" name="prenom" class="form-control" id="input-prenom" placeholder="Prenom" value="{{ old('prenom') ?? $utilisateur->firstname }}">
-                                <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('prenom'))
-                                        @foreach ($errors->get('prenom') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                </small>
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label('NOM') !!}
+                                {!! Form::text('nom', $utilisateurs->name, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
                             </div>
-                            
-                            <div class="form-group col-md-6">
-                                <label for="input-nom"><b>Nom:</b></label>
-                                <input type="text" name="nom" class="form-control" id="input-nom" placeholder="Nom" value="{{ old('nom') ?? $utilisateur->name }}">
-                                <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('nom'))
-                                        @foreach ($errors->get('nom') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                </small>
+
+                           {{--   <div class="form-group col-md-4">
+                                {!! Form::label('NOM') !!}  --}}
+                                {!! Form::hidden('username', $utilisateurs->username, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
+                           {{--   </div>  --}}
+                           {{--   <div class="form-group col-md-4">
+                                {!! Form::label('NOM') !!}  --}}
+                                {!! Form::hidden('matricule', $utilisateurs->matricule, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
+                           {{--   </div>  --}}
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Civilité', null, ['class' => 'control-label']) !!}
+                                {!! Form::select('civilite', $civilites, $utilisateurs->civilite, ['placeholder' => 'sélectionnez', 'class'
+                                => 'form-control', 'id' => 'civilites']) !!}
                             </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Date naissance', null, ['class' => 'control-label']) !!}
+                                {!! Form::date('date_naiss', $utilisateurs->date_naissance->format('Y-m-d'), ['placeholder' => 'La date de naissance', 'class' =>
+                                'form-control']) !!}
                             </div>
-                            <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="input-date_nais"><b>Date de naissance:</b></label>
-                                <input type="date" name="date_nais" class="form-control" id="input-date_nais" placeholder="date de naissance" value="{{ old('date_nais') ?? $utilisateur->date_naissance->format('Y-m-d') }}">
-                                <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('date_nais'))
-                                        @foreach ($errors->get('date_nais') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                </small>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Lieu naissance') !!}
+                                {!! Form::text('lieu', $utilisateurs->lieu_naissance, ['placeholder' => 'Votre lieu de naissance', 'class' =>
+                                'form-control']) !!}
                             </div>
-                            
-                            <div class="form-group col-md-6">
-                                <label for="input-lieu"><b>Lieu:</b></label>
-                                <input type="text" name="lieu" class="form-control" id="input-lieu" placeholder="lieu" value="{{ old('lieu') ?? $utilisateur->lieu_naissance }}">
-                                <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('lieu'))
-                                        @foreach ($errors->get('lieu') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                </small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label('adresse e-mail') !!}
+                                {!! Form::email('email', $utilisateurs->email, ['placeholder' => 'Votre adresse e-mail', 'class' =>
+                                'form-control', 'id' => 'email']) !!}
                             </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Téléphone') !!}
+                                {!! Form::text('telephone', $utilisateurs->telephone, ['placeholder' => 'Numero de telephone', 'class' =>
+                                'form-control']) !!}
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="input-telephone1"><b>{{ __('Téléphone 1:') }}</b></label>
-                                    <input type="text" name="telephone1" class="form-control" id="input-telephone1" aria-describedby="emailHelp" placeholder="Numero de telephone" value="{{old('telephone1') ?? $utilisateur->telephone }}">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('telephone1'))
-                                        @foreach ($errors->get('telephone1') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                    </small>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="input-telephone2"><b>{{ __('Téléphone 2:') }}</b></label>
-                                    <input type="text" name="telephone2" class="form-control" id="input-telephone2" aria-describedby="emailHelp" placeholder="Numero de telephone secondaire" value="{{old('telephone2') ?? $demandeur->courrier->telephone }}">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('telephone2'))
-                                        @foreach ($errors->get('telephone2') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                        @endif
-                                    </small>
-                                </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Région') !!}
+                                {!! Form::text('region', $utilisateurs->region, ['placeholder' => 'Votre région', 'class' => 'form-control',
+                                'id' => 'region']) !!}
                             </div>
-                            <div class="form-row">                           
-                        </div>                          
-                        <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
-                        </form>
-                        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Situation familiale') !!}
+                                {!! Form::select('familiale', ['Marié' => 'Marié', 'Célibataire' => 'Célibataire'], $utilisateurs->situation_familiale,
+                                ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' =>
+                                'familiale']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Situation professionnelle') !!}
+                                {!! Form::select('professionnelle', ['Employé' => 'Employé', 'Recherche emploi' =>
+                                'Recherche emploi'], $utilisateurs->situation_professionnelle, ['placeholder' => 'Votre situation professionnelle', 'class' =>
+                                'form-control', 'id' => 'professionnelle']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Adresse') !!}
+                                {!! Form::textarea('adresse', $utilisateurs->adresse, ['placeholder' => 'Votre adresse', 'rows' => 1, 'class'
+                                => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="bg-gradient-secondary text-center">
+                            <p class="h4 text-white mb-2">Remplir la demande</p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Numéro courrier') !!}
+                                {!! Form::text('numero_courrier', $demandeurs->numero_courrier, ['placeholder' => 'Le numéro du courrier', 'class'
+                                => 'form-control']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
+                                {!! Form::date('date_depot', $demandeurs->date_depot->format('Y-m-d'), ['placeholder' => 'La date de dépot', 'class' =>
+                                'form-control']) !!}
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label('localité') !!}
+                                {!! Form::select('localite', $localites, $demandeurs->localite->name, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'localite']) !!}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Objet') !!}
+                                {!! Form::select('objet', $objets, $demandeurs->objet->name, ['placeholder' => '', 'class' => 'form-control',
+                                'id' => 'objet']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Type demande') !!}
+                                {!! Form::select('type_demande', $types_demandes, $demandeurs->typedemande->name, ['placeholder' =>
+                                '--sélectionnez--', 'class' => 'form-control', 'id' => 'type_demande']) !!}
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Programme') !!}
+                                {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un
+                                programme', 'class' => 'form-control', 'id' => 'programme']) !!}
+                            </div>
+
+                            <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Mot de passe">
+                            {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
+                            'form-control']) !!}
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label("Niveau d'etude") !!}
+                                {!! Form::select('niveaux[]', $niveaux, $demandeurs->nivauxes, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'niveau']) !!}
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Diplômes') !!}
+                                {!! Form::select('diplomes[]', $diplomes, $demandeurs->diplomes, ['placeholder' => 'diplome', 'class' =>
+                                'form-control', 'id' => 'diplome']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('module') !!}
+                                {!! Form::select('modules[]', $modules, $utilisateurs->demandeur->modules, ['multiple' => 'multiple', 'class' =>
+                                'form-control', 'id' => 'module']) !!}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                        </div>
+                        {!! Form::submit('Modifier', ['class' => 'btn btn-outline-primary pull-right']) !!}
+                        {!! Form::close() !!}
+                        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Verifier les donn&eacute;es saisies svp</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Verifier les donn&eacute;es saisies
+                                            svp</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @push('scripts')
-                                        <script type="text/javascript">
-                                        $(document).ready(function () {
-                                            $("#error-modal").modal({
-                                                'show':true,
-                                            })
-                                        });
-                                        </script>
-                                            
-                                        @endpush
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            @push('scripts')
+                                                <script type="text/javascript">
+                                                    $(document).ready(function() {
+                                                        $("#error-modal").modal({
+                                                            'show': true,
+                                                        })
+                                                    });
+
+                                                </script>
+
+                                            @endpush
                                         @endif
                                     </div>
                                     <div class="modal-footer">
@@ -180,11 +207,10 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-    @endsection
+@endsection

@@ -74,23 +74,19 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Situation familiale') !!}
-                                    {!! Form::text('familiale', null, ['placeholder' => 'Votre situation familiale', 'class'
-                                    => 'form-control']) !!}
-                                </div>
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('familiale') }}
+                                    
+                                    {!! Form::select('familiale', ['Marié' => 'Marié', 
+                                                             'Célibataire' => 'Célibataire'],
+                                     null, ['placeholder' => 'Votre situation familiale', 'class'  
+                                    => 'form-control', 'id' => 'familiale']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Situation professionnelle') !!}
-                                    {!! Form::text('professionnelle', null, [
-                                    'placeholder' => 'Votre situation professionnelle',
-                                    'class' => 'form-control',
-                                    ]) !!}
+                                    {!! Form::select('professionnelle', ['Employé' => 'Employé',
+                                                                        'Recherche emploi' => 'Recherche emploi'],
+                                                                         null, ['placeholder' => 'Votre situation professionnelle', 'class'  
+                                    => 'form-control', 'id' => 'professionnelle']) !!}
                                 </div>
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('professionnelle') }}
-                                </div>
-
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Adresse') !!}
                                     {!! Form::textarea('adresse', null, ['placeholder' => 'Votre adresse', 'rows' => 1,
@@ -108,6 +104,10 @@
                                     'class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
+                                    {{--  
+                                    {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
+                                    {!! Form::date('date_c', $date_r->format('Y-m-d'), ['placeholder'=>"La date de correspondance du courrier", 'class'=>'form-control']) !!}  --}}
+
                                     {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
                                     'form-control']) !!}
@@ -130,7 +130,13 @@
                                     {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
                                     'form-control', 'id' => 'type_demande']) !!}
                                 </div>
-                                                               
+                            
+                                <div class="form-group col-md-4">
+                                    {!! Form::label("Programme") !!}
+                                    {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' =>
+                                    'form-control', 'id' => 'programme']) !!}
+                                </div>
+
                                 <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                     placeholder="Mot de passe">
                                 {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
@@ -138,24 +144,28 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    {!! Form::label("Programme") !!}
-                                    {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' =>
-                                    'form-control', 'id' => 'programme']) !!}
-                                </div>
                             
                             <div class="form-group col-md-4">
                                 {!! Form::label("Niveau d'etude") !!}
-                                {!! Form::select('niveau', $niveaux, null, ['placeholder' => '', 'class' =>
+                                {!! Form::select('niveaux[]', $niveaux, null, ['placeholder' => '', 'class' =>
                                 'form-control', 'id' => 'niveau']) !!}
                             </div>
-                        </div>
-                        <div class="form-row">
+
+                            <div class="form-group col-md-4">
+                                {!! Form::label("Diplômes") !!}
+                                {!! Form::select('diplomes[]', $diplomes, null, ['placeholder' => 'diplome', 'class' =>
+                                'form-control', 'id' => 'diplome']) !!}
+                            </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label("module") !!}
                                 {!! Form::select('modules[]', $modules, null, ['multiple'=>'multiple', 'class' =>
                                 'form-control', 'id' => 'module']) !!}
                             </div>
+                        </div>
+                        <div class="form-row">
+                           
+
+
                         </div>
                             <button type="submit" class="btn btn-primary"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>

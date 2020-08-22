@@ -108,8 +108,29 @@
 </script>
 <script type="text/javascript">
   
+  $("#familiale").select2({
+        placeholder: "Votre situation familiale",
+        allowClear: true
+    });
+</script>
+<script type="text/javascript">
+  
+  $("#diplome").select2({
+        placeholder: "vos diplômes",
+        allowClear: true
+    });
+</script>
+<script type="text/javascript">
+  
+  $("#professionnelle").select2({
+        placeholder: "Votre situation professionnelle",
+        allowClear: true
+    });
+</script>
+<script type="text/javascript">
+  
   $("#localite").select2({
-        placeholder: "sélectionner un programme",
+        placeholder: "sélectionner localité",
         allowClear: true
     });
 </script>
