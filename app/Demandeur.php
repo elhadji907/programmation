@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 21 Aug 2020 12:37:36 +0000.
+ * Date: Sat, 22 Aug 2020 16:06:02 +0000.
  */
 
 namespace App;
@@ -27,14 +27,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $typedemandes_id
  * @property int $objets_id
  * @property int $localites_id
+ * @property int $programmes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Localite $localite
  * @property \App\Objet $objet
+ * @property \App\Programme $programme
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
+ * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $nivauxes
@@ -51,7 +54,8 @@ class Demandeur extends Eloquent
 		'users_id' => 'int',
 		'typedemandes_id' => 'int',
 		'objets_id' => 'int',
-		'localites_id' => 'int'
+		'localites_id' => 'int',
+		'programmes_id' => 'int'
 	];
 
 	protected $dates = [
@@ -72,7 +76,8 @@ class Demandeur extends Eloquent
 		'users_id',
 		'typedemandes_id',
 		'objets_id',
-		'localites_id'
+		'localites_id',
+		'programmes_id'
 	];
 
 	public function localite()
@@ -85,6 +90,11 @@ class Demandeur extends Eloquent
 		return $this->belongsTo(\App\Objet::class, 'objets_id');
 	}
 
+	public function programme()
+	{
+		return $this->belongsTo(\App\Programme::class, 'programmes_id');
+	}
+
 	public function typedemande()
 	{
 		return $this->belongsTo(\App\Typedemande::class, 'typedemandes_id');
@@ -93,6 +103,13 @@ class Demandeur extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
+	}
+
+	public function departements()
+	{
+		return $this->belongsToMany(\App\Departement::class, 'demandeursdepartements', 'demandeurs_id', 'departements_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function diplomes()

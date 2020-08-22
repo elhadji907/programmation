@@ -37,8 +37,11 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('typedemandes_id');
             $table->unsignedInteger('objets_id');
             $table->unsignedInteger('localites_id');
+            $table->unsignedInteger('programmes_id')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
+
+            $table->index(["programmes_id"], 'fk_demandeurs_programmes1_idx');
 
             $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
 
@@ -66,6 +69,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('localites_id', 'fk_demandeurs_localites1_idx')
                 ->references('id')->on('localites')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('programmes_id', 'fk_demandeurs_programmes1_idx')
+                ->references('id')->on('programmes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

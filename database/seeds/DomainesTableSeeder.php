@@ -44,5 +44,7 @@ class DomainesTableSeeder extends Seeder
         $domaine30 = App\Domaine::firstOrCreate(["name"=>"Sport - Loisirs"],["secteurs_id"=>"1"],["uuid"=>Str::uuid()]);
         $domaine31 = App\Domaine::firstOrCreate(["name"=>"Tourisme - Hôtellerie - Restauration"],["secteurs_id"=>"2"],["uuid"=>Str::uuid()]);
         $domaine32 = App\Domaine::firstOrCreate(["name"=>"Transport - Achat - Logistique"],["secteurs_id"=>"3"],["uuid"=>Str::uuid()]);
+        $domaine33 = App\Domaine::firstOrCreate(["name"=>"Energie"],["secteurs_id"=>"1"],["uuid"=>Str::uuid()]);
+        $domaine34 = App\Domaine::firstOrCreate(["name"=>"Mécanique"],["secteurs_id"=>"3"],["uuid"=>Str::uuid()]);
     }
 }

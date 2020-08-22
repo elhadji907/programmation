@@ -20,7 +20,7 @@
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('CIN') !!}
+                                    {!! Form::label('Cin') !!}
                                     {!! Form::text('cin', null, ['placeholder' => 'Votre numéro national d\'identité',
                                     'class' => 'form-control']) !!}
                                 </div>
@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('NOM') !!}
+                                    {!! Form::label('Nom') !!}
                                     {!! Form::text('nom', null, ['placeholder' => 'Votre nom', 'class' => 'form-control'])
                                     !!}
                                 </div>
@@ -40,7 +40,7 @@
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Civilité', null, ['class' => 'control-label']) !!}
                                     {!! Form::select('civilite', $civilites, null, ['placeholder' => '--sélectionnez--',
-                                    'class' => 'form-control', 'id' => 'civilites']) !!}
+                                    'class' => 'form-control', 'id' => 'civilite']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Date naissance', null, ['class' => 'control-label']) !!}
@@ -56,7 +56,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('adresse e-mail') !!}
+                                    {!! Form::label('e-mail') !!}
                                     {!! Form::email('email', null, ['placeholder' => 'Votre adresse e-mail', 'class' =>
                                     'form-control', 'id' => 'email']) !!}
                                 </div>
@@ -65,10 +65,11 @@
                                     {!! Form::text('telephone', null, ['placeholder' => 'Numero de telephone', 'class' =>
                                     'form-control']) !!}
                                 </div>
+
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('Région') !!}
-                                    {!! Form::text('region', null, ['placeholder' => 'Votre région', 'class' =>
-                                    'form-control', 'id' => 'region']) !!}
+                                    {!! Form::label("localité") !!}
+                                    {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' =>
+                                    'form-control', 'id' => 'departement']) !!}
                                 </div>
                             </div>
                             <div class="form-row">
@@ -94,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
-                                <p class="h4 text-white mb-2">Remplir la demande</p>
+                                <p class="h4 text-white mb-2">DEMANDE</p>
                             </div>
 
                             <div class="form-row">
@@ -104,10 +105,6 @@
                                     'class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
-                                    {{--  
-                                    {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
-                                    {!! Form::date('date_c', $date_r->format('Y-m-d'), ['placeholder'=>"La date de correspondance du courrier", 'class'=>'form-control']) !!}  --}}
-
                                     {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
                                     'form-control']) !!}
@@ -158,14 +155,28 @@
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label("module") !!}
-                                {!! Form::select('modules[]', $modules, null, ['multiple'=>'multiple', 'class' =>
+                                {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' =>
                                 'form-control', 'id' => 'module']) !!}
                             </div>
                         </div>
                         <div class="form-row">
-                           
-
-
+                            <div class="form-group col-md-12">
+                                {!! Form::label('Projet') !!}
+                                {!! Form::textarea('projet', null, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
+                                'class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {!! Form::label('Expérience') !!}
+                                {!! Form::textarea('experience', null, ['placeholder' => 'Votre expérience', 'rows' => 3,
+                                'class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {!! Form::label('Information') !!}
+                                {!! Form::textarea('information', null, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
+                                'class' => 'form-control']) !!}
+                            </div>
                         </div>
                             <button type="submit" class="btn btn-primary"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>

@@ -92,7 +92,6 @@
       });
 </script>
   <script type="text/javascript">
-  
     $("#niveau").select2({
           placeholder: "sélectionner un niveau d'étude",
           allowClear: true
@@ -100,12 +99,19 @@
 </script>
 
 <script type="text/javascript">
-  
   $("#programme").select2({
         placeholder: "sélectionner un programme",
         allowClear: true
     });
 </script>
+
+<script type="text/javascript">
+  $("#departement").select2({
+        placeholder: "sélectionner un département",
+        allowClear: true
+    });
+</script>
+
 <script type="text/javascript">
   
   $("#familiale").select2({

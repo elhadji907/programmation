@@ -80,6 +80,7 @@ class User extends Authenticatable
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
+		'situation_professionnelle',
 		'adresse',
 		'status',
 		'email_verified_at',

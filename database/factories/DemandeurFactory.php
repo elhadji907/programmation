@@ -36,6 +36,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use (&$
     $typedemandes_id = App\Typedemande::all()->random()->id;
     $objets_id = App\Objet::all()->random()->id;
     $localites_id = App\Localite::all()->random()->id;
+    $programmes_id = App\Programme::all()->random()->id;
 
 
     return [
@@ -61,6 +62,9 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use (&$
         },
         'localites_id' => function () use($localites_id){
             return $localites_id;
+        },
+        'programmes_id' => function () use($programmes_id){
+            return $programmes_id;
         },
     ];
 });

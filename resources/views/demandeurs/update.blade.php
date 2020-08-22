@@ -65,7 +65,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                {!! Form::label('adresse e-mail') !!}
+                                {!! Form::label('E-mail') !!}
                                 {!! Form::email('email', $utilisateurs->email, ['placeholder' => 'Votre adresse e-mail', 'class' =>
                                 'form-control', 'id' => 'email']) !!}
                             </div>
@@ -74,10 +74,12 @@
                                 {!! Form::text('telephone', $utilisateurs->telephone, ['placeholder' => 'Numero de telephone', 'class' =>
                                 'form-control']) !!}
                             </div>
+
+                            
                             <div class="form-group col-md-4">
-                                {!! Form::label('Région') !!}
-                                {!! Form::text('region', $utilisateurs->region, ['placeholder' => 'Votre région', 'class' => 'form-control',
-                                'id' => 'region']) !!}
+                                {!! Form::label('Département') !!}
+                                {!! Form::select('departements[]', $departements, $utilisateurs->demandeur->departements, ['class' =>
+                                'form-control', 'id' => 'departement']) !!}
                             </div>
                         </div>
                         <div class="form-row">
@@ -100,7 +102,7 @@
                             </div>
                         </div>
                         <div class="bg-gradient-secondary text-center">
-                            <p class="h4 text-white mb-2">Remplir la demande</p>
+                            <p class="h4 text-white mb-2">DEMANDE</p>
                         </div>
 
                         <div class="form-row">
@@ -135,10 +137,8 @@
 
                             <div class="form-group col-md-4">
                                 {!! Form::label('Programme') !!}
-                                {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un
-                                programme', 'class' => 'form-control', 'id' => 'programme']) !!}
+                                {!! Form::select('programme', $programmes, $demandeurs->programme->sigle, ['class' => 'form-control', 'id' => 'programme']) !!}
                             </div>
-
                             <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                 placeholder="Mot de passe">
                             {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
@@ -160,11 +160,28 @@
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('module') !!}
-                                {!! Form::select('modules[]', $modules, $utilisateurs->demandeur->modules, ['multiple' => 'multiple', 'class' =>
+                                {!! Form::select('modules[]', $modules, $demandeurs->modules, ['placeholder' => '','class' =>
                                 'form-control', 'id' => 'module']) !!}
+                            </div>
+                        </div>                        
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label('Projet') !!}
+                                {!! Form::textarea('projet', $demandeurs->projet, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
+                                'class' => 'form-control']) !!}
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {!! Form::label('Expérience') !!}
+                                {!! Form::textarea('experience', $demandeurs->experience, ['placeholder' => 'Votre expérience', 'rows' => 3,
+                                'class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {!! Form::label('Information') !!}
+                                {!! Form::textarea('information', $demandeurs->information, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
+                                'class' => 'form-control']) !!}
+                            </div>
                         </div>
                         {!! Form::submit('Modifier', ['class' => 'btn btn-outline-primary pull-right']) !!}
                         {!! Form::close() !!}

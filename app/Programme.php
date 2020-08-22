@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 19 Aug 2020 13:53:25 +0000.
+ * Date: Sat, 22 Aug 2020 16:41:09 +0000.
  */
 
 namespace App;
@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $localites
  * @property \Illuminate\Database\Eloquent\Collection $modules
  *
@@ -50,6 +51,11 @@ class Programme extends Eloquent
 		'fin',
 		'effectif'
 	];
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'programmes_id');
+	}
 
 	public function localites()
 	{

@@ -8,6 +8,7 @@ use App\Role;
 use App\Objet;
 use App\User;
 use App\Courrier;
+use App\Departement;
 use App\Nivaux;
 use App\Typedemande;
 use App\Programme;
@@ -52,18 +53,10 @@ class DemandeursController extends Controller
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $localites = Localite::distinct('name')->get()->pluck('name','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
+        return view('demandeurs.create',compact('roles', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
 
-      /*   $date = Carbon::parse('now');
-        $date = $date->format('Y-m-d');
-            
-        $roles = Role::get();
-        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','name')->unique();
-        $objets = Objet::select('name')->distinct()->get();
-
-        return view('demandeurs.create',compact('date', 'roles', 'civilites', 'objets', 'niveaux','chart')); */
     }
 
     /**
@@ -125,11 +118,15 @@ class DemandeursController extends Controller
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
             'numero_courrier'   =>     $request->input('numero_courrier'),
-            'date_depot'        =>      $request->input('date_depot'),
+            'date_depot'        =>     $request->input('date_depot'),
+            'experience'        =>     $request->input('experience'),
+            'projet'            =>     $request->input('projet'),
+            'information'       =>     $request->input('information'),
             'users_id'          =>     $utilisateur->id,
             'typedemandes_id'   =>     $request->input('type_demande'),
             'objets_id'         =>     $request->input('objet'),
-            'localites_id'      =>     $request->input('localite')
+            'localites_id'      =>     $request->input('localite'),
+            'programmes_id'     =>     $request->input('programme')
         ]);
 
         $demandeurs->save();
@@ -137,6 +134,7 @@ class DemandeursController extends Controller
         $demandeurs->modules()->sync($request->modules);
         $demandeurs->nivauxes()->sync($request->niveaux);
         $demandeurs->diplomes()->sync($request->diplomes);
+        $demandeurs->departements()->sync($request->departements);
 
         return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
     }
@@ -161,23 +159,22 @@ class DemandeursController extends Controller
     public function edit($id)
     {
         $demandeurs = Demandeur::find($id);
-        $utilisateurs=$demandeurs->user;      
-         /*  dd($utilisateurs); */
-          $date = Carbon::parse('now');
-          $date = $date->format('Y-m-d');
-  
-          $roles = Role::get();
-          /* $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique(); */
-          $civilites = User::pluck('civilite','civilite');
-          $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
-          $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-          $programmes = Programme::distinct('name')->get()->pluck('sigle','sigle')->unique();
-          $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
-          $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-          $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
-          $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
+        $utilisateurs=$demandeurs->user;
+     
+        $roles = Role::get();
+        $civilites = User::pluck('civilite','civilite');
+        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
-        return view('demandeurs.update', compact('demandeurs', 'niveaux', 'modules', 'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'id', 'roles', 'civilites', 'objets', 'date', 'chart'));
+        return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
+        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'id', 'roles',
+        'civilites', 'objets', 'date', 'chart'));
     }
 
     /**
@@ -226,22 +223,28 @@ class DemandeursController extends Controller
         $types_demandes_id = Typedemande::where('name',$request->input('type_demande'))->first()->id;
         $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
+        $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
 
 
 
         $demandeur->cin               =     $request->input('cin');
         $demandeur->numero_courrier   =     $request->input('numero_courrier');
         $demandeur->date_depot        =     $request->input('date_depot');
+        $demandeur->experience        =     $request->input('experience');
+        $demandeur->information       =     $request->input('information');
+        $demandeur->projet            =     $request->input('projet');
         $demandeur->users_id          =     $utilisateurs->id;
         $demandeur->typedemandes_id   =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
         $demandeur->localites_id      =     $localites_id;
+        $demandeur->programmes_id     =    $programmes_id;
 
         $demandeur->save();
 
         $demandeur->modules()->sync($request->input('modules'));
         $demandeur->nivauxes()->sync($request->input('niveaux'));
         $demandeur->diplomes()->sync($request->input('diplomes'));
+        $demandeur->departements()->sync($request->input('departements'));
 
 
         return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');

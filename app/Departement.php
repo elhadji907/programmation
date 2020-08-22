@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 22 Aug 2020 16:19:56 +0000.
  */
 
 namespace App;
@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Region $region
  * @property \Illuminate\Database\Eloquent\Collection $arrondissements
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  *
  * @package App
  */
@@ -48,5 +49,12 @@ class Departement extends Eloquent
 	public function arrondissements()
 	{
 		return $this->hasMany(\App\Arrondissement::class, 'departements_id');
+	}
+
+	public function demandeurs()
+	{
+		return $this->belongsToMany(\App\Demandeur::class, 'demandeursdepartements', 'departements_id', 'demandeurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }
