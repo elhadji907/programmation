@@ -6,12 +6,83 @@
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
           <div class="row">
+            <div class="col-xl-3 col-md-3 mb-0">
+              <div class="card border-left-primary shadow h-75 py-2">
+                <a class="nav-link" href=" ">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Dakar') }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                       {!! $dakar !!} / {!! $total !!}
+                        </div>
+                    </div>
+                   {{--   <div class="col-auto">
+                      <span data-feather="mail"></span>
+                    </div>  --}}
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mb-0">
+              <div class="card border-left-primary shadow h-75 py-2">
+                <a class="nav-link" href=" ">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Ziguinchor') }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $ziguinchor !!} / {!! $total !!}</div>
+                    </div>
+                   {{--   <div class="col-auto">
+                      <span data-feather="mail"></span>
+                    </div>  --}}
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mb-0">
+              <div class="card border-left-primary shadow h-75 py-2">
+                <a class="nav-link" href=" ">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Saint-Louis') }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $saintlouis !!} / {!! $total !!}</div>
+                    </div>
+                   {{--   <div class="col-auto">
+                      <span data-feather="mail"></span>
+                    </div>  --}}
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-3 mb-0">
+              <div class="card border-left-primary shadow h-75 py-2">
+                <a class="nav-link" href=" ">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Kaolack') }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $kaolack !!} / {!! $total !!}</div>
+                    </div>
+                   {{--   <div class="col-auto">
+                      <span data-feather="mail"></span>
+                    </div>  --}}
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
             <div class="col-md-12">
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
                 </div>
                 @endif
+              
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>

@@ -32,7 +32,25 @@ class DemandeursController extends Controller
      */
     public function index()
     {
-        return view('demandeurs.index');
+        $ziguinchor = Demandeur::with('user.demandeur.localite')
+        ->get()->where('user.demandeur.localite.name','Ziguinchor')
+        ->pluck('user.demandeur.localite.name','id')->count();
+
+        $dakar = Demandeur::with('user.demandeur.localite')
+        ->get()->where('user.demandeur.localite.name','Dakar')
+        ->pluck('user.demandeur.localite.name','id')->count();
+
+        $kaolack = Demandeur::with('user.demandeur.localite')
+        ->get()->where('user.demandeur.localite.name','Kaolack')
+        ->pluck('user.demandeur.localite.name','id')->count();
+
+        $saintlouis = Demandeur::with('user.demandeur.localite')
+        ->get()->where('user.demandeur.localite.name','Saint-Louis')
+        ->pluck('user.demandeur.localite.name','id')->count();
+
+        $total = $ziguinchor+$dakar+$saintlouis+$kaolack;
+
+        return view('demandeurs.index', compact('ziguinchor','dakar','saintlouis','kaolack','total'));
     }
 
     /**
@@ -55,7 +73,7 @@ class DemandeursController extends Controller
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
+        return view('demandeurs.create',compact('roles', 'demandeurs', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
 
     }
 
