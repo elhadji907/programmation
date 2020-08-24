@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    {!! Form::label("localité") !!}
+                                    {!! Form::label("Département") !!}
                                     {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' =>
                                     'form-control', 'id' => 'departement']) !!}
                                 </div>

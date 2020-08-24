@@ -38,8 +38,10 @@ Route::group([
         Route::get('/demandeurs/list', 'DemandeursController@list')->name('demandeurs.list');
         Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
         Route::get('/domaines/list', 'DomainesController@list')->name('domaines.list');
+        Route::get('/diplomes/list', 'DiplomesController@list')->name('diplomes.list');
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
+        Route::get('/options/list', 'OptionsController@list')->name('options.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
 
@@ -72,8 +74,10 @@ Route::group([
         Route::resource('/demandeurs', 'DemandeursController');
         Route::resource('/beneficiaires', 'BeneficiairesController');
         Route::resource('/domaines', 'DomainesController');
+        Route::resource('/diplomes', 'DiplomesController');
         Route::resource('/modules', 'ModulesController');
         Route::resource('/secteurs', 'SecteursController');
+        Route::resource('/options', 'OptionsController');
         Route::resource('/villages', 'VillagesController');
         Route::resource('/operateurs', 'OperateursController');
 
