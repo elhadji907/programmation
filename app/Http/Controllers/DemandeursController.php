@@ -73,7 +73,7 @@ class DemandeursController extends Controller
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'demandeurs', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
+        return view('demandeurs.create',compact('roles', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
 
     }
 
