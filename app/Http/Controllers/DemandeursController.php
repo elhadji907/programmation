@@ -200,7 +200,7 @@ class DemandeursController extends Controller
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
         return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'id', 'roles',
+        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles',
         'civilites', 'objets'));
     }
 
