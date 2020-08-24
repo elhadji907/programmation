@@ -182,7 +182,7 @@ class DemandeursController extends Controller
      */
     public function edit(Demandeur $demandeur)
     {        
-        $this->authorize('update',  $demandeur);
+        /* $this->authorize('update',  $demandeur); */
 
         $utilisateurs = $demandeur->user;
         $demandeurs = $demandeur;
