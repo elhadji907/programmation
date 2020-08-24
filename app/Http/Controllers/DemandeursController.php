@@ -180,13 +180,13 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function edit(Demandeur $demandeur)
+    public function edit($id)
     {        
         /* $this->authorize('update',  $demandeur); */
 
-        $utilisateurs = $demandeur->user;
-        $demandeurs = $demandeur;
+        $demandeurs = Demandeur::find($id);
 
+        $utilisateurs = $demandeurs->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
@@ -200,7 +200,7 @@ class DemandeursController extends Controller
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
         return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles',
+        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
         'civilites', 'objets'));
     }
 
