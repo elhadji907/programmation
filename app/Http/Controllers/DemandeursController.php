@@ -98,6 +98,12 @@ class DemandeursController extends Controller
                 'telephone'           =>  'required|string|max:50',
                 'email'               =>  'required|email|max:255|unique:users,email',
                 'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
+                'localite'            =>  'required|string',
+                'type_demande'        =>  'required|string',
+                'programme'           =>  'required|string',
+                'niveaux'             =>  'required|string',
+                'diplomes'            =>  'required|string',
+                'modules'             =>  'required|string',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
@@ -217,6 +223,12 @@ class DemandeursController extends Controller
                 'telephone'           =>  'required|string|max:50',
                 'email'               =>  'required|email|max:255|unique:users,email,'.$demandeur->user->id,
                 'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier,'.$demandeur->id,
+                'localite'            =>  'required|string',
+                'type_demande'        =>  'required|string',
+                'programme'           =>  'required|string',
+                'niveaux'             =>  'required|string',
+                'diplomes'            =>  'required|string',
+                'modules'             =>  'required|string',
             ]
         );
 

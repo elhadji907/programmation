@@ -53,7 +53,7 @@
 <hr class="sidebar-divider my-0">
 
 
-@roles('Demandeur')
+@roles('Demandeur|Administrateur')
 <li class="nav-item">
 <a class="nav-link" href="{{ url('/home') }}">
     <span data-feather="users"></span>
