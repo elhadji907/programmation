@@ -57,6 +57,7 @@ class CommentsController extends Controller
         $comment = new Comment();
         $comment->content  = request('commentaire');
         $comment->users_id = auth()->user()->id;
+        $comment->courriers_id = $courrier->id;
 
         $courrier->comments()->save($comment);
 
@@ -126,6 +127,7 @@ class CommentsController extends Controller
         $commentReply = new Comment();
         $commentReply->content = request('replayComment');
         $commentReply->users_id = auth()->user()->id;
+        $commentReply->courriers_id = $comment->courrier->id;
 
         $comment->comments()->save($commentReply);
 
