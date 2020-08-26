@@ -35,19 +35,6 @@ class DemandeursController extends Controller
 
         $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id');
 
-       /*  dd($demandeurs); */
-
-/*        foreach ($demandeurs as $demandeur) {
-
-        foreach ($demandeur->modules as $module) {
-            $modules = $module->name;
-        }
-           
-       }
-
-       dd($module);
- */
-
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')
         ->pluck('user.demandeur.localite.name','id')->count();
@@ -121,7 +108,7 @@ class DemandeursController extends Controller
                 'niveaux'             =>  'required',
                 'diplomes'            =>  'required',
                 'modules'             =>  'required',
-                'departement'         =>  'required',
+                'departements'        =>  'required',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
@@ -138,6 +125,13 @@ class DemandeursController extends Controller
 
        /*  dd($username); */
 
+       
+       $created_by1 = Auth::user()->firstname;
+       $created_by2 = Auth::user()->name;
+       $created_by3 = Auth::user()->username;
+
+       $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
+
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
             'firstname'                 =>      $request->input('prenom'),
@@ -151,7 +145,9 @@ class DemandeursController extends Controller
             'lieu_naissance'            =>      $request->input('lieu'),
             'adresse'                   =>      $request->input('adresse'),
             'password'                  =>      Hash::make($request->input('email')),
-            'roles_id'                  =>      $roles_id
+            'roles_id'                  =>      $roles_id,
+            'created_by'                =>      $created_by,
+            'updated_by'                =>      $created_by
 
         ]);
         
@@ -187,9 +183,26 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function show(Demandeur $demandeur)
+    public function show($id)
     {
-        //
+        $demandeurs = Demandeur::find($id);
+
+        $utilisateurs = $demandeurs->user;
+
+        $roles = Role::get();
+        $civilites = User::pluck('civilite','civilite');
+        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+
+        return view('demandeurs.show', compact('demandeurs', 'departements','niveaux', 'modules',
+        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
+        'civilites', 'objets'));
     }
 
     /**
@@ -199,7 +212,12 @@ class DemandeursController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {        
+    {  
+        
+                
+       /*  $user = Auth::user()->username;
+        dd($user); */
+        
         /* $this->authorize('update',  $demandeur); */
 
         $demandeurs = Demandeur::find($id);
@@ -250,10 +268,18 @@ class DemandeursController extends Controller
                 'niveaux'             =>  'required',
                 'diplomes'            =>  'required',
                 'modules'             =>  'required',
+                'departements'        =>  'required',
             ]
         );
 
         $utilisateurs   =   $demandeur->user;
+
+        $updated_by1 = Auth::user()->firstname;
+        $updated_by2 = Auth::user()->name;
+        $updated_by3 = Auth::user()->username;
+
+        $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
+
 
         $utilisateurs->civilite                  =      $request->input('civilite');
         $utilisateurs->firstname                 =      $request->input('prenom');
@@ -268,6 +294,7 @@ class DemandeursController extends Controller
         $utilisateurs->adresse                   =      $request->input('adresse');
         $utilisateurs->password                  =      Hash::make($request->input('email'));
         $utilisateurs->roles_id                  =      $utilisateurs->role->id;
+        $utilisateurs->updated_by                =      $updated_by;
 
         $utilisateurs->save();
 
@@ -309,6 +336,17 @@ class DemandeursController extends Controller
      */
     public function destroy(Demandeur $demandeur)
     {
+        $utilisateurs   =   $demandeur->user;
+
+        $deleted_by1 = Auth::user()->firstname;
+        $deleted_by2 = Auth::user()->name;
+        $deleted_by3 = Auth::user()->username;
+
+        $deleted_by = $deleted_by1.' '.$deleted_by2.' ('.$deleted_by3.')';
+
+        $utilisateurs->deleted_by      =      $deleted_by;
+
+        $utilisateurs->save();
        
         $demandeur->user->delete();
         $demandeur->delete();

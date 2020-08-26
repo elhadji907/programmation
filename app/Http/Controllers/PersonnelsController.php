@@ -81,7 +81,7 @@ class PersonnelsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
+    {       
         $this->validate(
             $request, [
                 'civilite'      =>  'required|string|max:10',
@@ -183,6 +183,7 @@ class PersonnelsController extends Controller
      */
     public function update(Request $request, Personnel $personnel)
     {        
+         
         $data = request()->validate([
                 'civilite'      =>  'required|string|max:10',
                 'direction'     =>  'required|string',

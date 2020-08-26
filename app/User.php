@@ -85,7 +85,10 @@ class User extends Authenticatable
 		'status',
 		'email_verified_at',
 		'password',
-		'roles_id'
+		'roles_id',
+		'created_by',
+		'updated_by'
+
 	];
 
 	protected static function boot(){
