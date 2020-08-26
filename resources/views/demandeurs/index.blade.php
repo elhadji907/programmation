@@ -5,6 +5,13 @@
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
+            
+          {{--    @foreach ($demandeurs as $demandeur)
+              @foreach ($demandeur->modules as $module)
+              <p>{!! $module->name !!}</p>
+              @endforeach
+            @endforeach  --}}
+            
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
@@ -20,6 +27,7 @@
                    {{--   <div class="col-auto">
                       <span data-feather="mail"></span>
                     </div>  --}}
+                  
                   </div>
                 </div>
               </a>
@@ -97,19 +105,19 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>Numéro</th>
+                              <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Module</th>
                               <th>Provenance</th>
                               <th>Téléphone</th>
-                              <th style="width:12%;">Action</th>
+                              <th style="width:13%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                              <th>Numéro</th>
+                              <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
@@ -163,7 +171,7 @@
             "serverSide": true,
             "ajax": "{{route('demandeurs.list')}}",
             columns: [
-                    { data: 'numero_courrier', name: 'numero_courrier' },
+                    { data: 'cin', name: 'cin' },
                     { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },

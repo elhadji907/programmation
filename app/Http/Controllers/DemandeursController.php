@@ -32,6 +32,22 @@ class DemandeursController extends Controller
      */
     public function index()
     {
+
+        $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id');
+
+       /*  dd($demandeurs); */
+
+/*        foreach ($demandeurs as $demandeur) {
+
+        foreach ($demandeur->modules as $module) {
+            $modules = $module->name;
+        }
+           
+       }
+
+       dd($module);
+ */
+
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')
         ->pluck('user.demandeur.localite.name','id')->count();
@@ -50,7 +66,8 @@ class DemandeursController extends Controller
 
         $total = $ziguinchor+$dakar+$saintlouis+$kaolack;
 
-        return view('demandeurs.index', compact('ziguinchor','dakar','saintlouis','kaolack','total'));
+
+        return view('demandeurs.index', compact('ziguinchor','dakar','saintlouis','kaolack','total', 'demandeurs'));
     }
 
     /**
@@ -104,6 +121,7 @@ class DemandeursController extends Controller
                 'niveaux'             =>  'required',
                 'diplomes'            =>  'required',
                 'modules'             =>  'required',
+                'departement'         =>  'required',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
