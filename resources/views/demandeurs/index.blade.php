@@ -6,11 +6,12 @@
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
             
-          {{--    @foreach ($demandeurs as $demandeur)
+           {{--   @foreach ($demandeurs as $demandeur)
               @foreach ($demandeur->modules as $module)
               <p>{!! $module->name !!}</p>
               @endforeach
             @endforeach  --}}
+            
             
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">

@@ -32,6 +32,18 @@ $factory->define(App\User::class, function (Faker $faker) {
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
+/* $id_user=App\User::get()->random()->id; */
+
+/* $id_users = App\User::find($id_user);
+
+$utilisateurs = $id_users->user;
+
+$prenom = $utilisateurs->firstname;
+$nom = $utilisateurs->name;
+$username = $utilisateurs->username;
+
+$created_by = $prenom.' '.$nom.' '.$username; */
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'civilite' => SnmG::getCivilite(),
@@ -44,6 +56,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'situation_familiale' => $faker->word,
         'adresse' => $faker->address,
         'status' => "",
+        'created_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',
+        'updated_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',
         'email' => Str::random(5).".".$faker->safeEmail,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt('secret')

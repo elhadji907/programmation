@@ -55,7 +55,7 @@
 
 @roles('Demandeur|Administrateur')
 <li class="nav-item">
-<a class="nav-link" href="{{ url('/home') }}">
+<a class="nav-link" href="{{ route('demandeurs.create') }}">
     <span data-feather="users"></span>
   <span>Demande de formation</span>
 </a>

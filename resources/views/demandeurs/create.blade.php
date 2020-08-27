@@ -13,6 +13,7 @@
                         <h3 class="card-title">Enregistrement demandeurs</h3>
                     </div>
                     <div class="card-body">
+                        Les champs<span class="text-danger"> * </span>sont obligatoires
                         <div class="bg-gradient-secondary text-center">
                             <p class="h4 text-white mb-2 mt-0">IDENTIFICATION</p>
                         </div>
@@ -97,68 +98,50 @@
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">DEMANDE</p>
                             </div>
-
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Numéro courrier') !!}
                                     {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier',
                                     'class' => 'form-control']) !!}
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
                                     'form-control']) !!}
                                 </div>
                                 
-                            <div class="form-group col-md-4">
-                                {!! Form::label("localité") !!}
-                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'localite']) !!}
-                            </div>
                         </div>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    {!! Form::label("Objet") !!}
-                                    {!! Form::select('objet', $objets, null, ['placeholder' => '', 'class' =>
-                                    'form-control', 'id' => 'objet']) !!}
-                                </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     {!! Form::label("Type demande") !!}
                                     {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
                                     'form-control', 'id' => 'type_demande']) !!}
                                 </div>
-                            
-                                <div class="form-group col-md-4">
-                                    {!! Form::label("Programme") !!}
-                                    {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' =>
-                                    'form-control', 'id' => 'programme']) !!}
-                                </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label("module") !!}
+                                    {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' =>
+                                    'form-control', 'id' => 'module']) !!}
+                                </div>                            
 
                                 <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                     placeholder="Mot de passe">
                                 {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
                                 'form-control']) !!}
                             </div>
-
                             <div class="form-row">
-                            
-                            <div class="form-group col-md-4">
-                                {!! Form::label("Niveau d'etude") !!}
-                                {!! Form::select('niveaux[]', $niveaux, null, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'niveau']) !!}
-                            </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label("Niveau d'etude") !!}
+                                    {!! Form::select('niveaux[]', $niveaux, null, ['placeholder' => '', 'class' =>
+                                    'form-control', 'id' => 'niveau']) !!}
+                                </div>
+    
+                                <div class="form-group col-md-6">
+                                    {!! Form::label("Diplômes") !!}
+                                    {!! Form::select('diplomes[]', $diplomes, null, ['placeholder' => 'diplome', 'class' =>
+                                    'form-control', 'id' => 'diplome']) !!}
+                                </div>
 
-                            <div class="form-group col-md-4">
-                                {!! Form::label("Diplômes") !!}
-                                {!! Form::select('diplomes[]', $diplomes, null, ['placeholder' => 'diplome', 'class' =>
-                                'form-control', 'id' => 'diplome']) !!}
                             </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label("module") !!}
-                                {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'module']) !!}
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Projet') !!}
@@ -177,6 +160,25 @@
                                 {!! Form::textarea('information', null, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
                                 'class' => 'form-control']) !!}
                             </div>
+                        </div>
+                        <div class="bg-gradient-secondary text-center">
+                            <p class="h4 text-white mb-2">INSCRIVEZ-VOUS A UN PROGRAMME</p>
+                        </div>
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                {!! Form::label("Programme") !!}
+                                {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' =>
+                                'form-control', 'id' => 'programme']) !!}
+                            </div>
+
+                            
+                            <div class="form-group col-md-6">
+                                {!! Form::label("localité") !!}
+                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'localite']) !!}
+                            </div>
+
                         </div>
                             <button type="submit" class="btn btn-primary"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
