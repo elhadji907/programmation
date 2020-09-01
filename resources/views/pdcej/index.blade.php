@@ -4,15 +4,7 @@
         <div class="container-fluid">
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif 
-            
-          {{--  @foreach ($demandeurs as $demandeur)
-              @foreach ($demandeur->modules as $module)
-              <p>{!! $module->name !!}</p>
-              @endforeach
-            @endforeach  --}}
-            
-            
+            @endif            
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
@@ -20,9 +12,17 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Dakar') }}</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Pompiste') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
-                       {!! $dakar !!} / {!! $total !!}
+                        @foreach ($demandeurs as $demandeur)
+                        @foreach ($demandeur->modules as $module)              
+                          @if ($module->name == "Pompiste")
+                            <?php $pompiste++ ?>                          
+                          @else                
+                        @endif
+                    @endforeach
+                  @endforeach      
+                  {!! $pompiste !!} / {!! $total !!} / {!! $total !!}
                         </div>
                     </div>
                    {{--   <div class="col-auto">

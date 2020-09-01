@@ -44,6 +44,7 @@ Route::group([
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
+        Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
 
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
@@ -80,6 +81,7 @@ Route::group([
         Route::resource('/options', 'OptionsController');
         Route::resource('/villages', 'VillagesController');
         Route::resource('/operateurs', 'OperateursController');
+        Route::resource('/programmes', 'ProgrammesController');
 
     }         
 );

@@ -33,10 +33,8 @@ class DemandeursController extends Controller
     public function index()
     {
 
-        $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id');
-
-       /*  dd($demandeurs); */
-
+        $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id'); 
+      
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')
         ->pluck('user.demandeur.localite.name','id')->count();
@@ -55,7 +53,28 @@ class DemandeursController extends Controller
 
         $total = $ziguinchor+$dakar+$saintlouis+$kaolack;
 
-        return view('demandeurs.index', compact('ziguinchor','dakar','saintlouis','kaolack','total', 'demandeurs'));
+        $pompiste = "0";
+        $graisseur = "0";
+        $laveur = "0";
+        $rayonniste = "0";
+        $chefboutique = "0";
+        $managerstation = "0";
+        $caissier = "0";
+
+        return view('demandeurs.index', 
+        compact('ziguinchor', 
+        'dakar', 
+        'saintlouis', 
+        'kaolack', 
+        'total',
+        'demandeurs',
+        'graisseur',
+        'laveur',
+        'rayonniste',
+        'chefboutique',
+        'managerstation',
+        'caissier',
+        'pompiste'));
     }
 
     /**
@@ -69,6 +88,7 @@ class DemandeursController extends Controller
         /* $civilites = User::select('civilite')->distinct()->get(); */
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
+        
         $objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
         
@@ -92,7 +112,6 @@ class DemandeursController extends Controller
     {
         $this->validate(
             $request, [
-                'objet'               =>  'required|string|max:50',
                 'civilite'            =>  'required|string|max:10',
                 'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
                 'prenom'              =>  'required|string|max:50',
@@ -107,9 +126,9 @@ class DemandeursController extends Controller
                 'type_demande'        =>  'required',
                 'programme'           =>  'required',
                 'niveaux'             =>  'required',
-                'diplomes'            =>  'required',
-                'modules'             =>  'required',
-                'departements'        =>  'required',
+                'diplomes'            =>  'exists:diplomes,id',
+                'modules'             =>  'exists:modules,id',
+                'departements'        =>  'exists:departements,id',
             ],
             [
                 'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
@@ -154,6 +173,8 @@ class DemandeursController extends Controller
         
         $utilisateur->save();
 
+        $objets_id = Objet::where('name','Demande de formation')->first()->id;
+
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
             'numero_courrier'   =>     $request->input('numero_courrier'),
@@ -163,7 +184,7 @@ class DemandeursController extends Controller
             'information'       =>     $request->input('information'),
             'users_id'          =>     $utilisateur->id,
             'typedemandes_id'   =>     $request->input('type_demande'),
-            'objets_id'         =>     $request->input('objet'),
+            'objets_id'         =>     $objets_id,
             'localites_id'      =>     $request->input('localite'),
             'programmes_id'     =>     $request->input('programme')
         ]);
@@ -252,7 +273,6 @@ class DemandeursController extends Controller
     {
         $this->validate(
             $request, [
-                'objet'               =>  'required|string|max:50',
                 'civilite'            =>  'required|string|max:10',
                 'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin,'.$demandeur->id,
                 'prenom'              =>  'required|string|max:50',
@@ -267,9 +287,9 @@ class DemandeursController extends Controller
                 'type_demande'        =>  'required',
                 'programme'           =>  'required',
                 'niveaux'             =>  'required',
-                'diplomes'            =>  'required',
-                'modules'             =>  'required',
-                'departements'        =>  'required',
+                'diplomes'            =>  'exists:diplomes,id',
+                'modules'             =>  'exists:modules,id',
+                'departements'        =>  'exists:departements,id',
             ]
         );
 
@@ -299,8 +319,11 @@ class DemandeursController extends Controller
 
         $utilisateurs->save();
 
+        
+        $objets_id = Objet::where('name','Demande de formation')->first()->id;
+
         $types_demandes_id = Typedemande::where('name',$request->input('type_demande'))->first()->id;
-        $objets_id = Objet::where('name',$request->input('objet'))->first()->id;
+        /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
         $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
 
