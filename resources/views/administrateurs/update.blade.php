@@ -29,7 +29,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('civilite') !!}                    
-                                {!! Form::select('civilite', $civilites, $administrateur->user->civilite, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'civilite']) !!}                    
+                                {!! Form::select('civilite', ['M.' => 'M.', 'Mme' => 'Mme'], $administrateur->user->civilite, ['placeholder'=>'', 'class'=>'form-control', 'id'=>'civilite']) !!}                    
                             </div>
                         </div>
                         <div class="form-row">

@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Modifier mon profile</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('profiles.update', ['$user' => $user]) }}" enctype="multipart/form-data">
                         @csrf
@@ -89,6 +88,7 @@
                                 @enderror
                             </div>
                         </div>
+                        @roles('Administrateur')
                        <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Photo de profil') }}</label> 
                             <div class="custom-file col-md-6">
@@ -102,6 +102,7 @@
                                 @enderror
                             </div>
                         </div> 
+                        @endroles
                         <button type="submit" class="btn btn-primary">
                            Modifier mon profile
                         </button>                          

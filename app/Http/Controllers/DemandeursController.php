@@ -180,7 +180,12 @@ class DemandeursController extends Controller
 
        $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
 
-       $status = "attente";
+       $status = "Attente";
+
+       $telephone = $request->input('telephone');
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
 
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
@@ -188,8 +193,8 @@ class DemandeursController extends Controller
             'name'                      =>      $request->input('nom'),
             'email'                     =>      $request->input('email'),
             'username'                  =>      $username,
-            'status'                    =>     $status,
-            'telephone'                 =>      $request->input('telephone'),
+            'status'                    =>      $status,
+            'telephone'                 =>      $telephone,
             'situation_familiale'       =>      $request->input('familiale'),
             'situation_professionnelle' =>      $request->input('professionnelle'),
             'date_naissance'            =>      $request->input('date_naiss'),
@@ -205,6 +210,9 @@ class DemandeursController extends Controller
         $utilisateur->save();
 
         $objets_id = Objet::where('name','Demande de formation')->first()->id;
+        
+        $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
+        $modules = Module::where('id',$request->input('modules'))->first()->name;
 
         if ($modules == "Laveur" OR $modules == "Graisseur" OR $modules == "Pompiste" OR $modules == "Rayonniste") {
             if ($diplomes == "Licence 1" OR $diplomes == "Licence 2" OR $diplomes == "Licence 3" OR $diplomes == "Master 1" OR $diplomes == "Master 2") {
@@ -232,9 +240,14 @@ class DemandeursController extends Controller
             }
             
         }
-        
+
+       $cin = $request->input('cin');
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
+
         $demandeurs = new Demandeur([
-            'cin'               =>     $request->input('cin'),
+            'cin'               =>     $cin,
             'numero_courrier'   =>     $request->input('numero_courrier'),
             'date_depot'        =>     $request->input('date_depot'),
             'experience'        =>     $request->input('experience'),
@@ -365,13 +378,19 @@ class DemandeursController extends Controller
 
         $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
 
+        
+       $telephone = $request->input('telephone');
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+
 
         $utilisateurs->civilite                  =      $request->input('civilite');
         $utilisateurs->firstname                 =      $request->input('prenom');
         $utilisateurs->name                      =      $request->input('nom');
         $utilisateurs->email                     =      $request->input('email');
         $utilisateurs->username                  =      $request->input('username');
-        $utilisateurs->telephone                 =      $request->input('telephone');
+        $utilisateurs->telephone                 =      $telephone;
         $utilisateurs->situation_familiale       =      $request->input('familiale');
         $utilisateurs->situation_professionnelle =      $request->input('professionnelle');
         $utilisateurs->date_naissance            =      $request->input('date_naiss');
@@ -421,8 +440,13 @@ class DemandeursController extends Controller
             }
             
         }
+        
+       $cin = $request->input('cin');
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
 
-        $demandeur->cin               =     $request->input('cin');
+        $demandeur->cin               =     $cin;
         $demandeur->numero_courrier   =     $request->input('numero_courrier');
         $demandeur->date_depot        =     $request->input('date_depot');
         $demandeur->experience        =     $request->input('experience');

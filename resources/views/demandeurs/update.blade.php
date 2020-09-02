@@ -49,8 +49,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 {!! Form::label('Civilité', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::select('civilite', $civilites, $utilisateurs->civilite, ['placeholder' => 'sélectionnez', 'class'
-                                => 'form-control', 'id' => 'civilites']) !!}
+                                {!! Form::select('civilite', ['M.' => 'M.', 'Mme' => 'Mme'], $utilisateurs->civilite, ['placeholder' => 'sélectionnez', 'class'
+                                => 'form-control', 'id' => 'civilite']) !!}
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('Date naissance', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>

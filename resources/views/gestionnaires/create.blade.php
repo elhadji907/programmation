@@ -21,11 +21,10 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1"><b>Civilité</b></label>
                                     <select name="civilite" id="civilite" class="form-control">
-                                            <option value="">Selectionnez</option>
-                                        @foreach($civilites as $civilite)
-                                            <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
-                                        @endforeach
-                                        </select>
+                                        <option value="">Selectionnez</option>
+                                        <option value="M.">M.</option>
+                                        <option value="Mme">Mme</option>
+                                    </select>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('civilite'))
                                         @foreach ($errors->get('civilite') as $message)
