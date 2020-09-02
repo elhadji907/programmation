@@ -90,7 +90,7 @@
                                     => 'form-control', 'id' => 'professionnelle']) !!}
                                 </div>
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('Adresse :') !!}
+                                    {!! Form::label('Adresse :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::textarea('adresse', null, ['placeholder' => 'Votre adresse', 'rows' => 1,
                                     'class' => 'form-control']) !!}
                                 </div>
@@ -142,14 +142,14 @@
                                 </div>
 
                             </div>
-                        <div class="form-row">
+                       {{--   <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Projet :') !!}
                                 {!! Form::textarea('projet', null, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
                                 'class' => 'form-control']) !!}
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div>  --}}
+                        {{--  <div class="form-row">
                             <div class="form-group col-md-6">
                                 {!! Form::label('Expérience :') !!}
                                 {!! Form::textarea('experience', null, ['placeholder' => 'Votre expérience', 'rows' => 3,
@@ -160,7 +160,7 @@
                                 {!! Form::textarea('information', null, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
                                 'class' => 'form-control']) !!}
                             </div>
-                        </div>
+                        </div>  --}}
                         <div class="bg-gradient-secondary text-center">
                             <p class="h4 text-white mb-2">INSCRIVEZ-VOUS A UN PROGRAMME</p>
                         </div>

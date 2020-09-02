@@ -12,7 +12,7 @@ class ProgrammesTableSeeder extends Seeder
      */
     public function run()
     {
-        $programme1  = App\Programme::firstOrCreate(["name"=>"Aucun"],["sigle"=>"Aucun"],["uuid"=>Str::uuid()]);
+        /* $programme1  = App\Programme::firstOrCreate(["name"=>"Aucun"],["sigle"=>"Aucun"],["uuid"=>Str::uuid()]); */
         $programme2  = App\Programme::firstOrCreate(["name"=>"Projet d’appui au Développement des Compétences 
         et de l’Entreprenariat des Jeunes dans les secteurs porteurs"],["sigle"=>"PDCEJ"],["uuid"=>Str::uuid()]);
     }

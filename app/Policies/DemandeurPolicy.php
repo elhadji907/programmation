@@ -53,7 +53,7 @@ class DemandeurPolicy
      */
     public function update(User $user, Demandeur $demandeur)
     {
-        return $user->id == $demandeur->user->id;
+        return $user->id === $demandeur->user->id;
     }
 
     /**
@@ -65,8 +65,7 @@ class DemandeurPolicy
      */
     public function delete(User $user, Demandeur $demandeur)
     {
-        return $user->id == $demandeur->user->id;
-        
+        return $user->id === $demandeur->user->id;
     }
 
     /**

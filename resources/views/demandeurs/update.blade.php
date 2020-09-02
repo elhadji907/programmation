@@ -154,14 +154,14 @@
                                 'form-control', 'id' => 'diplome']) !!}
                             </div>
                         </div>                        
-                        <div class="form-row">
+                       {{--   <div class="form-row">
                             <div class="form-group col-md-12">
-                                {!! Form::label('Projet') !!}
+                                {!! Form::label('Projet') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::textarea('projet', $demandeurs->projet, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
                                 'class' => 'form-control']) !!}
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div>  --}}
+                       {{--   <div class="form-row">
                             <div class="form-group col-md-6">
                                 {!! Form::label('Expérience') !!}
                                 {!! Form::textarea('experience', $demandeurs->experience, ['placeholder' => 'Votre expérience', 'rows' => 3,
@@ -172,7 +172,7 @@
                                 {!! Form::textarea('information', $demandeurs->information, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
                                 'class' => 'form-control']) !!}
                             </div>
-                        </div>
+                        </div>  --}}
 
 
 

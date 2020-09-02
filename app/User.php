@@ -176,4 +176,8 @@ class User extends Authenticatable
 	{
 		return in_array($this->role->name, $roles);
 	}
+
+	public function isAdmin(){
+		return false;
+	}
 }

@@ -51,7 +51,7 @@
                     <td class="text-center" colspan="2"></td>
                   </tr>
                   @else 
-                  {!! $i = 1 !!}
+                  <?php $i = 1 ?>
                   @foreach ($departs as $depart)
                   <tr> 
                     <td>{!! $i++ !!}</td>

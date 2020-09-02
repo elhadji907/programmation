@@ -1,7 +1,7 @@
 @extends('layout.default')
 @section('title', 'ONFP')
 @section('content')
-@roles('Administrateur|Gestionnaire|Courrier')
+@roles('Administrateur|Courrier')
 <div class="container-fluid">
     <div class="row">     
         <div class="col-xl-3 col-md-6 mb-4">

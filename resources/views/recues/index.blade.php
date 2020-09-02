@@ -51,8 +51,8 @@
                   <tr>
                     <td class="text-center" colspan="2"></td>
                   </tr>
-                  @else 
-                  {!! $i = 1 !!}
+                  @else                   
+                  <?php $i = 1 ?>
                   @foreach ($recues as $recue)
                   <tr>
                     <td>{!! $i !!}</td>

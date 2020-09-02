@@ -38,7 +38,7 @@
             @endcan 
         </div>
     </div>
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Courrier')
     <div class="list-group mt-5">
         @foreach ($courriers as $courrier) 
         <div class="list-group-item">

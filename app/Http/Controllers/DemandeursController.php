@@ -25,6 +25,12 @@ use App\Charts\Courrierchart;
 
 class DemandeursController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('roles:Administrateur|Gestionnaire|Demandeur');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +38,9 @@ class DemandeursController extends Controller
      */
     public function index()
     {
+
+        $user_role  =   Auth::user()->role->name;
+        
 
         $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id'); 
       
@@ -61,20 +70,37 @@ class DemandeursController extends Controller
         $managerstation = "0";
         $caissier = "0";
 
-        return view('demandeurs.index', 
-        compact('ziguinchor', 
-        'dakar', 
-        'saintlouis', 
-        'kaolack', 
-        'total',
-        'demandeurs',
-        'graisseur',
-        'laveur',
-        'rayonniste',
-        'chefboutique',
-        'managerstation',
-        'caissier',
-        'pompiste'));
+        if ($user_role == "Administrateur") {
+            return view('demandeurs.index', 
+            compact('ziguinchor', 
+            'dakar', 
+            'saintlouis', 
+            'kaolack', 
+            'total',
+            'demandeurs',
+            'graisseur',
+            'laveur',
+            'rayonniste',
+            'chefboutique',
+            'managerstation',
+            'caissier',
+            'pompiste'));
+        } else {
+            return view('demandeurs.index2', 
+            compact('ziguinchor', 
+            'dakar', 
+            'saintlouis', 
+            'kaolack', 
+            'total',
+            'demandeurs',
+            'graisseur',
+            'laveur',
+            'rayonniste',
+            'chefboutique',
+            'managerstation',
+            'caissier',
+            'pompiste'));
+        }
     }
 
     /**
@@ -110,16 +136,21 @@ class DemandeursController extends Controller
      */
     public function store(Request $request)
     {
+
+        /* $f = $request->input('date_naiss');
+        dd($f); */
         $this->validate(
             $request, [
                 'civilite'            =>  'required|string|max:10',
                 'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
-                'date_naiss'          =>  'required|date|max:50',
-                'date_depot'          =>  'required|date|max:50',
+                'date_naiss'          =>  'required|date_format:Y-m-d',
+                'date_depot'          =>  'required|date_format:Y-m-d',
                 'lieu'                =>  'required|string|max:50',
+                /* 'projet'              =>  'required|string|min:25|max:200', */
                 'telephone'           =>  'required|string|max:50',
+                'adresse'             =>  'required|string|max:100',
                 'email'               =>  'required|email|max:255|unique:users,email',
                 'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
                 'localite'            =>  'required',
@@ -152,12 +183,15 @@ class DemandeursController extends Controller
 
        $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
 
+       $status = "En attente";
+
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
             'firstname'                 =>      $request->input('prenom'),
             'name'                      =>      $request->input('nom'),
             'email'                     =>      $request->input('email'),
             'username'                  =>      $username,
+            'status'                    =>     $status,
             'telephone'                 =>      $request->input('telephone'),
             'situation_familiale'       =>      $request->input('familiale'),
             'situation_professionnelle' =>      $request->input('professionnelle'),
@@ -207,6 +241,7 @@ class DemandeursController extends Controller
      */
     public function show($id)
     {
+        if (Auth::user()->role->name == "Administrateur") {        
         $demandeurs = Demandeur::find($id);
 
         $utilisateurs = $demandeurs->user;
@@ -221,10 +256,12 @@ class DemandeursController extends Controller
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
         $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
-
         return view('demandeurs.show', compact('demandeurs', 'departements','niveaux', 'modules',
         'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
         'civilites', 'objets'));
+        } else {
+            return view('layout.404');
+        }
     }
 
     /**
@@ -277,10 +314,12 @@ class DemandeursController extends Controller
                 'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin,'.$demandeur->id,
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
-                'date_naiss'          =>  'required|date|max:50',
-                'date_depot'          =>  'required|date|max:50',
+                'date_naiss'          =>  'required|date_format:Y-m-d',
+                'date_depot'          =>  'required|date_format:Y-m-d',
                 'lieu'                =>  'required|string|max:50',
+                /* 'projet'              =>  'required|string|min:25|max:200', */
                 'telephone'           =>  'required|string|max:50',
+                'adresse'             =>  'required|string|max:100',
                 'email'               =>  'required|email|max:255|unique:users,email,'.$demandeur->user->id,
                 'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier,'.$demandeur->id,
                 'localite'            =>  'required',

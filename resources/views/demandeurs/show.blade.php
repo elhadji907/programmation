@@ -104,12 +104,12 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 {!! Form::label('Enregistrée par:') !!}
-                                {!! Form::text('cin', $utilisateurs->created_by.'  le  '.$utilisateurs->created_at->format('d/m/Y H:m:s').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class'
+                                {!! Form::text('cin', $utilisateurs->created_by.'  le  '.$utilisateurs->created_at->format('d/m/Y').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class'
                                 => 'form-control','disabled' => 'disabled']) !!}
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('Modifiée par :') !!}
-                                {!! Form::text('prenom', $utilisateurs->updated_by.' le '.$utilisateurs->created_at->format('d/m/Y H:m:s').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled'])
+                                {!! Form::text('prenom', $utilisateurs->updated_by.' le '.$utilisateurs->created_at->format('d/m/Y').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled'])
                                 !!}
                             </div>
                         </div>

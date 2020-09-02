@@ -1,6 +1,6 @@
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-@roles('Administrateur|Gestionnaire|Courrier')
+@roles('Administrateur|Courrier')
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
   <div class="sidebar-brand-icon rotate-n-15">
@@ -15,7 +15,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ url('/home') }}">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Tableau de bord</span></a>
@@ -39,7 +39,7 @@
       <span> Gérer mon profil </span>
       </a>
   </h6>
-  @roles('Administrateur|Gestionnaire')
+  @roles('Administrateur')
   <hr class="sidebar-divider my-0">
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
     <a class="nav-link d-flex align-items-center text-white" href="">
@@ -53,7 +53,7 @@
 <hr class="sidebar-divider my-0">
 
 
-@roles('Demandeur|Administrateur')
+@roles('Demandeur|Administrateur|Gestionnaire')
 <li class="nav-item">
 <a class="nav-link" href="{{ route('demandeurs.create') }}">
     <span data-feather="users"></span>
@@ -74,7 +74,7 @@
 
 
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('courriers.index') }}">
       <span data-feather="mail"></span>
     <span>Gestion courriers</span>
@@ -82,7 +82,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('operateurs.index') }}">
       <span data-feather="users"></span>
     <span>Gestion opérateurs</span>
@@ -90,7 +90,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire|Demandeur')
+    @roles('Administrateur|Gestionnaire')
   <a class="nav-link" href="{{ route('demandeurs.index') }}">
       <span data-feather="layers"></span>
     <span>Gestion demandes</span>
@@ -98,7 +98,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="#">
       <span data-feather="layers"></span>
     <span>Gestion formations</span>
@@ -106,7 +106,7 @@
   @endroles
 </li>
 <li class="nav-item">
-  @roles('Administrateur|Gestionnaire')
+  @roles('Administrateur')
 <a class="nav-link" href="{{ route('personnels.index') }}">
     <span data-feather="layers"></span>
   <span>Gestion personnel</span>
@@ -114,7 +114,7 @@
 @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('directions.index') }}">
       <span data-feather="layers"></span>
     <span>Directions / Services</span>
@@ -122,7 +122,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('secteurs.index') }}">
       <span data-feather="layers"></span>
     <span>Secteurs</span>
@@ -130,7 +130,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('domaines.index') }}">
       <span data-feather="layers"></span>
     <span>Domaines</span>
@@ -138,7 +138,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('modules.index') }}">
       <span data-feather="layers"></span>
     <span>Modules</span>
@@ -146,7 +146,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('diplomes.index') }}">
       <span data-feather="layers"></span>
     <span>Diplômes</span>
@@ -154,7 +154,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('options.index') }}">
       <span data-feather="layers"></span>
     <span>Option diplômes</span>
@@ -162,7 +162,7 @@
   @endroles
 </li>
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link" href="{{ route('programmes.index') }}">
       <span data-feather="layers"></span>
     <span>Ajouter programme</span>
@@ -170,7 +170,7 @@
   @endroles
 </li>
 {{--  <li class="nav-item">
-    @roles('Administrateur|Gestionnaire|Courrier')
+    @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('presentations.index') }}">
       <span data-feather="layers"></span>
     <span>Statistiques</span>
@@ -178,7 +178,7 @@
   @endroles
 </li>  --}}
 <li class="nav-item">
-    @roles('Administrateur|Gestionnaire')
+    @roles('Administrateur')
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
     <span data-feather="folder"></span>
     <span>Pages</span>

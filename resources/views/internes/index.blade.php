@@ -51,7 +51,7 @@
                     <td class="text-center" colspan="2"></td>
                   </tr>
                   @else 
-                  {!! $i = 1 !!}
+                  <?php $i = 1 ?>
                   @foreach ($internes as $interne)
                   <tr>
                     <td>{!! $i !!}</td>
