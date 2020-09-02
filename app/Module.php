@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Wed, 02 Sep 2020 19:12:04 +0000.
  */
 
 namespace App;
@@ -23,9 +23,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Domaine $domaine
  * @property \App\Qualification $qualification
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $formes
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
+ * @property \Illuminate\Database\Eloquent\Collection $programmes
  *
  * @package App
  */
@@ -56,6 +58,13 @@ class Module extends Eloquent
 		return $this->belongsTo(\App\Qualification::class, 'qualifications_id');
 	}
 
+	public function demandeurs()
+	{
+		return $this->belongsToMany(\App\Demandeur::class, 'demandeursmodules', 'modules_id', 'demandeurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
 	public function formations()
 	{
 		return $this->hasMany(\App\Formation::class, 'modules_id');
@@ -71,6 +80,13 @@ class Module extends Eloquent
 	public function operateurs()
 	{
 		return $this->belongsToMany(\App\Operateur::class, 'operateursmodules', 'modules_id', 'operateurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function programmes()
+	{
+		return $this->belongsToMany(\App\Programme::class, 'programmesmodules', 'modules_id', 'programmes_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

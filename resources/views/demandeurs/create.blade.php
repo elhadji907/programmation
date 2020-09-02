@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     {!! Form::label("module :") !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' =>
+                                    {!! Form::select('modules', $modules, null, ['placeholder' => '', 'class' =>
                                     'form-control', 'id' => 'module']) !!}
                                 </div>                            
 

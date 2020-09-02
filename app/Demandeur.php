@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 22 Aug 2020 16:06:02 +0000.
+ * Date: Wed, 02 Sep 2020 19:11:29 +0000.
  */
 
 namespace App;
@@ -28,17 +28,20 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $objets_id
  * @property int $localites_id
  * @property int $programmes_id
+ * @property int $modules_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Localite $localite
+ * @property \App\Module $module
  * @property \App\Objet $objet
  * @property \App\Programme $programme
  * @property \App\Typedemande $typedemande
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $diplomes
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $nivauxes
  *
@@ -55,7 +58,8 @@ class Demandeur extends Eloquent
 		'typedemandes_id' => 'int',
 		'objets_id' => 'int',
 		'localites_id' => 'int',
-		'programmes_id' => 'int'
+		'programmes_id' => 'int',
+		'modules_id' => 'int'
 	];
 
 	protected $dates = [
@@ -73,16 +77,23 @@ class Demandeur extends Eloquent
 		'date_depot',
 		'status',
 		'note',
+		'email',
 		'users_id',
 		'typedemandes_id',
 		'objets_id',
 		'localites_id',
-		'programmes_id'
+		'programmes_id',
+		'modules_id'
 	];
 
 	public function localite()
 	{
 		return $this->belongsTo(\App\Localite::class, 'localites_id');
+	}
+
+	public function module()
+	{
+		return $this->belongsTo(\App\Module::class, 'modules_id');
 	}
 
 	public function objet()
@@ -115,6 +126,13 @@ class Demandeur extends Eloquent
 	public function diplomes()
 	{
 		return $this->belongsToMany(\App\Diplome::class, 'demandeursdiplomes', 'demandeurs_id', 'diplomes_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function formations()
+	{
+		return $this->belongsToMany(\App\Formation::class, 'demandeursformations', 'demandeurs_id', 'formations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

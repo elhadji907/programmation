@@ -38,16 +38,20 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('objets_id');
             $table->unsignedInteger('localites_id');
             $table->unsignedInteger('programmes_id')->nullable();
+            $table->unsignedInteger('modules_id')->nullable();
+            $table->string('email', 200)->nullable();
 
-            $table->index(["users_id"], 'fk_demandeurs_users1_idx');
+            $table->index(["modules_id"], 'fk_demandeurs_modules1_idx');
 
             $table->index(["programmes_id"], 'fk_demandeurs_programmes1_idx');
-
-            $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
 
             $table->index(["objets_id"], 'fk_demandeurs_objets1_idx');
 
             $table->index(["localites_id"], 'fk_demandeurs_localites1_idx');
+
+            $table->index(["users_id"], 'fk_demandeurs_users1_idx');
+
+            $table->index(["typedemandes_id"], 'fk_demandeurs_typedemandes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -74,6 +78,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('programmes_id', 'fk_demandeurs_programmes1_idx')
                 ->references('id')->on('programmes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('modules_id', 'fk_demandeurs_modules1_idx')
+                ->references('id')->on('modules')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

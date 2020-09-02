@@ -136,9 +136,6 @@ class DemandeursController extends Controller
      */
     public function store(Request $request)
     {
-
-        /* $f = $request->input('date_naiss');
-        dd($f); */
         $this->validate(
             $request, [
                 'civilite'            =>  'required|string|max:10',
@@ -183,7 +180,7 @@ class DemandeursController extends Controller
 
        $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
 
-       $status = "En attente";
+       $status = "attente";
 
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
@@ -209,6 +206,33 @@ class DemandeursController extends Controller
 
         $objets_id = Objet::where('name','Demande de formation')->first()->id;
 
+        if ($modules == "Laveur" OR $modules == "Graisseur" OR $modules == "Pompiste" OR $modules == "Rayonniste") {
+            if ($diplomes == "Licence 1" OR $diplomes == "Licence 2" OR $diplomes == "Licence 3" OR $diplomes == "Master 1" OR $diplomes == "Master 2") {
+                $note = "2";
+            } elseif($diplomes == "BAC") {
+                $note = "5";
+            }elseif($diplomes == "BFEM") {
+                $note = "10";
+            }else{
+                $note = "0";
+            }
+                       
+        } elseif($modules == "Chef de boutique" OR $modules == "Manager de station" OR $modules == "Caissier") {
+
+            if ($diplomes == "Licence 1") {
+                $note = "2";
+            } elseif($diplomes == "Licence 2") {
+                $note = "5";
+            }elseif($diplomes == "Licence 3") {
+                $note = "10";
+            } elseif($diplomes == "Master 1" OR $diplomes == "Master 2") {
+                $note = "10";
+            }else{
+                $note = "0";
+            }
+            
+        }
+        
         $demandeurs = new Demandeur([
             'cin'               =>     $request->input('cin'),
             'numero_courrier'   =>     $request->input('numero_courrier'),
@@ -219,6 +243,7 @@ class DemandeursController extends Controller
             'users_id'          =>     $utilisateur->id,
             'typedemandes_id'   =>     $request->input('type_demande'),
             'objets_id'         =>     $objets_id,
+            'note'              =>     $note,
             'localites_id'      =>     $request->input('localite'),
             'programmes_id'     =>     $request->input('programme')
         ]);
@@ -366,7 +391,36 @@ class DemandeursController extends Controller
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
         $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
 
+        
+        $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
+        $modules = Module::where('id',$request->input('modules'))->first()->name;
 
+        if ($modules == "Laveur" OR $modules == "Graisseur" OR $modules == "Pompiste" OR $modules == "Rayonniste") {
+            if ($diplomes == "Licence 1" OR $diplomes == "Licence 2" OR $diplomes == "Licence 3" OR $diplomes == "Master 1" OR $diplomes == "Master 2") {
+                $note = "2";
+            } elseif($diplomes == "BAC") {
+                $note = "5";
+            }elseif($diplomes == "BFEM") {
+                $note = "10";
+            }else{
+                $note = "5";
+            }
+                       
+        } elseif($modules == "Chef de boutique" OR $modules == "Manager de station" OR $modules == "Caissier") {
+
+            if ($diplomes == "Licence 1") {
+                $note = "2";
+            } elseif($diplomes == "Licence 2") {
+                $note = "5";
+            }elseif($diplomes == "Licence 3") {
+                $note = "10";
+            } elseif($diplomes == "Master 1" OR $diplomes == "Master 2") {
+                $note = "10";
+            }else{
+                $note = "5";
+            }
+            
+        }
 
         $demandeur->cin               =     $request->input('cin');
         $demandeur->numero_courrier   =     $request->input('numero_courrier');
@@ -377,6 +431,7 @@ class DemandeursController extends Controller
         $demandeur->users_id          =     $utilisateurs->id;
         $demandeur->typedemandes_id   =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
+        $demandeur->note              =     $note;
         $demandeur->localites_id      =     $localites_id;
         $demandeur->programmes_id     =    $programmes_id;
 
