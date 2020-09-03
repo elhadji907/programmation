@@ -35,8 +35,8 @@
                     <th>Module</th>
                     <th>Date dépot</th>
                     <th>Localité</th>
-                    <th>Téléphone</th>
-                    <th>Statut</th>
+                    {{--  <th>Téléphone</th>
+                    <th>Statut</th>  --}}
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -50,8 +50,8 @@
                     <th>Module</th>
                     <th>Date dépot</th>
                     <th>Localité</th>
-                    <th>Téléphone</th>
-                    <th>Statut</th>
+                    {{--  <th>Téléphone</th>
+                    <th>Statut</th>  --}}
                     <th>Action</th>
                     </tr>
                   </tfoot>
@@ -70,8 +70,8 @@
                     </td>
                     <td>{!! $demandeur->date_depot->format('d/m/Y') !!}</td>          
                     <td>{!! $demandeur->localite->name !!}</td>          
-                    <td>{!! $demandeur->user->telephone !!}</td>          
-                    <td>{!! $demandeur->user->status !!}</td>          
+                   {{--   <td>{!! $demandeur->user->telephone !!}</td>          
+                    <td>{!! $demandeur->user->status !!}</td>   --}}         
                     <td class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
