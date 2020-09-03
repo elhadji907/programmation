@@ -27,6 +27,7 @@
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
+                    <th>N° Cour.</th>
                     <th>Cin</th>
                     <th>Civilité</th>
                     <th>Prenom</th>
@@ -41,6 +42,7 @@
                 </thead>
                 <tfoot class="table-dark">
                     <tr>
+                    <th>N° Cour.</th>
                     <th>Cin</th>
                     <th>Civilité</th>
                     <th>Prenom</th>
@@ -56,6 +58,7 @@
                 <tbody>
                   @foreach ($demandeurs as $demandeur)
                   <tr> 
+                    <td>{!! $demandeur->numero_courrier !!}</td>
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>
                     <td>{!! $demandeur->user->firstname !!}</td>

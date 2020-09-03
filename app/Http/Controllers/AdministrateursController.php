@@ -67,12 +67,13 @@ class AdministrateursController extends Controller
     {
         $this->validate(
             $request, [
-                'civilite'     =>  'required|string|max:10',
+                'civilite'      =>  'required|string|max:10',
                 'matricule'     =>  'required|string|max:50',
                 'prenom'        =>  'required|string|max:50',
                 'nom'           =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
+                'username'      =>  'required|string|max:255|unique:users,username',
                 'password'      =>  'required|confirmed|string|min:8|max:50',
             ],
             [
@@ -89,6 +90,7 @@ class AdministrateursController extends Controller
             'firstname'      =>      $request->input('prenom'),
             'name'           =>      $request->input('nom'),
             'email'          =>      $request->input('email'),
+            'username'       =>      $request->input('username'),
             'telephone'      =>      $request->input('telephone'),
             'password'       =>      Hash::make($request->input('password')),
             'roles_id'       =>      $roles_id
@@ -145,7 +147,7 @@ class AdministrateursController extends Controller
      * @param  \App\Administrateur  $administrateur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Administrateur $administrateur)
     {
         $this->validate(
             $request, 
@@ -155,10 +157,12 @@ class AdministrateursController extends Controller
                 'prenom'        => 'required|string|max:100',
                 'nom'           => 'required|string|max:50',
                 'telephone'     => 'required|string|max:50',
+                'email'         =>  'required|email|max:255|unique:users,email,'.$administrateur->user->id,
+                'username'      =>  'required|string|max:255|unique:users,username,'.$administrateur->user->id,
                 'role'          => 'required|string'
             ]);
 
-        $administrateur = Administrateur::find($id);
+        /* $administrateur = Administrateur::find($id); */
         $utilisateur=$administrateur->user;
 
        /*  $roles_id = Role::where('name','Administrateur')->first()->id; */
@@ -168,6 +172,8 @@ class AdministrateursController extends Controller
         $utilisateur->firstname      =      $request->input('prenom');
         $utilisateur->name           =      $request->input('nom');
         $utilisateur->telephone      =      $request->input('telephone');
+        $utilisateur->email          =      $request->input('email');
+        $utilisateur->username      =      $request->input('username');
        /*  $utilisateur->roles_id       =      $roles_id; */
         $role_id = $request->input('role');
         $roles_id = Role::where('name', $role_id)->first()->id;

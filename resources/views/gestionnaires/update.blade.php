@@ -54,6 +54,21 @@
                             </div> 
                         </div>
 
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label("Nom d'utilisateur") !!}                    
+                                {!! Form::text('username', $gestionnaire->user->username, ['placeholder'=>'Votre username', 'class'=>'form-control', 'id'=>'username']) !!}                    
+                            </div> 
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label('Email') !!}                    
+                                {!! Form::text('email', $gestionnaire->user->email, ['placeholder'=>'Numero de email', 'class'=>'form-control']) !!}                    
+                            </div> 
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Telephone') !!}                    

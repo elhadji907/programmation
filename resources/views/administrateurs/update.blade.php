@@ -50,10 +50,22 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('nom') !!}                    
-                                {!! Form::text('nom', $administrateur->user->name, ['placeholder'=>'Votre nom', 'class'=>'form-control', 'id'=>'email']) !!}                    
+                                {!! Form::text('nom', $administrateur->user->name, ['placeholder'=>'Votre nom', 'class'=>'form-control', 'id'=>'nom']) !!}                    
+                            </div> 
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label("Nom d'utilisateur") !!}                    
+                                {!! Form::text('username', $administrateur->user->username, ['placeholder'=>'Votre username', 'class'=>'form-control', 'id'=>'username']) !!}                    
                             </div> 
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label('Email') !!}                    
+                                {!! Form::text('email', $administrateur->user->email, ['placeholder'=>'Numero de email', 'class'=>'form-control']) !!}                    
+                            </div> 
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Telephone') !!}                    

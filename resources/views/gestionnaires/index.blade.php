@@ -31,6 +31,7 @@
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Email</th>
+                              <th>Username</th>
                               <th>Téléphone</th>
                               <th>Action</th>
                             </tr>
@@ -42,6 +43,7 @@
                                 <th>Prenom</th>
                                 <th>Nom</th>
                                 <th>Email</th>
+                                <th>Username</th>
                                 <th>Téléphone</th>
                                 <th>Action</th>
                               </tr>
@@ -95,6 +97,7 @@
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.email', name: 'user.email' },
+                    { data: 'user.username', name: 'user.username' },
                     { data: 'user.telephone', name: 'user.telephone' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -108,7 +111,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_gestionnaire ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 6
+                        "targets": 7
                         },
                 ],
                 language: {

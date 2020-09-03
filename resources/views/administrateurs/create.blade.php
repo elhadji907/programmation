@@ -69,6 +69,17 @@
                                 </small>
                             </div>
                             <div class="form-group col-md-12">
+                                <label for="input-username"><b>{!! ("Nom d'utilisateur:") !!}</b></label>
+                                <input type="text" name="username" class="form-control" id="input-username" placeholder="username" value="{{ old('username') }}">
+                                <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('username'))
+                                        @foreach ($errors->get('username') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1"><b>Adresse email:</b></label>
                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" value=" {{old('email')}}">
                                 <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email avec qui que ce soit.</small>

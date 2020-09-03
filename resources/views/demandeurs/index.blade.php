@@ -106,26 +106,30 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
+                              <th>N° Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Module</th>
-                              {{--  <th>Provenance</th>  --}}
+                              <th>Auteur</th>
                               <th>Téléphone</th>
+                              <th>Localité</th>
                               <th>Statut</th>
                               <th style="width:13%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
+                              <th>N° Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
                               <th>Module</th>
-                              {{--  <th>Provenance</th>  --}}
+                              <th>Auteur</th>
                               <th>Téléphone</th>
+                              <th>Localité</th>
                               <th>Statut</th>
                               <th>Action</th>
                               </tr>
@@ -174,13 +178,15 @@
             "serverSide": true,
             "ajax": "{{route('demandeurs.list')}}",
             columns: [
+                    { data: 'numero_courrier', name: 'numero_courrier' },
                     { data: 'cin', name: 'cin' },
                     { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
                     { data: 'user.demandeur.modules[].name', name: 'user.demandeur.modules[].name' },
-                    //{ data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
+                    { data: 'user.created_by', name: 'user.created_by' },
                     { data: 'user.telephone', name: 'user.telephone' },
+                    { data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
                     { data: 'user.demandeur.status', name: 'user.demandeur.status' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -196,7 +202,7 @@
                         '<a href='+url_s+'  class=" btn btn-secondary show btn-sm ml-1" title="voir"><i class="far fa-eye"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_demandeur btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 7
+                        "targets": 10
                         },
                 ],
 
