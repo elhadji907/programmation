@@ -193,7 +193,6 @@ class DemandeursController extends Controller
             'name'                      =>      $request->input('nom'),
             'email'                     =>      $request->input('email'),
             'username'                  =>      $username,
-            'status'                    =>      $status,
             'telephone'                 =>      $telephone,
             'situation_familiale'       =>      $request->input('familiale'),
             'situation_professionnelle' =>      $request->input('professionnelle'),
@@ -256,6 +255,7 @@ class DemandeursController extends Controller
             'users_id'          =>     $utilisateur->id,
             'typedemandes_id'   =>     $request->input('type_demande'),
             'objets_id'         =>     $objets_id,
+            'status'            =>     $status,
             'note'              =>     $note,
             'localites_id'      =>     $request->input('localite'),
             'programmes_id'     =>     $request->input('programme')
