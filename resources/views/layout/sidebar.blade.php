@@ -169,6 +169,14 @@
   </a>
   @endroles
 </li>
+<li class="nav-item">
+    @roles('Administrateur')
+  <a class="nav-link" href="{{ route('nivauxs.index') }}">
+      <span data-feather="layers"></span>
+    <span>Ajouter un niveau</span>
+  </a>
+  @endroles
+</li>
 {{--  <li class="nav-item">
     @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('presentations.index') }}">

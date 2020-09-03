@@ -41,6 +41,7 @@ Route::group([
         Route::get('/diplomes/list', 'DiplomesController@list')->name('diplomes.list');
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
+        Route::get('/nivauxs/list', 'NivauxsController@list')->name('nivauxs.list');
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
@@ -78,6 +79,7 @@ Route::group([
         Route::resource('/diplomes', 'DiplomesController');
         Route::resource('/modules', 'ModulesController');
         Route::resource('/secteurs', 'SecteursController');
+        Route::resource('/nivauxs', 'NivauxsController');
         Route::resource('/options', 'OptionsController');
         Route::resource('/villages', 'VillagesController');
         Route::resource('/operateurs', 'OperateursController');
@@ -87,7 +89,7 @@ Route::group([
 );
 
 //gestion des roles par niveau d'autorisation
-/* Route::get('loginfor/{rolename?}',function($rolename=null){
+Route::get('loginfor/{rolename?}',function($rolename=null){
 if(!isset($rolename)){
     return view('auth.loginfor');
 }else{
@@ -99,4 +101,4 @@ if(!isset($rolename)){
     }
 }
 return redirect()->route('login');
-})->name('loginfor'); */
+})->name('loginfor');

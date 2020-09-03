@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NivauxsTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
         $this->call(SituationsTableSeeder::class);
-        $this->call(DiplomesTableSeeder::class);
+        /* $this->call(DiplomesTableSeeder::class); */
         $this->call(TypesdemandesTableSeeder::class);
         $this->call(ObjetsTableSeeder::class);
        /*  $this->call(InternesTableSeeder::class);

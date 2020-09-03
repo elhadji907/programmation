@@ -422,7 +422,7 @@ class DemandeursController extends Controller
             }elseif($diplomes == "BFEM") {
                 $note = "10";
             }else{
-                $note = "5";
+                $note = "0";
             }
                        
         } elseif($modules == "Chef de boutique" OR $modules == "Manager de station" OR $modules == "Caissier") {
@@ -436,7 +436,7 @@ class DemandeursController extends Controller
             } elseif($diplomes == "Master 1" OR $diplomes == "Master 2") {
                 $note = "10";
             }else{
-                $note = "5";
+                $note = "0";
             }
             
         }
