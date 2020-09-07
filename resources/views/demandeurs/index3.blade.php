@@ -16,7 +16,7 @@
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href="{!!  route('demandeurs.index')  !!}">
+                <a class="nav-link" href="{!!  route('demandeurs.create')  !!}">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">

@@ -46,7 +46,7 @@ Route::group([
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
-
+        Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
@@ -61,7 +61,6 @@ Route::group([
 
         Route::post('comments/{courrier}', 'CommentsController@store')->name('comments.store');
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
-
 
         Route::resource('/administrateurs', 'AdministrateursController');
         Route::resource('/personnels', 'PersonnelsController');
@@ -84,12 +83,13 @@ Route::group([
         Route::resource('/villages', 'VillagesController');
         Route::resource('/operateurs', 'OperateursController');
         Route::resource('/programmes', 'ProgrammesController');
+        Route::resource('/localites', 'LocalitesController');
 
     }         
 );
 
 //gestion des roles par niveau d'autorisation
-Route::get('loginfor/{rolename?}',function($rolename=null){
+/* Route::get('loginfor/{rolename?}',function($rolename=null){
 if(!isset($rolename)){
     return view('auth.loginfor');
 }else{
@@ -101,4 +101,4 @@ if(!isset($rolename)){
     }
 }
 return redirect()->route('login');
-})->name('loginfor');
+})->name('loginfor'); */

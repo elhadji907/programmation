@@ -268,7 +268,7 @@ class DemandeursController extends Controller
         $demandeurs->diplomes()->sync($request->diplomes);
         $demandeurs->departements()->sync($request->departements);
 
-        return redirect()->route('demandeurs.index')->with('success','demandeur ajoutée avec succès !');
+        return redirect()->route('demandeurs.create')->with('success','demandeur ajoutée avec succès !');
     }
 
     /**
@@ -499,7 +499,7 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->orderBy('created_at', 'desc')->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->get();
         return Datatables::of($demandeurs)->make(true);
 
     }
