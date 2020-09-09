@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RecuesTableSeeder::class); */
         $this->call(LocalitesTableSeeder::class);
         $this->call(ProgrammesTableSeeder::class);
-        /* $this->call(DemandeursTableSeeder::class); */
-        /* $this->call(VillagesTableSeeder::class); */
+        $this->call(DemandeursTableSeeder::class);
+        $this->call(VillagesTableSeeder::class);
         /* $this->call(BeneficiairesTableSeeder::class); */
         $this->call(SecteursTableSeeder::class);
         $this->call(DomainesTableSeeder::class);

@@ -39,6 +39,9 @@ class DemandeursController extends Controller
     public function index()
     {
 
+      /*   $date = Carbon::today()->toDateString();
+        dd($date); */
+
         $user_role  =   Auth::user()->role->name;
         
 
@@ -499,7 +502,7 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','=', Carbon::today()->toDateString())->get();
         return Datatables::of($demandeurs)->make(true);
 
     }

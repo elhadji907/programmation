@@ -48,7 +48,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use (&$
         'projet' => $faker->word,
         'information' => $faker->word,
         'date_depot' => $faker->dateTime(),
-        'status' => "En attente",
+        'status' => "Attente",
         'note' => $faker->randomFloat(),
 
         'users_id' => function () use($role_id) {

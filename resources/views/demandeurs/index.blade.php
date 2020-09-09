@@ -177,6 +177,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": "{{route('demandeurs.list')}}",
+            "dataType": "jsonp",
             columns: [
                     { data: 'numero_courrier', name: 'numero_courrier' },
                     { data: 'cin', name: 'cin' },

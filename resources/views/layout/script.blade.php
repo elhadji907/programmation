@@ -43,7 +43,7 @@
 <script type="text/javascript">
   
   $("#type_demande").select2({
-        placeholder: "sélectionner un sexe",
+        placeholder: "sélectionner type de demande",
         allowClear: true
     });
 </script>

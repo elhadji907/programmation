@@ -100,9 +100,9 @@ class VillagesController extends Controller
         //
     }
 
-    public function list(Request $request)
+    /* public function list(Request $request)
     {
         $villages=Village::with('chef.user','commune.arrondissement.departement.region')->get();
         return Datatables::of($villages)->make(true);
-    }
+    } */
 }
