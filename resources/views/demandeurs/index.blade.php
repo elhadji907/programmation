@@ -115,6 +115,7 @@
                               <th>Auteur</th>
                               <th>Téléphone</th>
                               <th>Localité</th>
+                              <th>Note</th>
                               <th>Statut</th>
                               <th style="width:13%;">Action</th>
                             </tr>
@@ -130,6 +131,7 @@
                               <th>Auteur</th>
                               <th>Téléphone</th>
                               <th>Localité</th>
+                              <th>Note</th>
                               <th>Statut</th>
                               <th>Action</th>
                               </tr>
@@ -188,6 +190,7 @@
                     { data: 'user.created_by', name: 'user.created_by' },
                     { data: 'user.telephone', name: 'user.telephone' },
                     { data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
+                    { data: 'user.demandeur.note', name: 'user.demandeur.note' },
                     { data: 'user.demandeur.status', name: 'user.demandeur.status' },
                     { data: null ,orderable: false, searchable: false}
 
@@ -203,7 +206,7 @@
                         '<a href='+url_s+'  class=" btn btn-secondary show btn-sm ml-1" title="voir"><i class="far fa-eye"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_demandeur btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 10
+                        "targets": 11
                         },
                 ],
 
