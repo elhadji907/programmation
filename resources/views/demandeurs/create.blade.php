@@ -25,7 +25,6 @@
                                     {!! Form::text('prenom', null, ['placeholder' => 'Votre prénom', 'class' =>
                                     'form-control']) !!}
                                 </div>
-
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Nom :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('nom', null, ['placeholder' => 'Votre nom', 'class' => 'form-control'])
@@ -37,27 +36,23 @@
                                     'form-control']) !!}
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row">                                
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('Civilité :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('civilite', $civilites, null, ['placeholder' => '--sélectionnez--',
-                                    'class' => 'form-control', 'id' => 'civilite']) !!}
-                                </div>
-                                
+                                    {!! Form::label('Lieu naissance :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::text('lieu', null, ['placeholder' => 'Votre lieu de naissance', 'class' =>
+                                    'form-control']) !!}
+                                </div>                                
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Cin :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('cin', null, ['placeholder' => 'Votre numéro national d\'identité',
                                     'class' => 'form-control']) !!}
                                 </div>
-
-
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('Lieu naissance :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::text('lieu', null, ['placeholder' => 'Votre lieu de naissance', 'class' =>
-                                    'form-control']) !!}
+                                    {!! Form::label('Civilité :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('civilite', $civilites, null, ['placeholder' => '--sélectionnez--',
+                                    'class' => 'form-control', 'id' => 'civilite']) !!}
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     {!! Form::label('e-mail :') !!}<span class="text-danger"> <b>*</b> </span>
@@ -111,8 +106,7 @@
                                     {!! Form::label('Date dépot :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
                                     'form-control']) !!}
-                                </div>
-                                
+                                </div>                                
                         </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">

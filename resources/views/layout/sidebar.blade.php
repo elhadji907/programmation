@@ -99,6 +99,14 @@
 </li>
 <li class="nav-item">
     @roles('Administrateur')
+  <a class="nav-link" href="{{ route('demandeurs.index') }}">
+      <span data-feather="layers"></span>
+    <span>Lister demandes</span>
+  </a>
+  @endroles
+</li>
+<li class="nav-item">
+    @roles('Administrateur')
   <a class="nav-link" href="#">
       <span data-feather="layers"></span>
     <span>Gestion formations</span>
