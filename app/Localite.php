@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 19 Aug 2020 13:50:04 +0000.
+ * Date: Thu, 10 Sep 2020 15:29:59 +0000.
  */
 
 namespace App;
@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $programmes
  *
  * @package App
@@ -28,10 +29,16 @@ class Localite extends Eloquent
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
+
 	protected $fillable = [
 		'uuid',
 		'name'
 	];
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'localites_id');
+	}
 
 	public function programmes()
 	{

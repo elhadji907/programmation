@@ -185,6 +185,14 @@
   </a>
   @endroles
 </li>
+<li class="nav-item">
+    @roles('Administrateur')
+  <a class="nav-link" href="{{ route('localites.index') }}">
+      <span data-feather="layers"></span>
+    <span>Ajouter une localité</span>
+  </a>
+  @endroles
+</li>
 {{--  <li class="nav-item">
     @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('presentations.index') }}">

@@ -28,6 +28,7 @@
                             <tr>
                               <th>ID</th>
                                <th>{!! __("Localite") !!}</th>
+                               <th>{!! __("Nombre de demande") !!}</th>
                               <th style="width:20%;">Action</th>
                             </tr>
                           </thead>
@@ -35,6 +36,7 @@
                               <tr>
                                 <th>ID</th>
                                  <th>{!! __("Localite") !!}</th>
+                                 <th>{!! __("Nombre de demande") !!}</th>
                                 <th style="width:20%;">Action</th>
                               </tr>
                             </tfoot>
@@ -83,6 +85,7 @@
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
+                    { data: 'demandeurs[].cin', name: 'demandeurs[].cin' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -95,7 +98,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_localite btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 2
+                        "targets": 3
                         },
                 ],
 

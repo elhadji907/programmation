@@ -109,7 +109,7 @@ class LocalitesController extends Controller
 
     public function list(Request $request)
     {
-        $localites=Localite::with('programmes.demandeurs')->get();
+        $localites=Localite::with('demandeurs')->get();
         return Datatables::of($localites)->make(true);
     }
 }
