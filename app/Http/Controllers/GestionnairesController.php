@@ -184,7 +184,7 @@ class GestionnairesController extends Controller
 
     public function list(Request $request)
     {
-        $gestionnaires=Gestionnaire::with('user')->get();
+        $gestionnaires=Gestionnaire::with('user','user.role')->get();
         return Datatables::of($gestionnaires)->make(true);
     }
 }
