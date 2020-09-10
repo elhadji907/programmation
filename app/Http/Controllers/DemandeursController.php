@@ -44,8 +44,9 @@ class DemandeursController extends Controller
 
         $user_role  =   Auth::user()->role->name;
         
-
         $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id'); 
+
+       /*  dd($demandeurs); */
       
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')

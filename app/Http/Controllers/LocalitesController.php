@@ -15,7 +15,9 @@ class LocalitesController extends Controller
      */
     public function index()
     {
-        return view('localites.index');
+        $localites = Localite::with('demandeurs.localite')->get();
+        /* dd($localites); */
+        return view('localites.index', compact('localites'));
     }
 
     /**
