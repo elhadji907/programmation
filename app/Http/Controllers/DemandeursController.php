@@ -502,8 +502,14 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','=', Carbon::today()->toDateString())->get();
+        $jour = Carbon::yesterday(-1)->toDateString();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','=', $jour)->get();
         return Datatables::of($demandeurs)->make(true);
+
+    }
+
+
+    public function voir($id){
 
     }
 }
