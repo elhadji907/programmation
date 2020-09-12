@@ -47,6 +47,8 @@ class DemandeursController extends Controller
         $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id'); 
 
        /*  dd($demandeurs); */
+
+       $localites = Localite::with('demandeurs.localite')->get();
       
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')
@@ -76,7 +78,7 @@ class DemandeursController extends Controller
 
         if ($user_role == "Administrateur") {
             return view('demandeurs.index', 
-            compact('ziguinchor', 
+            compact('ziguinchor', 'localites',
             'dakar', 
             'saintlouis', 
             'kaolack', 
@@ -91,7 +93,7 @@ class DemandeursController extends Controller
             'pompiste'));
         } else {
             return view('demandeurs.index2', 
-            compact('ziguinchor', 
+            compact('ziguinchor', 'localites',
             'dakar', 
             'saintlouis', 
             'kaolack', 
@@ -503,21 +505,19 @@ class DemandeursController extends Controller
 
     public function list(Request $request)
     {
-        /* $jour = Carbon::yesterday()->toDateString(); */
+        $jour = Carbon::today()->toDateString();
+
         $jour1 = "2020-09-03";
         $jour2 = "2020-09-04";
         $jour3 = "2020-09-07";
         $jour4 = "2020-09-08";
         $jour5 = "2020-09-09";
         $jour6 = "2020-09-10";
+        
+        $jour6 = "2020-09-10";
 
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour5)->whereDate('created_at','<=', $jour5)->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour)->whereDate('created_at','<=', $jour)->get();
         return Datatables::of($demandeurs)->make(true);
-
-    }
-
-
-    public function voir($id){
 
     }
 }

@@ -20,7 +20,11 @@
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href="{!!  route('demandeurs.index')  !!}">
+                @foreach ($localites as $localite)
+                @if ($localite->name == "Dakar")                
+                <a class="nav-link" href="{!! url('localites/' .$localite->id) !!}">
+                @endif
+                @endforeach
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -40,7 +44,11 @@
             </div>
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
+                @foreach ($localites as $localite)
+                @if ($localite->name == "Ziguinchor")                
+                <a class="nav-link" href="{!! url('localites/' .$localite->id) !!}">
+                @endif
+                @endforeach
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -57,7 +65,11 @@
             </div>
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
+                @foreach ($localites as $localite)
+                @if ($localite->name == "Saint-Louis")                
+                <a class="nav-link" href="{!! url('localites/' .$localite->id) !!}">
+                @endif
+                @endforeach
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -74,7 +86,11 @@
             </div>
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
+                @foreach ($localites as $localite)
+                @if ($localite->name == "Kaolack")                
+                <a class="nav-link" href="{!! url('localites/' .$localite->id) !!}">
+                @endif
+                @endforeach
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">

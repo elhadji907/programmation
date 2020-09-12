@@ -62,7 +62,7 @@ class LocalitesController extends Controller
     public function show(Localite $localite)
     {
        /*  $localites = $localite; */
-       $localites = Localite::with('demandeurs.localite')->get();
+        $localites = Localite::with('demandeurs.localite')->get();
         $id        = $localite->id;
         $lieu = $localite->name;
         
