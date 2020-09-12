@@ -22,30 +22,36 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <div align="right">
-                        <a href="{!! url('localites/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
+                        <a href="{!! url('demandeurs/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
                       </div>
                         <br />
                       <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="table-dark">
-                          <tr>
+                          <tr align="center">
+                            <th>N° Cour.</th>
                             <th>Cin</th>
                             <th>Civilité</th>
                             <th>Prenom</th>
                             <th>Nom</th>
-                            <th>Module</th>
+                            <th>Date naissance</th>
+                            <th>Lieu naissance</th>
                             <th>Téléphone</th>
+                            <th>Module</th>
                             <th>Statut</th>
                             <th style="width:13%;">Action</th>
                           </tr>
                         </thead>
                         <tfoot class="table-dark">
-                            <tr>
+                            <tr align="center">
+                              <th>N° Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Module</th>
+                              <th>Date naissance</th>
+                              <th>Lieu naissance</th>
                               <th>Téléphone</th>
+                              <th>Module</th>
                               <th>Statut</th>
                               <th>Action</th>
                             </tr>
@@ -56,16 +62,20 @@
                           @if ($localite->name == $lieu)
                           @foreach ($localite->demandeurs as $demandeur)
                           <tr> 
-                            <td>{!! $i++ !!}</td>
+                            {{--  <td>{!! $i++ !!}</td>  --}}
+                            <td>{!! $demandeur->numero_courrier !!}</td>
+                            <td>{!! $demandeur->cin !!}</td>
                             <td>{!! $demandeur->user->civilite !!}</td>
                             <td>{!! $demandeur->user->firstname !!}</td>
                             <td>{!! $demandeur->user->name !!}</td>
+                            <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
+                            <td>{!! $demandeur->user->lieu_naissance !!}</td>
+                            <td>{!! $demandeur->user->telephone !!}</td>
                             <td>
                               @foreach ($demandeur->modules as $module)
                                   {!! $module->name !!}
                               @endforeach
                             </td>
-                            <td>{!! $demandeur->user->telephone !!}</td>
                             <td>{!! $demandeur->status !!}</td>             
                             <td class="d-flex align-items-baseline align-content-center">
                                 <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
