@@ -4,15 +4,7 @@
         <div class="container-fluid">
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif 
-            
-          {{--  @foreach ($demandeurs as $demandeur)
-              @foreach ($demandeur->modules as $module)
-              <p>{!! $module->name !!}</p>
-              @endforeach
-            @endforeach  --}}
-            
-            
+            @endif        
           <div class="row">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">

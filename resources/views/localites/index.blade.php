@@ -59,6 +59,10 @@
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
                         &nbsp;
+                        <a href="{!! url('localites/' .$localite->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                          <i class="far fa-eye">&nbsp;</i>
+                        </a>
+                        &nbsp;
                         {!! Form::open(['method'=>'DELETE', 'url'=>'localites/' .$localite->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                         {!! Form::close() !!}

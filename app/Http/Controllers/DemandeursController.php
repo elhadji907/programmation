@@ -75,7 +75,7 @@ class DemandeursController extends Controller
         $caissier = "0";
 
         if ($user_role == "Administrateur") {
-            return view('demandeurs.index', 
+            return view('demandeurs.index2', 
             compact('ziguinchor', 
             'dakar', 
             'saintlouis', 
@@ -471,7 +471,7 @@ class DemandeursController extends Controller
         $demandeur->departements()->sync($request->input('departements'));
 
 
-        return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');
+        return back()->with('success','demandeur modifié avec succès !');
     }
 
     /**
@@ -498,7 +498,7 @@ class DemandeursController extends Controller
         $demandeur->delete();
         
         $message = $demandeur->user->firstname.' '.$demandeur->user->name.' a été supprimé(e)';
-        return redirect()->route('demandeurs.index')->with(compact('message'));
+        return back()->with(compact('message'));
     }
 
     public function list(Request $request)

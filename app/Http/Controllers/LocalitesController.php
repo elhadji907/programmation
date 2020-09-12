@@ -61,7 +61,29 @@ class LocalitesController extends Controller
      */
     public function show(Localite $localite)
     {
-        //
+       /*  $localites = $localite; */
+       $localites = Localite::with('demandeurs.localite')->get();
+        $id        = $localite->id;
+        $lieu = $localite->name;
+        
+       /*  dd($lieu); */
+
+       return view('demandeurs.lieu', compact('localites','id','lieu'));
+
+  /*       if ($localite->name == "Dakar") {
+            return view('demandeurs.lieu', compact('localites','id','lieu'));
+        } elseif($localite->name == "Ziguinchor") {
+            return view('demandeurs.ziguinchor', compact('localites','id'));
+        }
+        elseif($localite->name == "Kaolack") {
+            return view('demandeurs.kaolack', compact('localites','id'));
+        }
+        elseif($localite->name == "Saint-Louis") {
+            return view('demandeurs.saintlouis', compact('localites','id'));
+        }else{
+            return view('localites.index', compact('localites','id'));
+        } */
+        
     }
 
     /**
@@ -93,7 +115,7 @@ class LocalitesController extends Controller
         $localite = Localite::find($id);
         $localite->name  =   $request->input('name');
         $localite->save();
-        return redirect()->route('localites.index')->with('success','enregistrement modifié avec succès !');
+        return back()->with('success','enregistrement modifié avec succès !');
     }
 
     /**
@@ -106,7 +128,7 @@ class LocalitesController extends Controller
     {
         $localite->delete();
         $message = $localite->name.' a été supprimé(e)';
-        return redirect()->route('localites.index')->with(compact('message'));
+        return back()->with(compact('message'));
     }
 
     public function list(Request $request)

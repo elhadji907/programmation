@@ -42,7 +42,7 @@
   @roles('Administrateur')
   <hr class="sidebar-divider my-0">
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
-    <a class="nav-link d-flex align-items-center text-white" href="">
+    <a class="nav-link d-flex align-items-center text-white" href="{{ route('localites.index') }}">
     {{--  <span data-feather="settings"></span>  --}}
     
     <span data-feather="user"></span>
@@ -173,7 +173,7 @@
     @roles('Administrateur')
   <a class="nav-link" href="{{ route('programmes.index') }}">
       <span data-feather="layers"></span>
-    <span>Ajouter programme</span>
+    <span>Programmes</span>
   </a>
   @endroles
 </li>
@@ -181,7 +181,7 @@
     @roles('Administrateur')
   <a class="nav-link" href="{{ route('nivauxs.index') }}">
       <span data-feather="layers"></span>
-    <span>Ajouter un niveau</span>
+    <span>Niveaux</span>
   </a>
   @endroles
 </li>
@@ -189,7 +189,7 @@
     @roles('Administrateur')
   <a class="nav-link" href="{{ route('localites.index') }}">
       <span data-feather="layers"></span>
-    <span>Ajouter une localité</span>
+    <span>Localités</span>
   </a>
   @endroles
 </li>

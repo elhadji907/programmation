@@ -11,6 +11,10 @@
               <p>{!! $module->name !!}</p>
               @endforeach
             @endforeach  --}}
+
+           {{--   @foreach ($demandeurs as $demandeur)
+            <p>{!! $demandeur->localite->name !!}</p>
+            @endforeach  --}}
             
             
           <div class="row">
