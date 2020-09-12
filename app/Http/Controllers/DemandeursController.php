@@ -511,7 +511,7 @@ class DemandeursController extends Controller
         $jour5 = "2020-09-09";
         $jour6 = "2020-09-10";
 
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour6)->whereDate('created_at','<=', $jour6)->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour1)->whereDate('created_at','<=', $jour1)->get();
         return Datatables::of($demandeurs)->make(true);
 
     }
