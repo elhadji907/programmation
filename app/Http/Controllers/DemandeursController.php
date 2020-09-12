@@ -75,7 +75,7 @@ class DemandeursController extends Controller
         $caissier = "0";
 
         if ($user_role == "Administrateur") {
-            return view('demandeurs.index2', 
+            return view('demandeurs.index', 
             compact('ziguinchor', 
             'dakar', 
             'saintlouis', 
