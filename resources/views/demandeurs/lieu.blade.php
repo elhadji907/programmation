@@ -25,7 +25,7 @@
                         <a href="{!! url('demandeurs/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
                       </div>
                         <br />
-                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                      <table class="table table-bordered table-striped" id="table-demandeur" width="100%" cellspacing="0">
                         <thead class="table-dark">
                           <tr align="center">
                             <th>N° Cour.</th>
@@ -37,6 +37,7 @@
                             <th>Lieu naissance</th>
                             <th>Téléphone</th>
                             <th>Module</th>
+                            <th>Note</th>
                             <th>Statut</th>
                             <th style="width:13%;">Action</th>
                           </tr>
@@ -52,6 +53,7 @@
                               <th>Lieu naissance</th>
                               <th>Téléphone</th>
                               <th>Module</th>
+                              <th>Note</th>
                               <th>Statut</th>
                               <th>Action</th>
                             </tr>
@@ -70,12 +72,13 @@
                             <td>{!! $demandeur->user->name !!}</td>
                             <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
                             <td>{!! $demandeur->user->lieu_naissance !!}</td>
-                            <td>{!! $demandeur->user->telephone !!}</td>
+                            <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>
                             <td>
                               @foreach ($demandeur->modules as $module)
                                   {!! $module->name !!}
                               @endforeach
                             </td>
+                            <td>{!! $demandeur->note !!}</td>
                             <td>{!! $demandeur->status !!}</td>             
                             <td class="d-flex align-items-baseline align-content-center">
                                 <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
@@ -103,3 +106,48 @@
             </div>
           </div>
         @endsection
+        @push('scripts')
+        <script type="text/javascript">
+          $(document).ready( function () {
+            $('#table-demandeur').DataTable({
+              dom: 'lBfrtip',
+              buttons: [
+                  'copy', 'csv', 'excel', 'pdf', 'print',
+              ],
+              "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+              "order": [
+                    [ 0, 'asc' ]
+                    ],
+                    language: {
+                      "sProcessing":     "Traitement en cours...",
+                      "sSearch":         "Rechercher&nbsp;:",
+                      "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                      "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                      "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                      "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                      "sInfoPostFix":    "",
+                      "sLoadingRecords": "Chargement en cours...",
+                      "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                      "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                      "oPaginate": {
+                          "sFirst":      "Premier",
+                          "sPrevious":   "Pr&eacute;c&eacute;dent",
+                          "sNext":       "Suivant",
+                          "sLast":       "Dernier"
+                      },
+                      "oAria": {
+                          "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                          "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                      },
+                      "select": {
+                              "rows": {
+                                  _: "%d lignes séléctionnées",
+                                  0: "Aucune ligne séléctionnée",
+                                  1: "1 ligne séléctionnée"
+                              }
+                      }
+                    }
+            });
+        } );
+        </script> 
+        @endpush

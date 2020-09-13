@@ -126,16 +126,6 @@
                       @endif
                       @endforeach
                     </td>
-                   {{--   <td>
-                      @foreach ($module->demandeurs as $demandeur)
-                      {!! $demandeur->localite->name !!}
-                      @if ($demandeur->localite->name == "Dakar")
-                      @if($loop->last)
-                      {!! $loop->count !!} 
-                      @endif
-                      @endif
-                      @endforeach
-                    </td>  --}}
                     <td class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('modules/' .$module->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>

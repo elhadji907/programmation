@@ -5,19 +5,7 @@
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
-            
-          {{--  @foreach ($demandeurs as $demandeur)
-              @foreach ($demandeur->modules as $module)
-              <p>{!! $module->name !!}</p>
-              @endforeach
-            @endforeach  --}}
-
-           {{--   @foreach ($demandeurs as $demandeur)
-            <p>{!! $demandeur->localite->name !!}</p>
-            @endforeach  --}}
-            
-            
-          <div class="row">
+          <div class="row justify-content-center">
             <div class="col-xl-3 col-md-3 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
                 @foreach ($localites as $localite)
@@ -32,11 +20,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
                        {!! $dakar !!} / {!! $total !!}
                         </div>
-                    </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
-                  
+                    </div>                  
                   </div>
                 </div>
               </a>
@@ -55,9 +39,6 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Ziguinchor') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $ziguinchor !!} / {!! $total !!}</div>
                     </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
                   </div>
                 </div>
               </a>
@@ -76,9 +57,6 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Saint-Louis') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $saintlouis !!} / {!! $total !!}</div>
                     </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
                   </div>
                 </div>
               </a>
@@ -97,9 +75,6 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Kaolack') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $kaolack !!} / {!! $total !!}</div>
                     </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
                   </div>
                 </div>
               </a>
@@ -131,9 +106,10 @@
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Module</th>
-                              <th>Auteur</th>
+                              <th>Date nais.</th>
+                              <th>Lieu nais.</th>
                               <th>Téléphone</th>
+                              <th>Module</th>
                               <th>Localité</th>
                               <th>Note</th>
                               <th>Statut</th>
@@ -147,9 +123,10 @@
                               <th>Civilité</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Module</th>
-                              <th>Auteur</th>
+                              <th>Date nais.</th>
+                              <th>Lieu nais.</th>
                               <th>Téléphone</th>
+                              <th>Module</th>
                               <th>Localité</th>
                               <th>Note</th>
                               <th>Statut</th>
@@ -157,7 +134,40 @@
                               </tr>
                             </tfoot>
                           <tbody>
-                           
+                            <?php $i = 1 ?>
+                  @foreach ($demandeurs as $demandeur)
+                  <tr> 
+                    <td>{!! $demandeur->numero_courrier !!}</td>
+                    <td>{!! $demandeur->cin !!}</td>
+                    <td>{!! $demandeur->user->civilite !!}</td>
+                    <td>{!! $demandeur->user->firstname !!}</td>
+                    <td>{!! $demandeur->user->name !!}</td>
+                    <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
+                    <td>{!! $demandeur->user->lieu_naissance !!}</td>
+                    <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>
+                    <td>
+                      @foreach ($demandeur->modules as $module)
+                      {!! $module->name !!}
+                      @endforeach
+                    </td>
+                    <td>{!! $demandeur->localite->name !!}</td>
+                    <td>{!! $demandeur->note !!}</td>
+                    <td>{!! $demandeur->status !!}</td>
+                    <td class="d-flex align-items-baseline align-content-center">
+                        <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                          <i class="far fa-edit">&nbsp;</i>
+                        </a>
+                        &nbsp;
+                        <a href="{!! url('demandeurs/' .$demandeur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                          <i class="far fa-eye">&nbsp;</i>
+                        </a>
+                        &nbsp;
+                        {!! Form::open(['method'=>'DELETE', 'url'=>'demandeurs/' .$demandeur->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
+                        {!! Form::close() !!}
+                    </td>
+                  </tr>
+                  @endforeach
                           </tbody>
                       </table>                        
                 </div>
@@ -166,116 +176,50 @@
           </div>
         </div>
       </div>
-
-      <div class="modal fade" id="modal_delete_demandeur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-demandeur">
-          @csrf
-          @method('DELETE')
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                cliquez sur close pour annuler
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
       @endsection
 
-      @push('scripts')
-      <script type="text/javascript">
-      $(document).ready(function () {
-          $('#table-demandeurs').DataTable( { 
-            "processing": true,
-            "serverSide": true,
-            "ajax": "{{route('demandeurs.list')}}",
-            "dataType": "jsonp",
-            columns: [
-                    { data: 'numero_courrier', name: 'numero_courrier' },
-                    { data: 'cin', name: 'cin' },
-                    { data: 'user.civilite', name: 'user.civilite' },
-                    { data: 'user.firstname', name: 'user.firstname' },
-                    { data: 'user.name', name: 'user.name' },
-                    { data: 'user.demandeur.modules[].name', name: 'user.demandeur.modules[].name' },
-                    { data: 'user.created_by', name: 'user.created_by' },
-                    { data: 'user.telephone', name: 'user.telephone' },
-                    { data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
-                    { data: 'user.demandeur.note', name: 'user.demandeur.note' },
-                    { data: 'user.demandeur.status', name: 'user.demandeur.status' },
-                    { data: null ,orderable: false, searchable: false}
-
-                ],
-                "columnDefs": [
-                        {
-                        "data": null,
-                        "render": function (data, type, row) {
-                        url_e =  "{!! route('demandeurs.edit',':id')!!}".replace(':id', data.id);
-                        url_s =  "{!! route('demandeurs.show',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('demandeurs.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<a href='+url_s+'  class=" btn btn-secondary show btn-sm ml-1" title="voir"><i class="far fa-eye"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_demandeur btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
-                        },
-                        "targets": 11
-                        },
-                ],
-
-                dom: 'lBfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print',
-                ],
-
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
-                language: {
-                  "sProcessing":     "Traitement en cours...",
-                  "sSearch":         "Rechercher&nbsp;:",
-                  "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-                  "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                  "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                  "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                  "sInfoPostFix":    "",
-                  "sLoadingRecords": "Chargement en cours...",
-                  "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                  "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-                  "oPaginate": {
-                      "sFirst":      "Premier",
-                      "sPrevious":   "Pr&eacute;c&eacute;dent",
-                      "sNext":       "Suivant",
-                      "sLast":       "Dernier"
-                  },
-                  "oAria": {
-                      "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-                      "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                  },
-                  "select": {
-                          "rows": {
-                              _: "%d lignes séléctionnées",
-                              0: "Aucune ligne séléctionnée",
-                              1: "1 ligne séléctionnée"
-                          } 
-                  }
+  @push('scripts')
+  <script type="text/javascript">
+    $(document).ready( function () {
+      $('#table-demandeurs').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print',
+        ],
+        "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+        "order": [
+              [ 0, 'asc' ]
+              ],
+              language: {
+                "sProcessing":     "Traitement en cours...",
+                "sSearch":         "Rechercher&nbsp;:",
+                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix":    "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst":      "Premier",
+                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                    "sNext":       "Suivant",
+                    "sLast":       "Dernier"
                 },
-                order:[[0,'desc'], [0, 'asc']]              
-          });
-
-          
-        $('#table-demandeurs').off('click', '.btn_delete_demandeur').on('click', '.btn_delete_demandeur',
-        function() { 
-          var href=$(this).data('href');
-          $('#form-delete-demandeur').attr('action', href);
-          $('#modal_delete_demandeur').modal();
-        });
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                        "rows": {
+                            _: "%d lignes séléctionnées",
+                            0: "Aucune ligne séléctionnée",
+                            1: "1 ligne séléctionnée"
+                        }
+                }
+              }
       });
-      
+  } );
   </script> 
   @endpush

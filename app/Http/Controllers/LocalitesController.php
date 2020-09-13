@@ -125,7 +125,7 @@ class LocalitesController extends Controller
         $localite = Localite::find($id);
         $localite->name  =   $request->input('name');
         $localite->save();
-        return back()->with('success','enregistrement modifié avec succès !');
+        return redirect()->route('localites.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**
