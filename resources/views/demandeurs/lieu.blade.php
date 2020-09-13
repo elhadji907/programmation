@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des demandeurs de dakar')
+@section('title', 'ONFP - '. $lieu)
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))

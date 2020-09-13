@@ -99,7 +99,7 @@
               <table class="table table-bordered table-striped" id="moduleTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>N°/th>
+                    <th>N°</th>
                      <th>{!! __("module") !!}</th>
                      <th>{!! __("Effectif") !!}</th>
                     <th style="width:20%;">Action</th>

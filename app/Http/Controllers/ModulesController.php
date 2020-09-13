@@ -74,7 +74,13 @@ class ModulesController extends Controller
      */
     public function show(Module $module)
     {
-        //
+        $modules = Module::with('demandeurs.modules')->get();
+        $id        = $module->id;
+        $nom_module = $module->name;
+        
+       /*  dd($modules); */
+
+       return view('modules.detail', compact('modules','id','nom_module'));
     }
 
     /**
