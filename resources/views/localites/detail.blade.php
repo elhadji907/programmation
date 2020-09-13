@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des localites
+                localités et effectifs
             </div> 
           <div class="card-body">
             <div class="table-responsive">
@@ -55,16 +55,16 @@
                       @endforeach
                     </td>             
                     <td class="d-flex align-items-baseline align-content-center">
-                        <a href="{!! url('localites/' .$localite->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                       {{--   <a href="{!! url('localites/' .$localite->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
-                        &nbsp;
+                        &nbsp;  --}}
                         <a href="{!! url('localites/' .$localite->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
-                        &nbsp;
+                        {{--  &nbsp;
                         {!! Form::open(['method'=>'DELETE', 'url'=>'localites/' .$localite->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
-                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
+                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}  --}}
                         {!! Form::close() !!}
                     </td>
                   </tr>
@@ -88,7 +88,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des modules
+                modules et effectifs
             </div> 
           <div class="card-body">
             <div class="table-responsive">
@@ -107,7 +107,7 @@
                 </thead>
                 <tfoot class="table-dark">
                     <tr>
-                      <th>N°/th>
+                      <th>N°</th>
                        <th>{!! __("module") !!}</th>
                        <th>{!! __("Effectif") !!}</th>
                       <th>Action</th>
@@ -127,16 +127,16 @@
                       @endforeach
                     </td>
                     <td class="d-flex align-items-baseline align-content-center">
-                        <a href="{!! url('modules/' .$module->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                        {{--  <a href="{!! url('modules/' .$module->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
-                        &nbsp;
+                        &nbsp;  --}}
                         <a href="{!! url('modules/' .$module->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
-                        &nbsp;
+                        {{--  &nbsp;
                         {!! Form::open(['method'=>'DELETE', 'url'=>'modules/' .$module->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
-                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
+                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}  --}}
                         {!! Form::close() !!}
                     </td>
                   </tr>
