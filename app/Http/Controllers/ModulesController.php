@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Module;
+use App\Localite;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Domaine;
@@ -75,12 +76,15 @@ class ModulesController extends Controller
     public function show(Module $module)
     {
         $modules = Module::with('demandeurs.modules')->get();
+        $localites = Localite::with('demandeurs.localite')->get();
         $id        = $module->id;
         $nom_module = $module->name;
+
+       /*  dd($localites); */
         
        /*  dd($modules); */
 
-       return view('modules.detail', compact('modules','id','nom_module'));
+       return view('modules.detail', compact('modules','id','nom_module','localites'));
     }
 
     /**

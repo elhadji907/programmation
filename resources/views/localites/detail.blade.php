@@ -2,8 +2,8 @@
 @section('title', 'ONFP - Programme PDCEJ')
 @section('content')
   <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-md-6">              
+    <div class="row">
+      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">              
           @if (session('success'))
           <div class="alert alert-success">
               {{ session('success') }}
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">              
+      <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">              
           @if (session('success'))
           <div class="alert alert-success">
               {{ session('success') }}
@@ -147,7 +147,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 @endsection
