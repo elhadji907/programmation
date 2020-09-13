@@ -2,8 +2,8 @@
 @section('title', 'ONFP - Liste des localités')
 @section('content')
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-5">              
+    <div class="row justify-content-center">
+      <div class="col-md-8">              
           @if (session('success'))
           <div class="alert alert-success">
               {{ session('success') }}
@@ -27,17 +27,17 @@
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>ID</th>
+                    <th>N°</th>
                      <th>{!! __("Localite") !!}</th>
-                     <th>{!! __("Nombre de demande") !!}</th>
+                     <th>{!! __("Effectif") !!}</th>
                     <th style="width:20%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                     <tr>
-                      <th>ID</th>
+                      <th>N°</th>
                        <th>{!! __("Localite") !!}</th>
-                       <th>{!! __("Nombre de demande") !!}</th>
+                       <th>{!! __("Effectif") !!}</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>

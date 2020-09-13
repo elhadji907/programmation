@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Localite;
+use App\Module;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -16,8 +17,9 @@ class LocalitesController extends Controller
     public function index()
     {
         $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
         /* dd($localites); */
-        return view('localites.index', compact('localites'));
+        return view('localites.index', compact('localites','modules'));
     }
 
     /**
