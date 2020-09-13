@@ -27,7 +27,7 @@
               <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>ID</th>
+                    <th>N°</th>
                      <th>{!! __("module") !!}</th>
                      <th>{!! __("Effectif") !!}</th>
                     <th style="width:20%;">Action</th>
@@ -35,7 +35,7 @@
                 </thead>
                 <tfoot class="table-dark">
                     <tr>
-                      <th>ID</th>
+                      <th>N°</th>
                        <th>{!! __("module") !!}</th>
                        <th>{!! __("Effectif") !!}</th>
                       <th>Action</th>
@@ -88,18 +88,6 @@
     </div>
   </div>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 {{--  @extends('layout.default')

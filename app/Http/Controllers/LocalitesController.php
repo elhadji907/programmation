@@ -22,6 +22,14 @@ class LocalitesController extends Controller
         return view('localites.index', compact('localites','modules'));
     }
 
+    public function pdcej()
+    {
+        $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        /* dd($localites); */
+        return view('localites.detail', compact('localites','modules'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -48,6 +48,9 @@ Route::group([
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
 
+        //fonction pour pdcej
+        Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
+
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');

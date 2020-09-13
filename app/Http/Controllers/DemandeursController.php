@@ -506,6 +506,7 @@ class DemandeursController extends Controller
     public function list(Request $request)
     {
         $jour = Carbon::today()->toDateString();
+        $hier = Carbon::yesterday()->toDateString();
 
         $jour1 = "2020-09-03";
         $jour2 = "2020-09-04";
@@ -516,7 +517,7 @@ class DemandeursController extends Controller
         
         $jour6 = "2020-09-10";
 
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour)->whereDate('created_at','<=', $jour)->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $hier)->whereDate('created_at','<=', $hier)->get();
         return Datatables::of($demandeurs)->make(true);
 
     }
