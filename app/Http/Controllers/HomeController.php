@@ -50,8 +50,8 @@ class HomeController extends Controller
         $localites = \App\Localite::with('demandeurs.localite')->get();
         $modules = \App\Module::with('demandeurs.modules','demandeurs.localite')->get();
         /* dd($localites); */
-        return view('localites.detail', compact('localites','modules'));
-        /* return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart')); */
+        /* return view('localites.detail', compact('localites','modules')); */
+        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart'));
         
     }
 }
