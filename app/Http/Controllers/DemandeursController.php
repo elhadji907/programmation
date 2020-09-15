@@ -44,9 +44,9 @@ class DemandeursController extends Controller
 
         $user_role  =   Auth::user()->role->name;
         
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->get(); 
+        $demandeurs = Demandeur::with('user.demandeur')->get()->pluck('user.demandeur','id'); 
 
-        /* dd($demandeurs); */
+       /*  dd($demandeurs); */
 
        $localites = Localite::with('demandeurs.localite')->get();
       
@@ -473,7 +473,7 @@ class DemandeursController extends Controller
         $demandeur->departements()->sync($request->input('departements'));
 
 
-        return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');
+        return back()->with('success','demandeur modifié avec succès !');
     }
 
     /**
@@ -517,7 +517,7 @@ class DemandeursController extends Controller
         
         $jour6 = "2020-09-10";
 
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $jour)->whereDate('created_at','<=', $jour)->get();
+        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->whereDate('created_at','>=', $hier)->whereDate('created_at','<=', $hier)->get();
         return Datatables::of($demandeurs)->make(true);
 
     }
