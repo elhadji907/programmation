@@ -315,12 +315,7 @@ class DemandeursController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {  
-        
-                
-       /*  $user = Auth::user()->username;
-        dd($user); */
-        
+    {          
         /* $this->authorize('update',  $demandeur); */
 
         $demandeurs = Demandeur::find($id);
