@@ -79,7 +79,7 @@
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
                         &nbsp;
-                        <a href="{!! url('modules/' .$module->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                        <a href="{!! url('demandeurs/' .$demandeur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
                         &nbsp;
