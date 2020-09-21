@@ -107,15 +107,20 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 {!! Form::label('Numéro courrier') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('numero_courrier', $demandeurs->numero_courrier, ['placeholder' => 'Le numéro du courrier', 'class'
                                 => 'form-control']) !!}
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::date('date_depot', $demandeurs->date_depot->format('Y-m-d'), ['placeholder' => 'La date de dépot', 'class' =>
                                 'form-control']) !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {!! Form::label('Statut', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b></span>
+                                {!! Form::select('status', ['Attente' => 'Attente', 'Retenue' => 'Retenue', 'Annulée' => 'Annulée'], $demandeurs->status, ['placeholder' => 'sélectionnez', 'class'
+                                => 'form-control', 'id' => 'statut']) !!}
                             </div>
                         </div>
                         <div class="form-row">

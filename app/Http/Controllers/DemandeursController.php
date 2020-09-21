@@ -453,6 +453,7 @@ class DemandeursController extends Controller
         $demandeur->experience        =     $request->input('experience');
         $demandeur->information       =     $request->input('information');
         $demandeur->projet            =     $request->input('projet');
+        $demandeur->status            =     $request->input('status');
         $demandeur->users_id          =     $utilisateurs->id;
         $demandeur->typedemandes_id   =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
