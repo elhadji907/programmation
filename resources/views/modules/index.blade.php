@@ -72,13 +72,13 @@
                       @endforeach
                     </td>
                     <td>
-                      @foreach ($module->demandeurs as $demandeur)
+                    {{--    @foreach ($module->demandeurs as $demandeur)
                       @if ($demandeur->localite->name == "Dakar")
                       @foreach ($demandeur->modules as $module)
                       {!! $loop->count !!}
                       @endforeach            
                       @endif
-                      @endforeach
+                      @endforeach  --}}
                     </td>
                     <td></td>
                     <td></td>

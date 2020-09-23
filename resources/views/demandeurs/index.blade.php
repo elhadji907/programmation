@@ -113,7 +113,7 @@
                               <th>Localité</th>
                               <th>Note</th>
                               <th>Statut</th>
-                              <th style="width:13%;">Action</th>
+                              <th style="width:08%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -152,8 +152,16 @@
                     </td>
                     <td>{!! $demandeur->localite->name !!}</td>
                     <td>{!! $demandeur->note !!}</td>
-                    <td>{!! $demandeur->status !!}</td>
-                    <td class="d-flex align-items-baseline align-content-center">
+                    <td style="text-align: center;">
+                      @if ($demandeur->status == "Retenue")
+                      <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
+                      @elseif($demandeur->status == "Annulée")
+                      <i class="fa fa-times text-danger" title="Annulée" aria-hidden="true"></i>
+                      @else                      
+                      {!! $demandeur->status !!}                          
+                      @endif
+                    </td>
+                    <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>

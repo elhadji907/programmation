@@ -504,6 +504,8 @@ class DemandeursController extends Controller
         $jour = Carbon::today()->toDateString();
         $hier = Carbon::yesterday()->toDateString();
 
+        $anne1 = Carbon::today()->format('Y');
+
         $jour1 = "2020-09-03";
         $jour2 = "2020-09-04";
         $jour3 = "2020-09-07";
