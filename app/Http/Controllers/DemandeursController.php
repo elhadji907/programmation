@@ -315,12 +315,7 @@ class DemandeursController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {  
-        
-                
-       /*  $user = Auth::user()->username;
-        dd($user); */
-        
+    {          
         /* $this->authorize('update',  $demandeur); */
 
         $demandeurs = Demandeur::find($id);
@@ -458,6 +453,7 @@ class DemandeursController extends Controller
         $demandeur->experience        =     $request->input('experience');
         $demandeur->information       =     $request->input('information');
         $demandeur->projet            =     $request->input('projet');
+        $demandeur->status            =     $request->input('status');
         $demandeur->users_id          =     $utilisateurs->id;
         $demandeur->typedemandes_id   =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
@@ -507,6 +503,8 @@ class DemandeursController extends Controller
     {
         $jour = Carbon::today()->toDateString();
         $hier = Carbon::yesterday()->toDateString();
+
+        $anne1 = Carbon::today()->format('Y');
 
         $jour1 = "2020-09-03";
         $jour2 = "2020-09-04";

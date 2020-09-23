@@ -140,6 +140,13 @@
         allowClear: true
     });
 </script>
+<script type="text/javascript">
+  
+  $("#statut").select2({
+        placeholder: "sélectionner",
+        allowClear: true
+    });
+</script>
 
   <script>
 
