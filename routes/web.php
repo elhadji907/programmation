@@ -50,6 +50,7 @@ Route::group([
 
         //fonction pour pdcej
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
+        Route::get('/localites.selectmodule', function() { return view('localites.selectmodule'); })->name('localites.selectmodule');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');

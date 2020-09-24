@@ -6,7 +6,7 @@
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif        
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-lg-8 col-sm-12 col-xl-12 ">
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -25,10 +25,11 @@
                         <a href="{!! url('demandeurs/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
                       </div>
                         <br />
-                      <table class="table table-bordered table-striped" id="table-demandeur" width="100%" cellspacing="0">
+                      <table class="table{-sm|-md|-lg|-xl} table-bordered table-sm table-striped" id="table-demandeur" width="100%" cellspacing="0">
                         <thead class="table-dark">
                           <tr align="center">
-                            <th>N° Cour.</th>
+                            <th>N°</th>
+                            <th>Num Cour.</th>
                             <th>Cin</th>
                             <th>Civilité</th>
                             <th>Prenom</th>
@@ -37,6 +38,7 @@
                             <th>Lieu naissance</th>
                             <th>Téléphone</th>
                             <th>Module</th>
+                            <th>Diplôme</th>
                             <th>Note</th>
                             <th>Statut</th>
                             <th style="width:08%;">Action</th>
@@ -44,7 +46,8 @@
                         </thead>
                         <tfoot class="table-dark">
                             <tr align="center">
-                              <th>N° Cour.</th>
+                              <th>N°</th>
+                              <th>Num Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
@@ -53,6 +56,7 @@
                               <th>Lieu naissance</th>
                               <th>Téléphone</th>
                               <th>Module</th>
+                              <th>Diplôme</th>
                               <th>Note</th>
                               <th>Statut</th>
                               <th>Action</th>
@@ -64,7 +68,7 @@
                           @if ($localite->name == $lieu)
                           @foreach ($localite->demandeurs as $demandeur)
                           <tr> 
-                            {{--  <td>{!! $i++ !!}</td>  --}}
+                            <td>{!! $i++ !!}</td>
                             <td>{!! $demandeur->numero_courrier !!}</td>
                             <td>{!! $demandeur->cin !!}</td>
                             <td>{!! $demandeur->user->civilite !!}</td>
@@ -76,6 +80,11 @@
                             <td>
                               @foreach ($demandeur->modules as $module)
                                   {!! $module->name !!}
+                              @endforeach
+                            </td>
+                            <td>
+                              @foreach ($demandeur->diplomes as $diplome)
+                                  {!! $diplome->name !!}
                               @endforeach
                             </td>
                             <td>{!! $demandeur->note !!}</td>

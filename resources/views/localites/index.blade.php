@@ -59,7 +59,7 @@
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
                         &nbsp;
-                        <a href="{!! url('localites/' .$localite->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                        <a href="{!! url('localites/' .$localite->id) !!}" class= 'btn btn-primary btn-sm' title="voir la liste">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
                         &nbsp;

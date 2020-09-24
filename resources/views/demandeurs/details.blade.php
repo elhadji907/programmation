@@ -95,7 +95,7 @@
                             <a href="{{route('demandeurs.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
+                        <table class="table{-sm|-md|-lg|-xl} table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
                               <th>Cin</th>

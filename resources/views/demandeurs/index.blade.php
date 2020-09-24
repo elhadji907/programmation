@@ -101,7 +101,8 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>N° Cour.</th>
+                              <th>N°</th>
+                              <th>Num Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
@@ -118,7 +119,8 @@
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                              <th>N° Cour.</th>
+                              <th>N°</th>
+                              <th>Num Cour.</th>
                               <th>Cin</th>
                               <th>Civilité</th>
                               <th>Prenom</th>
@@ -137,6 +139,7 @@
                             <?php $i = 1 ?>
                   @foreach ($demandeurs as $demandeur)
                   <tr> 
+                    <td>{!! $i++ !!}</td>
                     <td>{!! $demandeur->numero_courrier !!}</td>
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>
