@@ -109,7 +109,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('Modifiée par :') !!}
-                                {!! Form::text('prenom', $utilisateurs->updated_by.' le '.$utilisateurs->created_at->format('d/m/Y').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled'])
+                                {!! Form::text('prenom', $utilisateurs->updated_by.' le '.$utilisateurs->updated_at->format('d/m/Y').' à '.$utilisateurs->updated_at->format('H:m:s'), ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled'])
                                 !!}
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                 'form-control','disabled' => 'disabled', 'id' => 'module']) !!}
                             </div>
                         </div>                        
-                        <div class="form-row">
+                   {{--       <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Projet') !!}
                                 {!! Form::textarea('projet', $demandeurs->projet, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
@@ -194,7 +194,7 @@
                                 {!! Form::textarea('information', $demandeurs->information, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
                                 'class' => 'form-control','disabled' => 'disabled']) !!}
                             </div>
-                        </div>
+                        </div>  --}}
                         {{--  {!! Form::submit('Modifier', ['class' => 'btn btn-outline-primary pull-right']) !!}  --}}
                         {!! Form::close() !!}
                         <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
