@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - '.$nom_module)
+@section('title', 'ONFP - '.$localitesliste.' | '.$nom_module)
 @section('content')
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des demandeurs au métier de {!! $nom_module !!}
+                Liste des demandeurs au métier de {!! $nom_module.' | '.$localitesliste !!}
             </div> 
           <div class="card-body">
             <div class="table-responsive">
@@ -63,9 +63,11 @@
                   </tfoot>
                 <tbody>
                   <?php $i = 1 ?>
-                  @foreach ($modules as $module)
+                  @foreach ($localites as $localite)
+                  @if ($localite->name == $localitesliste)
+                  @foreach ($localite->demandeurs as $demandeur)
+                  @foreach ($demandeur->modules as $module)
                   @if ($module->name == $nom_module)
-                  @foreach ($module->demandeurs as $demandeur)
                   <tr> 
                     <td>{!! $i++ !!}</td>
                     <td>{!! $demandeur->numero_courrier !!}</td>
@@ -77,9 +79,9 @@
                     <td>{!! $demandeur->user->lieu_naissance !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
                     <td>
-                      <a href="{!! route('localites.lister', ['$localitesliste' => $demandeur->localite->name, '$nom_module' => $nom_module]) !!}">
+                      
                         {!! $demandeur->localite->name !!}
-                      </a>
+                     
                     </td>             
                     <td>
                       @foreach ($demandeur->diplomes as $diplome)
@@ -110,6 +112,8 @@
                         {!! Form::close() !!}
                     </td>
                   </tr>
+                  @endif
+                  @endforeach
                   @endforeach
                   @endif
                   @endforeach
