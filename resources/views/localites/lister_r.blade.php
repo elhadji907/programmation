@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - '.' '.$nom_module)
+@section('title', 'ONFP - '.$localitesliste.' | '.$nom_module)
 @section('content')
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -16,14 +16,14 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des demandeurs au métier de {!! $nom_module !!}
+                Liste des demandeurs retenus au métier de {!! $nom_module.' | '.$localitesliste !!}
             </div> 
           <div class="card-body">
             <div class="table-responsive">
-              <div align="right">
+              {{--  <div align="right">
                 <a href="{!! url('modules/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
               </div>
-                <br />
+                <br />  --}}
               <table class="table table-bordered table-striped" id="moduleTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
@@ -40,7 +40,7 @@
                     <th>Diplôme</th>
                     <th>Note</th>
                     <th>Statut</th>
-                    <th style="width:08%;">Action</th>
+                    {{--  <th style="width:08%;">Action</th>  --}}
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
@@ -58,14 +58,17 @@
                       <th>Diplôme</th>
                       <th>Note</th>
                       <th>Statut</th>
-                      <th>Action</th>
+                     {{--   <th>Action</th>  --}}
                     </tr>
                   </tfoot>
                 <tbody>
                   <?php $i = 1 ?>
-                  @foreach ($modules as $module)
+                  @foreach ($localites as $localite)
+                  @if ($localite->name == $localitesliste)
+                  @foreach ($localite->demandeurs as $demandeur)
+                  @if ($demandeur->status == "Retenue")                      
+                  @foreach ($demandeur->modules as $module)
                   @if ($module->name == $nom_module)
-                  @foreach ($module->demandeurs as $demandeur)
                   <tr> 
                     <td>{!! $i++ !!}</td>
                     <td>{!! $demandeur->numero_courrier !!}</td>
@@ -77,9 +80,9 @@
                     <td>{!! $demandeur->user->lieu_naissance !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
                     <td>
-                      <a href="{!! route('localites.lister', ['$localitesliste' => $demandeur->localite->name, '$nom_module' => $nom_module]) !!}">
+                      
                         {!! $demandeur->localite->name !!}
-                      </a>
+                     
                     </td>             
                     <td>
                       @foreach ($demandeur->diplomes as $diplome)
@@ -89,17 +92,14 @@
                     <td>{!! $demandeur->note !!}</td>   
                     <td style="text-align: center;">
                       @if ($demandeur->status == "Retenue")
-                      <a href="{!! route('localites.lister_r', ['$localitesliste' => $demandeur->localite->name, '$nom_module' => $nom_module]) !!}">
-                        {{--  {!! $demandeur->localite->name !!}  --}}
-                        <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
-                      </a>
+                      <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
                       @elseif($demandeur->status == "Annulée")
                       <i class="fa fa-times text-danger" title="Annulée" aria-hidden="true"></i>
                       @else                      
                       {!! $demandeur->status !!}                          
                       @endif
                     </td>           
-                    <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
+                   {{--   <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
@@ -111,8 +111,11 @@
                         {!! Form::open(['method'=>'DELETE', 'url'=>'demandeurs/' .$demandeur->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                         {!! Form::close() !!}
-                    </td>
+                    </td>  --}}
                   </tr>
+                  @endif
+                  @endforeach
+                  @endif
                   @endforeach
                   @endif
                   @endforeach

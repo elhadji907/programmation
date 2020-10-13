@@ -36,6 +36,12 @@ class LocalitesController extends Controller
         $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
         return view('localites.lister', compact('localites','modules','localitesliste','nom_module'));
     }
+    public function lister_r($localitesliste, $nom_module)
+    {
+        $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        return view('localites.lister_r', compact('localites','modules','localitesliste','nom_module'));
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -120,10 +120,6 @@
                                     'form-control', 'id' => 'module']) !!}
                                 </div>                            
 
-                                <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
-                                    placeholder="Mot de passe">
-                                {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
-                                'form-control']) !!}
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -176,7 +172,11 @@
                                 'form-control', 'id' => 'localite']) !!}
                             </div>
 
-                        </div>
+                        </div>                        
+                        <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
+                        placeholder="Mot de passe">
+                    {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
+                    'form-control']) !!}
                             <button type="submit" class="btn btn-primary"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>

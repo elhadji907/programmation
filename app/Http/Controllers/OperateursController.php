@@ -6,8 +6,14 @@ use App\Operateur;
 use App\Role;
 use App\User;
 use App\Structure;
+use App\Typedemande;
+use App\Module;
+use Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class OperateursController extends Controller
 {
@@ -42,11 +48,16 @@ class OperateursController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
-        $civilites = User::select('civilite')->distinct()->get();      
+        $roles = Role::get();    
         $structures = Structure::select('name')->distinct()->get();
 
-        return view('operateurs.create',compact('roles', 'civilites','structures'));
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
+                
+        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
+        
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+
+        return view('operateurs.create',compact('roles', 'civilites','structures','types_demandes','modules'));
     }
 
     /**

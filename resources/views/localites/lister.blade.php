@@ -24,6 +24,10 @@
                 <a href="{!! url('modules/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
               </div>
                 <br />
+              <div align="center">
+                <a href="{!! url('modules/create') !!}"><div class="btn btn-warning btn-sm"><i class="fas fa-eye"></i>&nbsp;Afficher la liste des candidats retenus</div></a> 
+              </div>
+                <br />
               <table class="table table-bordered table-striped" id="moduleTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>

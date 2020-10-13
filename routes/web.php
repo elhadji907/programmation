@@ -51,6 +51,7 @@ Route::group([
         //fonction pour pdcej
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
         Route::get('/lister/{localitesliste}/{nom_module}', 'LocalitesController@lister')->name('localites.lister');
+        Route::get('/lister_r/{localitesliste}/{nom_module}', 'LocalitesController@lister_r')->name('localites.lister_r');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
@@ -93,6 +94,7 @@ Route::group([
 );
 
 //gestion des roles par niveau d'autorisation
+
 /* Route::get('loginfor/{rolename?}',function($rolename=null){
 if(!isset($rolename)){
     return view('auth.loginfor');
