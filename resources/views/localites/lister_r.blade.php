@@ -28,7 +28,7 @@
                 <thead class="table-dark">
                   <tr>
                     <th>N°</th>
-                    <th>Num Cour.</th>
+                    {{--  <th>Num Cour.</th>  --}}
                     <th>Cin</th>
                     <th>Civilité</th>
                     <th>Prenom</th>
@@ -38,7 +38,7 @@
                     <th>Téléphone</th>
                     <th>Localité</th>
                     <th>Diplôme</th>
-                    <th>Note</th>
+                    {{--  <th>Note</th>  --}}
                     <th>Statut</th>
                     {{--  <th style="width:08%;">Action</th>  --}}
                   </tr>
@@ -46,7 +46,7 @@
                 <tfoot class="table-dark">
                     <tr>
                       <th>N°</th>
-                      <th>Num Cour.</th>
+                      {{--  <th>Num Cour.</th>  --}}
                       <th>Cin</th>
                       <th>Civilité</th>
                       <th>Prenom</th>
@@ -56,7 +56,7 @@
                       <th>Téléphone</th>
                       <th>Localité</th>
                       <th>Diplôme</th>
-                      <th>Note</th>
+                      {{--  <th>Note</th>  --}}
                       <th>Statut</th>
                      {{--   <th>Action</th>  --}}
                     </tr>
@@ -71,7 +71,7 @@
                   @if ($module->name == $nom_module)
                   <tr> 
                     <td>{!! $i++ !!}</td>
-                    <td>{!! $demandeur->numero_courrier !!}</td>
+                   {{--   <td>{!! $demandeur->numero_courrier !!}</td>  --}}
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>             
                     <td>{!! $demandeur->user->firstname !!}</td>             
@@ -89,7 +89,7 @@
                           {!! $diplome->name !!}
                       @endforeach
                     </td>             
-                    <td>{!! $demandeur->note !!}</td>   
+                    {{--  <td>{!! $demandeur->note !!}</td>    --}} 
                     <td style="text-align: center;">
                       @if ($demandeur->status == "Retenue")
                       <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
