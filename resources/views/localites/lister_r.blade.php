@@ -39,7 +39,7 @@
                     <th>Localité</th>
                     <th>Diplôme</th>
                     {{--  <th>Note</th>  --}}
-                    <th>Statut</th>
+                   {{--   <th>Statut</th>  --}}
                     {{--  <th style="width:08%;">Action</th>  --}}
                   </tr>
                 </thead>
@@ -57,7 +57,7 @@
                       <th>Localité</th>
                       <th>Diplôme</th>
                       {{--  <th>Note</th>  --}}
-                      <th>Statut</th>
+                     {{--   <th>Statut</th>  --}}
                      {{--   <th>Action</th>  --}}
                     </tr>
                   </tfoot>
@@ -74,14 +74,14 @@
                    {{--   <td>{!! $demandeur->numero_courrier !!}</td>  --}}
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>             
-                    <td>{!! $demandeur->user->firstname !!}</td>             
-                    <td>{!! $demandeur->user->name !!}</td>             
+                    <td>{!! ucfirst($demandeur->user->firstname) !!}</td>             
+                    <td>{!! strtoupper($demandeur->user->name) !!}</td>        
                     <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>             
-                    <td>{!! $demandeur->user->lieu_naissance !!}</td> 
+                    <td>{!! ucfirst($demandeur->user->lieu_naissance) !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
                     <td>
                       
-                        {!! $demandeur->localite->name !!}
+                        {!! ucfirst($demandeur->localite->name) !!}
                      
                     </td>             
                     <td>
@@ -90,7 +90,7 @@
                       @endforeach
                     </td>             
                     {{--  <td>{!! $demandeur->note !!}</td>    --}} 
-                    <td style="text-align: center;">
+                  {{--    <td style="text-align: center;">
                       @if ($demandeur->status == "Retenue")
                       <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
                       @elseif($demandeur->status == "Annulée")
@@ -98,7 +98,7 @@
                       @else                      
                       {!! $demandeur->status !!}                          
                       @endif
-                    </td>           
+                    </td>    --}}         
                    {{--   <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
