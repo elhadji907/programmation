@@ -77,7 +77,7 @@
                     <td>{!! ucwords(strtolower($demandeur->user->firstname)) !!}</td>             
                     <td>{!! strtoupper($demandeur->user->name) !!}</td>        
                     <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>             
-                    <td>{!! ucwords(strtolower($demandeur->user->lieu_naissance)) !!}</td> 
+                    <td>{!! ucwords(strtoupper($demandeur->user->lieu_naissance)) !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
                     <td>
                       
