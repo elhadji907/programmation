@@ -74,14 +74,14 @@
                    {{--   <td>{!! $demandeur->numero_courrier !!}</td>  --}}
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>             
-                    <td>{!! ucfirst($demandeur->user->firstname) !!}</td>             
+                    <td>{!! ucwords(strtolower($demandeur->user->firstname)) !!}</td>             
                     <td>{!! strtoupper($demandeur->user->name) !!}</td>        
                     <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>             
-                    <td>{!! ucfirst($demandeur->user->lieu_naissance) !!}</td> 
+                    <td>{!! ucwords(strtolower($demandeur->user->lieu_naissance)) !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
                     <td>
                       
-                        {!! ucfirst($demandeur->localite->name) !!}
+                        {!! ucwords(strtolower($demandeur->localite->name)) !!}
                      
                     </td>             
                     <td>
