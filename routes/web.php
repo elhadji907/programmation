@@ -52,6 +52,9 @@ Route::group([
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
         Route::get('/lister/{localitesliste}/{nom_module}', 'LocalitesController@lister')->name('localites.lister');
         Route::get('/lister_r/{localitesliste}/{nom_module}', 'LocalitesController@lister_r')->name('localites.lister_r');
+        Route::get('/lister_an/{localitesliste}/{nom_module}', 'LocalitesController@lister_an')->name('localites.lister_an');
+        Route::get('/lister_at/{localitesliste}/{nom_module}', 'LocalitesController@lister_at')->name('localites.lister_at');
+        Route::get('/lister_pres/{localitesliste}/{nom_module}', 'LocalitesController@lister_pres')->name('localites.lister_pres');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
@@ -95,7 +98,7 @@ Route::group([
 
 //gestion des roles par niveau d'autorisation
 
-/* Route::get('loginfor/{rolename?}',function($rolename=null){
+Route::get('loginfor/{rolename?}',function($rolename=null){
 if(!isset($rolename)){
     return view('auth.loginfor');
 }else{
@@ -107,4 +110,4 @@ if(!isset($rolename)){
     }
 }
 return redirect()->route('login');
-})->name('loginfor'); */
+})->name('loginfor');
