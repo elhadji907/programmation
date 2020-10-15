@@ -40,7 +40,7 @@
                     <th>Diplôme</th>
                     {{--  <th>Note</th>  --}}
                    {{--   <th>Statut</th>  --}}
-                    <th style="width:08%;">Action</th>
+                    {{--  <th style="width:08%;">Action</th>  --}}
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
@@ -58,7 +58,7 @@
                       <th>Diplôme</th>
                       {{--  <th>Note</th>  --}}
                      {{--   <th>Statut</th>  --}}
-                      <th>Action</th>
+                     {{--   <th>Action</th>  --}}
                     </tr>
                   </tfoot>
                 <tbody>
@@ -99,7 +99,7 @@
                       {!! $demandeur->status !!}                          
                       @endif
                     </td>    --}}         
-                    <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
+                    {{--  <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
@@ -107,11 +107,11 @@
                         <a href="{!! url('demandeurs/' .$demandeur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
-                      {{--    &nbsp;
+                        &nbsp;
                         {!! Form::open(['method'=>'DELETE', 'url'=>'demandeurs/' .$demandeur->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
-                        {!! Form::close() !!}  --}}
-                    </td>
+                        {!! Form::close() !!}
+                    </td>  --}}
                   </tr>
                   @endif
                   @endforeach
