@@ -28,7 +28,7 @@
                 <thead class="table-dark">
                   <tr>
                     <th>N°</th>
-                    {{--  <th>Num Cour.</th>  --}}
+                    <th>Num Cour.</th>
                     <th>Cin</th>
                     <th>Civilité</th>
                     <th>Prenom</th>
@@ -46,7 +46,7 @@
                 <tfoot class="table-dark">
                     <tr>
                       <th>N°</th>
-                      {{--  <th>Num Cour.</th>  --}}
+                      <th>Num Cour.</th>
                       <th>Cin</th>
                       <th>Civilité</th>
                       <th>Prenom</th>
@@ -71,7 +71,7 @@
                   @if ($module->name == $nom_module)
                   <tr> 
                     <td>{!! $i++ !!}</td>
-                   {{--   <td>{!! $demandeur->numero_courrier !!}</td>  --}}
+                    <td>{!! $demandeur->numero_courrier !!}</td>
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>             
                     <td>{!! ucwords(strtolower($demandeur->user->firstname)) !!}</td>             
