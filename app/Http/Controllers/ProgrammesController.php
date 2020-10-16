@@ -15,7 +15,9 @@ class ProgrammesController extends Controller
      */
     public function index()
     {
-        return view('programmes.index');
+        $programmes = Programme::with('demandeurs.programme')->get();
+       /*  dd($programmes); */
+        return view('programmes.index', compact('programmes'));
     }
 
     /**

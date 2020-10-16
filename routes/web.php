@@ -98,7 +98,7 @@ Route::group([
 
 //gestion des roles par niveau d'autorisation
 
-Route::get('loginfor/{rolename?}',function($rolename=null){
+/* Route::get('loginfor/{rolename?}',function($rolename=null){
 if(!isset($rolename)){
     return view('auth.loginfor');
 }else{
@@ -110,4 +110,4 @@ if(!isset($rolename)){
     }
 }
 return redirect()->route('login');
-})->name('loginfor');
+})->name('loginfor'); */

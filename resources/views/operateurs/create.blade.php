@@ -128,22 +128,22 @@
                                 </div>                            
 
                             </div>
-                            <div class="form-row">                                                  
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    {!! Form::label('Numéro courrier :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier',
+                                    'class' => 'form-control']) !!}
+                                </div>                                              
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Date dépot :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' =>
                                     'form-control']) !!}
                                 </div> 
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('Numéro courrier :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier',
+                                    {!! Form::label('Adresse :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::textarea('adresse', null, ['placeholder' => 'Adresse du responsable', 'rows' => 1,
                                     'class' => 'form-control']) !!}
-                                </div> 
-                                <div class="form-group col-md-4">
-                                    {!! Form::label("Type demande :") !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
-                                    'form-control', 'id' => 'type_demande']) !!}
-                                </div> 
+                                </div>
                             </div>                            
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">MODULES DEMANDES</p>
