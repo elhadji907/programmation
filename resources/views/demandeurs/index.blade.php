@@ -6,7 +6,7 @@
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
           <div class="row justify-content-center">
-            <div class="col-xl-3 col-md-3 mb-0">
+            <div class="col-xl-2 col-md-2 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
                 @foreach ($localites as $localite)
                 @if ($localite->name == "Dakar")                
@@ -62,7 +62,7 @@
               </a>
               </div>
             </div>
-            <div class="col-xl-3 col-md-3 mb-0">
+            <div class="col-xl-2 col-md-2 mb-0">
               <div class="card border-left-primary shadow h-75 py-2">
                 @foreach ($localites as $localite)
                 @if ($localite->name == "Kaolack")                
@@ -74,6 +74,24 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Kaolack') }}</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $kaolack !!} / {!! $total !!}</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-2 mb-0">
+              <div class="card border-left-primary shadow h-75 py-2">
+                @foreach ($localites as $localite)
+                @if ($localite->name == "Thiès")                
+                <a class="nav-link" href="{!! url('localites/' .$localite->id) !!}">
+                @endif
+                @endforeach
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Thiès') }}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $thies !!} / {!! $total !!}</div>
                     </div>
                   </div>
                 </div>

@@ -66,7 +66,11 @@ class DemandeursController extends Controller
         ->get()->where('user.demandeur.localite.name','Saint-Louis')
         ->pluck('user.demandeur.localite.name','id')->count();
 
-        $total = $ziguinchor+$dakar+$saintlouis+$kaolack;
+        $thies = Demandeur::with('user.demandeur.localite')
+        ->get()->where('user.demandeur.localite.name','Thiès')
+        ->pluck('user.demandeur.localite.name','id')->count();
+
+        $total = $ziguinchor+$dakar+$saintlouis+$kaolack+$thies;
 
         $pompiste = "0";
         $graisseur = "0";
@@ -81,7 +85,8 @@ class DemandeursController extends Controller
             compact('ziguinchor', 'localites',
             'dakar', 
             'saintlouis', 
-            'kaolack', 
+            'kaolack',
+            'thies',
             'total',
             'demandeurs',
             'graisseur',
@@ -96,7 +101,8 @@ class DemandeursController extends Controller
             compact('ziguinchor', 'localites',
             'dakar', 
             'saintlouis', 
-            'kaolack', 
+            'kaolack',
+            'thies',
             'total',
             'demandeurs',
             'graisseur',

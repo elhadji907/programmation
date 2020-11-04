@@ -79,7 +79,9 @@
                             <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>
                             <td>
                               @foreach ($demandeur->modules as $module)
-                                  {!! $module->name !!}
+                              <a href="">
+                                {!! $module->name !!}
+                              </a>
                               @endforeach
                             </td>
                             <td>
