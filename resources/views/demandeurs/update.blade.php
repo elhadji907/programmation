@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('Statut', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b></span>
-                                {!! Form::select('status', ['Attente' => 'Attente', 'Retenue' => 'Retenue', 'Annulée' => 'Annulée', 'Présélectionné' => 'Présélectionné'], 
+                                {!! Form::select('status', ['Attente' => 'Attente', 'Retenue' => 'Retenue', 'Annulée' => 'Annulée', 'Présélectionné' => 'Présélectionné', 'Absent' => 'Absent', 'Present' => 'Present'], 
                                 $demandeurs->status, ['placeholder' => 'sélectionnez', 'class'
                                 => 'form-control', 'id' => 'statut']) !!}
                             </div>
