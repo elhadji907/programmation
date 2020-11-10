@@ -64,6 +64,24 @@ class LocalitesController extends Controller
         $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
         return view('localites.lister_pres', compact('localites','modules','localitesliste','nom_module'));
     }
+    public function lister_term($localitesliste, $nom_module)
+    {
+        $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        return view('localites.lister_term', compact('localites','modules','localitesliste','nom_module'));
+    }
+    public function lister_abs($localitesliste, $nom_module)
+    {
+        $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        return view('localites.lister_abs', compact('localites','modules','localitesliste','nom_module'));
+    }
+    public function lister_cours($localitesliste, $nom_module)
+    {
+        $localites = Localite::with('demandeurs.localite')->get();
+        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        return view('localites.lister_cours', compact('localites','modules','localitesliste','nom_module'));
+    }
 
     /**
      * Show the form for creating a new resource.

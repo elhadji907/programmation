@@ -55,6 +55,9 @@ Route::group([
         Route::get('/lister_an/{localitesliste}/{nom_module}', 'LocalitesController@lister_an')->name('localites.lister_an');
         Route::get('/lister_at/{localitesliste}/{nom_module}', 'LocalitesController@lister_at')->name('localites.lister_at');
         Route::get('/lister_pres/{localitesliste}/{nom_module}', 'LocalitesController@lister_pres')->name('localites.lister_pres');
+        Route::get('/lister_cours/{localitesliste}/{nom_module}', 'LocalitesController@lister_cours')->name('localites.lister_cours');
+        Route::get('/lister_abs/{localitesliste}/{nom_module}', 'LocalitesController@lister_abs')->name('localites.lister_abs');
+        Route::get('/lister_term/{localitesliste}/{nom_module}', 'LocalitesController@lister_term')->name('localites.lister_term');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
