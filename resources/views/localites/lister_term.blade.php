@@ -28,7 +28,7 @@
                 <thead class="table-dark">
                   <tr>
                     <th>N°</th>
-                    <th>Num Cour.</th>
+                   {{--   <th>Num Cour.</th>  --}}
                     <th>Cin</th>
                     <th>Civilité</th>
                     <th>Prenom</th>
@@ -36,8 +36,8 @@
                     <th>Date naissance</th>
                     <th>Lieu naissance</th>
                     <th>Téléphone</th>
-                    <th>Localité</th>
-                    <th>Diplôme</th>
+                    {{--  <th>Localité</th>  --}}
+                    {{--  <th>Diplôme</th>  --}}
                     {{--  <th>Note</th>  --}}
                    {{--   <th>Statut</th>  --}}
                     <th style="width:08%;">Action</th>
@@ -46,7 +46,7 @@
                 <tfoot class="table-dark">
                     <tr>
                       <th>N°</th>
-                      <th>Num Cour.</th>
+                      {{--  <th>Num Cour.</th>  --}}
                       <th>Cin</th>
                       <th>Civilité</th>
                       <th>Prenom</th>
@@ -54,8 +54,8 @@
                       <th>Date naissance</th>
                       <th>Lieu naissance</th>
                       <th>Téléphone</th>
-                      <th>Localité</th>
-                      <th>Diplôme</th>
+                      {{--  <th>Localité</th>  --}}
+                      {{--  <th>Diplôme</th>  --}}
                       {{--  <th>Note</th>  --}}
                      {{--   <th>Statut</th>  --}}
                       <th>Action</th>
@@ -71,7 +71,7 @@
                   @if ($module->name == $nom_module)
                   <tr> 
                     <td>{!! $i++ !!}</td>
-                    <td>{!! $demandeur->numero_courrier !!}</td>
+                    {{--  <td>{!! $demandeur->numero_courrier !!}</td>  --}}
                     <td>{!! $demandeur->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>             
                     <td>{!! ucwords(strtolower($demandeur->user->firstname)) !!}</td>             
@@ -79,7 +79,7 @@
                     <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>             
                     <td>{!! ucwords(strtoupper($demandeur->user->lieu_naissance)) !!}</td> 
                     <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>      
-                    <td>
+                   {{--   <td>
                       
                         {!! ucwords(strtolower($demandeur->localite->name)) !!}
                      
@@ -88,7 +88,7 @@
                       @foreach ($demandeur->diplomes as $diplome)
                           {!! $diplome->name !!}
                       @endforeach
-                    </td>             
+                    </td>   --}}            
                     {{--  <td>{!! $demandeur->note !!}</td>    --}} 
                   {{--    <td style="text-align: center;">
                       @if ($demandeur->status == "Retenue")
