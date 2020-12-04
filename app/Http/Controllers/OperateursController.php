@@ -68,7 +68,38 @@ class OperateursController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request, [
+                
+                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
+                'date_depot'          =>  'required|date_format:Y-m-d',
 
+                'name'                =>  'required|string|max:255|unique:users,name',
+                'sigle'               =>  'required|string|max:50',
+                'ninea'               =>  'required|string|max:255|unique:users,ninea',
+                'registre'            =>  'required|string|max:50',
+                'quitus'              =>  'required|string|max:255|unique:users,quitus',
+                'email_s'             =>  'required|email|max:255|unique:users,email',
+                'telephone_s'         =>  'required|string|max:50',
+                'adresse'             =>  'required|string|max:50',
+
+                'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
+                'prenom'              =>  'required|string|max:50',
+                'nom'                 =>  'required|string|max:50',
+                'email'               =>  'required|email|max:255|unique:users,email',
+                'telephone'           =>  'required|string|max:50',
+                'statut'              =>  'required|string|max:100',
+                
+                'modules'             =>  'exists:modules,id',
+                'departements'        =>  'exists:departements,id',
+            ],
+            [
+                'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
+            ],
+            [
+                'password.max'  =>  'Pour des raisons de sécurité, votre mot de passe ne doit pas dépasser :max caractères.'
+            ]
+        );
     }
 
     /**
