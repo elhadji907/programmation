@@ -163,12 +163,28 @@
                 </td>                
                 <td>
                     @if ($depart->courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($depart->courrier->getFile()) }}">
                             <i class="fas fa-download">&nbsp;Dossier</i>
                         </a>                                            
                     @else
                         Aucun fichier joint
                     @endif
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
+            
+            <tr class="item">
+                
+                <td colspan="2">
+                    {{ $depart->courrier->message }} 
                 </td>
             </tr>
             <tr class="heading">
@@ -184,13 +200,13 @@
             <tr class="item">
                 <td>
                     @foreach ($depart->courrier->directions as $direction)
-                      <span class="btn">{!! $direction->name !!}</span><br>
+                      {!! $direction->name !!}<br>
                     @endforeach
                </td>
                 
                 <td>
                     @foreach ($depart->courrier->directions as $direction)
-                    <span class="btn">{!! $direction->sigle !!}</span><br>
+                    {!! $direction->sigle !!}<br>
                     @endforeach
                 </td>
             </tr>            

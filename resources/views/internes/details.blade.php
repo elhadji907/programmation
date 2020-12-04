@@ -173,14 +173,31 @@
                 </td>                
                 <td>
                     @if ($interne->courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($interne->courrier->getFile()) }}">
                             <i class="fas fa-download">&nbsp;Dossier</i>
-                        </a>                                            
+                        </a>                                      
                     @else
                         Aucun fichier joint
                     @endif
                 </td>
             </tr>
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
+            
+            <tr class="item">
+                
+                <td colspan="2">
+                   {{ $interne->courrier->message }}
+                </td>
+            </tr>
+            
             <tr class="heading">
                 <td>
                    IMPUTATION
@@ -194,13 +211,13 @@
             <tr class="item">
                 <td>
                     @foreach ($interne->courrier->directions as $direction)
-                      <span class="btn">{!! $direction->name !!}</span><br>
+                      {!! $direction->name !!}<br>
                     @endforeach
                </td>
                 
                 <td>
                     @foreach ($interne->courrier->directions as $direction)
-                    <span class="btn">{!! $direction->sigle !!}</span><br>
+                    {!! $direction->sigle !!}<br>
                     @endforeach
                 </td>
             </tr>

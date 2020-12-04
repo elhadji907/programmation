@@ -176,6 +176,24 @@
                     @endif
                 </td>
             </tr>
+            
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
+            
+            <tr class="item">
+                
+                <td colspan="2">
+                    {{ $recue->courrier->message }} 
+                </td>
+            </tr>
+
             <tr class="heading">
                 <td>
                    IMPUTATION
@@ -189,35 +207,18 @@
             <tr class="item">
                 <td>
                     @foreach ($recue->courrier->directions as $direction)
-                      <span class="btn">{!! $direction->name !!}</span><br>
+                      {!! $direction->name !!}<br>
                     @endforeach
                </td>
                 
                 <td>
                     @foreach ($recue->courrier->directions as $direction)
-                    <span class="btn">{!! $direction->sigle !!}</span><br>
+                    {!! $direction->sigle !!}<br>
                     @endforeach
                 </td>
-            </tr>
-            {{-- <tr class="heading">
-                <td>
-                   MESSAGE
-                </td>
-                <td>
-                   
-                </td>
-                
-            </tr>
-            
-            <tr class="item">
-                
-                <td>
-                    {{ $recue->courrier->message }}
-                </td>
-            </tr>
-            
-             --}}
-            {{-- <tr class="total">
+            </tr>            
+           
+        {{--      <tr class="total">
                 <td>
                     
                 </td>
@@ -225,13 +226,13 @@
                 <td>
                    Total: $385.00
                 </td>
-            </tr> --}}
-          {{--   <tr>
+            </tr>  --}}
+           {{--  <tr>
                 <a class="btn btn-outline-primary mt-0" title="modifier le courrier" 
                 href="{{ route('courriers.create',['courrier'=>$courrier->id]) }}">
                     <i class="fas fa-edit">&nbsp;Modifier le courrier</i>
                 </a>   
-            </tr> --}}
+            </tr>  --}}
         </table>
 
         <div class="d-flex justify-content-between align-items-center mt-5">
