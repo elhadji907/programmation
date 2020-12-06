@@ -12,7 +12,8 @@
                     <div class="card-header card-header-primary text-center">
                         <h3 class="card-title">Enregistrement opérateurs</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body">                    
+                        <b> NB </b> : Les champs<span class="text-danger"> <b>*</b> </span>sont obligatoires
                         <form method="POST" action="{{ url('operateurs') }}">
                             @csrf
                             <div class="bg-gradient-secondary text-center">
@@ -30,12 +31,11 @@
                                 'form-control']) !!}
                             </div> 
                            </div>
-                            <b> NB </b> : Les champs<span class="text-danger"> <b>*</b> </span>sont obligatoires
                              <div class="bg-gradient-secondary text-center">
                                  <p class="h4 text-white mb-2 mt-0">IDENTIFICATION DE LA STRUCTURE</p>
                              </div>
                             <div class="form-row">
-                                <div class="form-group col-md-10">
+                                <div class="form-group col-md-8">
                                     {!! Form::label('Nom:') !!}<span class="text-danger"><b>*</b> </span>
                                     {!! Form::textarea('name', null, ['placeholder' => 'Le nom de la structure (opérateur)', 'rows' => 1, 'class' => 'form-control'])
                                     !!}
@@ -44,6 +44,11 @@
                                     {!! Form::label('Sigle :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::textarea('sigle', null, ['placeholder' => 'Le sigle', 'rows' => 1, 'class' =>
                                     'form-control']) !!}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {!! Form::label('Type de structure :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('structure', $structures, null, ['placeholder' => '--sélectionnez--',
+                                    'class' => 'form-control', 'id' => 'structure']) !!}
                                 </div>
                             </div>
 
@@ -77,19 +82,19 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Adresse :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::textarea('adresse', null, ['placeholder' => 'Adresse de la structure', 'rows' => 1,
+                                    {!! Form::textarea('adresse_s', null, ['placeholder' => 'Adresse de la structure', 'rows' => 1,
                                     'class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">INFORMATIONS SUR LE RESPONSABLE</p>
                             </div>                            
-                            <div class="form-row">                                                          
+                            <div class="form-row">                                
                                 <div class="form-group col-md-4">
-                                    {!! Form::label('CIN :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::text('lieu', null, ['placeholder' => 'Votre lieu de naissance', 'class' =>
-                                    'form-control']) !!}
-                                </div> 
+                                    {!! Form::label('Civilité :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('civilite', $civilites, null, ['placeholder' => '--sélectionnez--',
+                                    'class' => 'form-control', 'id' => 'civilite']) !!}
+                                </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Prénom :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('prenom', null, ['placeholder' => 'Votre prénom', 'class' =>
@@ -102,8 +107,7 @@
                                 </div>  
                             </div>
 
-                            <div class="form-row">  
-                                
+                            <div class="form-row">                                  
                                 <div class="form-group col-md-4">
                                     {!! Form::label('E-mail :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::email('email', null, ['placeholder' => 'Votre adresse e-mail', 'class' =>
@@ -118,8 +122,15 @@
                                     {!! Form::label('Fonction :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('statut', null, ['placeholder' => 'Ex: Directeur', 'class' =>
                                     'form-control']) !!}
-                                </div>                                                                  
-                             </div>                          
+                                </div>                                                                                                                          
+                             </div>
+                             <div class="form-row">  
+                             <div class="form-group col-md-4">
+                                {!! Form::label('CIN :') !!}<span class="text-danger"> <b>*</b> </span>
+                                {!! Form::text('cin', null, ['placeholder' => 'numéro de CIN', 'class' =>
+                                'form-control']) !!}
+                            </div>
+                        </div>                 
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">MODULES DEMANDES</p>
                             </div>

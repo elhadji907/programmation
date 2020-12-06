@@ -280,7 +280,7 @@ class DemandeursController extends Controller
         $demandeurs->diplomes()->sync($request->diplomes);
         $demandeurs->departements()->sync($request->departements);
 
-        return redirect()->route('demandeurs.create')->with('success','demandeur ajoutée avec succès !');
+        return redirect()->route('demandeurs.create')->with('success','demandeur ajouté avec succès !');
     }
 
     /**

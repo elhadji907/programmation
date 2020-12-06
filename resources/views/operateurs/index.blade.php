@@ -30,7 +30,8 @@
                     <th>Id</th>
                     <th>Numéro agrément</th>
                     <th>Nom de la structure</th>
-                    <th>Adresse e-mail</th>
+                    <th>Sigle</th>
+                    {{--  <th>Adresse e-mail</th>  --}}
                     <th>Téléphone</th>
                     <th>Type de structure</th>
                     <th style="width:70px;">Action</th>
@@ -41,7 +42,8 @@
                     <th>Id</th>
                     <th>Numéro agrément</th>
                     <th>Nom de la structure</th>
-                    <th>Adresse e-mail</th>
+                    <th>Sigle</th>
+                    {{--  <th>Adresse e-mail</th>  --}}
                     <th>Téléphone</th>
                     <th>Type de structure</th>
                     <th>Action</th>
@@ -60,7 +62,8 @@
                     <td>{!! $i++ !!}</td>
                     <td>{!! $operateur->numero !!}</td>
                     <td>{!! $operateur->name !!}</td>
-                    <td>{!! $operateur->user->email !!}</td>             
+                    <td>{!! $operateur->user->sigle !!}</td>             
+                   {{--   <td>{!! $operateur->user->email !!}</td>   --}}            
                     <td>{!! $operateur->user->telephone !!}</td>
                     <td>{!! $operateur->structure->name !!}</td>        
                     <td class="d-flex align-items-baseline align-content-center">
