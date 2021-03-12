@@ -36,14 +36,10 @@
                                 {!! Form::text('nom', $utilisateurs->name, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
                             </div>
 
-                           {{--   <div class="form-group col-md-4">
-                                {!! Form::label('NOM') !!}  --}}
                                 {!! Form::hidden('username', $utilisateurs->username, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
-                           {{--   </div>  --}}
-                           {{--   <div class="form-group col-md-4">
-                                {!! Form::label('NOM') !!}  --}}
+                          
                                 {!! Form::hidden('matricule', $utilisateurs->matricule, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
-                           {{--   </div>  --}}
+                           
 
                         </div>
                         <div class="form-row">
