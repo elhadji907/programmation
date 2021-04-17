@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $titre
  * @property string $description
  * @property string $url
- * @property string $image
  * @property int $users_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -30,7 +29,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Profile extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'users_id' => 'int'
@@ -41,17 +39,11 @@ class Profile extends Eloquent
 		'titre',
 		'description',
 		'url',
-		'image',
 		'users_id'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
-	}
-	
-	public function getImage(){
-		$imagePath = $this->image ?? 'avatars/default.png';
-		return "/storage/" . $imagePath;
 	}
 }

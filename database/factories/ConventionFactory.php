@@ -8,8 +8,9 @@ $factory->define(App\Convention::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
-        'formations_id' => function () {
-            return factory(App\Formation::class)->create()->id;
-        },
+        'name' => $faker->name,
+        'date' => $faker->dateTime(),
+        'items1' => $faker->word,
+        'items2' => $faker->word,
     ];
 });

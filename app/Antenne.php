@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -14,42 +14,42 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $nom
- * @property int $chef_id
- * @property int $directions_id
+ * @property string $name
+ * @property string $sigle
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Direction $direction
- * @property \Illuminate\Database\Eloquent\Collection $regions
+ * @property \App\Courrier $courrier
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  *
  * @package App
  */
 class Antenne extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'chef_id' => 'int',
-		'directions_id' => 'int'
+		'courriers_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'nom',
-		'chef_id',
-		'directions_id'
+		'name',
+		'sigle',
+		'courriers_id'
 	];
 
-	public function direction()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\Direction::class, 'directions_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
-	public function regions()
+	public function employees()
 	{
-		return $this->hasMany(\App\Region::class, 'antennes_id');
+		return $this->belongsToMany(\App\Employee::class, 'employees_has_antennes', 'antennes_id', 'employees_id')
+					->withPivot('deleted_at')
+					->withTimestamps();
 	}
 }

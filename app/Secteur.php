@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $domaines
  *
  * @package App
@@ -27,19 +26,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Secteur extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
 		'name'
 	];
-
-	public function beneficiaires()
-	{
-		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiairessecteurs', 'secteurs_id', 'beneficiaires_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
 
 	public function domaines()
 	{

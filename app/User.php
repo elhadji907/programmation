@@ -2,15 +2,12 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User
@@ -23,41 +20,38 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $username
  * @property string $email
  * @property string $telephone
+ * @property string $sexe
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
  * @property string $situation_familiale
- * @property string $status
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
  * @property int $roles_id
- * @property int $directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Direction $direction
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
+ * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $comptables
+ * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
- * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
- * @property \Illuminate\Database\Eloquent\Collection $personnels
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
  *
  * @package App
  */
-class User extends Authenticatable
+class User extends Eloquent
 {
-	use Notifiable;
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'roles_id' => 'int',
-		'directions_id' => 'int'
+		'roles_id' => 'int'
 	];
 
 	protected $dates = [
@@ -77,107 +71,72 @@ class User extends Authenticatable
 		'username',
 		'email',
 		'telephone',
+		'sexe',
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
-		'situation_professionnelle',
-		'adresse',
-		'status',
 		'email_verified_at',
 		'password',
-		'roles_id',
-		'created_by',
-		'updated_by'
-
+		'roles_id'
 	];
-
-	protected static function boot(){
-		parent::boot();
-		static::created(function ($user){
-			$user->profile()->create([
-				'titre'	=>	'',
-				'description'	=>	'',
-				'url'	=>	''
-			]);
-		});
-	} 
-
-	public function getRouteKeyName()
-	{
-		return 'username';
-	}
-
-	public function direction()
-	{
-		return $this->belongsTo(\App\Direction::class, 'directions_id')->orderBy('created_at', 'DESC');
-	}
 
 	public function role()
 	{
-		return $this->belongsTo(\App\Role::class, 'roles_id')->orderBy('created_at', 'DESC');
+		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateur()
+	public function administrateurs()
 	{
-		return $this->hasOne(\App\Administrateur::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Administrateur::class, 'users_id');
 	}
 
-	public function beneficiaire()
+	public function agents()
 	{
-		return $this->hasOne(\App\Beneficiaire::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Agent::class, 'users_id');
 	}
 
-	public function demandeur()
+	public function beneficiaires()
 	{
-		return $this->hasOne(\App\Demandeur::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Beneficiaire::class, 'users_id');
 	}
 
-	public function evaluateur()
+	public function comptables()
 	{
-		return $this->hasOne(\App\Evaluateur::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Comptable::class, 'users_id');
 	}
 
-	public function gestionnaire()
+	public function courriers()
 	{
-		return $this->hasOne(\App\Gestionnaire::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Courrier::class, 'users_id');
 	}
 
-	public function operateur()
+	public function demandeurs()
 	{
-		return $this->hasOne(\App\Operateur::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Demandeur::class, 'users_id');
 	}
 
-	public function personnel()
+	public function employees()
 	{
-		return $this->hasOne(\App\Personnel::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Employee::class, 'users_id');
+	}
+
+	public function gestionnaires()
+	{
+		return $this->hasMany(\App\Gestionnaire::class, 'users_id');
+	}
+
+	public function operateurs()
+	{
+		return $this->hasMany(\App\Operateur::class, 'users_id');
 	}
 
 	public function postes()
 	{
-		return $this->hasMany(\App\Poste::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-	public function courriers()
-	{
-		return $this->hasMany(\App\Courrier::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasMany(\App\Poste::class, 'users_id');
 	}
 
-	public function profile()
+	public function profiles()
 	{
-		return $this->hasOne(\App\Profile::class, 'users_id');
-	}
-
-	//gestion des roles
-	public function hasRole($roleName)
-	{
-		return $this->role->name === $roleName;
-	}
-
-	public function hasAnyRoles($roles)
-	{
-		return in_array($this->role->name, $roles);
-	}
-
-	public function isAdmin(){
-		return false;
+		return $this->hasMany(\App\Profile::class, 'users_id');
 	}
 }

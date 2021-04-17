@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -16,67 +16,46 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $name
  * @property string $sigle
- * @property int $chef_id
- * @property int $types_directions_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\TypesDirection $types_direction
- * @property \Illuminate\Database\Eloquent\Collection $antennes
- * @property \Illuminate\Database\Eloquent\Collection $courriers
- * @property \Illuminate\Database\Eloquent\Collection $personnels
- * @property \Illuminate\Database\Eloquent\Collection $users
+ * @property \App\Courrier $courrier
+ * @property \Illuminate\Database\Eloquent\Collection $divisions
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  *
  * @package App
  */
 class Direction extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'chef_id' => 'int',
-		'types_directions_id' => 'int'
+		'courriers_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'sigle',
-		'chef_id',
-		'types_directions_id'
+		'courriers_id'
 	];
 
-	public function types_direction()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\TypesDirection::class, 'types_directions_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
-	public function antennes()
+	public function divisions()
 	{
-		return $this->hasMany(\App\Antenne::class, 'directions_id');
+		return $this->hasMany(\App\Division::class, 'directions_id');
 	}
 
-	public function courriers()
+	public function employees()
 	{
-		return $this->belongsToMany(\App\Courrier::class, 'courriersdirections', 'directions_id', 'courriers_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Employee::class, 'employees_has_directions', 'directions_id', 'employees_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
-	}
-
-	public function personnels()
-	{
-		return $this->hasMany(\App\Personnel::class, 'directions_id');
-	}
-
-	public function users()
-	{
-		return $this->hasMany(\App\User::class, 'directions_id');
-	}
-
-	public function chef()
-	{
-		return $this->belongsTo(\App\Personnel::class, 'chef_id');
 	}
 }

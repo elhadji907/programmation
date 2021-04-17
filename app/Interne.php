@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $numero
+ * @property string $name
  * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Interne extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'courriers_id' => 'int'
@@ -35,7 +34,7 @@ class Interne extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'numero',
+		'name',
 		'courriers_id'
 	];
 
