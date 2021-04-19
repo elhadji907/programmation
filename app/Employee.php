@@ -2,7 +2,11 @@
 
 /**
  * Created by Reliese Model.
+<<<<<<< HEAD
  * Date: Sun, 18 Apr 2021 21:48:52 +0000.
+=======
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  */
 
 namespace App;
@@ -29,7 +33,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Category $category
  * @property \App\User $user
+<<<<<<< HEAD
  * @property \Illuminate\Database\Eloquent\Collection $cellules
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $dossiers
  * @property \Illuminate\Database\Eloquent\Collection $antennes
@@ -43,10 +50,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Employee extends Eloquent
 {
+<<<<<<< HEAD
 	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
+=======
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 
 	protected $casts = [
 		'users_id' => 'int',
@@ -80,6 +91,7 @@ class Employee extends Eloquent
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
+<<<<<<< HEAD
 	public function cellules()
 	{
 		return $this->belongsToMany(\App\Cellule::class, 'cellules_has_employees', 'employees_id', 'cellules_id')
@@ -87,6 +99,8 @@ class Employee extends Eloquent
 					->withTimestamps();
 	}
 
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	public function courriers()
 	{
 		return $this->hasMany(\App\Courrier::class, 'employees_id');

@@ -15,10 +15,13 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         'fichier' => $faker->word,
         'statut' => $faker->word,
         'date' => $faker->dateTime(),
+<<<<<<< HEAD
         'date_imp' => $faker->dateTime(),
         'date_recep' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         'gestionnaires_id' => function () {
             return factory(App\Gestionnaire::class)->create()->id;
         },
@@ -27,9 +30,16 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         },
         'employees_id' => function () {
             return factory(App\Employee::class)->create()->id;
+<<<<<<< HEAD
         },
         'types_courriers_id' => function () {
             return factory(App\TypesCourrier::class)->create()->id;
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         },
+        'date_imp' => $faker->dateTime(),
+        'date_recep' => $faker->dateTime(),
+        'date_rejet' => $faker->dateTime(),
+        'date_liq' => $faker->dateTime(),
     ];
 });

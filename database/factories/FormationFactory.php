@@ -41,6 +41,12 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'conventions_id' => function () {
             return factory(App\Convention::class)->create()->id;
         },
+<<<<<<< HEAD
+=======
+        'nivaux_id' => function () {
+            return factory(App\Niveaux::class)->create()->id;
+        },
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         'programmes_id' => function () {
             return factory(App\Programme::class)->create()->id;
         },
@@ -52,9 +58,12 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         },
         'traitements_id' => function () {
             return factory(App\Traitement::class)->create()->id;
+<<<<<<< HEAD
         },
         'niveauxs_id' => function () {
             return factory(App\Niveaux::class)->create()->id;
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         },
     ];
 });

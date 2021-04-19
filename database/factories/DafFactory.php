@@ -8,7 +8,10 @@ $factory->define(App\Daf::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
+<<<<<<< HEAD
         'description' => $faker->text,
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         'date_visa' => $faker->dateTime(),
         'date_mandat' => $faker->dateTime(),
         'date_ac' => $faker->dateTime(),

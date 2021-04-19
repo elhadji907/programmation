@@ -2,7 +2,11 @@
 
 /**
  * Created by Reliese Model.
+<<<<<<< HEAD
  * Date: Sun, 18 Apr 2021 21:48:52 +0000.
+=======
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  */
 
 namespace App;
@@ -15,6 +19,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $cin
+<<<<<<< HEAD
  * @property int $nbre_pieces
  * @property string $legende
  * @property string $reference
@@ -22,6 +27,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $projet
  * @property string $prerequis
  * @property string $information
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property string $items1
  * @property \Carbon\Carbon $date1
  * @property int $demandeurs_id
@@ -35,6 +42,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Individuelle extends Eloquent
 {
+<<<<<<< HEAD
 	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
@@ -42,6 +50,11 @@ class Individuelle extends Eloquent
 
 	protected $casts = [
 		'nbre_pieces' => 'int',
+=======
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+
+	protected $casts = [
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 		'demandeurs_id' => 'int'
 	];
 
@@ -52,6 +65,7 @@ class Individuelle extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'cin',
+<<<<<<< HEAD
 		'nbre_pieces',
 		'legende',
 		'reference',
@@ -59,6 +73,8 @@ class Individuelle extends Eloquent
 		'projet',
 		'prerequis',
 		'information',
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 		'items1',
 		'date1',
 		'demandeurs_id'

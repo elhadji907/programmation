@@ -2,7 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
@@ -26,6 +29,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'roles_id' => function () {
             return factory(App\Role::class)->create()->id;
         },
+<<<<<<< HEAD
     ];
 });
 */
@@ -54,5 +58,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'roles_id' => function () {
             return factory(App\Role::class)->create()->id;
         },*/
+=======
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
     ];
 });

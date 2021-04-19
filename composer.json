@@ -19,6 +19,7 @@
         "h4cc/wkhtmltoimage-i386": "0.12.x",
         "h4cc/wkhtmltopdf-i386": "0.12.x",
         "intervention/image": "^2.5",
+        "kwn/number-to-words": "^1.12",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",

@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * Created by Reliese Model.
+<<<<<<< HEAD:app/Bureau.php:app/Bureau.php
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
+=======
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6:app/TypesCourrier.php:app/TypesCourrier.php
+ */
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+/**
+ * Class Bureau
+ * 
+ * @property int $id
+ * @property string $uuid
+ * @property string $name
+ * @property string $sigle
+ * @property int $divisions_id
+ * @property string $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \App\Division $division
+ *
+ * @package App
+ */
+class Bureau extends Eloquent
+{
+	
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+<<<<<<< HEAD:app/Bureau.php:app/Bureau.php
+
+	protected $casts = [
+		'divisions_id' => 'int'
+	];
+=======
+	use \App\Helpers\UuidForKey;
+	
+>>>>>>> 12def4e861499fc22429916071ae3b560bd211e6:app/TypesCourrier.php:app/TypesCourrier.php
+
+	protected $fillable = [
+		'uuid',
+		'name',
+		'sigle',
+		'divisions_id'
+	];
+
+	public function division()
+	{
+		return $this->belongsTo(\App\Division::class, 'divisions_id');
+	}
+}

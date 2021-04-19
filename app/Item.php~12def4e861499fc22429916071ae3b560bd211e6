@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 18 Apr 2021 21:48:52 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -10,35 +10,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class TypesCourrier
+ * Class Item
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property string $categorie
+ * @property string $items1
+ * @property \Carbon\Carbon $date1
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $courriers
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  *
  * @package App
  */
-class TypesCourrier extends Eloquent
+class Item extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	
+
+	protected $dates = [
+		'date1'
+	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
-		'categorie'
+		'items1',
+		'date1'
 	];
 
-	public function courriers()
+	public function demandeurs()
 	{
-		return $this->hasMany(\App\Courrier::class, 'types_courriers_id');
+		return $this->hasMany(\App\Demandeur::class, 'items_id');
 	}
 }

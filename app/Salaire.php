@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 18 Apr 2021 21:48:52 +0000.
+ * Date: Sat, 17 Apr 2021 16:09:55 +0000.
  */
 
 namespace App;
@@ -29,10 +29,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Salaire extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'montant' => 'float',
