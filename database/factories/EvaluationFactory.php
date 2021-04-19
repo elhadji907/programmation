@@ -7,12 +7,11 @@ use Faker\Generator as Faker;
 $factory->define(App\Evaluation::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
-        'note' => $faker->word,
-        'formes_id' => function () {
-            return factory(App\Forme::class)->create()->id;
-        },
-        'certifications_id' => function () {
-            return factory(App\Certification::class)->create()->id;
-        },
+        'numero' => $faker->word,
+        'name' => $faker->name,
+        'date' => $faker->dateTime(),
+        'note' => $faker->randomFloat(),
+        'appreciation' => $faker->word,
+        'mention' => $faker->word,
     ];
 });

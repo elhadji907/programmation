@@ -10,7 +10,6 @@ $factory->define(App\Profile::class, function (Faker $faker) {
         'titre' => $faker->word,
         'description' => $faker->text,
         'url' => $faker->url,
-        'image' => $faker->word,
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
         },

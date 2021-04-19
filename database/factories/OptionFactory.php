@@ -8,6 +8,7 @@ $factory->define(App\Option::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
-        'autre' => $faker->word,
+        'titre1' => $faker->word,
+        'date1' => $faker->dateTime(),
     ];
 });

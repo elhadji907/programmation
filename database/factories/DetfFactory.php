@@ -8,8 +8,8 @@ $factory->define(App\Detf::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
-        'formations_id' => function () {
-            return factory(App\Formation::class)->create()->id;
-        },
+        'titre1' => $faker->word,
+        'titre2' => $faker->word,
+        'date1' => $faker->dateTime(),
     ];
 });

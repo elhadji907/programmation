@@ -42,9 +42,65 @@ class SnNameGenerator
         "Mme",
     );
 
-    public static $lieunaissance = array(
+    public static $sexe = array(
 
-     
+        "M",
+        "F",
+    );
+
+    public static $familiale = array(
+
+        "Célibataire",
+        "Marié(e)",
+        "Divorcé(e)",
+    );
+
+    public static $lieunaissance = array(
+        "Tambacounda",
+        "Bakel",
+        "Goudiry",
+        "Koumpentoum",
+        "Bignona",
+        "Oussouye",
+        "Ziguinchor",
+        "Bambey",
+        "Diourbel",
+        "Mbacké",
+        "Dagana",
+        "Podor",
+        "Saint-Louis",
+        "Dakar",
+        "Pikine",
+        "Rufisque",
+        "Guédiawaye",
+        "Kaolack",
+        "Nioro du rip",
+        "Guinguinéo",
+        "Mbour",
+        "Thiès",
+        "Tivaouane",
+        "Kémémer",
+        "Linguère",
+        "Louga",
+        "Fatick",
+        "Foundiougne",
+        "Gossas",
+        "Kolda",
+        "Vélingara",
+        "Médina",
+        "Kanel",
+        "Matam",
+        "Ranérou",
+        "Kaffrine",
+        "Birkelane",
+        "Koungheul",
+        "Malem-Hodar",
+        "Kedougou",
+        "Salemata",
+        "Saraya",
+        "Sédhiou",
+        "Bounkiling",
+        "Goudomp",
     );
 
     public static $diplome = array(
@@ -1052,6 +1108,31 @@ class SnNameGenerator
         $random_index=random_int(0, (int)$dimension-1);
         return self::$civilite[$random_index];
 
+
+    }
+    
+    static function getSexe()
+    {
+        $dimension=count(self::$sexe);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$sexe[$random_index];
+
+
+    }
+    
+    static function getFamiliale()
+    {
+        $dimension=count(self::$familiale);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$familiale[$random_index];
+
+    }
+
+    static function getLieunaissance()
+    {
+        $dimension=count(self::$lieunaissance);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$lieunaissance[$random_index];
 
     }
 

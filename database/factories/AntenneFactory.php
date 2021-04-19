@@ -7,10 +7,10 @@ use Faker\Generator as Faker;
 $factory->define(App\Antenne::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
-        'nom' => $faker->word,
-        'chef_id' => $faker->randomNumber(),
-        'directions_id' => function () {
-            return factory(App\Direction::class)->create()->id;
+        'name' => $faker->name,
+        'sigle' => $faker->word,
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
         },
     ];
 });

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 20 Aug 2020 11:10:02 +0000.
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
  */
 
 namespace App;
@@ -14,53 +14,55 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $matricule
+ * @property string $cin
+ * @property \Carbon\Carbon $date
+ * @property string $lieu
+ * @property int $village_id
+ * @property int $gestionnaires_id
  * @property int $users_id
- * @property int $villages_id
- * @property int $nivauxs_id
- * @property int $situations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Nivaux $nivaux
- * @property \App\Situation $situation
+ * @property \App\Gestionnaire $gestionnaire
  * @property \App\User $user
  * @property \App\Village $village
- * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $formations
- * @property \Illuminate\Database\Eloquent\Collection $secteurs
- * @property \Illuminate\Database\Eloquent\Collection $formes
  *
  * @package App
  */
 class Beneficiaire extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
-		'users_id' => 'int',
-		'villages_id' => 'int',
-		'nivauxs_id' => 'int',
-		'situations_id' => 'int'
+		'village_id' => 'int',
+		'gestionnaires_id' => 'int',
+		'users_id' => 'int'
+	];
+
+	protected $dates = [
+		'date'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'users_id',
-		'villages_id',
-		'nivauxs_id',
-		'situations_id'
+		'matricule',
+		'cin',
+		'date',
+		'lieu',
+		'village_id',
+		'gestionnaires_id',
+		'users_id'
 	];
 
-	public function nivaux()
+	public function gestionnaire()
 	{
-		return $this->belongsTo(\App\Nivaux::class, 'nivauxs_id');
-	}
-
-	public function situation()
-	{
-		return $this->belongsTo(\App\Situation::class, 'situations_id');
+		return $this->belongsTo(\App\Gestionnaire::class, 'gestionnaires_id');
 	}
 
 	public function user()
@@ -70,32 +72,13 @@ class Beneficiaire extends Eloquent
 
 	public function village()
 	{
-		return $this->belongsTo(\App\Village::class, 'villages_id');
-	}
-
-	public function diplomes()
-	{
-		return $this->belongsToMany(\App\Diplome::class, 'beneficiairesdiplomes', 'beneficiaires_id', 'diplomes_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->belongsTo(\App\Village::class);
 	}
 
 	public function formations()
 	{
-		return $this->belongsToMany(\App\Formation::class, 'beneficiairesformations', 'beneficiaires_id', 'formations_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Formation::class, 'beneficiaires_has_formations', 'beneficiaires_id', 'formations_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
-	}
-
-	public function secteurs()
-	{
-		return $this->belongsToMany(\App\Secteur::class, 'beneficiairessecteurs', 'beneficiaires_id', 'secteurs_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
-
-	public function formes()
-	{
-		return $this->hasMany(\App\Forme::class, 'beneficiaires_id');
 	}
 }

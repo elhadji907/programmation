@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
  */
 
 namespace App;
@@ -15,40 +15,54 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property int $users_id
+ * @property string $telephone
+ * @property string $email
+ * @property string $adresse
+ * @property \Carbon\Carbon $date
+ * @property string $fonction
+ * @property string $appreciation
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $modules
+ * @property \Illuminate\Database\Eloquent\Collection $evaluations
  *
  * @package App
  */
 class Evaluateur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
-	protected $casts = [
-		'users_id' => 'int'
+	protected $dates = [
+		'date'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
-		'users_id'
+		'telephone',
+		'email',
+		'adresse',
+		'date',
+		'fonction',
+		'appreciation'
 	];
 
-	public function user()
+	public function modules()
 	{
-		return $this->belongsTo(\App\User::class, 'users_id');
+		return $this->belongsToMany(\App\Module::class, 'evaluateurs_has_modules', 'evaluateurs_id', 'modules_id')
+					->withPivot('deleted_at')
+					->withTimestamps();
 	}
 
-	public function formations()
+	public function evaluations()
 	{
-		return $this->belongsToMany(\App\Formation::class, 'formationsevaluateurs', 'evaluateurs_id', 'formations_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Evaluation::class, 'evaluations_has_evaluateurs', 'evaluateurs_id', 'evaluations_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
 	}
 }

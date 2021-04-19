@@ -2,7 +2,9 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-/* use Faker\Generator as Faker;
+
+/*
+use Faker\Generator as Faker;
 
 $factory->define(App\Administrateur::class, function (Faker $faker) {
     return [
@@ -12,7 +14,8 @@ $factory->define(App\Administrateur::class, function (Faker $faker) {
             return factory(App\User::class)->create()->id;
         },
     ];
-}); */
+});
+*/
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

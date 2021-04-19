@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
  */
 
 namespace App;
@@ -23,27 +23,30 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $username
  * @property string $email
  * @property string $telephone
+ * @property string $sexe
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
  * @property string $situation_familiale
- * @property string $status
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
+ * @property string $created_by
+ * @property string $updated_by
+ * @property string $deleted_by
  * @property int $roles_id
- * @property int $directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Direction $direction
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
+ * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $comptables
+ * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
- * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $gestionnaires
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
- * @property \Illuminate\Database\Eloquent\Collection $personnels
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
  *
@@ -51,13 +54,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+	
 	use Notifiable;
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
-		'roles_id' => 'int',
-		'directions_id' => 'int'
+		'roles_id' => 'int'
 	];
 
 	protected $dates = [
@@ -77,19 +81,22 @@ class User extends Authenticatable
 		'username',
 		'email',
 		'telephone',
+		'sexe',
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
-		'situation_professionnelle',
-		'adresse',
-		'status',
 		'email_verified_at',
 		'password',
-		'roles_id',
 		'created_by',
-		'updated_by'
-
+		'updated_by',
+		'deleted_by',
+		'roles_id'
 	];
+
+
+	/**
+	 * 
+	 */
 
 	protected static function boot(){
 		parent::boot();
@@ -107,10 +114,22 @@ class User extends Authenticatable
 		return 'username';
 	}
 
-	public function direction()
+	/** gestion des roles */
+	public function hasRole($roleName)
 	{
-		return $this->belongsTo(\App\Direction::class, 'directions_id')->orderBy('created_at', 'DESC');
+		return $this->role->name === $roleName;
+	}	
+	public function hasAnyRoles($roles)
+	{
+		return in_array($this->role->name, $roles);
+	}	
+	public function isAdmin(){
+		return false;
 	}
+
+	/**
+	 * 
+	 */
 
 	public function role()
 	{
@@ -122,9 +141,24 @@ class User extends Authenticatable
 		return $this->hasOne(\App\Administrateur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
+	public function agent()
+	{
+		return $this->hasOne(\App\Agent::class, 'users_id')->orderBy('created_at', 'DESC');
+	}
+
 	public function beneficiaire()
 	{
 		return $this->hasOne(\App\Beneficiaire::class, 'users_id')->orderBy('created_at', 'DESC');
+	}
+
+	public function comptable()
+	{
+		return $this->hasOne(\App\Comptable::class, 'users_id')->orderBy('created_at', 'DESC');
+	}
+
+	public function courriers()
+	{
+		return $this->hasMany(\App\Courrier::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function demandeur()
@@ -132,9 +166,9 @@ class User extends Authenticatable
 		return $this->hasOne(\App\Demandeur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
-	public function evaluateur()
+	public function employee()
 	{
-		return $this->hasOne(\App\Evaluateur::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->hasOne(\App\Employee::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
 	public function gestionnaire()
@@ -147,37 +181,13 @@ class User extends Authenticatable
 		return $this->hasOne(\App\Operateur::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 
-	public function personnel()
-	{
-		return $this->hasOne(\App\Personnel::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
 	public function postes()
 	{
 		return $this->hasMany(\App\Poste::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
-	public function courriers()
-	{
-		return $this->hasMany(\App\Courrier::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
 
 	public function profile()
 	{
-		return $this->hasOne(\App\Profile::class, 'users_id');
-	}
-
-	//gestion des roles
-	public function hasRole($roleName)
-	{
-		return $this->role->name === $roleName;
-	}
-
-	public function hasAnyRoles($roles)
-	{
-		return in_array($this->role->name, $roles);
-	}
-
-	public function isAdmin(){
-		return false;
+		return $this->hasOne(\App\Profile::class, 'users_id')->orderBy('created_at', 'DESC');
 	}
 }

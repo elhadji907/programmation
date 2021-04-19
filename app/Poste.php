@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 12 Dec 2019 13:29:57 +0000.
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
  */
 
 namespace App;
@@ -27,8 +27,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Poste extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'users_id' => 'int'
@@ -43,6 +45,6 @@ class Poste extends Eloquent
 
 	public function user()
 	{
-		return $this->belongsTo(\App\User::class, 'users_id')->orderBy('created_at', 'DESC');
+		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 }

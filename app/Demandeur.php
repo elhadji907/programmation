@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 02 Sep 2020 19:11:29 +0000.
+ * Date: Sun, 18 Apr 2021 21:48:52 +0000.
  */
 
 namespace App;
@@ -14,101 +14,97 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property string $numero_courrier
  * @property string $numero
- * @property string $cin
+ * @property string $sexe
+ * @property string $situation_professionnelle
+ * @property string $etablissement
+ * @property string $niveau_etude
+ * @property string $diplome
+ * @property string $qualification
  * @property string $experience
+ * @property string $deja_forme
+ * @property string $pre_requis
+ * @property string $type
  * @property string $projet
- * @property string $information
- * @property \Carbon\Carbon $date_depot
- * @property string $status
- * @property float $note
+ * @property string $situation
+ * @property string $items1
+ * @property string $items2
+ * @property string $items3
+ * @property \Carbon\Carbon $date1
+ * @property \Carbon\Carbon $date2
  * @property int $users_id
- * @property int $typedemandes_id
- * @property int $objets_id
- * @property int $localites_id
- * @property int $programmes_id
- * @property int $modules_id
+ * @property int $lieux_id
+ * @property int $items_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Localite $localite
- * @property \App\Module $module
- * @property \App\Objet $objet
- * @property \App\Programme $programme
- * @property \App\Typedemande $typedemande
+ * @property \App\Item $item
+ * @property \App\Lieux $lieux
  * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $departements
+ * @property \Illuminate\Database\Eloquent\Collection $charges
+ * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $diplomes
- * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $disponibilites
  * @property \Illuminate\Database\Eloquent\Collection $modules
- * @property \Illuminate\Database\Eloquent\Collection $nivauxes
+ * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $individuelles
+ * @property \Illuminate\Database\Eloquent\Collection $pieces
+ * @property \Illuminate\Database\Eloquent\Collection $titres
  *
  * @package App
  */
 class Demandeur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
-		'note' => 'float',
 		'users_id' => 'int',
-		'typedemandes_id' => 'int',
-		'objets_id' => 'int',
-		'localites_id' => 'int',
-		'programmes_id' => 'int',
-		'modules_id' => 'int'
+		'lieux_id' => 'int',
+		'items_id' => 'int'
 	];
 
 	protected $dates = [
-		'date_depot'
+		'date1',
+		'date2'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'numero_courrier',
 		'numero',
-		'cin',
+		'sexe',
+		'situation_professionnelle',
+		'etablissement',
+		'niveau_etude',
+		'diplome',
+		'qualification',
 		'experience',
+		'deja_forme',
+		'pre_requis',
+		'type',
 		'projet',
-		'information',
-		'date_depot',
-		'status',
-		'note',
-		'email',
+		'situation',
+		'items1',
+		'items2',
+		'items3',
+		'date1',
+		'date2',
 		'users_id',
-		'typedemandes_id',
-		'objets_id',
-		'localites_id',
-		'programmes_id',
-		'modules_id'
+		'lieux_id',
+		'items_id'
 	];
 
-	public function localite()
+	public function item()
 	{
-		return $this->belongsTo(\App\Localite::class, 'localites_id');
+		return $this->belongsTo(\App\Item::class, 'items_id');
 	}
 
-	public function module()
+	public function lieux()
 	{
-		return $this->belongsTo(\App\Module::class, 'modules_id');
-	}
-
-	public function objet()
-	{
-		return $this->belongsTo(\App\Objet::class, 'objets_id');
-	}
-
-	public function programme()
-	{
-		return $this->belongsTo(\App\Programme::class, 'programmes_id');
-	}
-
-	public function typedemande()
-	{
-		return $this->belongsTo(\App\Typedemande::class, 'typedemandes_id');
+		return $this->belongsTo(\App\Lieux::class);
 	}
 
 	public function user()
@@ -116,38 +112,54 @@ class Demandeur extends Eloquent
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
-	public function departements()
+	public function charges()
 	{
-		return $this->belongsToMany(\App\Departement::class, 'demandeursdepartements', 'demandeurs_id', 'departements_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Charge::class, 'demandeurs_id');
+	}
+
+	public function collectives()
+	{
+		return $this->hasMany(\App\Collective::class, 'demandeurs_id');
 	}
 
 	public function diplomes()
 	{
-		return $this->belongsToMany(\App\Diplome::class, 'demandeursdiplomes', 'demandeurs_id', 'diplomes_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Diplome::class, 'demandeurs_has_diplomes', 'demandeurs_id', 'diplomes_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
 	}
 
-	public function formations()
+	public function disponibilites()
 	{
-		return $this->belongsToMany(\App\Formation::class, 'demandeursformations', 'demandeurs_id', 'formations_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Disponibilite::class, 'demandeurs_has_disponibilites', 'demandeurs_id', 'disponibilites_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
 	}
 
 	public function modules()
 	{
-		return $this->belongsToMany(\App\Module::class, 'demandeursmodules', 'demandeurs_id', 'modules_id')
-					->withPivot('id', 'deleted_at')
+		return $this->belongsToMany(\App\Module::class, 'demandeurs_has_modules', 'demandeurs_id', 'modules_id')
+					->withPivot('deleted_at')
 					->withTimestamps();
 	}
 
-	public function nivauxes()
+	public function formations()
 	{
-		return $this->belongsToMany(\App\Nivaux::class, 'demandeursnivauxs', 'demandeurs_id', 'nivauxs_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Formation::class, 'demandeurs_id');
+	}
+
+	public function individuelles()
+	{
+		return $this->hasMany(\App\Individuelle::class, 'demandeurs_id');
+	}
+
+	public function pieces()
+	{
+		return $this->hasMany(\App\Piece::class, 'demandeurs_id');
+	}
+
+	public function titres()
+	{
+		return $this->hasMany(\App\Titre::class, 'demandeurs_id');
 	}
 }
