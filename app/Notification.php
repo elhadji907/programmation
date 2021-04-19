@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 18 Apr 2021 22:06:38 +0000.
+ * Date: Mon, 19 Apr 2021 11:19:21 +0000.
  */
 
 namespace App;
@@ -12,23 +12,26 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * Class Notification
  * 
- * @property string $id
+ * @property int $id
+ * @property string $uuid
  * @property string $type
- * @property string $notifiable_type
- * @property int $notifiable_id
+ * @property int $notifiable
  * @property string $data
  * @property \Carbon\Carbon $read_at
+ * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
  * @package App
  */
 class Notification extends Eloquent
-{
-	public $incrementing = false;
+{	
+	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
-		'notifiable_id' => 'int'
+		'notifiable' => 'int'
 	];
 
 	protected $dates = [
@@ -36,9 +39,9 @@ class Notification extends Eloquent
 	];
 
 	protected $fillable = [
+		'uuid',
 		'type',
-		'notifiable_type',
-		'notifiable_id',
+		'notifiable',
 		'data',
 		'read_at'
 	];

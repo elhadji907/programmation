@@ -2,11 +2,7 @@
 
 /**
  * Created by Reliese Model.
-<<<<<<< HEAD:app/ProgrammesHasRegion.php
- * Date: Sun, 18 Apr 2021 21:48:52 +0000.
-=======
- * Date: Sat, 17 Apr 2021 16:09:55 +0000.
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6:app/ProgrammesHasRegion.php
+ * Date: Mon, 19 Apr 2021 11:19:21 +0000.
  */
 
 namespace App;
@@ -28,14 +24,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class ProgrammesHasRegion extends Eloquent
-{
-	
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-<<<<<<< HEAD:app/ProgrammesHasRegion.php
 	use \App\Helpers\UuidForKey;
 	
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6:app/ProgrammesHasRegion.php
 	protected $primaryKey = 'programmes_id';
 
 	protected $casts = [

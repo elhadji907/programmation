@@ -2,11 +2,7 @@
 
 /**
  * Created by Reliese Model.
-<<<<<<< HEAD
- * Date: Sun, 18 Apr 2021 21:48:52 +0000.
-=======
- * Date: Sat, 17 Apr 2021 16:09:55 +0000.
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
+ * Date: Mon, 19 Apr 2021 11:19:21 +0000.
  */
 
 namespace App;
@@ -26,7 +22,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $fichier
  * @property string $statut
  * @property \Carbon\Carbon $date
-<<<<<<< HEAD
  * @property \Carbon\Carbon $date_imp
  * @property \Carbon\Carbon $date_recep
  * @property \Carbon\Carbon $date_rejet
@@ -35,30 +30,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $users_id
  * @property int $employees_id
  * @property int $types_courriers_id
-=======
- * @property int $gestionnaires_id
- * @property int $users_id
- * @property int $employees_id
- * @property \Carbon\Carbon $date_imp
- * @property \Carbon\Carbon $date_recep
- * @property \Carbon\Carbon $date_rejet
- * @property \Carbon\Carbon $date_liq
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Employee $employee
  * @property \App\Gestionnaire $gestionnaire
-<<<<<<< HEAD
  * @property \App\TypesCourrier $types_courrier
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $cellules
-=======
- * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $antennes
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property \Illuminate\Database\Eloquent\Collection $dafs
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $directions
@@ -69,24 +50,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Courrier extends Eloquent
-{
-	
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-<<<<<<< HEAD
 	use \App\Helpers\UuidForKey;
 	
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 
 	protected $casts = [
 		'gestionnaires_id' => 'int',
 		'users_id' => 'int',
-<<<<<<< HEAD
 		'employees_id' => 'int',
 		'types_courriers_id' => 'int'
-=======
-		'employees_id' => 'int'
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	];
 
 	protected $dates = [
@@ -107,7 +80,6 @@ class Courrier extends Eloquent
 		'fichier',
 		'statut',
 		'date',
-<<<<<<< HEAD
 		'date_imp',
 		'date_recep',
 		'date_rejet',
@@ -116,15 +88,6 @@ class Courrier extends Eloquent
 		'users_id',
 		'employees_id',
 		'types_courriers_id'
-=======
-		'gestionnaires_id',
-		'users_id',
-		'employees_id',
-		'date_imp',
-		'date_recep',
-		'date_rejet',
-		'date_liq'
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	];
 
 	public function employee()
@@ -137,14 +100,11 @@ class Courrier extends Eloquent
 		return $this->belongsTo(\App\Gestionnaire::class, 'gestionnaires_id');
 	}
 
-<<<<<<< HEAD
 	public function types_courrier()
 	{
 		return $this->belongsTo(\App\TypesCourrier::class, 'types_courriers_id');
 	}
 
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
@@ -155,7 +115,6 @@ class Courrier extends Eloquent
 		return $this->hasMany(\App\Antenne::class, 'courriers_id');
 	}
 
-<<<<<<< HEAD
 	public function cellules()
 	{
 		return $this->hasMany(\App\Cellule::class, 'courriers_id');
@@ -163,10 +122,6 @@ class Courrier extends Eloquent
 
 	public function dafs()
 	{
-=======
-	public function dafs()
-	{
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 		return $this->hasMany(\App\Daf::class, 'courriers_id');
 	}
 

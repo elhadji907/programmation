@@ -13,12 +13,9 @@ $factory->define(App\Collective::class, function (Faker $faker) {
         'demandeurs_id' => function () {
             return factory(App\Demandeur::class)->create()->id;
         },
-<<<<<<< HEAD
         'sigle' => $faker->word,
         'statut' => $faker->word,
         'projet' => $faker->text,
         'description' => $faker->text,
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
     ];
 });

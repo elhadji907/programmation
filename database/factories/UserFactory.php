@@ -2,10 +2,6 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-<<<<<<< HEAD
-/*
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
@@ -29,36 +25,5 @@ $factory->define(App\User::class, function (Faker $faker) {
         'roles_id' => function () {
             return factory(App\Role::class)->create()->id;
         },
-<<<<<<< HEAD
-    ];
-});
-*/
-
-use App\Helpers\SnNameGenerator as SnmG;
-use Illuminate\Support\Str;
-
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'civilite' => SnmG::getCivilite(),
-        'firstname' => SnmG::getFirstName(),
-        'name' => SnmG::getName(),
-        'username' => Str::random(7),
-        'email' => Str::random(5).".".$faker->safeEmail,
-        'telephone' => $faker->phoneNumber,
-        'sexe' => SnmG::getSexe(),
-        'date_naissance' => $faker->dateTime(),
-        'lieu_naissance' => SnmG::getLieunaissance(),
-        'situation_familiale' => SnmG::getFamiliale(),
-        'email_verified_at' => $faker->dateTimeBetween(),
-        'password' => bcrypt($faker->password),
-        'created_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',
-        'updated_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',
-        'deleted_by' => "",
-        /*'remember_token' => Str::random(10),
-        'roles_id' => function () {
-            return factory(App\Role::class)->create()->id;
-        },*/
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
     ];
 });

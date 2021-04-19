@@ -2,11 +2,7 @@
 
 /**
  * Created by Reliese Model.
-<<<<<<< HEAD
- * Date: Sun, 18 Apr 2021 21:48:52 +0000.
-=======
- * Date: Sat, 17 Apr 2021 16:09:55 +0000.
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
+ * Date: Mon, 19 Apr 2021 11:19:21 +0000.
  */
 
 namespace App;
@@ -42,18 +38,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $agents_id
  * @property int $detfs_id
  * @property int $conventions_id
-<<<<<<< HEAD
-=======
- * @property int $nivaux_id
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property int $programmes_id
  * @property int $operateurs_id
  * @property int $demandeurs_id
  * @property int $traitements_id
-<<<<<<< HEAD
  * @property int $niveauxs_id
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -75,8 +64,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Formation extends Eloquent
-{
-	
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -93,19 +81,11 @@ class Formation extends Eloquent
 		'agents_id' => 'int',
 		'detfs_id' => 'int',
 		'conventions_id' => 'int',
-<<<<<<< HEAD
 		'programmes_id' => 'int',
 		'operateurs_id' => 'int',
 		'demandeurs_id' => 'int',
 		'traitements_id' => 'int',
 		'niveauxs_id' => 'int'
-=======
-		'nivaux_id' => 'int',
-		'programmes_id' => 'int',
-		'operateurs_id' => 'int',
-		'demandeurs_id' => 'int',
-		'traitements_id' => 'int'
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	];
 
 	protected $dates = [
@@ -140,19 +120,11 @@ class Formation extends Eloquent
 		'agents_id',
 		'detfs_id',
 		'conventions_id',
-<<<<<<< HEAD
 		'programmes_id',
 		'operateurs_id',
 		'demandeurs_id',
 		'traitements_id',
 		'niveauxs_id'
-=======
-		'nivaux_id',
-		'programmes_id',
-		'operateurs_id',
-		'demandeurs_id',
-		'traitements_id'
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	];
 
 	public function agent()
@@ -187,11 +159,7 @@ class Formation extends Eloquent
 
 	public function niveaux()
 	{
-<<<<<<< HEAD
 		return $this->belongsTo(\App\Niveaux::class, 'niveauxs_id');
-=======
-		return $this->belongsTo(\App\Niveaux::class, 'nivaux_id');
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
 	}
 
 	public function operateur()

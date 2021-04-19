@@ -11,12 +11,9 @@ $factory->define(App\Direction::class, function (Faker $faker) {
         'sigle' => $faker->word,
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
-<<<<<<< HEAD
         },
         'types_directions_id' => function () {
             return factory(App\TypesDirection::class)->create()->id;
-=======
->>>>>>> 12def4e861499fc22429916071ae3b560bd211e6
         },
     ];
 });
