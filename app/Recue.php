@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Mon, 19 Apr 2021 13:55:57 +0000.
  */
 
 namespace App;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * Class Recue
  * 
  * @property int $id
- * @property string $name
+ * @property string $numero
  * @property string $uuid
  * @property int $courriers_id
  * @property string $deleted_at
@@ -25,17 +25,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Recue extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'courriers_id' => 'int'
 	];
 
 	protected $fillable = [
-		'name',
+		'numero',
 		'uuid',
 		'courriers_id'
 	];

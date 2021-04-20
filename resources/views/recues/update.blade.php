@@ -68,11 +68,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_c', $recue->courrier->date_c->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_c', Carbon\Carbon::parse($recue->courrier->date_c)->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
                         </div> 
                         <div class="form-group col-md-3">
                             {!! Form::label('Date réception', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_r', $recue->courrier->date_r->format('Y-m-d'), ['placeholder'=>"La date de réception du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_r', Carbon\Carbon::parse($recue->courrier->date_r)->format('Y-m-d'), ['placeholder'=>"La date de réception du courrier", 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">
@@ -107,9 +107,4 @@
 </div>
 @endsection
 
-@section('javascripts')
-    <script type="text/javascript">
-        $('#direction').select2().val({!! json_encode($recue->courrier->directions()->allRelatedIds()) !!}).trigger('change');
-    </script>
-@endsection
 

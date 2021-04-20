@@ -20,7 +20,7 @@
                         <p>{{ $interne->courrier->message }}</p>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <small>Posté le {!! $interne->courrier->created_at->format('d/m/Y à H:i:s') !!}</small>
+                            <small>Posté le {!! Carbon\Carbon::parse($interne->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
                             <span class="badge badge-primary">{!! $interne->courrier->user->firstname !!}&nbsp;{!! $interne->courrier->user->name !!}</span>
                         </div>
 
@@ -56,7 +56,7 @@
                                 <div class="card-body">
                                     {!! $comment->content !!}
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <small>Posté le {!! $comment->created_at->format('d/m/Y à H:i:s') !!}</small>
+                                        <small>Posté le {!! Carbon\Carbon::parse($comment->created_at)->format('d/m/Y à H:i:s') !!}</small>
                                         <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                 <div class="card-body">
                                     {!! $replayComment->content !!}
                                     <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <small>Posté le {!! $replayComment->created_at->format('d/m/Y à H:i:s') !!}</small>
+                                        <small>Posté le {!! Carbon\Carbon::parse($replayComment->created_at)->format('d/m/Y à H:i:s') !!}</small>
                                         <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
                                     </div>
                                 </div>

@@ -74,27 +74,37 @@ class VillagesTableSeeder extends Seeder
                                 "firstname"=>$prenom
                             ],
                             [
-                            "email"=>$faker->randomNumber($nbDigit=3,$strict=true).$faker->safeEmail,
+                            "email"=>$faker->randomNumber($nbDigit=3,$strict=true).$faker->safeEmail,                    
+                            "telephone"=>$faker->e164PhoneNumber,
+                            'fixe' => $faker->phoneNumber,
+                            'sexe' => SnmG::getSexe(),
                             "password"=>bcrypt("secret"),
                             "roles_id"=>$role_beneficiaire->id,
                             'username' => Str::random(7),
                             'civilite' => SnmG::getCivilite(),   
                             'date_naissance' => $faker->dateTime(),
-                            'lieu_naissance' => $faker->word,
-                            'situation_familiale' => $faker->word,                        
-                            "telephone"=>$faker->phoneNumber
+                            'lieu_naissance' => SnmG::getLieunaissance(),
+                            'situation_familiale' => SnmG::getFamiliale(),
+                            'created_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',
+                            'updated_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')' 
                             ]);
                             //echo("Pass 4".PHP_EOL);
                             $user->save();
 
-                            $nivaus_id = App\Nivaux::all()->random()->id;
-                            $situations_id = App\Situation::all()->random()->id;
+                            //$nivaus_id = App\Niveaux::all()->random()->id;
+                            //$situations_id = App\Situation::all()->random()->id;
+                            $gestionnaires_id = App\Gestionnaire::all()->random()->id;
 
                             $beneficiaire=App\Beneficiaire::firstOrNew(
                             [
-                            "villages_id"=>$village_->id,
-                            "nivauxs_id"=>$nivaus_id,
-                            "situations_id"=>$situations_id,
+                            'matricule' =>"BEN".$faker->randomNumber($nbDigit=5,$strict=true),
+                            'cin'   => rand(1, 2).''.$faker->ean13,
+                            'date'  => $faker->dateTime(),
+                            'lieu'  => $faker->city,
+                            "villages_id"=> $village_->id,
+                            //"nivauxs_id"=>$nivaus_id,
+                            //"situations_id"=>$situations_id,
+                            "gestionnaires_id"=>$gestionnaires_id,
                             "users_id"=>$user->id
                             ]);
                             $beneficiaire->save();

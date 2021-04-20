@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('username', 200)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('telephone', 200)->nullable();
+            $table->string('fixe', 200)->nullable();
             $table->string('sexe', 200)->nullable();
             $table->dateTime('date_naissance')->nullable();
             $table->string('lieu_naissance', 200)->nullable();
@@ -40,8 +41,10 @@ class CreateUsersTable extends Migration
             $table->string('updated_by', 200)->nullable();
             $table->string('deleted_by', 200)->nullable();
             $table->unsignedInteger('roles_id');
-            $table->rememberToken();
+            $table->longText('adresse')->nullable();
 
+            $table->rememberToken();
+            
             $table->unique(["email"], 'email_UNIQUE');
 
             $table->index(["roles_id"], 'fk_users_roles1_idx');

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Tue, 20 Apr 2021 20:03:56 +0000.
  */
 
 namespace App;
@@ -16,12 +16,20 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $numero
  * @property string $objet
+ * @property string $expediteur
  * @property string $name
- * @property string $types
+ * @property string $type
  * @property string $description
- * @property string $fichier
+ * @property string $message
+ * @property string $email
+ * @property string $fax
+ * @property string $bp
+ * @property string $telephone
+ * @property string $file
+ * @property string $legende
  * @property string $statut
  * @property \Carbon\Carbon $date
+ * @property string $adresse
  * @property \Carbon\Carbon $date_imp
  * @property \Carbon\Carbon $date_recep
  * @property \Carbon\Carbon $date_rejet
@@ -40,6 +48,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $cellules
+ * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $dafs
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $directions
@@ -50,10 +59,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Courrier extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'gestionnaires_id' => 'int',
@@ -74,12 +82,20 @@ class Courrier extends Eloquent
 		'uuid',
 		'numero',
 		'objet',
+		'expediteur',
 		'name',
-		'types',
+		'type',
 		'description',
-		'fichier',
+		'message',
+		'email',
+		'fax',
+		'bp',
+		'telephone',
+		'file',
+		'legende',
 		'statut',
 		'date',
+		'adresse',
 		'date_imp',
 		'date_recep',
 		'date_rejet',
@@ -90,6 +106,11 @@ class Courrier extends Eloquent
 		'types_courriers_id'
 	];
 
+	public function getFile(){
+		$filePath = $this->file ?? 'recues/default.jpg';
+		return "/storage/" . $filePath;
+	}
+	
 	public function employee()
 	{
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
@@ -118,6 +139,11 @@ class Courrier extends Eloquent
 	public function cellules()
 	{
 		return $this->hasMany(\App\Cellule::class, 'courriers_id');
+	}
+	
+	public function comments()
+	{
+		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
 
 	public function dafs()

@@ -28,23 +28,18 @@ class CreateBeneficiairesTable extends Migration
             $table->string('cin', 20);
             $table->dateTime('date')->nullable();
             $table->string('lieu', 200)->nullable();
-            $table->unsignedInteger('village_id')->nullable();
             $table->unsignedInteger('gestionnaires_id')->nullable();
             $table->unsignedInteger('users_id')->nullable();
-
-            $table->index(["village_id"], 'fk_clients_villages1_idx');
+            $table->unsignedInteger('villages_id')->nullable();
 
             $table->index(["gestionnaires_id"], 'fk_clients_gestionnaires1_idx');
 
             $table->index(["users_id"], 'fk_clients_users1_idx');
+
+            $table->index(["villages_id"], 'fk_beneficiaires_villages1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
-            $table->foreign('village_id', 'fk_clients_villages1_idx')
-                ->references('id')->on('villages')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('gestionnaires_id', 'fk_clients_gestionnaires1_idx')
                 ->references('id')->on('gestionnaires')
@@ -53,6 +48,11 @@ class CreateBeneficiairesTable extends Migration
 
             $table->foreign('users_id', 'fk_clients_users1_idx')
                 ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('villages_id', 'fk_beneficiaires_villages1_idx')
+                ->references('id')->on('villages')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

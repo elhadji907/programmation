@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternesTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'internes';
+    public $tableName = 'comments';
 
     /**
      * Run the migrations.
-     * @table internes
+     * @table comments
      *
      * @return void
      */
@@ -24,15 +24,25 @@ class CreateInternesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200)->nullable();
-            $table->unsignedInteger('courriers_id');
+            $table->longText('content')->nullable();
+            $table->integer('commentable_id')->nullable();
+            $table->longText('commentable_type')->nullable();
+            $table->unsignedInteger('users_id')->nullable();
+            $table->unsignedInteger('courriers_id')->nullable();
 
-            $table->index(["courriers_id"], 'fk_interne_courriers1_idx');
+            $table->index(["users_id"], 'fk_comments_users1_idx');
+
+            $table->index(["courriers_id"], 'fk_comments_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('courriers_id', 'fk_interne_courriers1_idx')
+            $table->foreign('users_id', 'fk_comments_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('courriers_id', 'fk_comments_courriers1_idx')
                 ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');

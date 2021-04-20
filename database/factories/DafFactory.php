@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Daf::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
+        'numero' => $faker->word,
         'name' => $faker->name,
         'description' => $faker->text,
         'date_visa' => $faker->dateTime(),

@@ -55,7 +55,7 @@
                   <?php $i = 1 ?>
                   @foreach ($recues as $recue)
                   <tr>
-                    <td>{!! $i !!}</td>
+                    <td>{!! $i++ !!}</td>
                     <td>{!! $recue->numero !!}</td>
                     <td>{!! $recue->courrier->objet !!}</td>
                     <td>{!! $recue->courrier->expediteur !!}</td>

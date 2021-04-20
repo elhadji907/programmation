@@ -42,6 +42,22 @@ class SnNameGenerator
         "Mme",
     );
 
+    public static $situation = array(
+        "Elève",
+        "Etudiant(e)",
+        "Employé(e)",
+        "Recherche d'emploi",
+
+    );
+
+    public static $niveaux = array(
+        "Primaire",
+        "Collège",
+        "Secondaire",
+        "Supérieur",
+
+    );
+
     public static $sexe = array(
 
         "M",
@@ -1107,6 +1123,24 @@ class SnNameGenerator
         $dimension=count(self::$civilite);
         $random_index=random_int(0, (int)$dimension-1);
         return self::$civilite[$random_index];
+
+
+    }
+    
+    static function getSituation()
+    {
+        $dimension=count(self::$situation);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$situation[$random_index];
+
+
+    }
+
+    static function getNiveaux()
+    {
+        $dimension=count(self::$niveaux);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$niveaux[$random_index];
 
 
     }

@@ -7,7 +7,6 @@ use App\Interne;
 use App\Depart;
 use App\Direction;
 use Auth;
-use App\Objet;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -62,7 +61,6 @@ class RecuesController extends Controller
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
         /* dd($date); */      
@@ -76,7 +74,7 @@ class RecuesController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
 
-        return view('recues.create',compact('date', 'types', 'objets', 'directions', 'date_r', 'chart'));
+        return view('recues.create',compact('date', 'types', 'directions', 'date_r', 'chart'));
     }
 
     /**
@@ -175,7 +173,6 @@ class RecuesController extends Controller
         
         $this->authorize('update', $recue->courrier);
 
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
         $chart      = Courrier::all();
@@ -184,8 +181,8 @@ class RecuesController extends Controller
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
-
-         return view('recues.update', compact('recue', 'directions', 'objets','chart'));
+            //dd($directions);
+         return view('recues.update', compact('recue', 'directions', 'chart'));
         /*  dd($recue); */
     }
 

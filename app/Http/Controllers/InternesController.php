@@ -8,7 +8,6 @@ use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
 use Auth;
 use App\Courrier;
-use App\Objet;
 use App\Direction;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
@@ -53,7 +52,6 @@ class InternesController extends Controller
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
         /* dd($date); */      
@@ -68,7 +66,7 @@ class InternesController extends Controller
        ]);
        
 
-        return view('internes.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r','chart'));
+        return view('internes.create', compact('numCourrier', 'date', 'directions', 'date_r','chart'));
     }
 
     /**
@@ -153,10 +151,9 @@ class InternesController extends Controller
         
         $this->authorize('update',  $interne->courrier);
 
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
-         return view('internes.update', compact('interne', 'directions', 'objets'));
+         return view('internes.update', compact('interne', 'directions'));
     }
 
     /**

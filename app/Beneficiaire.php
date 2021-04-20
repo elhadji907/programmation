@@ -39,7 +39,7 @@ class Beneficiaire extends Eloquent
 	
 
 	protected $casts = [
-		'village_id' => 'int',
+		'villages_id' => 'int',
 		'gestionnaires_id' => 'int',
 		'users_id' => 'int'
 	];

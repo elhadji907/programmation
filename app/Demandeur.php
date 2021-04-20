@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Tue, 20 Apr 2021 20:04:33 +0000.
  */
 
 namespace App;
@@ -24,9 +24,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $experience
  * @property string $deja_forme
  * @property string $pre_requis
+ * @property string $adresse
  * @property string $type
  * @property string $projet
  * @property string $situation
+ * @property string $telephone
+ * @property string $fixe
  * @property string $items1
  * @property string $items2
  * @property string $items3
@@ -55,10 +58,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Demandeur extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'users_id' => 'int',
@@ -83,9 +85,12 @@ class Demandeur extends Eloquent
 		'experience',
 		'deja_forme',
 		'pre_requis',
+		'adresse',
 		'type',
 		'projet',
 		'situation',
+		'telephone',
+		'fixe',
 		'items1',
 		'items2',
 		'items3',

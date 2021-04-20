@@ -8,7 +8,6 @@ use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
 use App\Direction;
 use Auth;
-use App\Objet;
 use App\Courrier;
 use App\Charts\Courrierchart;
 
@@ -55,13 +54,12 @@ class DepartsController extends Controller
         $date = Carbon::parse('now');
         $date = $date->format('Y-m-d');
 
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
         /* dd($date); */      
         $date_r = Carbon::now();
        
-        return view('departs.create', compact('numCourrier', 'date', 'objets', 'directions', 'date_r'));
+        return view('departs.create', compact('numCourrier', 'date', 'directions', 'date_r'));
     }
 
     /**
@@ -148,11 +146,9 @@ class DepartsController extends Controller
         
         $this->authorize('update',  $depart->courrier);
 
-          
-        $objets = Objet::pluck('name','name');
         $directions = Direction::pluck('sigle','id');
 
-         return view('departs.update', compact('depart', 'directions', 'objets'));
+         return view('departs.update', compact('depart', 'directions'));
     }
 
     /**

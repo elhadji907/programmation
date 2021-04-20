@@ -120,8 +120,8 @@
                             <td>
                                 Numéro #:                                   
                                 {!! $recue->numero !!}<br>
-                                Date correspondance:  {!! $recue->courrier->date_c->format('d/m/Y') !!}<br>
-                                Date réception:  {!! $recue->courrier->date_r->format('d/m/Y') !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($recue->courrier->date_c)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($recue->courrier->date_r)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>

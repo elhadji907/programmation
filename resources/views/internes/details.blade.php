@@ -125,8 +125,8 @@
                             <td>
                                 Numéro #:                                   
                                 {!! $interne->numero !!}<br>
-                                Date correspondance:  {!! $interne->courrier->date_c->format('d/m/Y') !!}<br>
-                                Date réception:  {!! $interne->courrier->date_r->format('d/m/Y') !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($interne->courrier->date_c)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($interne->courrier->date_r)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>

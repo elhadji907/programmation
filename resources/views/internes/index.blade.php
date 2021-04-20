@@ -54,7 +54,7 @@
                   <?php $i = 1 ?>
                   @foreach ($internes as $interne)
                   <tr>
-                    <td>{!! $i !!}</td>
+                    <td>{!! $i++ !!}</td>
                     <td>{!! $interne->numero !!}</td>
                     <td>{!! $interne->courrier->objet !!}</td>
                     <td>{!! $interne->courrier->expediteur !!}</td>

@@ -8,6 +8,7 @@ $factory->define(App\Programme::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
+        'sigle' => $faker->word,
         'duree' => $faker->word,
         'effectif' => $faker->randomNumber(),
     ];

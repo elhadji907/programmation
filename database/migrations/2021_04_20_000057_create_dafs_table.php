@@ -24,6 +24,7 @@ class CreateDafsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('numero', 200)->nullable();
             $table->string('name', 200)->nullable();
             $table->longText('description')->nullable();
             $table->dateTime('date_visa')->nullable();

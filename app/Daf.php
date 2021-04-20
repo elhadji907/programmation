@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Mon, 19 Apr 2021 13:56:04 +0000.
  */
 
 namespace App;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $numero
  * @property string $name
  * @property string $description
  * @property \Carbon\Carbon $date_visa
@@ -41,10 +42,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Daf extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'courriers_id' => 'int',
@@ -61,6 +61,7 @@ class Daf extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'numero',
 		'name',
 		'description',
 		'date_visa',

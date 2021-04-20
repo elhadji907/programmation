@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Tue, 20 Apr 2021 20:04:09 +0000.
  */
 
 namespace App;
@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 /**
  * Class User
@@ -24,6 +23,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $username
  * @property string $email
  * @property string $telephone
+ * @property string $fixe
  * @property string $sexe
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
@@ -34,6 +34,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $updated_by
  * @property string $deleted_by
  * @property int $roles_id
+ * @property string $adresse
+ * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -42,6 +44,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
  * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $comptables
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
@@ -54,7 +57,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App
  */
 class User extends Authenticatable
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	use Notifiable;
@@ -70,7 +73,8 @@ class User extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [
@@ -81,6 +85,7 @@ class User extends Authenticatable
 		'username',
 		'email',
 		'telephone',
+		'fixe',
 		'sexe',
 		'date_naissance',
 		'lieu_naissance',
@@ -90,69 +95,12 @@ class User extends Authenticatable
 		'created_by',
 		'updated_by',
 		'deleted_by',
-		'roles_id'
+		'roles_id',
+		'adresse',
+		'remember_token'
 	];
 
-	public function role()
-	{
-		return $this->belongsTo(\App\Role::class, 'roles_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function administrateur()
-	{
-		return $this->hasOne(\App\Administrateur::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function agent()
-	{
-		return $this->hasOne(\App\Agent::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function beneficiaire()
-	{
-		return $this->hasOne(\App\Beneficiaire::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function comptable()
-	{
-		return $this->hasOne(\App\Comptable::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function courriers()
-	{
-		return $this->hasMany(\App\Courrier::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function demandeur()
-	{
-		return $this->hasOne(\App\Demandeur::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function employee()
-	{
-		return $this->hasOne(\App\Employee::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function gestionnaire()
-	{
-		return $this->hasOne(\App\Gestionnaire::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function operateur()
-	{
-		return $this->hasOne(\App\Operateur::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function postes()
-	{
-		return $this->hasMany(\App\Poste::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
-	public function profile()
-	{
-		return $this->hasOne(\App\Profile::class, 'users_id')->orderBy('created_at', 'DESC');
-	}
-
+	
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -169,18 +117,81 @@ class User extends Authenticatable
 		return 'username';
 	}
 
-		/** gestion des roles */
-		public function hasRole($roleName)
-		{
-			return $this->role->name === $roleName;
-		}
-	
-		public function hasAnyRoles($roles)
-		{
-			return in_array($this->role->name, $roles);
-		}
-	
-		public function isAdmin(){
-			return false;
-		}
+	public function role()
+	{
+		return $this->belongsTo(\App\Role::class, 'roles_id');
+	}
+
+	public function administrateur()
+	{
+		return $this->hasOne(\App\Administrateur::class, 'users_id');
+	}
+
+	public function agent()
+	{
+		return $this->hasOne(\App\Agent::class, 'users_id');
+	}
+
+	public function beneficiaire()
+	{
+		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
+	}
+
+	public function comments()
+	{
+		return $this->morphMany('\App\Comment', 'commentable')->latest();
+	}
+
+	public function comptable()
+	{
+		return $this->hasOne(\App\Comptable::class, 'users_id');
+	}
+
+	public function courriers()
+	{
+		return $this->hasMany(\App\Courrier::class, 'users_id');
+	}
+
+	public function demandeur()
+	{
+		return $this->hasOne(\App\Demandeur::class, 'users_id');
+	}
+
+	public function employee()
+	{
+		return $this->hasOne(\App\Employee::class, 'users_id');
+	}
+
+	public function gestionnaire()
+	{
+		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
+	}
+
+	public function operateur()
+	{
+		return $this->hasOne(\App\Operateur::class, 'users_id');
+	}
+
+	public function postes()
+	{
+		return $this->hasMany(\App\Poste::class, 'users_id');
+	}
+
+	public function profile()
+	{
+		return $this->hasOne(\App\Profile::class, 'users_id');
+	}
+
+	//gestion des roles
+	public function hasRole($roleName)
+	{
+		return $this->role->name === $roleName;
+	}	
+	public function hasAnyRoles($roles)
+	{
+		return in_array($this->role->name, $roles);
+	}	
+	public function isAdmin(){
+		return false;
+	}
 }
