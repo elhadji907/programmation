@@ -134,7 +134,7 @@
                         <td>
                           <a style="color: darkorange; text-decoration: none;"
                            href="{!! url('courriers/'.$courier->id) !!}" class="view" title="voir" target="_blank">
-                           {!! $courier->numero !!}
+                           <b>{!! $courier->numero !!}</b>
                           </a>
                         </td>
                         <td>{!! $courier->objet !!}</td>
@@ -142,10 +142,7 @@
                         <td>{!! $courier->email !!}</td>
                         <td>{!! $courier->telephone !!}</td>
                         <td>
-                          <a style="color: orange; text-decoration: none;"
-                           href="{!! url('courriers/'.$courier->id) !!}" class="view" title="voir" target="_blank">
-                            {!! $courier->types_courrier->name !!}
-                          </a>
+                            <b>{!! $courier->types_courrier->name !!}</b>
                          </td>
                         {{--
                           <td class="d-flex align-items-baseline align-content-center">
