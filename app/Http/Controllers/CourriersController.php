@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Courrier;
 use Illuminate\Http\Request;
+
 use Yajra\Datatables\Datatables;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Charts\Courrierchart;
@@ -28,7 +29,10 @@ class CourriersController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
+
         $courriers = Courrier::get()->count();
+        
+        $couriers = Courrier::all();
 
         $chart      = Courrier::all();
 
@@ -38,7 +42,7 @@ class CourriersController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
         
-        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart'));
+        return view('courriers.index', compact('courriers','couriers', 'recues', 'internes', 'departs','chart'));
     }
 
     /**

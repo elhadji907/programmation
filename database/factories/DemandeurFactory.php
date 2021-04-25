@@ -38,7 +38,8 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
             return factory(App\Item::class)->create()->id;
         },
     ];
-});*/
+});
+*/
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;

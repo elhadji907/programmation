@@ -25,15 +25,15 @@
                 <a href="{!! url('recues/create') !!}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div></a> 
               </div>
                 <br />
-              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-striped" id="table-recus" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>ID</th>
-                    <th>Numero</th>
-                    <th>Objet</th>
-                    <th>Expéditeur</th>
-                    <th>Imputation</th>
-                    <th style="width:50px;">Action</th>
+                    <th style="width:5%;">ID</th>
+                    <th style="width:10%;">Numero</th>
+                    <th style="width:40%;">Objet</th>
+                    <th style="width:15%;">Expéditeur</th>
+                    <th style="width:20%;">Imputation</th>
+                    <th style="width:10%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
@@ -60,8 +60,8 @@
                     <td>{!! $recue->courrier->objet !!}</td>
                     <td>{!! $recue->courrier->expediteur !!}</td>
                     <td>
-                      @foreach ($recue->courrier->directions as $direction)
-                          <span class="btn btn-default">{!! $direction->sigle !!}</span> 
+                      @foreach ($recue->courrier->imputations as $imputation)
+                          <span class="btn btn-default">{!! $imputation->sigle !!}</span> 
                       @endforeach
                     </td>             
                     <td class="d-flex align-items-baseline">
@@ -93,3 +93,49 @@
     </div>
   </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#table-recus').DataTable({
+      dom: 'lBfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print',
+      ],
+      "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+      "order": [
+            [ 0, 'asc' ]
+            ],
+            language: {
+              "sProcessing":     "Traitement en cours...",
+              "sSearch":         "Rechercher&nbsp;:",
+              "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+              "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+              "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+              "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+              "sInfoPostFix":    "",
+              "sLoadingRecords": "Chargement en cours...",
+              "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+              "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+              "oPaginate": {
+                  "sFirst":      "Premier",
+                  "sPrevious":   "Pr&eacute;c&eacute;dent",
+                  "sNext":       "Suivant",
+                  "sLast":       "Dernier"
+              },
+              "oAria": {
+                  "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                  "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+              },
+              "select": {
+                      "rows": {
+                          _: "%d lignes séléctionnées",
+                          0: "Aucune ligne séléctionnée",
+                          1: "1 ligne séléctionnée"
+                      }
+              }
+            }
+    });
+} );
+</script> 
+@endpush

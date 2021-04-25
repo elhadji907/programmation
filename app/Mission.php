@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Sun, 25 Apr 2021 12:16:23 +0000.
  */
 
 namespace App;
@@ -34,19 +34,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property float $reliquat
  * @property float $accompt
  * @property int $employees_id
+ * @property int $vehicules_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Employee $employee
+ * @property \App\Vehicule $vehicule
  *
  * @package App
  */
 class Mission extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'distance' => 'int',
@@ -54,7 +54,8 @@ class Mission extends Eloquent
 		'montant' => 'float',
 		'reliquat' => 'float',
 		'accompt' => 'float',
-		'employees_id' => 'int'
+		'employees_id' => 'int',
+		'vehicules_id' => 'int'
 	];
 
 	protected $dates = [
@@ -88,11 +89,17 @@ class Mission extends Eloquent
 		'montant',
 		'reliquat',
 		'accompt',
-		'employees_id'
+		'employees_id',
+		'vehicules_id'
 	];
 
 	public function employee()
 	{
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
+	}
+
+	public function vehicule()
+	{
+		return $this->belongsTo(\App\Vehicule::class, 'vehicules_id');
 	}
 }

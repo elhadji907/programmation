@@ -12,5 +12,8 @@ $factory->define(App\Service::class, function (Faker $faker) {
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
         },
+        'imputations_id' => function () {
+            return factory(App\Imputation::class)->create()->id;
+        },
     ];
 });

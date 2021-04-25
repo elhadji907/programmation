@@ -25,6 +25,7 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         'adresse' => $faker->word,
         'date_imp' => $faker->dateTime(),
         'date_recep' => $faker->dateTime(),
+        'date_cores' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
         'gestionnaires_id' => function () {
@@ -40,9 +41,8 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
             return factory(App\TypesCourrier::class)->create()->id;
         },
     ];
-});*/
-
-
+});
+*/
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -53,7 +53,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
 
     return [
         'numero' => Str::random(8),
-        'objet' => $faker->sentence,
+        'objet' => $faker->paragraph(1),
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'name' => $faker->name,
         'type' => $faker->word,
@@ -63,13 +63,14 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         'fax' => $faker->tollFreePhoneNumber,
         'bp' => $faker->postcode,
         'telephone' => $faker->phoneNumber,
-        'file' => $faker->word,
+        'file' => "",
         'legende' => "",
         'statut' => "",
         'date' => $faker->dateTime(),
         'adresse' => $faker->address,
         'date_imp' => $faker->dateTime(),
         'date_recep' => $faker->dateTime(),
+        'date_cores' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
         'gestionnaires_id' => function ()  use($gestionnaire_id) {

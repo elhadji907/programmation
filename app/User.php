@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 20 Apr 2021 20:04:09 +0000.
+ * Date: Wed, 21 Apr 2021 18:20:18 +0000.
  */
 
 namespace App;
@@ -57,7 +57,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App
  */
 class User extends Authenticatable
-{
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	use Notifiable;
@@ -99,8 +99,6 @@ class User extends Authenticatable
 		'adresse',
 		'remember_token'
 	];
-
-	
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -116,7 +114,6 @@ class User extends Authenticatable
 	{
 		return 'username';
 	}
-
 	public function role()
 	{
 		return $this->belongsTo(\App\Role::class, 'roles_id');
@@ -141,6 +138,7 @@ class User extends Authenticatable
 	{
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
+
 
 	public function comptable()
 	{

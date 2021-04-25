@@ -1,10 +1,10 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Courier reçu')
+@section('title', 'ONFP - Fiche Courier arrives')
 @section('content')
     
     <style>
     .invoice-box {
-        max-width: 800px;
+        max-width: 1500px;
         margin: auto;
         padding: 30px;
         border: 1px solid #eee;
@@ -83,7 +83,7 @@
     
     /** RTL **/
     .rtl {
-        direction: rtl;
+        imputation: rtl;
         font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     }
     
@@ -98,10 +98,12 @@
     
     @foreach ($recues as $recue)  
     <div class="invoice-box justify-content-center">
-        <div class="card">             
+        <div class="card">        
+            <a class="nav-link" href="{{ route('recues.index') }}">     
             <div class="card card-header text-center bg-gradient-success">
                 <h1 class="h4 text-white mb-0">{!! $recue->courrier->types_courrier->name !!}</h1>
             </div>
+        </a>
         {{-- <div class="card card-header text-center bg-gradient-default">
             <a href="{!! url('recues/' .$recue->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
@@ -120,8 +122,8 @@
                             <td>
                                 Numéro #:                                   
                                 {!! $recue->numero !!}<br>
-                                Date correspondance:  {!! Carbon\Carbon::parse($recue->courrier->date_c)->format('d/m/Y') !!}<br>
-                                Date réception:  {!! Carbon\Carbon::parse($recue->courrier->date_r)->format('d/m/Y') !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($recue->courrier->date_cores)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($recue->courrier->date_recep)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -169,7 +171,7 @@
                 <td>
                     @if ($recue->courrier->file !== "")
                         <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($recue->courrier->getFile()) }}">
-                            <i class="fas fa-download">&nbsp;Dossier</i>
+                            <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
                         </a>                                            
                     @else
                         Aucun fichier joint
@@ -206,14 +208,14 @@
             
             <tr class="item">
                 <td>
-                    @foreach ($recue->courrier->directions as $direction)
-                      {!! $direction->name !!}<br>
+                    @foreach ($recue->courrier->imputations as $imputation)
+                      {!! $imputation->destinataire !!}<br>
                     @endforeach
                </td>
                 
                 <td>
-                    @foreach ($recue->courrier->directions as $direction)
-                    {!! $direction->sigle !!}<br>
+                    @foreach ($recue->courrier->imputations as $imputation)
+                    {!! $imputation->sigle !!}<br>
                     @endforeach
                 </td>
             </tr>            

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Wed, 21 Apr 2021 18:20:18 +0000.
  */
 
 namespace App;
@@ -51,6 +51,6 @@ class Village extends Eloquent
 
 	public function beneficiaires()
 	{
-		return $this->hasMany(\App\Beneficiaire::class);
+		return $this->hasMany(\App\Beneficiaire::class, 'villages_id');
 	}
 }

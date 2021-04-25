@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('Imputation') !!}                    
-                            {!! Form::select('directions[]', $directions, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'direction']) !!}                    
+                            {!! Form::select('imputations[]', $imputations, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">
@@ -68,11 +68,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_c', Carbon\Carbon::parse($depart->courrier->date_c)->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_cores', Carbon\Carbon::parse($depart->courrier->date_cores)->format('Y-m-d'), ['placeholder'=>"La date de dépos du courrier", 'class'=>'form-control']) !!}                    
                         </div> 
                         <div class="form-group col-md-3">
                             {!! Form::label('Date réception', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_r', Carbon\Carbon::parse($depart->courrier->date_r)->format('Y-m-d'), ['placeholder'=>"La date de réception du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_recep', Carbon\Carbon::parse($depart->courrier->date_recep)->format('Y-m-d'), ['placeholder'=>"La date de réception du courrier", 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">
@@ -108,3 +108,8 @@
 @endsection
 
 
+@section('javascripts')
+    <script type="text/javascript">
+        $('#imputation').select2().val({!! json_encode($depart->courrier->imputations()->allRelatedIds()) !!}).trigger('change');
+    </script>
+@endsection

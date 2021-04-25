@@ -29,5 +29,8 @@ $factory->define(App\Mission::class, function (Faker $faker) {
         'employees_id' => function () {
             return factory(App\Employee::class)->create()->id;
         },
+        'vehicules_id' => function () {
+            return factory(App\Vehicule::class)->create()->id;
+        },
     ];
 });

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Wed, 21 Apr 2021 18:20:18 +0000.
  */
 
 namespace App;
@@ -17,11 +17,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $sigle
  * @property int $courriers_id
+ * @property int $imputations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
+ * @property \App\Imputation $imputation
  * @property \Illuminate\Database\Eloquent\Collection $employees
  *
  * @package App
@@ -33,19 +35,26 @@ class Service extends Eloquent
 	
 
 	protected $casts = [
-		'courriers_id' => 'int'
+		'courriers_id' => 'int',
+		'imputations_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'sigle',
-		'courriers_id'
+		'courriers_id',
+		'imputations_id'
 	];
 
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function imputation()
+	{
+		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
 	}
 
 	public function employees()

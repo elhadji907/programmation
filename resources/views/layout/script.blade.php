@@ -40,21 +40,21 @@
           allowClear: true
       });
 </script>  
-<script type="text/javascript">
-  
-  $("#type_demande").select2({
-        placeholder: "sélectionner type de demande",
-        allowClear: true
-    });
-</script>
+  <script type="text/javascript">
+    
+    $("#type_demande").select2({
+          placeholder: "sélectionner type de demande",
+          allowClear: true
+      });
+  </script>
 
-<script type="text/javascript">
-  
-  $("#module").select2({
-        placeholder: "sélectionner module de formation",
-        allowClear: true
-    });
-</script>
+  <script type="text/javascript">
+    
+    $("#module").select2({
+          placeholder: "sélectionner module de formation",
+          allowClear: true
+      });
+  </script>
   <script type="text/javascript">
   
   $("#secteur").select2({
@@ -76,77 +76,81 @@
           placeholder: "sélectionner une direction ou un service",
           allowClear: true
       });
-</script>
+    $("#imputation").select2({
+          placeholder: "sélectionner pour faire imputation",
+          allowClear: true
+      });
+  </script>
   <script type="text/javascript">
   
     $("#fonction").select2({
           placeholder: "sélectionner la fonction",
           allowClear: true
       });
-</script>
+  </script>
   <script type="text/javascript">
-  
-    $("#categorie").select2({
-          placeholder: "sélectionner la catégorie",
-          allowClear: true
-      });
-</script>
+    
+      $("#categorie").select2({
+            placeholder: "sélectionner la catégorie",
+            allowClear: true
+        });
+  </script>
   <script type="text/javascript">
     $("#niveau").select2({
           placeholder: "sélectionner un niveau d'étude",
           allowClear: true
       });
-</script>
+  </script>
 
-<script type="text/javascript">
-  $("#programme").select2({
-        placeholder: "sélectionner un programme",
-        allowClear: true
-    });
-</script>
+  <script type="text/javascript">
+    $("#programme").select2({
+          placeholder: "sélectionner un programme",
+          allowClear: true
+      });
+  </script>
 
-<script type="text/javascript">
-  $("#departement").select2({
-        placeholder: "sélectionner un département",
-        allowClear: true
-    });
-</script>
+  <script type="text/javascript">
+    $("#departement").select2({
+          placeholder: "sélectionner un département",
+          allowClear: true
+      });
+  </script>
 
-<script type="text/javascript">
-  
-  $("#familiale").select2({
-        placeholder: "Votre situation familiale",
-        allowClear: true
-    });
-</script>
-<script type="text/javascript">
-  
-  $("#diplome").select2({
-        placeholder: "vos diplômes",
-        allowClear: true
-    });
-</script>
-<script type="text/javascript">
-  
-  $("#professionnelle").select2({
-        placeholder: "Votre situation professionnelle",
-        allowClear: true
-    });
-</script>
-<script type="text/javascript">
-  
-  $("#localite").select2({
-        placeholder: "sélectionner localité",
-        allowClear: true
-    });
-</script>
-<script type="text/javascript">
-  
-  $("#statut").select2({
-        placeholder: "sélectionner",
-        allowClear: true
-    });
-</script>
+  <script type="text/javascript">
+    
+    $("#familiale").select2({
+          placeholder: "Votre situation familiale",
+          allowClear: true
+      });
+  </script>
+  <script type="text/javascript">
+    
+    $("#diplome").select2({
+          placeholder: "vos diplômes",
+          allowClear: true
+      });
+  </script>
+  <script type="text/javascript">
+    
+    $("#professionnelle").select2({
+          placeholder: "Votre situation professionnelle",
+          allowClear: true
+      });
+  </script>
+  <script type="text/javascript">
+    
+    $("#localite").select2({
+          placeholder: "sélectionner localité",
+          allowClear: true
+      });
+  </script>
+  <script type="text/javascript">
+    
+    $("#statut").select2({
+          placeholder: "sélectionner",
+          allowClear: true
+      });
+  </script>
 
   <script>
 
@@ -160,6 +164,7 @@
     }
 
   </script>
+
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>

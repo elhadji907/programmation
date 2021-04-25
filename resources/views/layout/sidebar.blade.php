@@ -72,6 +72,14 @@
 @endroles
 </li>
 
+<li class="nav-item">
+  @roles('Administrateur|Courrier')
+<a class="nav-link" href="{{ route('dafs.index') }}">
+    <span data-feather="folder"></span>
+  <span>Dossiers DAF</span>
+</a>
+@endroles
+</li>
 
 <li class="nav-item">
     @roles('Administrateur|Courrier')

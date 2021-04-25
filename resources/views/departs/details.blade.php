@@ -4,7 +4,7 @@
     
     <style>
     .invoice-box {
-        max-width: 800px;
+        max-width: 1500px;
         margin: auto;
         padding: 30px;
         border: 1px solid #eee;
@@ -83,7 +83,7 @@
     
     /** RTL **/
     .rtl {
-        direction: rtl;
+        imputation: rtl;
         font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     }
     
@@ -115,8 +115,8 @@
                             <td>
                                 Numéro #:                                   
                                 {!! $depart->numero !!}<br>
-                                Date correspondance:  {!! Carbon\Carbon::parse($depart->courrier->date_c)->format('d/m/Y') !!}<br>
-                                Date réception:  {!! Carbon\Carbon::parse($depart->courrier->date_r)->format('d/m/Y') !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($depart->courrier->date_cores)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($depart->courrier->date_recep)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -164,7 +164,7 @@
                 <td>
                     @if ($depart->courrier->file !== "")
                         <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($depart->courrier->getFile()) }}">
-                            <i class="fas fa-download">&nbsp;Dossier</i>
+                            <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
                         </a>                                            
                     @else
                         Aucun fichier joint
@@ -199,14 +199,14 @@
             
             <tr class="item">
                 <td>
-                    @foreach ($depart->courrier->directions as $direction)
-                      {!! $direction->name !!}<br>
+                    @foreach ($depart->courrier->imputations as $imputation)
+                      {!! $imputation->destinataire !!}<br>
                     @endforeach
                </td>
                 
                 <td>
-                    @foreach ($depart->courrier->directions as $direction)
-                    {!! $direction->sigle !!}<br>
+                    @foreach ($depart->courrier->imputations as $imputation)
+                    {!! $imputation->sigle !!}<br>
                     @endforeach
                 </td>
             </tr>            

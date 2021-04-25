@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 
 $factory->define(App\Administrateur::class, function (Faker\Generator $faker) {
     $role_id=App\Role::where('name','Administrateur')->first()->id;
+    
     return [
         'matricule' => "ADMIN".$faker->word,
         'users_id' => function () use($role_id) {

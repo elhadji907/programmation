@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 20 Apr 2021 20:03:56 +0000.
+ * Date: Wed, 21 Apr 2021 18:20:17 +0000.
  */
 
 namespace App;
@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $adresse
  * @property \Carbon\Carbon $date_imp
  * @property \Carbon\Carbon $date_recep
+ * @property \Carbon\Carbon $date_cores
  * @property \Carbon\Carbon $date_rejet
  * @property \Carbon\Carbon $date_liq
  * @property int $gestionnaires_id
@@ -49,6 +50,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $cellules
  * @property \Illuminate\Database\Eloquent\Collection $comments
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $dafs
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $directions
@@ -59,9 +61,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Courrier extends Eloquent
-{
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'gestionnaires_id' => 'int',
@@ -74,6 +77,7 @@ class Courrier extends Eloquent
 		'date',
 		'date_imp',
 		'date_recep',
+		'date_cores',
 		'date_rejet',
 		'date_liq'
 	];
@@ -98,6 +102,7 @@ class Courrier extends Eloquent
 		'adresse',
 		'date_imp',
 		'date_recep',
+		'date_cores',
 		'date_rejet',
 		'date_liq',
 		'gestionnaires_id',
@@ -140,10 +145,17 @@ class Courrier extends Eloquent
 	{
 		return $this->hasMany(\App\Cellule::class, 'courriers_id');
 	}
-	
+
 	public function comments()
 	{
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
+	}
+
+	public function imputations()
+	{
+		return $this->belongsToMany(\App\Imputation::class, 'courriers_has_imputations', 'courriers_id', 'imputations_id')
+					->withPivot('deleted_at')
+					->withTimestamps();
 	}
 
 	public function dafs()

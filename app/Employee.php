@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 11:19:21 +0000.
+ * Date: Sun, 25 Apr 2021 12:16:46 +0000.
  */
 
 namespace App;
@@ -42,10 +42,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Employee extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'users_id' => 'int',
@@ -82,7 +80,7 @@ class Employee extends Eloquent
 	public function cellules()
 	{
 		return $this->belongsToMany(\App\Cellule::class, 'cellules_has_employees', 'employees_id', 'cellules_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
@@ -99,28 +97,28 @@ class Employee extends Eloquent
 	public function antennes()
 	{
 		return $this->belongsToMany(\App\Antenne::class, 'employees_has_antennes', 'employees_id', 'antennes_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function directions()
 	{
 		return $this->belongsToMany(\App\Direction::class, 'employees_has_directions', 'employees_id', 'directions_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function formations()
 	{
 		return $this->belongsToMany(\App\Formation::class, 'employees_has_formations', 'employees_id', 'formations_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function services()
 	{
 		return $this->belongsToMany(\App\Service::class, 'employees_has_services', 'employees_id', 'services_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

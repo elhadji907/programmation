@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP')
+@section('title', 'ONFP - Liste de tous les courriers')
 @section('content')
 @roles('Administrateur|Courrier')
 <div class="container-fluid">
@@ -99,28 +99,64 @@
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-courriers">
                     <thead class="table-dark">
                       <tr>
-                        {{-- <th>ID</th> --}}
-                        <th>Objet</th>
-                        <th>Expediteur</th>
-                        <th>Email</th>
-                        <th>Telephone</th>
-                        <th>Type de courrier</th>
-                        <th>Action</th>
+                        <th style="width:5%;">N°</th>
+                        <th style="width:10%;">N° Courrier</th>
+                        <th style="width:30%;">Objet</th>
+                        <th style="width:20%;">Expediteur</th>
+                        <th style="width:11%;">Email</th>
+                        <th style="width:11%;">Telephone</th>
+                        <th style="width:13%;">Type de courrier</th>
+                       {{--<th style="width:5%;">Action</th>--}}
                       </tr>
                     </thead>
                     <tfoot class="table-dark">
                         <tr>
-                          {{-- <th>ID</th> --}}
+                          <th>N°</th>
+                          <th>N° Courrier</th>
                           <th>Objet</th>
                           <th>Expediteur</th>
                           <th>Email</th>
                           <th>Telephone</th>
                           <th>Type de courrier</th>
-                          <th>Action</th>
+                       {{--<th>Action</th>--}}
                         </tr>
                       </tfoot>
                     <tbody>
-                     
+                      @if (count($couriers)==0)                            
+                      <tr>
+                        <td class="text-center" colspan="2"></td>
+                      </tr>
+                      @else 
+                      <?php $i = 1 ?>
+                      @foreach ($couriers as $courier)
+                      <tr> 
+                        <td>{!! $i++ !!}</td>
+                        <td>
+                          <a style="color: darkorange; text-decoration: none;"
+                           href="{!! url('courriers/'.$courier->id) !!}" class="view" title="voir" target="_blank">
+                           {!! $courier->numero !!}
+                          </a>
+                        </td>
+                        <td>{!! $courier->objet !!}</td>
+                        <td>{!! $courier->expediteur !!}</td>            
+                        <td>{!! $courier->email !!}</td>
+                        <td>{!! $courier->telephone !!}</td>
+                        <td>
+                          <a style="color: orange; text-decoration: none;"
+                           href="{!! url('courriers/'.$courier->id) !!}" class="view" title="voir" target="_blank">
+                            {!! $courier->types_courrier->name !!}
+                          </a>
+                         </td>
+                        {{--
+                          <td class="d-flex align-items-baseline align-content-center">
+                            <a href="{!! url('courriers/'.$courier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                              <i class="far fa-eye"></i>
+                            </a>
+                        </td>
+                        --}}
+                      </tr>
+                      @endforeach                        
+                      @endif
                     </tbody>
                 </table>                        
         </div>
@@ -150,43 +186,18 @@
 <br />
 @endroles
 @endsection
-
 @push('scripts')
     <script type="text/javascript">
-      $(document).ready(function () {
-          $('#table-courriers').DataTable( { 
-            "processing": true,
-            "serverSide": true,
-            "ajax": "{{route('courriers.list')}}",
-            columns: [
-                    //{ data: 'id', name: 'id' },
-                    { data: 'objet', name: 'objet' },
-                    { data: 'expediteur', name: 'expediteur' },
-                    { data: 'email', name: 'email' },
-                    { data: 'telephone', name: 'telephone' },
-                    { data: 'types_courrier.name', name: 'types_courrier.name' },
-                    { data: null ,orderable: false, searchable: false}
-
+      $(document).ready( function () {
+        $('#table-courriers').DataTable({
+          dom: 'lBfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print',
+          ],
+          "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+          "order": [
+                [ 0, 'asc' ]
                 ],
-                "columnDefs": [
-                        {
-                        "data": null,
-                        "render": function (data, type, row) {
-                        url_e =  "{!! route('courriers.show',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('courriers.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit " title="voir"><i class="far fa-eye"></i></a>'
-                        //+'<a class="btn btn-danger delete ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
-                        },
-                        "targets": 5
-                        },
-                ],
-
-                dom: 'lBfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print',
-                ],
-
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
                 language: {
                   "sProcessing":     "Traitement en cours...",
                   "sSearch":         "Rechercher&nbsp;:",
@@ -213,35 +224,11 @@
                               _: "%d lignes séléctionnées",
                               0: "Aucune ligne séléctionnée",
                               1: "1 ligne séléctionnée"
-                          } 
+                          }
                   }
-                },
-              
-          });
-      });
-      
-      //new Chart(document.getElementById("bar-chart"), {
-        //type: 'bar',
-        //data: {
-          //labels: ['Départs', 'Arrivés', 'Internes'],
-          //datasets: [
-            //{
-              //label: "Statistiques (chiffres)",
-              //backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
-              //data: [2478,5267,734]
-            //}
-          //]
-        //},
-        //options: {
-          //legend: { display: false },
-          //title: {
-            //display: true,
-            //text: 'Statistiques des courriers'
-          //}
-        //}
-    //});
- 
-    </script>
-    
+                }
+        });
+    } );
+    </script> 
   {!! $chart->script() !!}
 @endpush

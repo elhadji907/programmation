@@ -60,6 +60,7 @@ Route::group([
         Route::get('/lister_term/{localitesliste}/{nom_module}', 'LocalitesController@lister_term')->name('localites.lister_term');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
+        Route::get('/dafs/list', 'DafsController@list')->name('dafs.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
@@ -77,6 +78,7 @@ Route::group([
         Route::resource('/personnels', 'PersonnelsController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
+        Route::resource('/dafs', 'DafsController');
         Route::resource('/presentations', 'PresentationsController');
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');

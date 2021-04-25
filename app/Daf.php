@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 19 Apr 2021 13:56:04 +0000.
+ * Date: Wed, 21 Apr 2021 18:20:17 +0000.
  */
 
 namespace App;
@@ -32,23 +32,27 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $num_bord
  * @property int $courriers_id
  * @property int $projets_id
+ * @property int $imputations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
+ * @property \App\Imputation $imputation
  * @property \App\Projet $projet
  *
  * @package App
  */
 class Daf extends Eloquent
-{
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'courriers_id' => 'int',
-		'projets_id' => 'int'
+		'projets_id' => 'int',
+		'imputations_id' => 'int'
 	];
 
 	protected $dates = [
@@ -78,12 +82,18 @@ class Daf extends Eloquent
 		'date_paye',
 		'num_bord',
 		'courriers_id',
-		'projets_id'
+		'projets_id',
+		'imputations_id'
 	];
 
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function imputation()
+	{
+		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
 	}
 
 	public function projet()

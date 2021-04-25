@@ -12,21 +12,32 @@ $factory->define(App\Interne::class, function (Faker $faker) {
             return factory(App\Courrier::class)->create()->id;
         },
     ];
-});
-*/
+});*/
+
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
-$factory->define(App\Interne::class, function (Faker\Generator $faker) {
+$autoIncremen = autoIncremen();
+
+$factory->define(App\Interne::class, function (Faker\Generator $faker) use ($autoIncremen) {
+    $autoIncremen->next();
+
     $types_courrier_id=App\TypesCourrier::where('name','Courriers internes')->first()->id;
-    $annee = date('Y');
+    $annee = date('y');
 
     $numero_courrier = date('His');
     return [
-        'numero' => 'CI-'.$annee."-".$numero_courrier,
+        'numero' => 'CI'.$autoIncremen->current()."".$annee,
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
         },
     ];
 });
+
+function autoIncremen()
+{
+    for ($i = 0; $i < 100000; $i++) {
+        yield $i;
+    }
+}

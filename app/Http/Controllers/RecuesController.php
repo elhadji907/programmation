@@ -6,6 +6,7 @@ use App\Recue;
 use App\Interne;
 use App\Depart;
 use App\Direction;
+use App\Imputation;
 use Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -63,6 +64,8 @@ class RecuesController extends Controller
 
         $directions = Direction::pluck('sigle','id');
 
+        $imputations = Imputation::pluck('sigle','id');
+
         /* dd($date); */      
         $date_r = Carbon::now();
 
@@ -74,7 +77,7 @@ class RecuesController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
 
-        return view('recues.create',compact('date', 'types', 'directions', 'date_r', 'chart'));
+        return view('recues.create',compact('date', 'types', 'directions','imputations', 'date_r', 'chart'));
     }
 
     /**
@@ -100,8 +103,8 @@ class RecuesController extends Controller
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
-                'date_c'        =>  'required|date',
+                'date_recep'        =>  'required|date',
+                'date_cores'        =>  'required|date',
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;
@@ -114,7 +117,9 @@ class RecuesController extends Controller
         $numCourrier = $courrier_id;
 
         $direction = \App\Direction::first();
+        $imputation = \App\Imputation::first();
         $courrier = \App\Courrier::first();
+
         // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
             'numero'             =>     "CA-".$annee."-".$numCourrier,
@@ -126,8 +131,8 @@ class RecuesController extends Controller
             'adresse'            =>      $request->input('adresse'),
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
-            'date_r'             =>      $request->input('date_r'),
-            'date_c'             =>      $request->input('date_c'),
+            'date_recep'             =>      $request->input('date_recep'),
+            'date_cores'             =>      $request->input('date_cores'),
             // 'legende'            =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
             'users_id'           =>      $users_id,
@@ -143,7 +148,8 @@ class RecuesController extends Controller
         
         $recue->save();
         
-        $courrier->directions()->sync($request->directions);
+        //$courrier->directions()->sync($request->directions);
+        $courrier->imputations()->sync($request->imputations);
 
         /* $direction->courriers()->attach($courrier); */
 
@@ -174,6 +180,7 @@ class RecuesController extends Controller
         $this->authorize('update', $recue->courrier);
 
         $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
 
         $chart      = Courrier::all();
         $chart = new Courrierchart;
@@ -181,8 +188,11 @@ class RecuesController extends Controller
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
+
+        //dd($recue);
+
             //dd($directions);
-         return view('recues.update', compact('recue', 'directions', 'chart'));
+         return view('recues.update', compact('recue', 'directions', 'imputations', 'chart'));
         /*  dd($recue); */
     }
 
@@ -199,14 +209,14 @@ class RecuesController extends Controller
 
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:100',
+                'objet'         =>  'required|string|max:200',
                 'message'       =>  'required|string|max:550',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
-                'date_c'        =>  'required|date',
+                'date_recep'    =>  'required|date',
+                'date_cores'          =>  'required|date',
                 'file'          =>  'sometimes|required|file|max:30000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp|max:100000',
 
             ]
@@ -218,6 +228,8 @@ class RecuesController extends Controller
         $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;
         $user_id           = Auth::user()->id;
  
+        //dd($courrier);
+
         $courrier->objet              =      $request->input('objet');
         $courrier->message            =      $request->input('message');
         $courrier->expediteur         =      $request->input('expediteur');
@@ -226,20 +238,20 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->date_r             =      $request->input('date_r');
-        $courrier->date_c             =      $request->input('date_c');
+        $courrier->date_recep         =      $request->input('date_r');
+        $courrier->date               =      $request->input('date_c');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
         $courrier->users_id           =      $user_id;
         $courrier->file               =      $filePath;
-
         $courrier->save(); 
 
         $recue->courriers_id          =      $courrier->id; 
 
         $recue->save();
         
-        $courrier->directions()->sync($request->input('directions'));
+        //$courrier->directions()->sync($request->input('directions'));
+        $courrier->imputations()->sync($request->input('imputations'));
 
          }
          else{            
@@ -248,6 +260,7 @@ class RecuesController extends Controller
         /* dd($courrier); */
  
         $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;
+
         $user_id           = Auth::user()->id;
  
         $courrier->objet              =      $request->input('objet');
@@ -258,19 +271,22 @@ class RecuesController extends Controller
         $courrier->adresse            =      $request->input('adresse');
         $courrier->fax                =      $request->input('fax');
         $courrier->bp                 =      $request->input('bp');
-        $courrier->date_r             =      $request->input('date_r');
-        $courrier->date_c             =      $request->input('date_c');
+        $courrier->date_recep             =      $request->input('date_r');
+        $courrier->date             =      $request->input('date_c');
         $courrier->legende            =      $request->input('legende');
         $courrier->types_courriers_id =      $types_courrier_id;
         $courrier->users_id           =      $user_id;
- 
+        
         $courrier->save();
- 
+
         $recue->courriers_id          =      $courrier->id;
  
         $recue->save();
-        $courrier->directions()->sync($request->input('directions'));
 
+        //$courrier->directions()->sync($request->input('directions'));
+        $courrier->imputations()->sync($request->input('imputations'));
+
+        
          }
 
        return redirect()->route('courriers.show', $recue->courrier->id)->with('success','courrier modifié avec succès !');
@@ -287,7 +303,8 @@ class RecuesController extends Controller
     {
         $this->authorize('delete',  $recue->courrier);
 
-        $recue->courrier->directions()->detach();
+        //$recue->courrier->directions()->detach();
+        $recue->courrier->imputations()->detach();
         $recue->courrier->delete();
         $recue->delete();
         

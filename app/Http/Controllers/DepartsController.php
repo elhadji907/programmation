@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\TypesCourrier;
 use Yajra\Datatables\Datatables;
 use App\Direction;
+use App\Imputation;
 use Auth;
 use App\Courrier;
 use App\Charts\Courrierchart;
@@ -55,11 +56,12 @@ class DepartsController extends Controller
         $date = $date->format('Y-m-d');
 
         $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
 
         /* dd($date); */      
         $date_r = Carbon::now();
        
-        return view('departs.create', compact('numCourrier', 'date', 'directions', 'date_r'));
+        return view('departs.create', compact('numCourrier', 'date', 'directions','imputations', 'date_r'));
     }
 
     /**
@@ -72,14 +74,14 @@ class DepartsController extends Controller
     {
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:100',
+                'objet'         =>  'required|string|max:200',
                 'message'       =>  'required|string|max:255',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
-                'date_c'        =>  'required|date',
+                'date_recep'    =>  'required|date',
+                'date_cores'    =>  'required|date',
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courriers departs')->first()->id;
@@ -89,6 +91,7 @@ class DepartsController extends Controller
         $numCourrier = $courrier_id;
 
         $direction = \App\Direction::first();
+        $imputation = \App\Imputation::first();
         $courrier = \App\Courrier::first();
         // $filePath = request('file')->store('recues', 'public');
         $courrier = new Courrier([
@@ -101,11 +104,11 @@ class DepartsController extends Controller
             'adresse'            =>      $request->input('adresse'),
             'fax'                =>      $request->input('fax'),
             'bp'                 =>      $request->input('bp'),
-            'date_r'             =>      $request->input('date_r'),
-            'date_c'             =>      $request->input('date_c'),
-            // 'legende'            =>      $request->input('legende'),
+            'date_recep'         =>      $request->input('date_recep'),
+            'date_cores'         =>      $request->input('date_cores'),
+            // 'legende'         =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
-            'users_id'   =>      $user_id,
+            'users_id'           =>      $user_id,
             'file'               =>      ""
         ]);
 
@@ -118,7 +121,8 @@ class DepartsController extends Controller
         
         $depart->save();
         
-        $courrier->directions()->sync($request->directions);
+        //$courrier->directions()->sync($request->directions);
+        $courrier->directions()->sync($request->imputations);
         
         return redirect()->route('departs.index')->with('success','courrier ajouté avec succès !');
 
@@ -147,8 +151,9 @@ class DepartsController extends Controller
         $this->authorize('update',  $depart->courrier);
 
         $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
 
-         return view('departs.update', compact('depart', 'directions'));
+         return view('departs.update', compact('depart', 'directions','imputations'));
     }
 
     /**
@@ -165,14 +170,14 @@ class DepartsController extends Controller
 
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:100',
+                'objet'         =>  'required|string|max:200',
                 'message'       =>  'required|string|max:255',
                 'expediteur'    =>  'required|string|max:100',
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_r'        =>  'required|date',
-                'date_c'        =>  'required|date',
+                'date_recep'    =>  'required|date',
+                'date_cores'    =>  'required|date',
                 'file'          =>  'sometimes|required|file|max:30000|mimes:pdf,doc,txt,xlsx,xls,jpeg,jpg,jif,docx,png,svg,csv,rtf,bmp',
 
             ]
@@ -193,8 +198,8 @@ class DepartsController extends Controller
        $courrier->adresse            =      $request->input('adresse');
        $courrier->fax                =      $request->input('fax');
        $courrier->bp                 =      $request->input('bp');
-       $courrier->date_r             =      $request->input('date_r');
-       $courrier->date_c             =      $request->input('date_c');
+       $courrier->date_recep         =      $request->input('date_recep');
+       $courrier->date_cores         =      $request->input('date_cores');
        $courrier->legende            =      $request->input('legende');
        $courrier->types_courriers_id =      $types_courrier_id;
        $courrier->users_id           =      $user_id;
@@ -205,7 +210,8 @@ class DepartsController extends Controller
        $depart->courriers_id          =      $courrier->id; 
 
        $depart->save();
-       $courrier->directions()->sync($request->input('directions'));
+       //$courrier->directions()->sync($request->input('directions'));
+       $courrier->imputations()->sync($request->input('imputations'));
         }
          else{   
             $courrier = $depart->courrier;
@@ -220,8 +226,8 @@ class DepartsController extends Controller
             $courrier->adresse            =      $request->input('adresse');
             $courrier->fax                =      $request->input('fax');
             $courrier->bp                 =      $request->input('bp');
-            $courrier->date_r             =      $request->input('date_r');
-            $courrier->date_c             =      $request->input('date_c');
+            $courrier->date_recep         =      $request->input('date_recep');
+            $courrier->date_cores         =      $request->input('date_cores');
             $courrier->legende            =      $request->input('legende');
             $courrier->types_courriers_id =      $types_courrier_id;
             $courrier->users_id   =      $user_id;
@@ -231,7 +237,8 @@ class DepartsController extends Controller
             $depart->courriers_id          =      $courrier->id;
      
             $depart->save();
-            $courrier->directions()->sync($request->input('directions'));
+            //$courrier->directions()->sync($request->input('directions'));
+            $courrier->imputations()->sync($request->input('imputations'));
  
 
          }
@@ -251,6 +258,7 @@ class DepartsController extends Controller
         $this->authorize('delete',  $depart->courrier);
 
         $depart->courrier->directions()->detach();
+        $depart->courrier->imputations()->detach();
         $depart->courrier->delete();
         $depart->delete();
         
