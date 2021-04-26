@@ -27,6 +27,7 @@ class CreateDafsTable extends Migration
             $table->string('numero', 200)->nullable();
             $table->string('name', 200)->nullable();
             $table->longText('description')->nullable();
+            $table->longText('designation')->nullable();
             $table->dateTime('date_visa')->nullable();
             $table->dateTime('date_mandat')->nullable();
             $table->dateTime('date_ac')->nullable();
@@ -40,6 +41,9 @@ class CreateDafsTable extends Migration
             $table->string('destinataire', 200)->nullable();
             $table->dateTime('date_paye')->nullable();
             $table->string('num_bord', 200)->nullable();
+            $table->double('montant')->nullable();
+            $table->double('total')->nullable();
+            $table->double('autres_montant')->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
             $table->unsignedInteger('projets_id')->nullable();
             $table->unsignedInteger('imputations_id')->nullable();

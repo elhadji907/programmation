@@ -46,13 +46,19 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
-$factory->define(App\Courrier::class, function (Faker\Generator $faker) {
+$autoIncre = autoIncre();
+
+$factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($autoIncre) {
+    $autoIncre->next();
+
     $user_id=App\User::all()->random()->id;
     $gestionnaire_id=App\Gestionnaire::all()->random()->id;
+    $annee = date('y');
+    $numero_courrier = date('His');
 
 
     return [
-        'numero' => Str::random(8),
+        'numero' => $autoIncre->current()."".$annee,
         'objet' => $faker->paragraph(1),
         'expediteur' => SnmG::getFirstName()." ".SnmG::getName(),
         'name' => $faker->name,
@@ -89,3 +95,20 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) {
         */
     ];
 });
+
+function autoIncre()
+{
+    for ($i = 0; $i < 100000; $i++) {
+        if (strlen($i) <= 1) {
+            yield '0000'.$i;
+        } elseif (strlen($i) > 1 && strlen($i) <= 2) {
+            yield '000'.$i;
+        } elseif(strlen($i) > 2 && strlen($i) <= 3) {
+            yield '00'.$i;
+        } elseif(strlen($i) > 3 && strlen($i) <= 4) {
+            yield '0'.$i;
+        } else{
+            yield $i;
+        }
+    }
+}

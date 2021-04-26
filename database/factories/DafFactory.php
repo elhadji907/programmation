@@ -10,6 +10,7 @@ $factory->define(App\Daf::class, function (Faker $faker) {
         'numero' => $faker->word,
         'name' => $faker->name,
         'description' => $faker->text,
+        'designation' => $faker->text,
         'date_visa' => $faker->dateTime(),
         'date_mandat' => $faker->dateTime(),
         'date_ac' => $faker->dateTime(),
@@ -23,6 +24,9 @@ $factory->define(App\Daf::class, function (Faker $faker) {
         'destinataire' => $faker->word,
         'date_paye' => $faker->dateTime(),
         'num_bord' => $faker->word,
+        'montant' => $faker->randomFloat(),
+        'total' => $faker->randomFloat(),
+        'autres_montant' => $faker->randomFloat(),
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
         },
@@ -33,8 +37,8 @@ $factory->define(App\Daf::class, function (Faker $faker) {
             return factory(App\Imputation::class)->create()->id;
         },
     ];
-});
-*/
+});*/
+
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
@@ -54,6 +58,7 @@ $factory->define(App\Daf::class, function (Faker\Generator $faker) use ($autoInc
         'numero' => 'DA'.$autoIncrem->current()."".$annee,
         'name' => $faker->name,
         'description' => $faker->text,
+        'designation' => $faker->text,
         'date_visa' => $faker->dateTime(),
         'date_mandat' => $faker->dateTime(),
         'date_ac' => $faker->dateTime(),
@@ -67,6 +72,9 @@ $factory->define(App\Daf::class, function (Faker\Generator $faker) use ($autoInc
         'destinataire' => $faker->word,
         'date_paye' => $faker->dateTime(),
         'num_bord' => $faker->word,
+        'montant' => $faker->randomFloat(),
+        'total' => $faker->randomFloat(),
+        'autres_montant' => $faker->randomFloat(),
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
         },

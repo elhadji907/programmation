@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Mon, 26 Apr 2021 12:27:11 +0000.
  */
 
 namespace App;
@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $numero
  * @property string $name
  * @property string $description
+ * @property string $designation
  * @property \Carbon\Carbon $date_visa
  * @property \Carbon\Carbon $date_mandat
  * @property \Carbon\Carbon $date_ac
@@ -30,6 +31,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $destinataire
  * @property \Carbon\Carbon $date_paye
  * @property string $num_bord
+ * @property float $montant
+ * @property float $total
+ * @property float $autres_montant
  * @property int $courriers_id
  * @property int $projets_id
  * @property int $imputations_id
@@ -44,12 +48,15 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Daf extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
 
 	protected $casts = [
+		'montant' => 'float',
+		'total' => 'float',
+		'autres_montant' => 'float',
 		'courriers_id' => 'int',
 		'projets_id' => 'int',
 		'imputations_id' => 'int'
@@ -68,6 +75,7 @@ class Daf extends Eloquent
 		'numero',
 		'name',
 		'description',
+		'designation',
 		'date_visa',
 		'date_mandat',
 		'date_ac',
@@ -81,6 +89,9 @@ class Daf extends Eloquent
 		'destinataire',
 		'date_paye',
 		'num_bord',
+		'montant',
+		'total',
+		'autres_montant',
 		'courriers_id',
 		'projets_id',
 		'imputations_id'

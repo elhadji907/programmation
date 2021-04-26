@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des recues
+                Liste des courriers reçues
             </div> 
             
           <div class="card-body">

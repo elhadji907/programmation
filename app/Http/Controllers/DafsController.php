@@ -6,9 +6,20 @@ use App\Daf;
 use Illuminate\Http\Request;
 
 use Yajra\Datatables\Datatables;
+use Carbon\Carbon;
 
 class DafsController extends Controller
-{
+{  
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+   public function __construct()
+   {
+       $this->middleware('auth');
+       $this->middleware('roles:Administrateur|Gestionnaire|Courrier');
+   }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +27,12 @@ class DafsController extends Controller
      */
     public function index()
     {
-        //
+        $date = Carbon::today()->locale('fr_FR');
+        $date = $date->copy()->addDays(0);
+        $date = $date->isoFormat('LLLL');
+        $dafs = Daf::all();
+       
+        return view('dafs.index',compact('date','courriers', 'dafs'));
     }
 
     /**

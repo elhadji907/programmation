@@ -38,6 +38,9 @@ class HomeController extends Controller
         $courriers = \App\Courrier::get()->count();
         $demandeurs = \App\Demandeur::get()->count();
 
+        
+        $couriers = \App\Courrier::all();
+
         //$operateurs = \App\Operateur::get()->count();
         //$Personnels = \App\Personnel::get()->count();
 
@@ -54,7 +57,7 @@ class HomeController extends Controller
         //$modules = \App\Module::with('demandeurs.modules','demandeurs.localite')->get();
         /* dd($localites); */
         /* return view('localites.detail', compact('localites','modules')); */
-        return view('courriers.index', compact('courriers', 'recues', 'internes', 'departs','chart'));
+        return view('courriers.index', compact('courriers','couriers', 'recues', 'internes', 'departs','chart'));
         
     }
 }
