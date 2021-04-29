@@ -122,11 +122,6 @@
                         </tr>
                       </tfoot>
                     <tbody>
-                      @if (count($couriers)==0)                            
-                      <tr>
-                        <td class="text-center" colspan="2"></td>
-                      </tr>
-                      @else 
                       <?php $i = 1 ?>
                       @foreach ($couriers as $courier)
                       <tr> 
@@ -152,8 +147,7 @@
                         </td>
                         --}}
                       </tr>
-                      @endforeach                        
-                      @endif
+                      @endforeach
                     </tbody>
                 </table>                        
         </div>

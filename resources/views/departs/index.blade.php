@@ -46,11 +46,6 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  @if (count($departs)==0)                            
-                  <tr>
-                    <td class="text-center" colspan="2"></td>
-                  </tr>
-                  @else 
                   <?php $i = 1 ?>
                   @foreach ($departs as $depart)
                   <tr> 
@@ -80,8 +75,7 @@
                         @endcan 
                     </td>
                   </tr>
-                  @endforeach                        
-                  @endif
+                  @endforeach
                 </tbody>                
               </table>
             </div>

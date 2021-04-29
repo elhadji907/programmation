@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
+use App\Courrier;
+use App\Recue;
+use App\Interne;
+use App\Depart;
+use App\Direction;
+use App\Imputation;
+use App\TypesCourrier;
+use App\Charts\Courrierchart;
 
 class DafsController extends Controller
 {  
@@ -42,7 +50,26 @@ class DafsController extends Controller
      */
     public function create()
     {
-        //
+        $types = TypesCourrier::get();
+        $numCourrier = date('YmdHis');
+
+        $date = Carbon::parse('now');
+        $date = $date->format('Y-m-d');
+
+        $directions = Direction::pluck('sigle','id');
+
+        $imputations = Imputation::pluck('sigle','id');
+
+        $date_r = Carbon::now();
+
+       $chart      = Courrier::all();
+       $chart = new Courrierchart;
+       $chart->labels(['', '', '']);
+       $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+           'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+       ]);
+
+        return view('dafs.create',compact('date', 'types', 'directions','imputations', 'date_r', 'chart'));
     }
 
     /**
@@ -75,7 +102,16 @@ class DafsController extends Controller
      */
     public function edit(Daf $daf)
     {
-        //
+        //$this->authorize('update', $daf->courrier);
+        $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
+        $chart      = Courrier::all();
+        $chart = new Courrierchart;
+        $chart->labels(['', '', '']);
+        $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
+            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
+        ]);
+         return view('dafs.update', compact('daf', 'directions', 'imputations', 'chart'));
     }
 
     /**
@@ -98,7 +134,13 @@ class DafsController extends Controller
      */
     public function destroy(Daf $daf)
     {
-        //
+        //$this->authorize('delete',  $daf->courrier);
+        $daf->courrier->imputations()->detach();
+        $daf->courrier->delete();
+        $daf->delete();
+        
+        $message = "Le courrier enregistré sous le numéro ".$daf->numero.' a été supprimé';
+        return redirect()->route('dafs.index')->with(compact('message'));
     }
     
     public function list(Request $request)

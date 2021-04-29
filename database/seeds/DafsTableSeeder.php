@@ -11,6 +11,6 @@ class DafsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Daf::class,202)->create();
+        factory(App\Daf::class,102)->create();
     }
 }
