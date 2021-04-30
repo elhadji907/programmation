@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 25 Apr 2021 12:16:46 +0000.
+ * Date: Thu, 29 Apr 2021 10:55:50 +0000.
  */
 
 namespace App;
@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $adresse
- * @property string $matricule
  * @property string $cin
  * @property string $fonction
  * @property \Carbon\Carbon $date_embauche
@@ -29,6 +28,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Category $category
  * @property \App\User $user
+ * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $cellules
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $dossiers
@@ -37,7 +37,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $services
  * @property \Illuminate\Database\Eloquent\Collection $missions
+ * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
+ * @property \Illuminate\Database\Eloquent\Collection $prestataires
  * @property \Illuminate\Database\Eloquent\Collection $sorties
+ * @property \Illuminate\Database\Eloquent\Collection $stagiaires
  *
  * @package App
  */
@@ -57,7 +60,6 @@ class Employee extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'adresse',
-		'matricule',
 		'cin',
 		'fonction',
 		'date_embauche',
@@ -75,6 +77,11 @@ class Employee extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
+	}
+
+	public function agents()
+	{
+		return $this->hasMany(\App\Agent::class, 'employees_id');
 	}
 
 	public function cellules()
@@ -127,8 +134,23 @@ class Employee extends Eloquent
 		return $this->hasMany(\App\Mission::class, 'employees_id');
 	}
 
+	public function ordres_missions()
+	{
+		return $this->hasMany(\App\OrdresMission::class, 'employees_id');
+	}
+
+	public function prestataires()
+	{
+		return $this->hasMany(\App\Prestataire::class, 'employees_id');
+	}
+
 	public function sorties()
 	{
 		return $this->hasMany(\App\Sorty::class, 'employees_id');
+	}
+
+	public function stagiaires()
+	{
+		return $this->hasMany(\App\Stagiaire::class, 'employees_id');
 	}
 }

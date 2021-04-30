@@ -25,14 +25,13 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('adresse', 200)->nullable();
-            $table->string('matricule', 200);
             $table->string('cin', 20);
             $table->string('fonction', 200)->nullable();
             $table->dateTime('date_embauche')->nullable();
             $table->string('classification', 200)->nullable();
             $table->string('categorie_salaire', 200)->nullable();
             $table->unsignedInteger('users_id');
-            $table->unsignedInteger('categories_id');
+            $table->unsignedInteger('categories_id')->nullable();
 
             $table->index(["users_id"], 'fk_employees_users1_idx');
 

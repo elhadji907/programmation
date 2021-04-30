@@ -30,9 +30,9 @@ class CourriersController extends Controller
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
 
-        $courriers = Courrier::get()->count();
+        $courrier = Courrier::get()->count();
         
-        $couriers = Courrier::all();
+        $courriers = Courrier::all();
 
         $chart      = Courrier::all();
 
@@ -42,7 +42,7 @@ class CourriersController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
         
-        return view('courriers.index', compact('courriers','couriers', 'recues', 'internes', 'departs','chart'));
+        return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));
     }
 
     /**

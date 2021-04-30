@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Thu, 29 Apr 2021 10:56:04 +0000.
  */
 
 namespace App;
@@ -20,15 +20,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \Illuminate\Database\Eloquent\Collection $banques
  * @property \Illuminate\Database\Eloquent\Collection $dafs
+ * @property \Illuminate\Database\Eloquent\Collection $listes
  *
  * @package App
  */
 class Projet extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $fillable = [
 		'uuid',
@@ -36,8 +37,18 @@ class Projet extends Eloquent
 		'sigle'
 	];
 
+	public function banques()
+	{
+		return $this->hasMany(\App\Banque::class, 'projets_id');
+	}
+
 	public function dafs()
 	{
 		return $this->hasMany(\App\Daf::class, 'projets_id');
+	}
+
+	public function listes()
+	{
+		return $this->hasMany(\App\Liste::class, 'projets_id');
 	}
 }

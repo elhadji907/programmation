@@ -8,7 +8,6 @@ $factory->define(App\Employee::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'adresse' => $faker->word,
-        'matricule' => $faker->word,
         'cin' => $faker->word,
         'fonction' => $faker->word,
         'date_embauche' => $faker->dateTime(),

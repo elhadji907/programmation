@@ -24,16 +24,16 @@ class CreateAgentsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200);
-            $table->unsignedInteger('users_id')->nullable();
+            $table->string('matricule', 200)->nullable();
+            $table->unsignedInteger('employees_id')->nullable();
 
-            $table->index(["users_id"], 'fk_agents_users1_idx');
+            $table->index(["employees_id"], 'fk_agents_employees1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_agents_users1_idx')
-                ->references('id')->on('users')
+            $table->foreign('employees_id', 'fk_agents_employees1_idx')
+                ->references('id')->on('employees')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

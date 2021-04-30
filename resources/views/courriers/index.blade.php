@@ -11,7 +11,7 @@
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Courriers (ANNUELS)') }}</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $courriers }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $courrier }}</div>
                   </div>
                   <div class="col-auto">
                     <span data-feather="mail"></span>
@@ -123,25 +123,25 @@
                       </tfoot>
                     <tbody>
                       <?php $i = 1 ?>
-                      @foreach ($couriers as $courier)
+                      @foreach ($courriers as $courrier)
                       <tr> 
                         <td>{!! $i++ !!}</td>
                         <td>
                           <a style="color: darkorange; text-decoration: none;"
-                           href="{!! url('courriers/'.$courier->id) !!}" class="view" title="voir" target="_blank">
-                           <b>{!! $courier->numero !!}</b>
+                           href="{!! url('courriers/'.$courrier->id) !!}" class="view" title="voir" target="_blank">
+                           <b>{!! $courrier->numero !!}</b>
                           </a>
                         </td>
-                        <td>{!! $courier->objet !!}</td>
-                        <td>{!! $courier->expediteur !!}</td>            
-                        <td>{!! $courier->email !!}</td>
-                        <td>{!! $courier->telephone !!}</td>
+                        <td>{!! $courrier->objet !!}</td>
+                        <td>{!! $courrier->expediteur !!}</td>            
+                        <td>{!! $courrier->email !!}</td>
+                        <td>{!! $courrier->telephone !!}</td>
                         <td>
-                            <b>{!! $courier->types_courrier->name !!}</b>
+                            <b>{!! $courrier->types_courrier->name !!}</b>
                          </td>
                         {{--
                           <td class="d-flex align-items-baseline align-content-center">
-                            <a href="{!! url('courriers/'.$courier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                            <a href="{!! url('courriers/'.$courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                               <i class="far fa-eye"></i>
                             </a>
                         </td>

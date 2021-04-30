@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Thu, 29 Apr 2021 12:08:39 +0000.
  */
 
 namespace App;
@@ -25,10 +25,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class TypesCourrier extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $fillable = [
 		'uuid',

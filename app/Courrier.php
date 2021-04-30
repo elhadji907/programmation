@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Thu, 29 Apr 2021 12:08:26 +0000.
  */
 
 namespace App;
@@ -61,10 +61,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Courrier extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'gestionnaires_id' => 'int',
@@ -111,11 +110,6 @@ class Courrier extends Eloquent
 		'types_courriers_id'
 	];
 
-	public function getFile(){
-		$filePath = $this->file ?? 'recues/default.jpg';
-		return "/storage/" . $filePath;
-	}
-	
 	public function employee()
 	{
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
@@ -148,13 +142,13 @@ class Courrier extends Eloquent
 
 	public function comments()
 	{
-		return $this->morphMany('\App\Comment', 'commentable')->latest();
+		return $this->hasMany(\App\Comment::class, 'courriers_id');
 	}
 
 	public function imputations()
 	{
 		return $this->belongsToMany(\App\Imputation::class, 'courriers_has_imputations', 'courriers_id', 'imputations_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

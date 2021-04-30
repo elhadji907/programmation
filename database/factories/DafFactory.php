@@ -39,7 +39,6 @@ $factory->define(App\Daf::class, function (Faker $faker) {
     ];
 });*/
 
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -53,7 +52,6 @@ $factory->define(App\Daf::class, function (Faker\Generator $faker) use ($autoInc
     $imputation_id=App\Imputation::get()->random()->id;
     $annee = date('y');
     $numero_courrier = date('His');
-
     return [
         'numero' => 'DA'.$autoIncrem->current()."".$annee,
         'name' => $faker->name,

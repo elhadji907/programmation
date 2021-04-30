@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 29 Apr 2021 10:56:28 +0000.
+ * Date: Thu, 29 Apr 2021 10:56:37 +0000.
  */
 
 namespace App;
@@ -10,7 +10,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Agent
+ * Class Stagiaire
  * 
  * @property int $id
  * @property string $uuid
@@ -21,11 +21,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Employee $employee
- * @property \Illuminate\Database\Eloquent\Collection $formations
  *
  * @package App
  */
-class Agent extends Eloquent
+class Stagiaire extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
@@ -43,10 +42,5 @@ class Agent extends Eloquent
 	public function employee()
 	{
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
-	}
-
-	public function formations()
-	{
-		return $this->hasMany(\App\Formation::class, 'agents_id');
 	}
 }

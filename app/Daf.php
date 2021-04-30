@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 26 Apr 2021 12:27:11 +0000.
+ * Date: Thu, 29 Apr 2021 10:55:57 +0000.
  */
 
 namespace App;
@@ -44,6 +44,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Courrier $courrier
  * @property \App\Imputation $imputation
  * @property \App\Projet $projet
+ * @property \Illuminate\Database\Eloquent\Collection $banques
+ * @property \Illuminate\Database\Eloquent\Collection $bordereaus
+ * @property \Illuminate\Database\Eloquent\Collection $etats
+ * @property \Illuminate\Database\Eloquent\Collection $etats_previs
+ * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  *
  * @package App
  */
@@ -51,7 +56,6 @@ class Daf extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'montant' => 'float',
@@ -110,5 +114,30 @@ class Daf extends Eloquent
 	public function projet()
 	{
 		return $this->belongsTo(\App\Projet::class, 'projets_id');
+	}
+
+	public function banques()
+	{
+		return $this->hasMany(\App\Banque::class, 'dafs_id');
+	}
+
+	public function bordereaus()
+	{
+		return $this->hasMany(\App\Bordereau::class, 'dafs_id');
+	}
+
+	public function etats()
+	{
+		return $this->hasMany(\App\Etat::class, 'dafs_id');
+	}
+
+	public function etats_previs()
+	{
+		return $this->hasMany(\App\EtatsPrevi::class, 'dafs_id');
+	}
+
+	public function ordres_missions()
+	{
+		return $this->hasMany(\App\OrdresMission::class, 'dafs_id');
 	}
 }

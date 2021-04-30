@@ -11,6 +11,7 @@ use Auth;
 use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use \App\Courrier;
 class HomeController extends Controller
 {  
     /**
@@ -35,11 +36,14 @@ class HomeController extends Controller
         $recues = \App\Recue::get()->count();
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
-        $courriers = \App\Courrier::get()->count();
+        $courrier = \App\Courrier::get()->count();
         $demandeurs = \App\Demandeur::get()->count();
 
-        
-        $couriers = \App\Courrier::all();
+
+        $courriers = Courrier::all();
+
+
+       // dd($couriers);
 
         //$operateurs = \App\Operateur::get()->count();
         //$Personnels = \App\Personnel::get()->count();
@@ -57,7 +61,8 @@ class HomeController extends Controller
         //$modules = \App\Module::with('demandeurs.modules','demandeurs.localite')->get();
         /* dd($localites); */
         /* return view('localites.detail', compact('localites','modules')); */
-        return view('courriers.index', compact('courriers','couriers', 'recues', 'internes', 'departs','chart'));
+        
+        return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));
         
     }
 }
