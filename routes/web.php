@@ -61,6 +61,12 @@ Route::group([
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/dafs/list', 'DafsController@list')->name('dafs.list');
+        Route::get('/factures/list', 'FacturesController@list')->name('factures.list');
+        Route::get('/etats/list', 'EtatsController@list')->name('etats.list');
+        Route::get('/previsions/list', 'EtatsprevisController@list')->name('previsions.list');
+        Route::get('/banques/list', 'BanquesController@list')->name('banques.list');
+        Route::get('/missions/list', 'MissionsController@list')->name('missions.list');
+        Route::get('/bordereaus/list', 'BordereausController@list')->name('bordereaus.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
@@ -79,6 +85,12 @@ Route::group([
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
         Route::resource('/dafs', 'DafsController');
+        Route::resource('/factures', 'FacturesController');
+        Route::resource('/etats', 'EtatsController');
+        Route::resource('/previsions', 'EtatsprevisController');
+        Route::resource('/banques', 'BanquesController');
+        Route::resource('/missions', 'MissionsController');
+        Route::resource('/bordereaus', 'BordereausController');
         Route::resource('/presentations', 'PresentationsController');
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');
