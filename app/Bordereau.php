@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Bordereau extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	use \App\Helpers\UuidForKey;ss
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'numero_mandat' => 'int',

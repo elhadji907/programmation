@@ -34,7 +34,7 @@
                      <th>{!! __("Kaolack") !!}</th>
                      <th>{!! __("Saint-Louis") !!}</th>
                      <th>{!! __("Ziguinchor") !!}</th>
-                    <th style="width:20%;">Action</th>
+                    <th  style="width:10%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot>

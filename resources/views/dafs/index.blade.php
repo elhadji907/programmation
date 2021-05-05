@@ -139,23 +139,23 @@
               <table class="table table-bordered table-striped" id="table-dafs" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th style="width:5%;">N°</th>
-                    <th style="width:5%;">Numéro</th>
+                    {{--  <th style="width:5%;">N°</th>  --}}
+                    <th style="width:10%;">N° Courrier</th>
                     <th style="width:10%;">Date MP</th>
                     <th style="width:30%;">Désignation</th>
-                    <th style="width:10%;">Montant</th>
                     <th style="width:30%;">Observations</th>
+                    <th style="width:10%;">Date Imput.</th>
                     <th style="width:10%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    <th>N°</th>
-                    <th>Numéro</th>
+                    {{--  <th>N°</th>  --}}
+                    <th>N° Courrier</th>
                     <th>Date MP</th>
                     <th>Désignation</th>
-                    <th>Montant</th>
                     <th>Observations</th>
+                    <th>Date Imput.</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -163,13 +163,13 @@
                   <?php $i = 1 ?>
                   @foreach ($dafs as $daf)
                   <tr>
-                    <td class="align-middle">{!! $i++ !!}</td>
+                    {{--  <td class="align-middle">{!! $i++ !!}</td>  --}}
                     <td class="align-middle">{!! $daf->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($daf->date_mandat)->format('d/m/Y') !!}</td>
-                    <td class="align-middle">{!! $daf->designation !!}</td>
-                    <td class="align-middle">{!! $daf->montant !!}</td>             
-                    <td class="align-middle">{!! $daf->observation !!}</td>             
-                    <td class="d-flex align-baseline">
+                    <td class="align-middle">{!! $daf->designation !!}</td>         
+                    <td class="align-middle">{!! $daf->observation !!}</td>   
+                    <td class="align-middle">{!! Carbon\Carbon::parse($daf->date_imp)->format('d/m/Y') !!}</td>              
+                    <td class="d-flex align-middle">
                         <a href="{!! url('dafs/' .$daf->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
                         </a>&nbsp;
