@@ -2,29 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Bordereau;
+use App\Employee;
 use Illuminate\Http\Request;
 
-use Yajra\Datatables\Datatables;
-use Carbon\Carbon;
-use App\Courrier;
-use App\Direction;
-use App\Imputation;
-use App\TypesCourrier;
-use App\Charts\Courrierchart;
-
-class BordereausController extends Controller
+class EmployeesController extends Controller
 {
-        /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
-   public function __construct()
-   {
-       $this->middleware('auth');
-       $this->middleware('roles:Administrateur|Gestionnaire|Daf');
-   }
     /**
      * Display a listing of the resource.
      *
@@ -32,12 +14,7 @@ class BordereausController extends Controller
      */
     public function index()
     {
-        $date = Carbon::today()->locale('fr_FR');
-        $date = $date->copy()->addDays(0);
-        $date = $date->isoFormat('LLLL');
-        $bordereaus = Bordereau::all();
-       
-        return view('bordereaus.index',compact('date','courriers', 'bordereaus'));
+        //
     }
 
     /**
@@ -64,10 +41,10 @@ class BordereausController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bordereau  $bordereau
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Bordereau $bordereau)
+    public function show(Employee $employee)
     {
         //
     }
@@ -75,10 +52,10 @@ class BordereausController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bordereau  $bordereau
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bordereau $bordereau)
+    public function edit(Employee $employee)
     {
         //
     }
@@ -87,10 +64,10 @@ class BordereausController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bordereau  $bordereau
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bordereau $bordereau)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -98,10 +75,10 @@ class BordereausController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bordereau  $bordereau
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bordereau $bordereau)
+    public function destroy(Employee $employee)
     {
         //
     }

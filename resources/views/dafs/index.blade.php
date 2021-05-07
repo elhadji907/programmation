@@ -1,11 +1,11 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des courriers de la DAF')
+@section('title', 'ONFP - Liste des couriers de la DAF')
 @section('content')
   <div class="container-fluid">
     <div class="row">     
       <div class="col-xl-2 col-md-4 mb-4">
           <div class="card border-left-primary shadow h-100 py-2">
-            <a class="nav-link" href="{{ route('courriers.index') }}" target="_blank">
+            <a class="nav-link" href="{{ route('bordereaus.index') }}" target="_blank">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
@@ -22,7 +22,7 @@
         </div>   
         <div class="col-xl-2 col-md-4 mb-4">
           <div class="card border-left-success shadow h-100 py-2">
-            <a class="nav-link" href="{{ route('recues.index') }}" target="_blank">
+            <a class="nav-link" href="{{ route('missions.index') }}" target="_blank">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
