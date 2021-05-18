@@ -53,17 +53,17 @@
                   @foreach ($bordereaus as $bordereau)
                   <tr>
                      {{-- <td class="align-middle">{!! $i++ !!}</td>  --}}
-                    <td class="align-middle">{!! $bordereau->numero !!}</td>
+                    <td class="align-middle">{!! $bordereau->daf->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! $bordereau->designation !!}</td>         
                     <td class="align-middle">{!! $bordereau->daf->projet->name !!}</td>         
                     <td class="align-middle">{!! $bordereau->montant !!}</td>         
                     <td class="align-middle">{!! $bordereau->nombre_de_piece !!}</td>         
                     <td class="align-middle">{!! $bordereau->observation !!}</td>              
-                    <td class="d-flex align-middle">
+                    <td class="d-flex align-items-center justify-content-center" style="height: 150px;">
                         <a href="{!! url('bordereaus/' .$bordereau->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
-                        </a>&nbsp;
+                        </a>&nbsp
                          <a href="{!! url('bordereaus/' .$bordereau->daf->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>&nbsp;
@@ -92,7 +92,7 @@
       buttons: [
           'copy', 'csv', 'excel', 'pdf', 'print',
       ],
-      "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+      "lengthMenu": [ [5,10, 25, 50, 100, -1], [5,10, 25, 50, 100, "Tout"] ],
       "order": [
             [ 0, 'asc' ]
             ],

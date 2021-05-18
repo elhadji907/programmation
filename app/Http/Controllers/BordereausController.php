@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bordereau;
+use App\Projet;
 use Illuminate\Http\Request;
 
 use Yajra\Datatables\Datatables;
@@ -47,7 +48,9 @@ class BordereausController extends Controller
      */
     public function create()
     {
-        //
+        $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        //dd($projets);
+        return view('bordereaus.create',compact('roles', 'projets'));
     }
 
     /**

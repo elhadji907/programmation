@@ -24,6 +24,13 @@
               placeholder: "sélectionner un objet",
               allowClear: true
           });
+  </script>  
+  <script type="text/javascript">
+  
+        $("#projet").select2({
+              placeholder: "sélectionner un projet",
+              allowClear: true
+          });
   </script>
   <script type="text/javascript">
   
