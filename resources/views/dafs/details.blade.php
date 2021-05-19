@@ -1,10 +1,10 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche courrier')
+@section('title', 'ONFP - Fiche Courier daf')
 @section('content')
     
     <style>
     .invoice-box {
-        max-width: 800px;
+        max-width: 1500px;
         margin: auto;
         padding: 30px;
         border: 1px solid #eee;
@@ -83,7 +83,7 @@
     
     /** RTL **/
     .rtl {
-        direction: rtl;
+        imputation: rtl;
         font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     }
     
@@ -95,11 +95,13 @@
         text-align: left;
     }
     </style>
+    
+    @foreach ($dafs as $daf)  
     <div class="invoice-box justify-content-center">
-        <div class="card">
-        <div class="card card-header text-center bg-gradient-default">
-            <h1 class="h4 text-black mb-0"> <span data-feather="mail"></span> RECIPICE DU COURRIER</h1>
-        </div>
+        <div class="card">            
+            <div class="card card-header text-center bg-gradient-success">
+                <h1 class="h4 text-white mb-0">{!! $daf->courrier->types_courrier->name !!}</h1>
+            </div> 
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -108,14 +110,13 @@
                         <tr>
                             <td class="title">
                                 {{-- <img src="" style="width:100%; max-width:300px;"> --}}
-                                <img style="width:50%; max-width:150px;" src="{{ asset('images/image_onfp.jpg') }}">
-                               {{--   <i>DOSSIER</i><br>  --}}
-                               {{-- Courrier {{ $courrier->types_courrier->name }}<br> --}}
+                                <img style="width:50%; max-width:100px;" src="{{ asset('images/image_onfp.jpg') }}">
                             </td>
                             <td>
-                                Numéro {!! '#' !!} : {{ $courrier->numero }}<br>
-                                Date de réception: {{ $courrier->date_r->format('d/m/Y') }}<br>
-                                Heure: {{ $courrier->date_r->format('H:i:s') }}
+                                Numéro #:                                   
+                                {!! $daf->numero !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($daf->courrier->date_cores)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($daf->courrier->date_recep)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -128,18 +129,18 @@
                         <tr>
                             <td>
                                 <h3>{{ __('EXPEDITEUR') }}</h3>
-                                {{ $courrier->expediteur }}<br>
-                                {{ $courrier->adresse }}<br>
-                                {{ $courrier->email }}<br>
-                                {{ $courrier->telephone }}<br>
-                                {{ $courrier->fax }}<br>
-                                {{ $courrier->bp }}<br>
+                                <b>Nom:</b> {{ $daf->courrier->expediteur }}<br>
+                                <b>Adresse:</b> {{ $daf->courrier->adresse }}<br>
+                                <b>E-mail:</b> {{ $daf->courrier->email }}<br>
+                                <b>Tel:</b> {{ $daf->courrier->telephone }}<br>
+                                <b>Fax:</b> {{ $daf->courrier->fax }}<br>
+                                <b>BP:</b> {{ $daf->courrier->bp }}<br>
                             </td>
                             
                             <td>
                                 <h3>{{ __('GESTIONNAIRE') }}</h3>
-                                {{ $courrier->gestionnaire->user->firstname }}&nbsp;&nbsp;{{ $courrier->gestionnaire->user->name }}<br>
-                                {{ $courrier->gestionnaire->user->telephone }}
+                                <b>Nom:</b> {{ $daf->courrier->user->firstname }}&nbsp;&nbsp;{{ $daf->courrier->user->name }}<br>
+                                <b>Tel:</b> {{ $daf->courrier->user->telephone }}
                             </td>
                         </tr>
                     </table>
@@ -158,17 +159,33 @@
             
             <tr class="details">
                 <td>
-                        {{ $courrier->objet }}
+                        {{ $daf->courrier->objet }}
                 </td>                
                 <td>
-                    @if ($courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($courrier->getFile()) }}">
-                            <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
+                    @if ($daf->courrier->file !== "")
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($daf->courrier->getFile()) }}">
+                            <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
                         </a>                                            
                     @else
                         Aucun fichier joint
                     @endif
-                   </td>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>
+                   MESSAGE
+                </td>
+                <td>
+                   
+                </td>
+                
+            </tr>
+            
+            <tr class="item">
+                
+                <td colspan="2">
+                    {{ $daf->courrier->message }} 
+                </td>
             </tr>
             <tr class="heading">
                 <td>
@@ -182,50 +199,32 @@
             
             <tr class="item">
                 <td>
-                    {{-- Website design --}}
-                </td>
+                    @foreach ($daf->courrier->imputations as $imputation)
+                      {!! $imputation->destinataire !!}<br>
+                    @endforeach
+               </td>
                 
                 <td>
-                   {{--  $300.00 --}}
+                    @foreach ($daf->courrier->imputations as $imputation)
+                    {!! $imputation->sigle !!}<br>
+                    @endforeach
                 </td>
-            </tr>
-            
-            <tr class="item">
-                <td>
-                   {{--  Hosting (3 months) --}}
-                </td>
-                
-                <td>
-                    {{-- $75.00 --}}
-                </td>
-            </tr>
-            
-            <tr class="item last">
-                <td>
-                   {{--  Domain name (1 year) --}}
-                </td>
-                
-                <td>
-                   {{--  $10.00 --}}
-                </td>
-            </tr>
-            
-            <tr class="total">
-                <td></td>
-                
-                <td>
-                   {{-- Total: $385.00 --}}
-                </td>
-            </tr>
-          {{--   <tr>
-                <a class="btn btn-outline-primary mt-0" title="modifier le courrier" 
-                href="{{ route('courriers.create',['courrier'=>$courrier->id]) }}">
-                    <i class="fas fa-edit">&nbsp;Modifier le courrier</i>
-                </a>   
-            </tr> --}}
+            </tr>            
         </table>
+
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            @can('update', $daf->courrier)
+                <a href="{!! url('dafs/' .$daf->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                    <i class="far fa-edit">&nbsp;Modifier</i>
+                </a>
+            @endcan
+            <a href="{!! route('courriers.show', $daf->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
+            </a>
+        </div>
+
     </div>
 </div>
-</div></div>
-
+</div>
+@endforeach
 @endsection

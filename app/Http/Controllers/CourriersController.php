@@ -88,12 +88,14 @@ class CourriersController extends Controller
         $recues = $courrier->recues;
         $departs = $courrier->departs;
         $internes = $courrier->internes;
+        $dafs = $courrier->dafs;
         // $demandes = $courrier->demandeurs;
         
         $recue = \App\Recue::get()->count();
         $interne = \App\Interne::get()->count();
         $depart = \App\Depart::get()->count();
         $courrier = Courrier::get()->count();
+        $daf = \App\Daf::get()->count();
 
         $chart      = Courrier::all();
 
@@ -111,7 +113,11 @@ class CourriersController extends Controller
         } elseif($typescourrier == 'Courriers internes') {    
             return view('internes.show', compact('internes','courrier','chart'));
 
-        } else {
+        }  elseif($typescourrier == 'Courriers daf') {    
+            return view('dafs.show', compact('dafs','courrier','chart'));
+
+        } 
+        else {
             return view('courriers.show', compact('courrier','chart'));
         }
         
@@ -170,6 +176,7 @@ class CourriersController extends Controller
     $recues = $courrier->recues;
     $departs = $courrier->departs;
     $internes = $courrier->internes;
+    $dafs = $courrier->dafs;
     // $demandes = $courrier->demandeurs;
     
     $recue = \App\Recue::get()->count();
@@ -193,7 +200,10 @@ class CourriersController extends Controller
     } elseif($typescourrier == 'Courriers internes') {    
         return view('internes.details', compact('internes','courrier','chart'));
 
-    } else {
+    }  elseif($typescourrier == 'Courriers daf') {    
+        return view('dafs.details', compact('dafs','courrier','chart'));
+
+    }else {
         return view('courriers.details', compact('courrier','chart'));
     }
     }
