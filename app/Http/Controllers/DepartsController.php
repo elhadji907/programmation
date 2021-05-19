@@ -106,7 +106,7 @@ class DepartsController extends Controller
             'bp'                 =>      $request->input('bp'),
             'date_recep'         =>      $request->input('date_recep'),
             'date_cores'         =>      $request->input('date_cores'),
-            // 'legende'         =>      $request->input('legende'),
+            //'legende'          =>      $request->input('legende'),
             'types_courriers_id' =>      $types_courrier_id,
             'users_id'           =>      $user_id,
             'file'               =>      ""

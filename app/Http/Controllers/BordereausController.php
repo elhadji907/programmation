@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Bordereau;
 use App\Projet;
+use App\Daf;
 use Illuminate\Http\Request;
+
+use Auth;
 
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
@@ -61,7 +64,67 @@ class BordereausController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'objet'         =>  'required|string|max:200',
+                'expediteur'    =>  'required|string|max:100',
+                'telephone'     =>  'required|string|max:50',
+                'email'         =>  'required|email|max:255',
+                'numero_mandat'         =>  'required',
+                'date_mandat'           =>  'required|date_format:Y-m-d',
+                'montant'               =>  'required',
+                'nombre_de_piece'       =>  'required',
+                'designation'           =>  'required',
+                //'projet'                =>  'exists:projets,id',
+            ]
+        );
+
+        
+        $types_courrier_id = TypesCourrier::where('name','Courriers daf')->first()->id;
+        $gestionnaire_id  = Auth::user()->id;
+
+        $bordereaus = new Bordereau([      
+            'numero'                    =>     'B0'.$request->input('numero_mandat'),
+            'numero_mandat'             =>      $request->input('numero_mandat'),  
+            'date_mandat'               =>      $request->input('date_mandat'),    
+            'montant'                   =>      $request->input('montant'),
+            'nombre_de_piece'           =>      $request->input('nombre_de_piece'),
+            'designation'               =>      $request->input('designation'),
+            'observation'               =>      $request->input('observation'),
+            'projets_id'                =>      $request->input('projet'),
+            'dafs_id'                   =>      $request->input('projet')
+
+        ]);
+        $b = $request->input('numero_mandat');
+
+        $bordereaus->save();
+
+        $courriers = new Courrier([
+            'numero'                    =>      'DA'.$request->input('numero_mandat'),
+            'types_courriers_id'        =>      $types_courrier_id,
+            'gestionnaires_id'          =>      $gestionnaire_id,
+            'objet'                     =>      $request->input('objet'),
+            'message'                   =>      $request->input('message'),
+            'expediteur'                =>      $request->input('expediteur'),
+            'telephone'                 =>      $request->input('telephone'),
+            'email'                     =>      $request->input('email')
+        ]);
+
+        $courriers->save();
+
+        $courrier_id = Courrier::latest('id')->first()->id;
+        
+        $dafs = new Daf([
+            'numero'                    =>      $request->input('numero_mandat'),
+            'designation'               =>      $request->input('designation'),
+            'observation'               =>      $request->input('observation'),
+            'courriers_id'              =>      $courrier_id
+        ]);
+
+        $dafs->save();
+
+
+        return redirect()->route('bordereaus.index')->with('success','bordereau ajoutée avec succès !');
     }
 
     /**
@@ -106,6 +169,11 @@ class BordereausController extends Controller
      */
     public function destroy(Bordereau $bordereau)
     {
-        //
+        $bordereau->daf->courrier->delete();
+        $bordereau->daf->delete();
+        $bordereau->delete();
+        
+        $message = 'Le courrier n° '.$bordereau->numero_mandat.' a été supprimé(e)';
+        return back()->with(compact('message'));
     }
 }

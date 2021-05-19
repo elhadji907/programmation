@@ -39,8 +39,11 @@ class DafsController extends Controller
         $date = $date->copy()->addDays(0);
         $date = $date->isoFormat('LLLL');
         $dafs = Daf::all();
+
+        
+        $bordereaux = \App\Bordereau::get()->count();
        
-        return view('dafs.index',compact('date','courriers', 'dafs'));
+        return view('dafs.index',compact('date','courriers', 'dafs', 'bordereaux'));
     }
 
     /**
