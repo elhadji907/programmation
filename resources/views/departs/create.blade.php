@@ -68,11 +68,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             {!! Form::label('Date correspondance', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_c', $date_r->format('Y-m-d'), ['placeholder'=>"La date de correspondance du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_cores', $date_r->format('Y-m-d'), ['placeholder'=>"La date de correspondance du courrier", 'class'=>'form-control']) !!}                    
                         </div>
                         <div class="form-group col-md-3">
                             {!! Form::label('Date réception', null, ['class' => 'control-label']) !!}                    
-                            {!! Form::date('date_r', $date_r->format('Y-m-d'), ['placeholder'=>"La date de reception du courrier", 'class'=>'form-control']) !!}                    
+                            {!! Form::date('date_recep', $date_r->format('Y-m-d'), ['placeholder'=>"La date de reception du courrier", 'class'=>'form-control']) !!}                    
                         </div> 
                     </div>
                     <div class="form-row">

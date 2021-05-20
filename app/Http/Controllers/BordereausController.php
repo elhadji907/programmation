@@ -81,7 +81,7 @@ class BordereausController extends Controller
 
         
         $types_courrier_id = TypesCourrier::where('name','Courriers daf')->first()->id;
-        $gestionnaire_id  = Auth::user()->id;
+        $users_id  = Auth::user()->id;
 
         $bordereaus = new Bordereau([      
             'numero'                    =>     'B0'.$request->input('numero_mandat'),
@@ -102,7 +102,7 @@ class BordereausController extends Controller
         $courriers = new Courrier([
             'numero'                    =>      'DA'.$request->input('numero_mandat'),
             'types_courriers_id'        =>      $types_courrier_id,
-            'gestionnaires_id'          =>      $gestionnaire_id,
+            'users_id'                  =>      $users_id,
             'objet'                     =>      $request->input('objet'),
             'message'                   =>      $request->input('message'),
             'expediteur'                =>      $request->input('expediteur'),

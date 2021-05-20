@@ -52,7 +52,6 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
     $autoIncre->next();
 
     $user_id=App\User::all()->random()->id;
-    $gestionnaire_id=App\Gestionnaire::all()->random()->id;
     $annee = date('y');
     $numero_courrier = date('His');
 
@@ -79,9 +78,6 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
         'date_cores' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
-        'gestionnaires_id' => function ()  use($gestionnaire_id) {
-            return $gestionnaire_id;
-        },
         'users_id' => function ()  use($user_id) {
             return $user_id;
         },

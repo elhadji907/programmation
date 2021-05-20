@@ -103,8 +103,8 @@ class RecuesController extends Controller
                 'adresse'       =>  'required|string|max:100',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255',
-                'date_recep'        =>  'required|date',
-                'date_cores'        =>  'required|date',
+                'date_recep'    =>  'required|date',
+                'date_cores'    =>  'required|date',
             ]
         );
         $types_courrier_id = TypesCourrier::where('name','Courriers arrives')->first()->id;

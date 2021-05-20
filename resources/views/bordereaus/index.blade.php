@@ -56,7 +56,7 @@
                     <td class="align-middle">{!! $bordereau->numero_mandat !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! $bordereau->designation !!}</td>         
-                    <td class="align-middle">{!! $bordereau->daf->projet->sigle !!}</td>         
+                    <td class="align-middle">{!! $bordereau->daf->projet->name !!}</td>         
                     <td class="align-middle">{!! $bordereau->montant !!}</td>         
                     <td class="align-middle">{!! $bordereau->nombre_de_piece !!}</td>         
                     <td class="align-middle">{!! $bordereau->observation !!}</td>              

@@ -45,12 +45,9 @@ class CreateCourriersTable extends Migration
             $table->dateTime('date_cores')->nullable();
             $table->dateTime('date_rejet')->nullable();
             $table->dateTime('date_liq')->nullable();
-            $table->unsignedInteger('gestionnaires_id');
             $table->unsignedInteger('users_id')->nullable();
             $table->unsignedInteger('employees_id')->nullable();
             $table->unsignedInteger('types_courriers_id')->nullable();
-
-            $table->index(["gestionnaires_id"], 'fk_courriers_gestionnaires1_idx');
 
             $table->index(["users_id"], 'fk_courriers_users1_idx');
 
@@ -60,11 +57,6 @@ class CreateCourriersTable extends Migration
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
-            $table->foreign('gestionnaires_id', 'fk_courriers_gestionnaires1_idx')
-                ->references('id')->on('gestionnaires')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('users_id', 'fk_courriers_users1_idx')
                 ->references('id')->on('users')
