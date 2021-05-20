@@ -63,11 +63,12 @@ class CommentsController extends Controller
 
         // dd($courrier);
 
-        // Notification
+        // Notifications
 
         $courrier->user->notify(new newCommentPosted($courrier, auth()->user()));
 
         return redirect()->route('courriers.show', $courrier->id);
+        
 
     }
 
@@ -130,6 +131,11 @@ class CommentsController extends Controller
         $commentReply->courriers_id = $comment->courrier->id;
 
         $comment->comments()->save($commentReply);
+
+        
+        //Notifications Réponse 
+
+        $comment->user->notify(new newCommentPosted($comment->courrier, auth()->user()));
 
         return redirect()->back();
         

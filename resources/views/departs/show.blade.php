@@ -75,7 +75,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                             @auth
                             <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
                                 Répondre

@@ -112,39 +112,43 @@ class Courrier extends Eloquent
 
 	public function employee()
 	{
-		return $this->belongsTo(\App\Employee::class, 'employees_id');
+		return $this->belongsTo(\App\Employee::class, 'employees_id')->latest();
 	}
 
 	public function gestionnaire()
 	{
-		return $this->belongsTo(\App\Gestionnaire::class, 'gestionnaires_id');
+		return $this->belongsTo(\App\Gestionnaire::class, 'gestionnaires_id')->latest();
 	}
 
 	public function types_courrier()
 	{
-		return $this->belongsTo(\App\TypesCourrier::class, 'types_courriers_id');
+		return $this->belongsTo(\App\TypesCourrier::class, 'types_courriers_id')->latest();
 	}
 
 	public function user()
 	{
-		return $this->belongsTo(\App\User::class, 'users_id');
+		return $this->belongsTo(\App\User::class, 'users_id')->latest();
 	}
 
 	public function antennes()
 	{
-		return $this->hasMany(\App\Antenne::class, 'courriers_id');
+		return $this->hasMany(\App\Antenne::class, 'courriers_id')->latest();
 	}
 
 	public function cellules()
 	{
-		return $this->hasMany(\App\Cellule::class, 'courriers_id');
+		return $this->hasMany(\App\Cellule::class, 'courriers_id')->latest();
 	}
 
+	// public function comments()
+	// {
+	// 	return $this->hasMany(\App\Comment::class, 'courriers_id')->latest();
+	// }
 	public function comments()
 	{
-		return $this->hasMany(\App\Comment::class, 'courriers_id');
+		return $this->morphMany('App\Comment', 'Commentable')->latest();
 	}
-
+	
 	public function imputations()
 	{
 		return $this->belongsToMany(\App\Imputation::class, 'courriers_has_imputations', 'courriers_id', 'imputations_id')
@@ -154,31 +158,31 @@ class Courrier extends Eloquent
 
 	public function dafs()
 	{
-		return $this->hasMany(\App\Daf::class, 'courriers_id');
+		return $this->hasMany(\App\Daf::class, 'courriers_id')->latest();
 	}
 
 	public function departs()
 	{
-		return $this->hasMany(\App\Depart::class, 'courriers_id');
+		return $this->hasMany(\App\Depart::class, 'courriers_id')->latest();
 	}
 
 	public function directions()
 	{
-		return $this->hasMany(\App\Direction::class, 'courriers_id');
+		return $this->hasMany(\App\Direction::class, 'courriers_id')->latest();
 	}
 
 	public function internes()
 	{
-		return $this->hasMany(\App\Interne::class, 'courriers_id');
+		return $this->hasMany(\App\Interne::class, 'courriers_id')->latest();
 	}
 
 	public function recues()
 	{
-		return $this->hasMany(\App\Recue::class, 'courriers_id');
+		return $this->hasMany(\App\Recue::class, 'courriers_id')->latest();
 	}
 
 	public function services()
 	{
-		return $this->hasMany(\App\Service::class, 'courriers_id');
+		return $this->hasMany(\App\Service::class, 'courriers_id')->latest();
 	}
 }
