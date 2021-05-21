@@ -61,11 +61,11 @@ class Bordereau extends Eloquent
 
 	public function daf()
 	{
-		return $this->belongsTo(\App\Daf::class, 'dafs_id');
+		return $this->belongsTo(\App\Daf::class, 'dafs_id')->latest();
 	}
 
 	public function listes()
 	{
-		return $this->hasMany(\App\Liste::class, 'bordereaus_id');
+		return $this->hasMany(\App\Liste::class, 'bordereaus_id')->latest();
 	}
 }

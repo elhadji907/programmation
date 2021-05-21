@@ -103,41 +103,41 @@ class Daf extends Eloquent
 
 	public function courrier()
 	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id')->latest();
 	}
 
 	public function imputation()
 	{
-		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
+		return $this->belongsTo(\App\Imputation::class, 'imputations_id')->latest();
 	}
 
 	public function projet()
 	{
-		return $this->belongsTo(\App\Projet::class, 'projets_id');
+		return $this->belongsTo(\App\Projet::class, 'projets_id')->latest();
 	}
 
 	public function banques()
 	{
-		return $this->hasMany(\App\Banque::class, 'dafs_id');
+		return $this->hasMany(\App\Banque::class, 'dafs_id')->latest();
 	}
 
 	public function bordereaus()
 	{
-		return $this->hasMany(\App\Bordereau::class, 'dafs_id');
+		return $this->hasMany(\App\Bordereau::class, 'dafs_id')->latest();
 	}
 
 	public function etats()
 	{
-		return $this->hasMany(\App\Etat::class, 'dafs_id');
+		return $this->hasMany(\App\Etat::class, 'dafs_id')->latest();
 	}
 
 	public function etats_previs()
 	{
-		return $this->hasMany(\App\EtatsPrevi::class, 'dafs_id');
+		return $this->hasMany(\App\EtatsPrevi::class, 'dafs_id')->latest();
 	}
 
 	public function ordres_missions()
 	{
-		return $this->hasMany(\App\OrdresMission::class, 'dafs_id');
+		return $this->hasMany(\App\OrdresMission::class, 'dafs_id')->latest();
 	}
 }

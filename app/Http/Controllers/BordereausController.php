@@ -146,7 +146,13 @@ class BordereausController extends Controller
      */
     public function edit(Bordereau $bordereau)
     {
-        //
+        // $this->authorize('update',  $bordereau->courrier);
+
+        $directions = Direction::pluck('sigle','id');
+        $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        $imputations = Imputation::pluck('sigle','id');
+
+         return view('bordereaus.update', compact('bordereau', 'directions','imputations', 'projets'));
     }
 
     /**
