@@ -109,6 +109,11 @@ class Courrier extends Eloquent
 		'employees_id',
 		'types_courriers_id'
 	];
+	
+	public function getFile(){
+		$filePath = $this->file ?? 'recues/default.jpg';
+		return "/storage/" . $filePath;
+	}
 
 	public function employee()
 	{
