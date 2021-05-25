@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -23,14 +23,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \Illuminate\Database\Eloquent\Collection $cellules
  * @property \Illuminate\Database\Eloquent\Collection $courriers
- * @property \Illuminate\Database\Eloquent\Collection $dafs
  * @property \Illuminate\Database\Eloquent\Collection $directions
  * @property \Illuminate\Database\Eloquent\Collection $services
  *
  * @package App
  */
 class Imputation extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -54,13 +54,8 @@ class Imputation extends Eloquent
 	public function courriers()
 	{
 		return $this->belongsToMany(\App\Courrier::class, 'courriers_has_imputations', 'imputations_id', 'courriers_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
-	}
-
-	public function dafs()
-	{
-		return $this->hasMany(\App\Daf::class, 'imputations_id');
 	}
 
 	public function directions()

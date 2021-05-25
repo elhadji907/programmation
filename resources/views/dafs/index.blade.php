@@ -145,7 +145,7 @@
                     <th style="width:30%;">Désignation</th>
                     <th style="width:30%;">Observations</th>
                     <th style="width:10%;">Date Imput.</th>
-                    <th style="width:10%;">Action</th>
+                    <th style="width:10%;">Type courrier</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
@@ -156,7 +156,7 @@
                     <th>Désignation</th>
                     <th>Observations</th>
                     <th>Date Imput.</th>
-                    <th>Action</th>
+                    <th>Type courrier</th>
                   </tr>
                 </tfoot>
                 <tbody>              
@@ -170,7 +170,7 @@
                     <td class="align-middle">{!! $daf->observation !!}</td>   
                     <td class="align-middle">{!! Carbon\Carbon::parse($daf->date_imp)->format('d/m/Y') !!}</td>              
                     <td class="d-flex align-middle">
-                        <a href="{!! url('dafs/' .$daf->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                        {{--  <a href="{!! url('dafs/' .$daf->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
                         </a>&nbsp;
                          <a href="{!! url('courriers/' .$daf->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
@@ -178,7 +178,7 @@
                         </a>&nbsp;
                           {!! Form::open(['method'=>'DELETE', 'url'=>'dafs/' .$daf->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                           {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
-                          {!! Form::close() !!}
+                          {!! Form::close() !!}  --}}
                     </td>
                   </tr>
                   @endforeach  

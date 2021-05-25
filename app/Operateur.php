@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -42,7 +42,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Operateur extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -92,7 +93,7 @@ class Operateur extends Eloquent
 	public function modules()
 	{
 		return $this->belongsToMany(\App\Module::class, 'modules_has_operateurs', 'operateurs_id', 'modules_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

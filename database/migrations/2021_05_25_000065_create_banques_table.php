@@ -24,23 +24,17 @@ class CreateBanquesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->unsignedInteger('dafs_id')->nullable();
-            $table->unsignedInteger('projets_id')->nullable();
+            $table->string('name', 200)->nullable();
+            $table->string('numero', 200)->nullable();
+            $table->unsignedInteger('courriers_id');
 
-            $table->index(["dafs_id"], 'fk_banques_dafs1_idx');
-
-            $table->index(["projets_id"], 'fk_banques_projets1_idx');
+            $table->index(["courriers_id"], 'fk_banques_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('dafs_id', 'fk_banques_dafs1_idx')
-                ->references('id')->on('dafs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('projets_id', 'fk_banques_projets1_idx')
-                ->references('id')->on('projets')
+            $table->foreign('courriers_id', 'fk_banques_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

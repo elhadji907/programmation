@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEtatsPrevisTable extends Migration
+class CreateTresorsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'etats_previs';
+    public $tableName = 'tresors';
 
     /**
      * Run the migrations.
-     * @table etats_previs
+     * @table tresors
      *
      * @return void
      */
@@ -30,20 +30,20 @@ class CreateEtatsPrevisTable extends Migration
             $table->longText('observation')->nullable();
             $table->double('montant')->nullable();
             $table->dateTime('date_depart')->nullable();
-            $table->dateTime('periode')->nullable();
             $table->dateTime('date_retour')->nullable();
             $table->dateTime('date_transmission')->nullable();
-            $table->dateTime('date_dag')->nullable();
+            $table->dateTime('date_dg')->nullable();
+            $table->dateTime('date_cg')->nullable();
             $table->dateTime('date_ac')->nullable();
-            $table->unsignedInteger('dafs_id')->nullable();
+            $table->unsignedInteger('courriers_id');
 
-            $table->index(["dafs_id"], 'fk_etats_previs_dafs1_idx');
+            $table->index(["courriers_id"], 'fk_tresors_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('dafs_id', 'fk_etats_previs_dafs1_idx')
-                ->references('id')->on('dafs')
+            $table->foreign('courriers_id', 'fk_tresors_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

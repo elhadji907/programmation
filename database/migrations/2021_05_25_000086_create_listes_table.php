@@ -27,22 +27,14 @@ class CreateListesTable extends Migration
             $table->string('name', 200)->nullable();
             $table->string('sigle', 200)->nullable();
             $table->unsignedInteger('bordereaus_id')->nullable();
-            $table->unsignedInteger('projets_id')->nullable();
 
             $table->index(["bordereaus_id"], 'fk_listes_bordereaus1_idx');
-
-            $table->index(["projets_id"], 'fk_listes_projets1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
             $table->foreign('bordereaus_id', 'fk_listes_bordereaus1_idx')
                 ->references('id')->on('bordereaus')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('projets_id', 'fk_listes_projets1_idx')
-                ->references('id')->on('projets')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

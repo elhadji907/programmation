@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * Class User
@@ -35,14 +36,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $deleted_by
  * @property int $roles_id
  * @property string $adresse
- * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
- * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $comptables
@@ -57,7 +56,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App
  */
 class User extends Authenticatable
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	use Notifiable;
@@ -73,8 +73,7 @@ class User extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password',
-		'remember_token'
+		'password'
 	];
 
 	protected $fillable = [
@@ -96,8 +95,7 @@ class User extends Authenticatable
 		'updated_by',
 		'deleted_by',
 		'roles_id',
-		'adresse',
-		'remember_token'
+		'adresse'
 	];
 	protected static function boot(){
 		parent::boot();
@@ -109,27 +107,17 @@ class User extends Authenticatable
 			]);
 		});
 	} 
-
-	public function getRouteKeyName()
-	{
-		return 'username';
-	}
 	public function role()
 	{
 		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateur()
+	public function administrateurs()
 	{
 		return $this->hasOne(\App\Administrateur::class, 'users_id');
 	}
 
-	public function agent()
-	{
-		return $this->hasOne(\App\Agent::class, 'users_id');
-	}
-
-	public function beneficiaire()
+	public function beneficiaires()
 	{
 		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
 	}
@@ -139,8 +127,7 @@ class User extends Authenticatable
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
 
-
-	public function comptable()
+	public function comptables()
 	{
 		return $this->hasOne(\App\Comptable::class, 'users_id');
 	}
@@ -150,22 +137,22 @@ class User extends Authenticatable
 		return $this->hasMany(\App\Courrier::class, 'users_id');
 	}
 
-	public function demandeur()
+	public function demandeurs()
 	{
 		return $this->hasOne(\App\Demandeur::class, 'users_id');
 	}
 
-	public function employee()
+	public function employees()
 	{
 		return $this->hasOne(\App\Employee::class, 'users_id');
 	}
 
-	public function gestionnaire()
+	public function gestionnaires()
 	{
 		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
 	}
 
-	public function operateur()
+	public function operateurs()
 	{
 		return $this->hasOne(\App\Operateur::class, 'users_id');
 	}
@@ -179,7 +166,6 @@ class User extends Authenticatable
 	{
 		return $this->hasOne(\App\Profile::class, 'users_id');
 	}
-
 	//gestion des roles
 	public function hasRole($roleName)
 	{

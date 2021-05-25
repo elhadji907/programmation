@@ -45,15 +45,32 @@ class CreateCourriersTable extends Migration
             $table->dateTime('date_cores')->nullable();
             $table->dateTime('date_rejet')->nullable();
             $table->dateTime('date_liq')->nullable();
+            $table->longText('designation')->nullable();
+            $table->dateTime('date_visa')->nullable();
+            $table->dateTime('date_mandat')->nullable();
+            $table->string('tva_ir', 200)->nullable();
+            $table->string('nb_pc', 45)->nullable();
+            $table->string('destinataire', 200)->nullable();
+            $table->dateTime('date_paye')->nullable();
+            $table->integer('num_bord')->nullable();
+            $table->double('montant')->nullable();
+            $table->double('autres_montant')->nullable();
+            $table->double('total')->nullable();
             $table->unsignedInteger('users_id')->nullable();
             $table->unsignedInteger('employees_id')->nullable();
             $table->unsignedInteger('types_courriers_id')->nullable();
+            $table->unsignedInteger('projets_id')->nullable();
+            $table->unsignedInteger('traitementcourriers_id')->nullable();
 
             $table->index(["users_id"], 'fk_courriers_users1_idx');
 
             $table->index(["employees_id"], 'fk_courriers_employees1_idx');
 
             $table->index(["types_courriers_id"], 'fk_courriers_types_courriers1_idx');
+
+            $table->index(["projets_id"], 'fk_courriers_projets1_idx');
+
+            $table->index(["traitementcourriers_id"], 'fk_courriers_traitementcourriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -70,6 +87,16 @@ class CreateCourriersTable extends Migration
 
             $table->foreign('types_courriers_id', 'fk_courriers_types_courriers1_idx')
                 ->references('id')->on('types_courriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('projets_id', 'fk_courriers_projets1_idx')
+                ->references('id')->on('projets')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('traitementcourriers_id', 'fk_courriers_traitementcourriers1_idx')
+                ->references('id')->on('traitementcourriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

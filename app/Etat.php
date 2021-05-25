@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 29 Apr 2021 10:57:24 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -22,25 +22,27 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $date_depart
  * @property \Carbon\Carbon $date_retour
  * @property \Carbon\Carbon $date_transmission
- * @property \Carbon\Carbon $date_dag
+ * @property \Carbon\Carbon $date_dg
  * @property \Carbon\Carbon $date_ac
- * @property int $dafs_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Daf $daf
+ * @property \App\Courrier $courrier
  *
  * @package App
  */
 class Etat extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'montant' => 'float',
-		'dafs_id' => 'int'
+		'courriers_id' => 'int'
 	];
 
 	protected $dates = [
@@ -48,7 +50,7 @@ class Etat extends Eloquent
 		'date_depart',
 		'date_retour',
 		'date_transmission',
-		'date_dag',
+		'date_dg',
 		'date_ac'
 	];
 
@@ -62,13 +64,13 @@ class Etat extends Eloquent
 		'date_depart',
 		'date_retour',
 		'date_transmission',
-		'date_dag',
+		'date_dg',
 		'date_ac',
-		'dafs_id'
+		'courriers_id'
 	];
 
-	public function daf()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\Daf::class, 'dafs_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 }

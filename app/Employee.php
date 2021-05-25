@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 29 Apr 2021 10:55:50 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -46,7 +46,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Employee extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'users_id' => 'int',

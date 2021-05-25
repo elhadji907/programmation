@@ -149,7 +149,7 @@ class BordereausController extends Controller
         // $this->authorize('update',  $bordereau->courrier);
 
         $directions = Direction::pluck('sigle','id');
-        $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        $projets = Projet::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
         $imputations = Imputation::pluck('sigle','id');
 
          return view('bordereaus.update', compact('bordereau', 'directions','imputations', 'projets'));
@@ -164,7 +164,112 @@ class BordereausController extends Controller
      */
     public function update(Request $request, Bordereau $bordereau)
     {
-        //
+        $this->validate(
+            $request, [
+                'objet'                 =>  'required|string|max:200',
+                'expediteur'            =>  'required|string|max:100',
+                'telephone'             =>  'required|string|max:50',
+                'email'                 =>  'required|email|max:255',
+                'numero_mandat'         =>  'required',
+                'date_mandat'           =>  'required|date_format:Y-m-d',
+                'montant'               =>  'required',
+                'nombre_de_piece'       =>  'required',
+                'designation'           =>  'required',
+
+            ]
+        );
+
+        
+        $projet = $request->input('projet');
+        $projets_id = Projet::where('sigle', $projet)->first()->id;
+
+        //dd($projets_id);
+
+       
+        if (request('file')) { 
+       $filePath = request('file')->store('bordereaus', 'public');
+       $courrier = $bordereau->daf->courrier; 
+       $daf = $bordereau->daf; 
+       $types_courrier_id = TypesCourrier::where('name','Courriers daf')->first()->id;
+       $user_id  = Auth::user()->id;
+
+       $bordereau->numero                   =      $request->input('numero_mandat');
+       $bordereau->numero_mandat            =      $request->input('numero_mandat');
+       $bordereau->date_mandat              =      $request->input('date_mandat');
+       $bordereau->montant                  =      $request->input('montant');
+       $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
+       $bordereau->date_mandat              =      $request->input('date_mandat');
+       $bordereau->montant                  =      $request->input('montant');
+       $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
+       $bordereau->designation              =      $request->input('designation');
+       $bordereau->observation              =      $request->input('observation');
+       $bordereau->dafs_id                  =      $daf->id;
+
+       $bordereau->save();
+
+       $courrier->numero                    =      $request->input('numero_mandat');
+       $courrier->objet                     =      $request->input('objet');
+       $courrier->message                   =      $request->input('message');
+       $courrier->expediteur                =      $request->input('expediteur');
+       $courrier->email                     =      $request->input('email');
+       $courrier->telephone                 =      $request->input('telephone');
+       $courrier->types_courriers_id        =      $types_courrier_id;
+       $courrier->users_id                  =      $user_id;
+    
+       $courrier->save();
+
+      $daf->numero              =      $request->input('numero_mandat');
+      $daf->designation         =      $request->input('designation');
+      $daf->observation         =      $request->input('observation');
+      $daf->projets_id          =      $projets_id;
+      $daf->courriers_id        =      $courrier->id;
+
+      $daf->save();
+        }
+        else{   
+
+       $courrier = $bordereau->daf->courrier; 
+       $daf = $bordereau->daf; 
+       $types_courrier_id = TypesCourrier::where('name','Courriers daf')->first()->id;
+       $user_id  = Auth::user()->id;
+
+       $bordereau->numero                   =      $request->input('numero_mandat');
+       $bordereau->numero_mandat            =      $request->input('numero_mandat');
+       $bordereau->date_mandat              =      $request->input('date_mandat');
+       $bordereau->montant                  =      $request->input('montant');
+       $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
+       $bordereau->date_mandat              =      $request->input('date_mandat');
+       $bordereau->montant                  =      $request->input('montant');
+       $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
+       $bordereau->designation              =      $request->input('designation');
+       $bordereau->observation              =      $request->input('observation');
+       $bordereau->dafs_id                  =      $daf->id;
+
+       $bordereau->save();
+       
+       $courrier->numero                    =      $request->input('numero_mandat');
+       $courrier->objet                     =      $request->input('objet');
+       $courrier->message                   =      $request->input('message');
+       $courrier->expediteur                =      $request->input('expediteur');
+       $courrier->email                     =      $request->input('email');
+       $courrier->telephone                 =      $request->input('telephone');
+       $courrier->types_courriers_id        =      $types_courrier_id;
+       $courrier->users_id                  =      $user_id;
+    
+       $courrier->save();
+
+      $daf->numero              =      $request->input('numero_mandat');
+      $daf->designation         =      $request->input('designation');
+      $daf->observation         =      $request->input('observation');
+      $daf->projets_id          =      $projets_id;
+      $daf->courriers_id        =      $courrier->id;
+
+      $daf->save();
+ 
+
+         }
+
+       return redirect()->route('courriers.show', $bordereau->daf->courrier->id)->with('success','courrier modifié avec succès !');
     }
 
     /**

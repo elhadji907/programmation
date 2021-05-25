@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 29 Apr 2021 10:58:14 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -14,40 +14,37 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property int $dafs_id
- * @property int $projets_id
+ * @property string $name
+ * @property string $numero
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Daf $daf
- * @property \App\Projet $projet
+ * @property \App\Courrier $courrier
  *
  * @package App
  */
 class Banque extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
-		'dafs_id' => 'int',
-		'projets_id' => 'int'
+		'courriers_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'dafs_id',
-		'projets_id'
+		'name',
+		'numero',
+		'courriers_id'
 	];
 
-	public function daf()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\Daf::class, 'dafs_id');
-	}
-
-	public function projet()
-	{
-		return $this->belongsTo(\App\Projet::class, 'projets_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 }

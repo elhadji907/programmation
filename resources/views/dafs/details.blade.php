@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Courier daf')
+@section('title', 'ONFP - Fiche des dafx de la daf')
 @section('content')
     
     <style>
@@ -213,11 +213,11 @@
         </table>
 
         <div class="d-flex justify-content-between align-items-center mt-5">
-            @can('update', $daf->courrier)
+            {{--  @can('update', $daf->courrier)  --}}
                 <a href="{!! url('dafs/' .$daf->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                     <i class="far fa-edit">&nbsp;Modifier</i>
                 </a>
-            @endcan
+            {{--  @endcan  --}}
             <a href="{!! route('courriers.show', $daf->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                 <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
             </a>

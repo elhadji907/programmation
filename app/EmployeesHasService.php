@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * Class EmployeesHasService
  * 
+ * @property int $id
  * @property int $employees_id
  * @property int $services_id
  * @property string $deleted_at
@@ -24,17 +25,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class EmployeesHasService extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
-	protected $primaryKey = 'employees_id';
 
 	protected $casts = [
+		'employees_id' => 'int',
 		'services_id' => 'int'
 	];
 
 	protected $fillable = [
+		'employees_id',
 		'services_id'
 	];
 

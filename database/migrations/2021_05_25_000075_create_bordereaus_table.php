@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEtatsTable extends Migration
+class CreateBordereausTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'etats';
+    public $tableName = 'bordereaus';
 
     /**
      * Run the migrations.
-     * @table etats
+     * @table bordereaus
      *
      * @return void
      */
@@ -25,24 +25,21 @@ class CreateEtatsTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
-            $table->dateTime('date_recep')->nullable();
+            $table->integer('numero_mandat')->nullable();
+            $table->timestamp('date_mandat')->nullable();
             $table->longText('designation')->nullable();
-            $table->longText('observation')->nullable();
             $table->double('montant')->nullable();
-            $table->dateTime('date_depart')->nullable();
-            $table->dateTime('date_retour')->nullable();
-            $table->dateTime('date_transmission')->nullable();
-            $table->dateTime('date_dag')->nullable();
-            $table->dateTime('date_ac')->nullable();
-            $table->unsignedInteger('dafs_id')->nullable();
+            $table->integer('nombre_de_piece')->nullable();
+            $table->longText('observation')->nullable();
+            $table->unsignedInteger('courriers_id');
 
-            $table->index(["dafs_id"], 'fk_etats_dafs1_idx');
+            $table->index(["courriers_id"], 'fk_bordereaus_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('dafs_id', 'fk_etats_dafs1_idx')
-                ->references('id')->on('dafs')
+            $table->foreign('courriers_id', 'fk_bordereaus_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

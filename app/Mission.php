@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 25 Apr 2021 12:16:23 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -46,7 +46,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Mission extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'distance' => 'int',

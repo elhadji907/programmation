@@ -38,7 +38,7 @@
                                         @foreach($secteurs as $secteur)
                                             <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
                                         @endforeach
-                                        </select>
+                                    </select>
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('secteur'))
                                         @foreach ($errors->get('secteur') as $message)

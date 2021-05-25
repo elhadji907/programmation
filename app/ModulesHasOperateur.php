@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * Class ModulesHasOperateur
  * 
+ * @property int $id
  * @property int $modules_id
  * @property int $operateurs_id
  * @property string $deleted_at
@@ -24,17 +25,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class ModulesHasOperateur extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
-	protected $primaryKey = 'modules_id';
 
 	protected $casts = [
+		'modules_id' => 'int',
 		'operateurs_id' => 'int'
 	];
 
 	protected $fillable = [
+		'modules_id',
 		'operateurs_id'
 	];
 

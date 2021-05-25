@@ -73,18 +73,31 @@
                                     {!! Form::textarea('observation', $bordereau->observation, ['placeholder' => 'observations éventuelles', 'rows' => 5,
                                     'class' => 'form-control']) !!}
                                 </div>
-                            </div>
+                            </div>                           
                             <div class="form-row">
-                                
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('', null, ['class' => 'control-label']) !!}                    
+                                    {!! Form::file('file', null, ['class'=>'form-control-file']) !!}
+                                    @if ($bordereau->daf->courrier->file !== "")
+                                    <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($bordereau->daf->courrier->getFile()) }}">
+                                        <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
+                                    </a>
+                                    @endif             
+                                </div>
+                                <div class="form-group col-md-6">                
+                                    {!! Form::text('legende', $bordereau->daf->courrier->legende, ['placeholder'=>'attribué un nom du fichier joint', 'class'=>'form-control']) !!}                    
+                                </div> 
                             </div>
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">PROJET</p>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    {!! Form::label('Projet :', null, ['class' => 'control-label']) !!}
-                                    {!! Form::select('projet', $projets, $bordereau->daf->projet->sigle, ['class' => 'form-control', 'id' => 'projet']) !!}
-                                </div>                               
+                                
+                            <div class="form-group col-md-12">
+                                {!! Form::label("Projet") !!}<span class="text-danger"> <b>*</b> </span>
+                                {!! Form::select('projet', $projets, $bordereau->daf->projet->sigle, ['placeholder' => '', 'class' =>
+                                'form-control', 'id' => 'projet']) !!}
+                            </div>                              
                             </div>
                            
                             {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}

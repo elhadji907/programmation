@@ -34,19 +34,18 @@
   </script>
   <script type="text/javascript">
   
-        $("#structure").select2({
-              placeholder: "sélectionner une structure",
-              allowClear: true
-          });
-  </script>
-
-  <script type="text/javascript">
-  
     $("#civilite").select2({
           placeholder: "sélectionner un sexe",
           allowClear: true
       });
 </script>  
+  <script type="text/javascript">
+  
+        $("#structure").select2({
+              placeholder: "sélectionner une structure",
+              allowClear: true
+          });
+  </script>
   <script type="text/javascript">
     
     $("#type_demande").select2({

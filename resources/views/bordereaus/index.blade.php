@@ -64,7 +64,7 @@
                         <a href="{!! url('bordereaus/' .$bordereau->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
                         </a>&nbsp
-                         <a href="{!! url('bordereaus/' .$bordereau->daf->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                         <a href="{!! url('courriers/' .$bordereau->daf->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>&nbsp;
                           {!! Form::open(['method'=>'DELETE', 'url'=>'bordereaus/' .$bordereau->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}

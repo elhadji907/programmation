@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Tue, 25 May 2021 21:36:57 +0000.
  */
 
 namespace App;
@@ -29,7 +29,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Service extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -60,7 +61,7 @@ class Service extends Eloquent
 	public function employees()
 	{
 		return $this->belongsToMany(\App\Employee::class, 'employees_has_services', 'services_id', 'employees_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 }
