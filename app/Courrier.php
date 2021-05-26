@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Wed, 26 May 2021 16:31:05 +0000.
  */
 
 namespace App;
@@ -73,6 +73,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $facturesdafs
  * @property \Illuminate\Database\Eloquent\Collection $fads
  * @property \Illuminate\Database\Eloquent\Collection $internes
+ * @property \Illuminate\Database\Eloquent\Collection $missions
  * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  * @property \Illuminate\Database\Eloquent\Collection $recues
  * @property \Illuminate\Database\Eloquent\Collection $services
@@ -82,7 +83,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Courrier extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -247,6 +247,11 @@ class Courrier extends Eloquent
 	public function internes()
 	{
 		return $this->hasMany(\App\Interne::class, 'courriers_id');
+	}
+
+	public function missions()
+	{
+		return $this->hasMany(\App\Mission::class, 'courriers_id');
 	}
 
 	public function ordres_missions()

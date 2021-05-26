@@ -11,6 +11,6 @@ class EtatprevisTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\EtatsPrevi::class,12)->create();
+        factory(App\EtatsPrevi::class,9)->create();
     }
 }

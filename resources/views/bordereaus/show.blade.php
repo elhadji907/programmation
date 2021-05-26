@@ -17,28 +17,28 @@
                 <div class="card">
                     @foreach ($bordereaus as $bordereau)  
                     <div class="card-body">
-                        <h3 class="card-title">{!! $bordereau->daf->courrier->types_courrier->name !!}</h5>
-                        <h5 class="card-category">{!! $bordereau->daf->courrier->objet !!}</h5>
+                        <h1 class="card-title">{!! $bordereau->courrier->types_courrier->name !!}</h1>
+                        <h4 class="card-category">{!! $bordereau->courrier->objet !!}</h4>
                         <p>{{ $bordereau->courrier->message }}</p>
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <small>Posté le {!! Carbon\Carbon::parse($bordereau->daf->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
-                            <span class="badge badge-primary">{!! $bordereau->daf->courrier->user->firstname !!}&nbsp;{!! $bordereau->daf->courrier->user->name !!}</span>
+                            <small>Posté le {!! Carbon\Carbon::parse($bordereau->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                            <span class="badge badge-primary">{!! $bordereau->courrier->user->firstname !!}&nbsp;{!! $bordereau->courrier->user->name !!}</span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            @can('update', $bordereau->daf->courrier)     
+                            @can('update', $bordereau->courrier)     
                             <a href="{!! url('bordereaus/' .$bordereau->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
                             @endcan 
-                            <a href="{!! url('courriers/' .$bordereau->daf->courrier->id. '/edit') !!}" title="voir les d&eacute;tails du courrier" class="btn btn-outline-primary">
+                            <a href="{!! url('courriers/' .$bordereau->courrier->id. '/edit') !!}" title="voir les d&eacute;tails du courrier" class="btn btn-outline-primary">
                                 <i class="far fa-eye">&nbsp;D&eacute;tails</i>
                             </a>
                             {{--  <a href="{!! url('courriers/' .$bordereau->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a>  --}}
-                            @can('delete', $bordereau->daf->courrier)     
+                            @can('delete', $bordereau->courrier)     
                             {!! Form::open(['method'=>'DELETE', 'url'=>'bordereaus/' .$bordereau->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                             {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
                             {!! Form::close() !!}
@@ -53,7 +53,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center">Commentaires</h5>
-                            @forelse ($bordereau->daf->courrier->comments as $comment)
+                            @forelse ($bordereau->courrier->comments as $comment)
                             <div class="card mt-2">
                                 <div class="card-body">
                                     {!! $comment->content !!}

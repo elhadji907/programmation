@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MissionsTableSeeder extends Seeder
+class FacturesdafsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class MissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Mission::class,11)->create();
+        factory(App\Facturesdaf::class,17)->create();
     }
 }

@@ -45,10 +45,13 @@ class CreateMissionsTable extends Migration
             $table->double('accompt')->nullable();
             $table->unsignedInteger('employees_id')->nullable();
             $table->unsignedInteger('vehicules_id')->nullable();
+            $table->unsignedInteger('courriers_id');
 
             $table->index(["employees_id"], 'fk_missions_employees1_idx');
 
             $table->index(["vehicules_id"], 'fk_missions_vehicules1_idx');
+
+            $table->index(["courriers_id"], 'fk_missions_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -60,6 +63,11 @@ class CreateMissionsTable extends Migration
 
             $table->foreign('vehicules_id', 'fk_missions_vehicules1_idx')
                 ->references('id')->on('vehicules')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('courriers_id', 'fk_missions_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

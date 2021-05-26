@@ -68,6 +68,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
     $autoIncre->next();
 
     $user_id=App\User::all()->random()->id;
+    $projet_id=App\Projet::all()->random()->id;
     $annee = date('y');
     $numero_courrier = date('His');
 
@@ -105,6 +106,9 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
         'montant' => $faker->randomFloat(),
         'autres_montant' => $faker->randomFloat(),
         'total' => $faker->randomFloat(),
+        'projets_id' => function ()  use($projet_id) {
+            return $projet_id;
+       },
         'users_id' => function ()  use($user_id) {
             return $user_id;
         },

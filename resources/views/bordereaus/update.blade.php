@@ -22,22 +22,22 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     {!! Form::label('Objet') !!}       <span class="text-danger"> <b>*</b> </span>             
-                                    {!! Form::textarea('objet', $bordereau->daf->courrier->objet, ['placeholder'=>'', 'class'=>'form-control','rows' => 2, 'id'=>'objets']) !!}                    
+                                    {!! Form::textarea('objet', $bordereau->courrier->objet, ['placeholder'=>'', 'class'=>'form-control','rows' => 2, 'id'=>'objets']) !!}                    
                                 </div> 
                             </div>
                                     
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Expéditeur') !!}  <span class="text-danger"> <b>*</b> </span>                  
-                                    {!! Form::text('expediteur', $bordereau->daf->courrier->expediteur, ['placeholder'=>"Nom et prénom de l'expéditeur", 'class'=>'form-control']) !!}                    
+                                    {!! Form::text('expediteur', $bordereau->courrier->expediteur, ['placeholder'=>"Nom et prénom de l'expéditeur", 'class'=>'form-control']) !!}                    
                                 </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Adresse e-mail') !!} <span class="text-danger"> <b>*</b> </span>                   
-                                    {!! Form::email('email', $bordereau->daf->courrier->email, ['placeholder'=>'Votre adresse e-mail', 'class'=>'form-control', 'id'=>'email']) !!}                    
+                                    {!! Form::email('email', $bordereau->courrier->email, ['placeholder'=>'Votre adresse e-mail', 'class'=>'form-control', 'id'=>'email']) !!}                    
                                 </div>
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Téléphone') !!}<span class="text-danger"> <b>*</b> </span>                    
-                                    {!! Form::text('telephone', $bordereau->daf->courrier->telephone, ['placeholder'=>"Votre numero de téléphone", 'class'=>'form-control']) !!}                    
+                                    {!! Form::text('telephone', $bordereau->courrier->telephone, ['placeholder'=>"Votre numero de téléphone", 'class'=>'form-control']) !!}                    
                                 </div>
                             </div>
                             <div class="form-row">
@@ -78,14 +78,14 @@
                                 <div class="form-group col-md-6">
                                     {!! Form::label('', null, ['class' => 'control-label']) !!}                    
                                     {!! Form::file('file', null, ['class'=>'form-control-file']) !!}
-                                    @if ($bordereau->daf->courrier->file !== "")
-                                    <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($bordereau->daf->courrier->getFile()) }}">
+                                    @if ($bordereau->courrier->file !== "")
+                                    <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($bordereau->courrier->getFile()) }}">
                                         <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
                                     </a>
                                     @endif             
                                 </div>
                                 <div class="form-group col-md-6">                
-                                    {!! Form::text('legende', $bordereau->daf->courrier->legende, ['placeholder'=>'attribué un nom du fichier joint', 'class'=>'form-control']) !!}                    
+                                    {!! Form::text('legende', $bordereau->courrier->legende, ['placeholder'=>'attribué un nom du fichier joint', 'class'=>'form-control']) !!}                    
                                 </div> 
                             </div>
                             <div class="bg-gradient-secondary text-center">
@@ -93,11 +93,11 @@
                             </div>
                             <div class="form-row">
                                 
-                            <div class="form-group col-md-12">
-                                {!! Form::label("Projet") !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::select('projet', $projets, $bordereau->daf->projet->sigle, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'projet']) !!}
-                            </div>                              
+                                <div class="form-group col-md-12">
+                                    {!! Form::label("Projet") !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('projet', $projets, $bordereau->courrier->projet->sigle, ['placeholder' => '', 'class' =>
+                                    'form-control', 'id' => 'projet']) !!}
+                                </div>                               
                             </div>
                            
                             {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}

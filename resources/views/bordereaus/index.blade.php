@@ -56,20 +56,26 @@
                     <td class="align-middle">{!! $bordereau->numero_mandat !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! $bordereau->designation !!}</td>         
-                    <td class="align-middle">{!! $bordereau->daf->projet->name !!}</td>         
+                    <td class="align-middle">{!! $bordereau->courrier->projet->name !!}</td>         
                     <td class="align-middle">{!! $bordereau->montant !!}</td>         
                     <td class="align-middle">{!! $bordereau->nombre_de_piece !!}</td>         
                     <td class="align-middle">{!! $bordereau->observation !!}</td>              
                     <td class="d-flex align-items-center justify-content-center" style="height: 150px;">
+                      @can('update', $bordereau->courrier)
                         <a href="{!! url('bordereaus/' .$bordereau->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
-                        </a>&nbsp
-                         <a href="{!! url('courriers/' .$bordereau->daf->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                        </a>
+                        @endcan 
+                        &nbsp
+                         <a href="{!! url('courriers/' .$bordereau->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
-                        </a>&nbsp;
+                        </a>
+                        &nbsp;
+                        @can('delete', $bordereau->courrier)
                           {!! Form::open(['method'=>'DELETE', 'url'=>'bordereaus/' .$bordereau->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                           {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                           {!! Form::close() !!}
+                          @endcan 
                     </td>
                   </tr>
                   @endforeach  

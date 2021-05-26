@@ -11,6 +11,6 @@ class EtatsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Etat::class,12)->create();
+        factory(App\Etat::class,33)->create();
     }
 }
