@@ -37,7 +37,7 @@ $factory->define(App\Tresor::class, function (Faker\Generator $faker) use ($auto
     $numero_courrier = date('His');
     
     return [
-        'numero' => 'CD'.$autoIncremente_tresor->current()."".$annee,
+        'numero' => 'TR'.$autoIncremente_tresor->current()."".$annee,
         'date_recep' => $faker->dateTime(),
         'designation' => $faker->text,
         'observation' => $faker->text,

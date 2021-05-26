@@ -11,6 +11,6 @@ class TresorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Tresor::class,23)->create();
+        factory(App\Tresor::class,43)->create();
     }
 }

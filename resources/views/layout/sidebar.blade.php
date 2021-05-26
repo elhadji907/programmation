@@ -101,10 +101,10 @@
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">
       <span>Bordereaux</span>
     </a>
-    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+    <a class="collapse-item" href="{{ route('facturesdafs.index') }}">
       <span>Factures</span>
     </a>
-    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+    <a class="collapse-item" href="{{ route('tresors.index') }}">
       <span>Recettes Trésor</span>
     </a>      
     </a>

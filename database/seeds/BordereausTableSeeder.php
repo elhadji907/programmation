@@ -11,6 +11,6 @@ class BordereausTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Bordereau::class,16)->create();
+        factory(App\Bordereau::class,39)->create();
     }
 }

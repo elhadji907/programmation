@@ -116,6 +116,9 @@ class CourriersController extends Controller
         } elseif($typescourrier == 'Bordereau') {    
             return view('bordereaus.show', compact('bordereaus','courrier','chart'));
 
+        }  elseif($typescourrier == 'Tresor') {    
+            return view('tresors.show', compact('tresors','courrier','chart'));
+
         } else {
             return view('courriers.show', compact('courrier','chart'));
         }
@@ -160,7 +163,10 @@ class CourriersController extends Controller
             }  elseif($typescourrier == 'Bordereau') {    
                 return view('bordereaus.show', compact('bordereaus','courrier','chart'));
     
-            } else {
+            }  elseif($typescourrier == 'Tresor') {    
+                return view('tresors.show', compact('tresors','courrier','chart'));
+    
+            }else {
                 return view('courriers.show', compact('courrier','chart'));
             }
     }
@@ -208,7 +214,10 @@ class CourriersController extends Controller
     }  elseif($typescourrier == 'Bordereau') {    
         return view('bordereaus.details', compact('bordereaus','courrier','chart'));
 
-    } else {
+    }  elseif($typescourrier == 'Tresor') {    
+        return view('tresors.details', compact('tresors','courrier','chart'));
+
+    }else {
         return view('courriers.details', compact('courrier','chart'));
     }
     }
