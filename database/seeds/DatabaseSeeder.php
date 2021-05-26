@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(InternesTableSeeder::class);
         $this->call(DepartsTableSeeder::class);
         $this->call(RecuesTableSeeder::class);
-        //$this->call(LocalitesTableSeeder::class);
-        // $this->call(ProgrammesTableSeeder::class);
-        // $this->call(LieuxsTableSeeder::class);
+        $this->call(ProgrammesTableSeeder::class);
+        $this->call(LieuxsTableSeeder::class);
+        $this->call(BordereausTableSeeder::class);
         // $this->call(DemandeursTableSeeder::class);
         // $this->call(IndividuellesTableSeeder::class);
         // $this->call(VillagesTableSeeder::class);

@@ -60,7 +60,6 @@ Route::group([
         Route::get('/lister_term/{localitesliste}/{nom_module}', 'LocalitesController@lister_term')->name('localites.lister_term');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
-        Route::get('/dafs/list', 'DafsController@list')->name('dafs.list');
         Route::get('/factures/list', 'FacturesController@list')->name('factures.list');
         Route::get('/etats/list', 'EtatsController@list')->name('etats.list');
         Route::get('/previsions/list', 'EtatsprevisController@list')->name('previsions.list');
@@ -84,7 +83,6 @@ Route::group([
         Route::resource('/personnels', 'PersonnelsController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
-        Route::resource('/dafs', 'DafsController');
         Route::resource('/factures', 'FacturesController');
         Route::resource('/etats', 'EtatsController');
         Route::resource('/previsions', 'EtatsprevisController');
