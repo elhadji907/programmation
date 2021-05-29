@@ -1,8 +1,8 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-/* 
-use Faker\Generator as Faker;
+
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Fad::class, function (Faker $faker) {
     return [
@@ -23,7 +23,6 @@ $factory->define(App\Fad::class, function (Faker $faker) {
         },
     ];
 }); */
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Courrier $courrier
  * @property \App\Imputation $imputation
  * @property \Illuminate\Database\Eloquent\Collection $employees
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  *
  * @package App
  */
@@ -61,6 +62,13 @@ class Service extends Eloquent
 	public function employees()
 	{
 		return $this->belongsToMany(\App\Employee::class, 'employees_has_services', 'services_id', 'employees_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function imputations()
+	{
+		return $this->belongsToMany(\App\Imputation::class, 'services_has_imputations', 'services_id', 'imputations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

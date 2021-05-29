@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  *
  * @package App
@@ -40,6 +41,13 @@ class Niveaux extends Eloquent
 	public function formations()
 	{
 		return $this->hasMany(\App\Formation::class, 'niveauxs_id');
+	}
+
+	public function modules()
+	{
+		return $this->belongsToMany(\App\Module::class, 'modules_has_niveauxs', 'niveauxs_id', 'modules_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function operateurs()

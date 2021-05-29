@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $situation
  * @property string $telephone
  * @property string $fixe
+ * @property int $nbre_piece
  * @property string $items1
  * @property string $items2
- * @property string $items3
  * @property \Carbon\Carbon $date1
  * @property \Carbon\Carbon $date2
  * @property int $users_id
@@ -65,6 +65,7 @@ class Demandeur extends Eloquent
 	
 
 	protected $casts = [
+		'nbre_piece' => 'int',
 		'users_id' => 'int',
 		'lieux_id' => 'int',
 		'items_id' => 'int'
@@ -93,9 +94,9 @@ class Demandeur extends Eloquent
 		'situation',
 		'telephone',
 		'fixe',
+		'nbre_piece',
 		'items1',
 		'items2',
-		'items3',
 		'date1',
 		'date2',
 		'users_id',

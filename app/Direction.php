@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Courrier $courrier
  * @property \App\Imputation $imputation
  * @property \App\TypesDirection $types_direction
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $divisions
  * @property \Illuminate\Database\Eloquent\Collection $employees
  *
@@ -66,6 +67,13 @@ class Direction extends Eloquent
 	public function types_direction()
 	{
 		return $this->belongsTo(\App\TypesDirection::class, 'types_directions_id');
+	}
+
+	public function imputations()
+	{
+		return $this->belongsToMany(\App\Imputation::class, 'directions_has_imputations', 'directions_id', 'imputations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function divisions()

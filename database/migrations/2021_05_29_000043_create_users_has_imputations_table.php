@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreateUsersHasImputationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modules';
+    public $tableName = 'users_has_imputations';
 
     /**
      * Run the migrations.
-     * @table modules
+     * @table users_has_imputations
      *
      * @return void
      */
@@ -23,17 +23,23 @@ class CreateModulesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->char('uuid', 36);
-            $table->string('name', 200)->nullable();
-            $table->unsignedInteger('domaines_id')->nullable();
+            $table->unsignedInteger('users_id');
+            $table->unsignedInteger('imputations_id');
 
-            $table->index(["domaines_id"], 'fk_modules_domaines1_idx');
+            $table->index(["imputations_id"], 'fk_users_has_imputations_imputations1_idx');
+
+            $table->index(["users_id"], 'fk_users_has_imputations_users1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('domaines_id', 'fk_modules_domaines1_idx')
-                ->references('id')->on('domaines')
+            $table->foreign('users_id', 'fk_users_has_imputations_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('imputations_id', 'fk_users_has_imputations_imputations1_idx')
+                ->references('id')->on('imputations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -56,5 +56,11 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'niveauxs_id' => function () {
             return factory(App\Niveaux::class)->create()->id;
         },
+        'specialites_id' => function () {
+            return factory(App\Specialite::class)->create()->id;
+        },
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
+        },
     ];
 });

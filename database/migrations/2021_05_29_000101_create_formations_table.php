@@ -53,6 +53,8 @@ class CreateFormationsTable extends Migration
             $table->unsignedInteger('demandeurs_id')->nullable();
             $table->unsignedInteger('traitements_id')->nullable();
             $table->unsignedInteger('niveauxs_id')->nullable();
+            $table->unsignedInteger('specialites_id')->nullable();
+            $table->unsignedInteger('courriers_id')->nullable();
 
             $table->index(["factures_id"], 'fk_consommations_factures1_idx');
 
@@ -73,6 +75,10 @@ class CreateFormationsTable extends Migration
             $table->index(["ingenieurs_id"], 'fk_formations_ingenieurs1_idx');
 
             $table->index(["niveauxs_id"], 'fk_formations_niveauxs1_idx');
+
+            $table->index(["specialites_id"], 'fk_formations_specialites1_idx');
+
+            $table->index(["courriers_id"], 'fk_formations_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -124,6 +130,16 @@ class CreateFormationsTable extends Migration
 
             $table->foreign('niveauxs_id', 'fk_formations_niveauxs1_idx')
                 ->references('id')->on('niveauxs')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('specialites_id', 'fk_formations_specialites1_idx')
+                ->references('id')->on('specialites')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('courriers_id', 'fk_formations_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

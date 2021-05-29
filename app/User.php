@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 /**
  * Class User
@@ -36,6 +35,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $deleted_by
  * @property int $roles_id
  * @property string $adresse
+ * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -52,6 +52,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  *
  * @package App
  */
@@ -73,7 +74,8 @@ class User extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [
@@ -95,8 +97,11 @@ class User extends Authenticatable
 		'updated_by',
 		'deleted_by',
 		'roles_id',
-		'adresse'
+		'adresse',
+		'remember_token'
 	];
+
+
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -107,6 +112,7 @@ class User extends Authenticatable
 			]);
 		});
 	} 
+
 	public function role()
 	{
 		return $this->belongsTo(\App\Role::class, 'roles_id');
@@ -126,7 +132,6 @@ class User extends Authenticatable
 	{
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
-
 	public function comptables()
 	{
 		return $this->hasOne(\App\Comptable::class, 'users_id');
@@ -166,6 +171,15 @@ class User extends Authenticatable
 	{
 		return $this->hasOne(\App\Profile::class, 'users_id');
 	}
+
+	public function imputations()
+	{
+		return $this->belongsToMany(\App\Imputation::class, 'users_has_imputations', 'users_id', 'imputations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	
 	//gestion des roles
 	public function hasRole($roleName)
 	{

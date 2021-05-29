@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 26 May 2021 16:31:05 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -60,6 +60,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Traitementcourrier $traitementcourrier
  * @property \App\TypesCourrier $types_courrier
  * @property \App\User $user
+ * @property \Illuminate\Database\Eloquent\Collection $agrements
  * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $banques
  * @property \Illuminate\Database\Eloquent\Collection $bordereaus
@@ -72,8 +73,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $etats_previs
  * @property \Illuminate\Database\Eloquent\Collection $facturesdafs
  * @property \Illuminate\Database\Eloquent\Collection $fads
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $internes
  * @property \Illuminate\Database\Eloquent\Collection $missions
+ * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  * @property \Illuminate\Database\Eloquent\Collection $recues
  * @property \Illuminate\Database\Eloquent\Collection $services
@@ -83,6 +86,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Courrier extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -151,12 +155,12 @@ class Courrier extends Eloquent
 		'projets_id',
 		'traitementcourriers_id'
 	];
+	
 
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
 		return "/storage/" . $filePath;
 	}
-
 	public function employee()
 	{
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
@@ -180,6 +184,11 @@ class Courrier extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
+	}
+
+	public function agrements()
+	{
+		return $this->hasMany(\App\Agrement::class, 'courriers_id');
 	}
 
 	public function antennes()
@@ -206,6 +215,7 @@ class Courrier extends Eloquent
 	{
 		return $this->morphMany('App\Comment', 'Commentable')->latest();
 	}
+
 
 	public function imputations()
 	{
@@ -244,6 +254,11 @@ class Courrier extends Eloquent
 		return $this->hasMany(\App\Fad::class, 'courriers_id');
 	}
 
+	public function formations()
+	{
+		return $this->hasMany(\App\Formation::class, 'courriers_id');
+	}
+
 	public function internes()
 	{
 		return $this->hasMany(\App\Interne::class, 'courriers_id');
@@ -252,6 +267,11 @@ class Courrier extends Eloquent
 	public function missions()
 	{
 		return $this->hasMany(\App\Mission::class, 'courriers_id');
+	}
+
+	public function operateurs()
+	{
+		return $this->hasMany(\App\Operateur::class, 'courriers_id');
 	}
 
 	public function ordres_missions()

@@ -14,7 +14,6 @@ $factory->define(App\Banque::class, function (Faker $faker) {
         },
     ];
 }); */
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 

@@ -40,9 +40,9 @@ class CreateDemandeursTable extends Migration
             $table->string('situation', 200)->nullable();
             $table->string('telephone', 200)->nullable();
             $table->string('fixe', 200)->nullable();
+            $table->integer('nbre_piece')->nullable();
             $table->string('items1', 200)->nullable();
             $table->string('items2', 200)->nullable();
-            $table->string('items3', 200)->nullable();
             $table->timestamp('date1')->nullable();
             $table->timestamp('date2')->nullable();
             $table->unsignedInteger('users_id');

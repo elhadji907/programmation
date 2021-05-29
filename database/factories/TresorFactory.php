@@ -23,7 +23,6 @@ $factory->define(App\Tresor::class, function (Faker $faker) {
         },
     ];
 }); */
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 

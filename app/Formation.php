@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -43,6 +43,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $demandeurs_id
  * @property int $traitements_id
  * @property int $niveauxs_id
+ * @property int $specialites_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -50,14 +52,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Agent $agent
  * @property \App\Facture $facture
  * @property \App\Convention $convention
+ * @property \App\Courrier $courrier
  * @property \App\Demandeur $demandeur
  * @property \App\Detf $detf
  * @property \App\Ingenieur $ingenieur
  * @property \App\Niveaux $niveaux
  * @property \App\Operateur $operateur
  * @property \App\Programme $programme
+ * @property \App\Specialite $specialite
  * @property \App\Traitement $traitement
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $details
  * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $evaluations
  *
@@ -86,7 +91,9 @@ class Formation extends Eloquent
 		'operateurs_id' => 'int',
 		'demandeurs_id' => 'int',
 		'traitements_id' => 'int',
-		'niveauxs_id' => 'int'
+		'niveauxs_id' => 'int',
+		'specialites_id' => 'int',
+		'courriers_id' => 'int'
 	];
 
 	protected $dates = [
@@ -125,7 +132,9 @@ class Formation extends Eloquent
 		'operateurs_id',
 		'demandeurs_id',
 		'traitements_id',
-		'niveauxs_id'
+		'niveauxs_id',
+		'specialites_id',
+		'courriers_id'
 	];
 
 	public function agent()
@@ -141,6 +150,11 @@ class Formation extends Eloquent
 	public function convention()
 	{
 		return $this->belongsTo(\App\Convention::class, 'conventions_id');
+	}
+
+	public function courrier()
+	{
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
 	public function demandeur()
@@ -173,6 +187,11 @@ class Formation extends Eloquent
 		return $this->belongsTo(\App\Programme::class, 'programmes_id');
 	}
 
+	public function specialite()
+	{
+		return $this->belongsTo(\App\Specialite::class, 'specialites_id');
+	}
+
 	public function traitement()
 	{
 		return $this->belongsTo(\App\Traitement::class, 'traitements_id');
@@ -183,6 +202,11 @@ class Formation extends Eloquent
 		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiaires_has_formations', 'formations_id', 'beneficiaires_id')
 					->withPivot('deleted_at')
 					->withTimestamps();
+	}
+
+	public function details()
+	{
+		return $this->hasMany(\App\Detail::class, 'formations_id');
 	}
 
 	public function employees()

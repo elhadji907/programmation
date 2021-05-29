@@ -21,10 +21,10 @@ $factory->define(App\Etat::class, function (Faker $faker) {
             return factory(App\Courrier::class)->create()->id;
         },
     ];
-}); */
+});
+ */
 
-
-use App\Helpers\SnNameGenerator as SnmG;
+ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $autoIncremente_etat = autoIncremente_etat();

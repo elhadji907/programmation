@@ -6,9 +6,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Notification::class, function (Faker $faker) {
     return [
-        'uuid' => $faker->uuid,
+        'id' => $faker->word,
         'type' => $faker->word,
-        'notifiable' => $faker->randomNumber(),
+        'notifiable_type' => $faker->word,
+        'notifiable_id' => $faker->randomNumber(),
         'data' => $faker->text,
         'read_at' => $faker->dateTime(),
     ];

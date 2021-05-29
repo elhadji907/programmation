@@ -32,6 +32,9 @@ $factory->define(App\Mission::class, function (Faker $faker) {
         'vehicules_id' => function () {
             return factory(App\Vehicule::class)->create()->id;
         },
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
+        },
     ];
 }); */
 

@@ -23,9 +23,9 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'situation' => $faker->word,
         'telephone' => $faker->word,
         'fixe' => $faker->word,
+        'nbre_piece' => $faker->randomNumber(),
         'items1' => $faker->word,
         'items2' => $faker->word,
-        'items3' => $faker->word,
         'date1' => $faker->dateTime(),
         'date2' => $faker->dateTime(),
         'users_id' => function () {

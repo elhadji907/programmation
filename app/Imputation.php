@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 25 May 2021 21:36:57 +0000.
+ * Date: Sat, 29 May 2021 22:52:03 +0000.
  */
 
 namespace App;
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $directions
  * @property \Illuminate\Database\Eloquent\Collection $services
+ * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * @package App
  */
@@ -60,11 +61,22 @@ class Imputation extends Eloquent
 
 	public function directions()
 	{
-		return $this->hasMany(\App\Direction::class, 'imputations_id');
+		return $this->belongsToMany(\App\Direction::class, 'directions_has_imputations', 'imputations_id', 'directions_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function services()
 	{
-		return $this->hasMany(\App\Service::class, 'imputations_id');
+		return $this->belongsToMany(\App\Service::class, 'services_has_imputations', 'imputations_id', 'services_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function users()
+	{
+		return $this->belongsToMany(\App\User::class, 'users_has_imputations', 'imputations_id', 'users_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }
