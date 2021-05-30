@@ -19,5 +19,8 @@ $factory->define(App\Employee::class, function (Faker $faker) {
         'categories_id' => function () {
             return factory(App\Category::class)->create()->id;
         },
+        'fonctions_id' => function () {
+            return factory(App\Fonction::class)->create()->id;
+        },
     ];
 });

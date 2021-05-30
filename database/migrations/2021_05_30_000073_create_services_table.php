@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAntennesTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'antennes';
+    public $tableName = 'services';
 
     /**
      * Run the migrations.
-     * @table antennes
+     * @table services
      *
      * @return void
      */
@@ -27,14 +27,30 @@ class CreateAntennesTable extends Migration
             $table->string('name', 200)->nullable();
             $table->string('sigle', 200)->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
+            $table->unsignedInteger('imputations_id')->nullable();
+            $table->unsignedInteger('employees_id')->nullable();
 
-            $table->index(["courriers_id"], 'fk_antennes_courriers1_idx');
+            $table->index(["courriers_id"], 'fk_services_courriers1_idx');
+
+            $table->index(["imputations_id"], 'fk_services_imputations1_idx');
+
+            $table->index(["employees_id"], 'fk_services_employees1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('courriers_id', 'fk_antennes_courriers1_idx')
+            $table->foreign('courriers_id', 'fk_services_courriers1_idx')
                 ->references('id')->on('courriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('imputations_id', 'fk_services_imputations1_idx')
+                ->references('id')->on('imputations')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('employees_id', 'fk_services_employees1_idx')
+                ->references('id')->on('employees')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

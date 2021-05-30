@@ -220,6 +220,8 @@ class BordereausController extends Controller
        $courrier->projets_id                =      $projet_id;
 
        $bordereau->save();
+       
+       $courrier->imputations()->sync($request->input('imputations'));
 
         }
     else{   
@@ -253,8 +255,11 @@ class BordereausController extends Controller
 
        $bordereau->save();
 
-         }
+       
+       $courrier->imputations()->sync($request->input('imputations'));
 
+         }
+         
        return redirect()->route('courriers.show', $bordereau->courrier->id)->with('success','courrier modifié avec succès !');
     }
 

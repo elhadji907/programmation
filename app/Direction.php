@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 00:53:06 +0000.
  */
 
 namespace App;
@@ -19,11 +19,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $types_directions_id
  * @property int $imputations_id
  * @property int $courriers_id
+ * @property int $employees_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
+ * @property \App\Employee $employee
  * @property \App\Imputation $imputation
  * @property \App\TypesDirection $types_direction
  * @property \Illuminate\Database\Eloquent\Collection $imputations
@@ -34,7 +36,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Direction extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -42,7 +43,8 @@ class Direction extends Eloquent
 	protected $casts = [
 		'types_directions_id' => 'int',
 		'imputations_id' => 'int',
-		'courriers_id' => 'int'
+		'courriers_id' => 'int',
+		'employees_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -51,12 +53,18 @@ class Direction extends Eloquent
 		'sigle',
 		'types_directions_id',
 		'imputations_id',
-		'courriers_id'
+		'courriers_id',
+		'employees_id'
 	];
 
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function employee()
+	{
+		return $this->belongsTo(\App\Employee::class, 'employees_id');
 	}
 
 	public function imputation()

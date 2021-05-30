@@ -18,5 +18,8 @@ $factory->define(App\Direction::class, function (Faker $faker) {
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
         },
+        'employees_id' => function () {
+            return factory(App\Employee::class)->create()->id;
+        },
     ];
 });

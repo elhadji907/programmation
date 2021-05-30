@@ -27,41 +27,50 @@
                             </div>
                                     
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    {!! Form::label('Expéditeur') !!}  <span class="text-danger"> <b>*</b> </span>                  
-                                    {!! Form::text('expediteur', $bordereau->courrier->expediteur, ['placeholder'=>"Nom et prénom de l'expéditeur", 'class'=>'form-control']) !!}                    
-                                </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Adresse e-mail') !!} <span class="text-danger"> <b>*</b> </span>                   
                                     {!! Form::email('email', $bordereau->courrier->email, ['placeholder'=>'Votre adresse e-mail', 'class'=>'form-control', 'id'=>'email']) !!}                    
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Téléphone') !!}<span class="text-danger"> <b>*</b> </span>                    
                                     {!! Form::text('telephone', $bordereau->courrier->telephone, ['placeholder'=>"Votre numero de téléphone", 'class'=>'form-control']) !!}                    
                                 </div>
                             </div>
+                            <div class="form-row">                                
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('Expéditeur') !!}  <span class="text-danger"> <b>*</b> </span>                  
+                                    {!! Form::text('expediteur', $bordereau->courrier->expediteur, ['placeholder'=>"Nom et prénom de l'expéditeur", 'class'=>'form-control']) !!}                    
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('Imputation') !!}                    
+                                    {!! Form::select('imputations[]', $imputations, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
+                                </div> 
+                            </div>
                             <div class="form-row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Numéro mandat :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('numero_mandat', $bordereau->numero_mandat, ['placeholder' => 'Le numéro du mandat', 'class' => 'form-control'])
                                     !!}
                                 </div>                                
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Date de mandatement :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::date('date_mandat', Carbon\Carbon::parse( $bordereau->date_mandat)->format('Y-m-d'), ['placeholder' => 'La date de naissance', 'class' =>
                                     'form-control']) !!}
                                 </div>
-                                <div class="form-group col-md-3">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Montant :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('montant',  $bordereau->montant, ['placeholder' => 'Le montant en F CFA', 'class' =>
                                     'form-control']) !!}
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6">
                                     {!! Form::label('Nombre de pièces :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::number('nombre_de_piece',  $bordereau->nombre_de_piece, ['placeholder' => 'Le nombre de pièces', 'class' =>
                                     'form-control', 'min'=>'0','max'=>'100']) !!}
                                 </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     {!! Form::label('Désignation :') !!}<span class="text-danger"> <b>*</b> </span>
@@ -102,49 +111,14 @@
                            
                             {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                             {!! Form::close() !!}
-                        
-                        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Verifier les donn&eacute;es saisies
-                                            svp</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            @push('scripts')
-                                                <script type="text/javascript">
-                                                    $(document).ready(function() {
-                                                        $("#error-modal").modal({
-                                                            'show': true,
-                                                        })
-                                                    });
-
-                                                </script>
-
-                                            @endpush
-                                        @endif
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                        </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('javascripts')
+    <script type="text/javascript">
+        $('#imputation').select2().val({!! json_encode($bordereau->courrier->imputations()->allRelatedIds()) !!}).trigger('change');
+    </script>
 @endsection

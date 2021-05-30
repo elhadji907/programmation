@@ -15,5 +15,8 @@ $factory->define(App\Cellule::class, function (Faker $faker) {
         'imputations_id' => function () {
             return factory(App\Imputation::class)->create()->id;
         },
+        'employees_id' => function () {
+            return factory(App\Employee::class)->create()->id;
+        },
     ];
 });
