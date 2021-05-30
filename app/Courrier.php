@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -47,7 +47,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property float $autres_montant
  * @property float $total
  * @property int $users_id
- * @property int $employees_id
  * @property int $types_courriers_id
  * @property int $projets_id
  * @property int $traitementcourriers_id
@@ -55,20 +54,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Employee $employee
  * @property \App\Projet $projet
  * @property \App\Traitementcourrier $traitementcourrier
  * @property \App\TypesCourrier $types_courrier
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $agrements
- * @property \Illuminate\Database\Eloquent\Collection $antennes
  * @property \Illuminate\Database\Eloquent\Collection $banques
  * @property \Illuminate\Database\Eloquent\Collection $bordereaus
- * @property \Illuminate\Database\Eloquent\Collection $cellules
  * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $directions
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $etats
  * @property \Illuminate\Database\Eloquent\Collection $etats_previs
  * @property \Illuminate\Database\Eloquent\Collection $facturesdafs
@@ -79,7 +76,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  * @property \Illuminate\Database\Eloquent\Collection $recues
- * @property \Illuminate\Database\Eloquent\Collection $services
  * @property \Illuminate\Database\Eloquent\Collection $tresors
  *
  * @package App
@@ -97,7 +93,6 @@ class Courrier extends Eloquent
 		'autres_montant' => 'float',
 		'total' => 'float',
 		'users_id' => 'int',
-		'employees_id' => 'int',
 		'types_courriers_id' => 'int',
 		'projets_id' => 'int',
 		'traitementcourriers_id' => 'int'
@@ -150,20 +145,14 @@ class Courrier extends Eloquent
 		'autres_montant',
 		'total',
 		'users_id',
-		'employees_id',
 		'types_courriers_id',
 		'projets_id',
 		'traitementcourriers_id'
 	];
 	
-
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
 		return "/storage/" . $filePath;
-	}
-	public function employee()
-	{
-		return $this->belongsTo(\App\Employee::class, 'employees_id');
 	}
 
 	public function projet()
@@ -191,11 +180,6 @@ class Courrier extends Eloquent
 		return $this->hasMany(\App\Agrement::class, 'courriers_id');
 	}
 
-	public function antennes()
-	{
-		return $this->hasMany(\App\Antenne::class, 'courriers_id');
-	}
-
 	public function banques()
 	{
 		return $this->hasMany(\App\Banque::class, 'courriers_id');
@@ -206,16 +190,10 @@ class Courrier extends Eloquent
 		return $this->hasMany(\App\Bordereau::class, 'courriers_id');
 	}
 
-	public function cellules()
-	{
-		return $this->hasMany(\App\Cellule::class, 'courriers_id');
-	}
-
 	public function comments()
 	{
-		return $this->morphMany('App\Comment', 'Commentable')->latest();
+		return $this->hasMany(\App\Comment::class, 'courriers_id');
 	}
-
 
 	public function imputations()
 	{
@@ -232,6 +210,13 @@ class Courrier extends Eloquent
 	public function directions()
 	{
 		return $this->hasMany(\App\Direction::class, 'courriers_id');
+	}
+
+	public function employees()
+	{
+		return $this->belongsToMany(\App\Employee::class, 'employees_has_courriers', 'courriers_id', 'employees_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function etats()
@@ -282,11 +267,6 @@ class Courrier extends Eloquent
 	public function recues()
 	{
 		return $this->hasMany(\App\Recue::class, 'courriers_id');
-	}
-
-	public function services()
-	{
-		return $this->hasMany(\App\Service::class, 'courriers_id');
 	}
 
 	public function tresors()

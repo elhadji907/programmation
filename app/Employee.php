@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 00:53:25 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -23,23 +23,23 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $users_id
  * @property int $categories_id
  * @property int $fonctions_id
+ * @property int $directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Category $category
+ * @property \App\Direction $direction
  * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $agents
- * @property \Illuminate\Database\Eloquent\Collection $antennes
- * @property \Illuminate\Database\Eloquent\Collection $cellules
- * @property \Illuminate\Database\Eloquent\Collection $courriers
- * @property \Illuminate\Database\Eloquent\Collection $directions
+ * @property \Illuminate\Database\Eloquent\Collection $congers
  * @property \Illuminate\Database\Eloquent\Collection $dossiers
+ * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $formations
- * @property \Illuminate\Database\Eloquent\Collection $services
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $missions
  * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  * @property \Illuminate\Database\Eloquent\Collection $prestataires
+ * @property \Illuminate\Database\Eloquent\Collection $salaires
  * @property \Illuminate\Database\Eloquent\Collection $sorties
  * @property \Illuminate\Database\Eloquent\Collection $stagiaires
  *
@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Employee extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -54,7 +55,8 @@ class Employee extends Eloquent
 	protected $casts = [
 		'users_id' => 'int',
 		'categories_id' => 'int',
-		'fonctions_id' => 'int'
+		'fonctions_id' => 'int',
+		'directions_id' => 'int'
 	];
 
 	protected $dates = [
@@ -71,12 +73,18 @@ class Employee extends Eloquent
 		'categorie_salaire',
 		'users_id',
 		'categories_id',
-		'fonctions_id'
+		'fonctions_id',
+		'directions_id'
 	];
 
 	public function category()
 	{
 		return $this->belongsTo(\App\Category::class, 'categories_id');
+	}
+
+	public function direction()
+	{
+		return $this->belongsTo(\App\Direction::class, 'directions_id');
 	}
 
 	public function fonction()
@@ -89,40 +97,21 @@ class Employee extends Eloquent
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
-	public function agents()
+	public function congers()
 	{
-		return $this->hasMany(\App\Agent::class, 'employees_id');
-	}
-
-	public function antennes()
-	{
-		return $this->belongsToMany(\App\Antenne::class, 'employees_has_antennes', 'employees_id', 'antennes_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
-
-	public function cellules()
-	{
-		return $this->belongsToMany(\App\Cellule::class, 'cellules_has_employees', 'employees_id', 'cellules_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
-
-	public function courriers()
-	{
-		return $this->hasMany(\App\Courrier::class, 'employees_id');
-	}
-
-	public function directions()
-	{
-		return $this->belongsToMany(\App\Direction::class, 'employees_has_directions', 'employees_id', 'directions_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Conger::class, 'employees_id');
 	}
 
 	public function dossiers()
 	{
 		return $this->hasMany(\App\Dossier::class, 'employees_id');
+	}
+
+	public function courriers()
+	{
+		return $this->belongsToMany(\App\Courrier::class, 'employees_has_courriers', 'employees_id', 'courriers_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function formations()
@@ -132,9 +121,11 @@ class Employee extends Eloquent
 					->withTimestamps();
 	}
 
-	public function services()
+	public function imputations()
 	{
-		return $this->hasMany(\App\Service::class, 'employees_id');
+		return $this->belongsToMany(\App\Imputation::class, 'employees_has_imputations', 'employees_id', 'imputations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function missions()
@@ -150,6 +141,11 @@ class Employee extends Eloquent
 	public function prestataires()
 	{
 		return $this->hasMany(\App\Prestataire::class, 'employees_id');
+	}
+
+	public function salaires()
+	{
+		return $this->hasMany(\App\Salaire::class, 'employees_id');
 	}
 
 	public function sorties()

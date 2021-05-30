@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAgentsTable extends Migration
+class CreateCongersTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'agents';
+    public $tableName = 'congers';
 
     /**
      * Run the migrations.
-     * @table agents
+     * @table congers
      *
      * @return void
      */
@@ -24,15 +24,16 @@ class CreateAgentsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200)->nullable();
-            $table->unsignedInteger('employees_id')->nullable();
+            $table->dateTime('date_debut')->nullable();
+            $table->dateTime('date_fin')->nullable();
+            $table->unsignedInteger('employees_id');
 
-            $table->index(["employees_id"], 'fk_agents_employees1_idx');
+            $table->index(["employees_id"], 'fk_congers_employees1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('employees_id', 'fk_agents_employees1_idx')
+            $table->foreign('employees_id', 'fk_congers_employees1_idx')
                 ->references('id')->on('employees')
                 ->onDelete('no action')
                 ->onUpdate('no action');

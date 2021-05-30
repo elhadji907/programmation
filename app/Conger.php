@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -10,21 +10,22 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class EmployeesHasAntenne
+ * Class Conger
  * 
  * @property int $id
+ * @property string $uuid
+ * @property \Carbon\Carbon $date_debut
+ * @property \Carbon\Carbon $date_fin
  * @property int $employees_id
- * @property int $antennes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Antenne $antenne
  * @property \App\Employee $employee
  *
  * @package App
  */
-class EmployeesHasAntenne extends Eloquent
+class Conger extends Eloquent
 {
 		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,19 +33,20 @@ class EmployeesHasAntenne extends Eloquent
 	
 
 	protected $casts = [
-		'employees_id' => 'int',
-		'antennes_id' => 'int'
+		'employees_id' => 'int'
+	];
+
+	protected $dates = [
+		'date_debut',
+		'date_fin'
 	];
 
 	protected $fillable = [
-		'employees_id',
-		'antennes_id'
+		'uuid',
+		'date_debut',
+		'date_fin',
+		'employees_id'
 	];
-
-	public function antenne()
-	{
-		return $this->belongsTo(\App\Antenne::class, 'antennes_id');
-	}
 
 	public function employee()
 	{

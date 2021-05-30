@@ -33,12 +33,15 @@ class CreateEmployeesTable extends Migration
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('categories_id')->nullable();
             $table->unsignedInteger('fonctions_id')->nullable();
+            $table->unsignedInteger('directions_id')->nullable();
 
             $table->index(["users_id"], 'fk_employees_users1_idx');
 
             $table->index(["categories_id"], 'fk_employees_categories1_idx');
 
             $table->index(["fonctions_id"], 'fk_employees_fonctions1_idx');
+
+            $table->index(["directions_id"], 'fk_employees_directions1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -55,6 +58,11 @@ class CreateEmployeesTable extends Migration
 
             $table->foreign('fonctions_id', 'fk_employees_fonctions1_idx')
                 ->references('id')->on('fonctions')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('directions_id', 'fk_employees_directions1_idx')
+                ->references('id')->on('directions')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

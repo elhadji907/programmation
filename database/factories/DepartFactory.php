@@ -13,10 +13,8 @@ $factory->define(App\Depart::class, function (Faker $faker) {
             return factory(App\Courrier::class)->create()->id;
         },
     ];
-});
- */
-
- use App\Helpers\SnNameGenerator as SnmG;
+}); */
+use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $autoIncremente = autoIncremente();

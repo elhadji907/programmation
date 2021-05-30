@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -15,12 +15,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $matricule
- * @property int $employees_id
+ * @property int $users_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Employee $employee
+ * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $formations
  *
  * @package App
@@ -33,18 +33,18 @@ class Agent extends Eloquent
 	
 
 	protected $casts = [
-		'employees_id' => 'int'
+		'users_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'matricule',
-		'employees_id'
+		'users_id'
 	];
 
-	public function employee()
+	public function user()
 	{
-		return $this->belongsTo(\App\Employee::class, 'employees_id');
+		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
 	public function formations()

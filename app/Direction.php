@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 00:53:06 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -19,15 +19,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $types_directions_id
  * @property int $imputations_id
  * @property int $courriers_id
- * @property int $employees_id
+ * @property int $chef_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
- * @property \App\Employee $employee
  * @property \App\Imputation $imputation
- * @property \App\TypesDirection $types_direction
  * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $divisions
  * @property \Illuminate\Database\Eloquent\Collection $employees
@@ -36,6 +34,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Direction extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -44,7 +43,7 @@ class Direction extends Eloquent
 		'types_directions_id' => 'int',
 		'imputations_id' => 'int',
 		'courriers_id' => 'int',
-		'employees_id' => 'int'
+		'chef_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -54,7 +53,7 @@ class Direction extends Eloquent
 		'types_directions_id',
 		'imputations_id',
 		'courriers_id',
-		'employees_id'
+		'chef_id'
 	];
 
 	public function courrier()
@@ -62,19 +61,9 @@ class Direction extends Eloquent
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
-	public function employee()
-	{
-		return $this->belongsTo(\App\Employee::class, 'employees_id');
-	}
-
 	public function imputation()
 	{
 		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
-	}
-
-	public function types_direction()
-	{
-		return $this->belongsTo(\App\TypesDirection::class, 'types_directions_id');
 	}
 
 	public function imputations()
@@ -91,8 +80,6 @@ class Direction extends Eloquent
 
 	public function employees()
 	{
-		return $this->belongsToMany(\App\Employee::class, 'employees_has_directions', 'directions_id', 'employees_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Employee::class, 'directions_id');
 	}
 }

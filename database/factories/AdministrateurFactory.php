@@ -12,10 +12,8 @@ $factory->define(App\Administrateur::class, function (Faker $faker) {
             return factory(App\User::class)->create()->id;
         },
     ];
-});
- */
-
- use App\Helpers\SnNameGenerator as SnmG;
+}); */
+use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Administrateur::class, function (Faker\Generator $faker) {

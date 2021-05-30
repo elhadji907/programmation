@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -42,6 +42,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * 
  * @property \App\Role $role
  * @property \Illuminate\Database\Eloquent\Collection $administrateurs
+ * @property \Illuminate\Database\Eloquent\Collection $agents
  * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
  * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $comptables
@@ -101,7 +102,7 @@ class User extends Authenticatable
 		'remember_token'
 	];
 
-
+	
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -118,12 +119,17 @@ class User extends Authenticatable
 		return $this->belongsTo(\App\Role::class, 'roles_id');
 	}
 
-	public function administrateurs()
+	public function administrateur()
 	{
 		return $this->hasOne(\App\Administrateur::class, 'users_id');
 	}
 
-	public function beneficiaires()
+	public function agent()
+	{
+		return $this->hasOne(\App\Agent::class, 'users_id');
+	}
+
+	public function beneficiaire()
 	{
 		return $this->hasOne(\App\Beneficiaire::class, 'users_id');
 	}
@@ -132,7 +138,8 @@ class User extends Authenticatable
 	{
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
-	public function comptables()
+
+	public function comptable()
 	{
 		return $this->hasOne(\App\Comptable::class, 'users_id');
 	}
@@ -142,22 +149,22 @@ class User extends Authenticatable
 		return $this->hasMany(\App\Courrier::class, 'users_id');
 	}
 
-	public function demandeurs()
+	public function demandeur()
 	{
 		return $this->hasOne(\App\Demandeur::class, 'users_id');
 	}
 
-	public function employees()
+	public function employee()
 	{
 		return $this->hasOne(\App\Employee::class, 'users_id');
 	}
 
-	public function gestionnaires()
+	public function gestionnaire()
 	{
 		return $this->hasOne(\App\Gestionnaire::class, 'users_id');
 	}
 
-	public function operateurs()
+	public function operateur()
 	{
 		return $this->hasOne(\App\Operateur::class, 'users_id');
 	}
@@ -178,8 +185,6 @@ class User extends Authenticatable
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
-
-	
 	//gestion des roles
 	public function hasRole($roleName)
 	{

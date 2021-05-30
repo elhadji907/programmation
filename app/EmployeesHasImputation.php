@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -10,21 +10,21 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class EmployeesHasService
+ * Class EmployeesHasImputation
  * 
  * @property int $id
  * @property int $employees_id
- * @property int $services_id
+ * @property int $imputations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Employee $employee
- * @property \App\Service $service
+ * @property \App\Imputation $imputation
  *
  * @package App
  */
-class EmployeesHasService extends Eloquent
+class EmployeesHasImputation extends Eloquent
 {
 		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,12 +33,12 @@ class EmployeesHasService extends Eloquent
 
 	protected $casts = [
 		'employees_id' => 'int',
-		'services_id' => 'int'
+		'imputations_id' => 'int'
 	];
 
 	protected $fillable = [
 		'employees_id',
-		'services_id'
+		'imputations_id'
 	];
 
 	public function employee()
@@ -46,8 +46,8 @@ class EmployeesHasService extends Eloquent
 		return $this->belongsTo(\App\Employee::class, 'employees_id');
 	}
 
-	public function service()
+	public function imputation()
 	{
-		return $this->belongsTo(\App\Service::class, 'services_id');
+		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
 	}
 }

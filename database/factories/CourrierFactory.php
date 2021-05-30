@@ -42,9 +42,6 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
         },
-        'employees_id' => function () {
-            return factory(App\Employee::class)->create()->id;
-        },
         'types_courriers_id' => function () {
             return factory(App\TypesCourrier::class)->create()->id;
         },
@@ -55,10 +52,7 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
             return factory(App\Traitementcourrier::class)->create()->id;
         },
     ];
-});
- */
-
- 
+}); */
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 

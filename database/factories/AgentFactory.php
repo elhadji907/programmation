@@ -8,8 +8,8 @@ $factory->define(App\Agent::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'matricule' => $faker->word,
-        'employees_id' => function () {
-            return factory(App\Employee::class)->create()->id;
+        'users_id' => function () {
+            return factory(App\User::class)->create()->id;
         },
     ];
 });

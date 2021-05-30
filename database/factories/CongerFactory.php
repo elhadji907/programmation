@@ -4,13 +4,13 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\EmployeesHasAntenne::class, function (Faker $faker) {
+$factory->define(App\Conger::class, function (Faker $faker) {
     return [
+        'uuid' => $faker->uuid,
+        'date_debut' => $faker->dateTime(),
+        'date_fin' => $faker->dateTime(),
         'employees_id' => function () {
             return factory(App\Employee::class)->create()->id;
-        },
-        'antennes_id' => function () {
-            return factory(App\Antenne::class)->create()->id;
         },
     ];
 });

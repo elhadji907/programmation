@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -21,10 +21,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $cellules
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $directions
- * @property \Illuminate\Database\Eloquent\Collection $services
+ * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * @package App
@@ -47,11 +46,6 @@ class Imputation extends Eloquent
 		'date'
 	];
 
-	public function cellules()
-	{
-		return $this->hasMany(\App\Cellule::class, 'imputations_id');
-	}
-
 	public function courriers()
 	{
 		return $this->belongsToMany(\App\Courrier::class, 'courriers_has_imputations', 'imputations_id', 'courriers_id')
@@ -66,9 +60,9 @@ class Imputation extends Eloquent
 					->withTimestamps();
 	}
 
-	public function services()
+	public function employees()
 	{
-		return $this->belongsToMany(\App\Service::class, 'services_has_imputations', 'imputations_id', 'services_id')
+		return $this->belongsToMany(\App\Employee::class, 'employees_has_imputations', 'imputations_id', 'employees_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

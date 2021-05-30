@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypesDirectionsTable extends Migration
+class CreateAgentsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'types_directions';
+    public $tableName = 'agents';
 
     /**
      * Run the migrations.
-     * @table types_directions
+     * @table agents
      *
      * @return void
      */
@@ -24,10 +24,18 @@ class CreateTypesDirectionsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200);
-            $table->string('categorie', 200)->nullable();
+            $table->string('matricule', 200);
+            $table->unsignedInteger('users_id')->nullable();
+
+            $table->index(["users_id"], 'fk_agents_users1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
+
+            $table->foreign('users_id', 'fk_agents_users1_idx')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

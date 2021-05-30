@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 29 May 2021 22:52:03 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -10,21 +10,21 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class EmployeesHasDirection
+ * Class EmployeesHasCourrier
  * 
  * @property int $id
  * @property int $employees_id
- * @property int $directions_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Direction $direction
+ * @property \App\Courrier $courrier
  * @property \App\Employee $employee
  *
  * @package App
  */
-class EmployeesHasDirection extends Eloquent
+class EmployeesHasCourrier extends Eloquent
 {
 		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,17 +33,17 @@ class EmployeesHasDirection extends Eloquent
 
 	protected $casts = [
 		'employees_id' => 'int',
-		'directions_id' => 'int'
+		'courriers_id' => 'int'
 	];
 
 	protected $fillable = [
 		'employees_id',
-		'directions_id'
+		'courriers_id'
 	];
 
-	public function direction()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\Direction::class, 'directions_id');
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
 	public function employee()

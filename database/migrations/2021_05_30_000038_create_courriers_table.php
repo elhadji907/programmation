@@ -57,14 +57,11 @@ class CreateCourriersTable extends Migration
             $table->double('autres_montant')->nullable();
             $table->double('total')->nullable();
             $table->unsignedInteger('users_id')->nullable();
-            $table->unsignedInteger('employees_id')->nullable();
             $table->unsignedInteger('types_courriers_id')->nullable();
             $table->unsignedInteger('projets_id')->nullable();
             $table->unsignedInteger('traitementcourriers_id')->nullable();
 
             $table->index(["users_id"], 'fk_courriers_users1_idx');
-
-            $table->index(["employees_id"], 'fk_courriers_employees1_idx');
 
             $table->index(["types_courriers_id"], 'fk_courriers_types_courriers1_idx');
 
@@ -77,11 +74,6 @@ class CreateCourriersTable extends Migration
 
             $table->foreign('users_id', 'fk_courriers_users1_idx')
                 ->references('id')->on('users')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('employees_id', 'fk_courriers_employees1_idx')
-                ->references('id')->on('employees')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
