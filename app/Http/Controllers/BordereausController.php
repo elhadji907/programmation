@@ -73,11 +73,11 @@ class BordereausController extends Controller
     {
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:200',
-                'expediteur'    =>  'required|string|max:100',
-                'telephone'     =>  'required|string|max:50',
-                'email'         =>  'required|email|max:255',
-                'numero_mandat'         =>  'required',
+                'objet'                 =>  'required|string|max:200',
+                'expediteur'            =>  'required|string|max:100',
+                'telephone'             =>  'required|string|max:50',
+                'email'                 =>  'required|email|max:255',
+                'numero_mandat'         =>  'required|unique:bordereaus,numero_mandat',
                 'date_mandat'           =>  'required|date_format:Y-m-d',
                 'montant'               =>  'required',
                 'nombre_de_piece'       =>  'required',
@@ -126,7 +126,7 @@ class BordereausController extends Controller
 
         $bordereaus->save();
 
-        $courrier->directions()->sync($request->imputations);
+        /* $courrier->directions()->sync($request->imputations); */
         
         return redirect()->route('bordereaus.index')->with('success','bordereau ajoutée avec succès !');
     }
@@ -174,7 +174,7 @@ class BordereausController extends Controller
                 'expediteur'            =>  'required|string|max:100',
                 'telephone'             =>  'required|string|max:50',
                 'email'                 =>  'required|email|max:255',
-                'numero_mandat'         =>  'required',
+                'numero_mandat'         =>  'required|string|max:30||unique:bordereaus,numero_mandat,'.$bordereau->id,
                 'date_mandat'           =>  'required|date_format:Y-m-d',
                 'montant'               =>  'required',
                 'nombre_de_piece'       =>  'required',
