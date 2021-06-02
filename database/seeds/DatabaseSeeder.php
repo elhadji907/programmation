@@ -40,10 +40,11 @@ class DatabaseSeeder extends Seeder
         $this->call(DomainesTableSeeder::class);
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartementsTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(EmployeesTableSeeder::class);
         //$this->call(DemandeursTableSeeder::class);
         //$this->call(IndividuellesTableSeeder::class);
         //$this->call(BeneficiairesTableSeeder::class);
-        //$this->call(DafsTableSeeder::class);
         //$this->call(QualificationsTableSeeder::class);
         //$this->call(ModulesTableSeeder::class);
         //$this->call(OrdresmissionsTableSeeder::class);

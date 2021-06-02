@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('matricule', 200);
             $table->string('adresse', 200)->nullable();
             $table->string('cin', 20);
             $table->string('fonction', 200)->nullable();

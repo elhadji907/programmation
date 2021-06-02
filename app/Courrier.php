@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Wed, 02 Jun 2021 13:52:19 +0000.
  */
 
 namespace App;
@@ -82,10 +82,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Courrier extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'num_bord' => 'int',
@@ -149,6 +147,7 @@ class Courrier extends Eloquent
 		'projets_id',
 		'traitementcourriers_id'
 	];
+
 	
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
@@ -209,7 +208,9 @@ class Courrier extends Eloquent
 
 	public function directions()
 	{
-		return $this->hasMany(\App\Direction::class, 'courriers_id');
+		return $this->belongsToMany(\App\Direction::class, 'directions_has_courriers', 'courriers_id', 'directions_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function employees()

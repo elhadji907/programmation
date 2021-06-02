@@ -16,14 +16,16 @@ class DirectionsController extends Controller
      */
     public function index()
     {
-        //
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
-        return view('directions.index', compact('chart'));
+
+       $directions = \App\Direction::all();
+
+        return view('directions.index', compact('chart', 'directions'));
     }
 
     /**
@@ -88,14 +90,16 @@ class DirectionsController extends Controller
      */
     public function edit($id)
     {
-        $direction = Direction::find($id);
+        $directions = Direction::find($id);
+
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
-        return view('directions.update', compact('direction','id','chart'));
+        
+        return view('directions.update', compact('directions','id','chart'));
     }
 
     /**

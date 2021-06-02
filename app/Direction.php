@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Wed, 02 Jun 2021 13:52:29 +0000.
  */
 
 namespace App;
@@ -17,15 +17,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $name
  * @property string $sigle
  * @property int $types_directions_id
- * @property int $imputations_id
- * @property int $courriers_id
  * @property int $chef_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Courrier $courrier
- * @property \App\Imputation $imputation
+ * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $divisions
  * @property \Illuminate\Database\Eloquent\Collection $employees
@@ -34,15 +31,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Direction extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'types_directions_id' => 'int',
-		'imputations_id' => 'int',
-		'courriers_id' => 'int',
 		'chef_id' => 'int'
 	];
 
@@ -51,19 +44,14 @@ class Direction extends Eloquent
 		'name',
 		'sigle',
 		'types_directions_id',
-		'imputations_id',
-		'courriers_id',
 		'chef_id'
 	];
 
-	public function courrier()
+	public function courriers()
 	{
-		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
-	}
-
-	public function imputation()
-	{
-		return $this->belongsTo(\App\Imputation::class, 'imputations_id');
+		return $this->belongsToMany(\App\Courrier::class, 'directions_has_courriers', 'directions_id', 'courriers_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function imputations()
@@ -81,5 +69,10 @@ class Direction extends Eloquent
 	public function employees()
 	{
 		return $this->hasMany(\App\Employee::class, 'directions_id');
+	}
+	
+	public function chef()
+	{
+		return $this->belongsTo(\App\Employee::class, 'chef_id');
 	}
 }

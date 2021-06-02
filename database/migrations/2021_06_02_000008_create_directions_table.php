@@ -26,27 +26,9 @@ class CreateDirectionsTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->string('sigle', 200)->nullable();
-            $table->unsignedInteger('types_directions_id')->nullable();
-            $table->unsignedInteger('imputations_id')->nullable();
-            $table->unsignedInteger('courriers_id')->nullable();
             $table->unsignedInteger('chef_id')->nullable();
-
-            $table->index(["imputations_id"], 'fk_directions_imputations1_idx');
-
-            $table->index(["courriers_id"], 'fk_directions_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('imputations_id', 'fk_directions_imputations1_idx')
-                ->references('id')->on('imputations')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('courriers_id', 'fk_directions_courriers1_idx')
-                ->references('id')->on('courriers')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

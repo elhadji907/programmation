@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 02 Jun 2021 13:53:33 +0000.
+ * Date: Wed, 02 Jun 2021 13:53:41 +0000.
  */
 
 namespace App;
@@ -10,14 +10,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Charge
+ * Class Famille
  * 
  * @property int $id
  * @property string $uuid
- * @property string $etablissement
- * @property string $designation
- * @property string $observations
+ * @property string $civilite
+ * @property string $prenom
+ * @property string $nom
  * @property \Carbon\Carbon $date
+ * @property string $lieu
+ * @property string $status
+ * @property string $adresse
+ * @property string $telephone
+ * @property string $email
  * @property int $employees_id
  * @property string $employees_matricule
  * @property string $deleted_at
@@ -28,7 +33,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  *
  * @package App
  */
-class Charge extends Eloquent
+class Famille extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
@@ -43,10 +48,15 @@ class Charge extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'etablissement',
-		'designation',
-		'observations',
+		'civilite',
+		'prenom',
+		'nom',
 		'date',
+		'lieu',
+		'status',
+		'adresse',
+		'telephone',
+		'email',
 		'employees_id',
 		'employees_matricule'
 	];

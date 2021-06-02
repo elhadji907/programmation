@@ -1,8 +1,8 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-
-/* use Faker\Generator as Faker;
+/* 
+use Faker\Generator as Faker;
 
 $factory->define(App\Courrier::class, function (Faker $faker) {
     return [
@@ -52,8 +52,10 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
             return factory(App\Traitementcourrier::class)->create()->id;
         },
     ];
-}); */
-use App\Helpers\SnNameGenerator as SnmG;
+});
+ */
+
+ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $autoIncre = autoIncre();

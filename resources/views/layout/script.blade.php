@@ -34,6 +34,13 @@
   </script>
   <script type="text/javascript">
   
+    $("#matricule_emp").select2({
+          placeholder: "sélectionner le matricule du responsable",
+          allowClear: true
+      });
+</script>
+  <script type="text/javascript">
+  
     $("#civilite").select2({
           placeholder: "sélectionner un sexe",
           allowClear: true

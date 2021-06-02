@@ -54,4 +54,9 @@ class Village extends Eloquent
 	{
 		return $this->hasMany(\App\Beneficiaire::class, 'villages_id');
 	}
+
+	public function chef()
+	{
+		return $this->belongsTo(\App\Beneficiaire::class, 'chef_id');
+	}
 }

@@ -1,8 +1,9 @@
 @extends('layout.default')
 @section('title', 'ONFP - Modification directions')
 @section('content')
-    <div class="container">
         <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif                    
@@ -16,9 +17,10 @@
                         <form method="POST" action="{{  action('DirectionsController@update', $id) }}">
                             @csrf            
                             <input type="hidden" name="_method" value="PATCH" />
-                            <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-8">
                                 <label for="input-direction"><b>Direction / Service:</b></label>
-                                <input type="text" name="direction" class="form-control" id="input-direction" placeholder="Entrer le nom de la direction ou du service" value="{{ $direction->name }}">
+                                <input type="text" name="direction" class="form-control" id="input-direction" placeholder="Entrer le nom de la direction ou du service" value="{{ $directions->name }}">
                                 <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('direction'))
                                         @foreach ($errors->get('direction') as $message)
@@ -27,9 +29,27 @@
                                         @endif
                                 </small>
                             </div>
-                            <div class="form-group">
-                                <label for="input-sigle"><b>sigle:</b></label>
-                                <input type="text" name="sigle" class="form-control" id="input-sigle" placeholder="Entrer le sigle(abréviation) de la direction ou du service" value="{{ $direction->sigle }}">
+                            <div class="col-md-4">
+                            <label for="input-sigle"><b>sigle:</b></label>
+                            <input type="text" name="sigle" class="form-control" id="input-sigle" placeholder="Entrer le sigle(abréviation) de la direction ou du service" value="{{ $directions->sigle }}">
+                            <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('sigle'))
+                                    @foreach ($errors->get('sigle') as $message)
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @endforeach
+                                    @endif
+                            </small>
+                            </div>
+                        </div>
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                <label for="input-sigle"><b>matricule:</b></label>
+                                <select name="matricule" id="matricule_emp" class="form-control">
+                                    <option value="">{{ $directions->chef->matricule }}</option>
+                                @foreach($directions as $direction)
+                                    <option value="{{ $directions->chef->matricule }}">{{ $directions->chef->matricule }}</option>
+                                @endforeach
+                                </select>
                                 <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('sigle'))
                                         @foreach ($errors->get('sigle') as $message)
@@ -37,7 +57,40 @@
                                         @endforeach
                                         @endif
                                 </small>
-                            </div>                       
+                            </div>   
+                            <div class="col-md-4">
+                                <label for="input-sigle"><b>Prénom:</b></label>
+                                <select name="firstname" id="firstname" class="form-control">
+                                    <option value=""></option>
+                                {{--  @foreach($users as $user)
+                                    <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
+                                @endforeach  --}}
+                                </select>
+                                <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('sigle'))
+                                        @foreach ($errors->get('sigle') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                </small>
+                            </div> 
+                            <div class="col-md-4">
+                                <label for="input-sigle"><b>Nom:</b></label>
+                                <select name="ame" id="ame" class="form-control">
+                                    <option value=""></option>
+                                {{--  @foreach($users as $user)
+                                    <option value="{{ $civilite->civilite }}">{{ $civilite->civilite }}</option>
+                                @endforeach  --}}
+                                </select>
+                                <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('sigle'))
+                                        @foreach ($errors->get('sigle') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                </small>
+                            </div>  
+                        </div>               
                             <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>
                         <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,4 +135,4 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection

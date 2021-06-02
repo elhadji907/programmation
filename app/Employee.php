@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Wed, 02 Jun 2021 13:53:24 +0000.
  */
 
 namespace App;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $matricule
  * @property string $adresse
  * @property string $cin
  * @property string $fonction
@@ -31,11 +32,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Category $category
  * @property \App\Direction $direction
  * @property \App\User $user
+ * @property \Illuminate\Database\Eloquent\Collection $charges
  * @property \Illuminate\Database\Eloquent\Collection $congers
  * @property \Illuminate\Database\Eloquent\Collection $dossiers
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $imputations
+ * @property \Illuminate\Database\Eloquent\Collection $familles
  * @property \Illuminate\Database\Eloquent\Collection $missions
  * @property \Illuminate\Database\Eloquent\Collection $ordres_missions
  * @property \Illuminate\Database\Eloquent\Collection $prestataires
@@ -47,10 +50,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Employee extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'users_id' => 'int',
@@ -65,6 +66,7 @@ class Employee extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'matricule',
 		'adresse',
 		'cin',
 		'fonction',
@@ -97,6 +99,11 @@ class Employee extends Eloquent
 		return $this->belongsTo(\App\User::class, 'users_id');
 	}
 
+	public function charges()
+	{
+		return $this->hasMany(\App\Charge::class, 'employees_id');
+	}
+
 	public function congers()
 	{
 		return $this->hasMany(\App\Conger::class, 'employees_id');
@@ -126,6 +133,11 @@ class Employee extends Eloquent
 		return $this->belongsToMany(\App\Imputation::class, 'employees_has_imputations', 'employees_id', 'imputations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
+	}
+
+	public function familles()
+	{
+		return $this->hasMany(\App\Famille::class, 'employees_id');
 	}
 
 	public function missions()
