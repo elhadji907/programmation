@@ -23,6 +23,7 @@ Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
     { 
+        Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
         Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
         Route::get('/directions.selectresponsable', function() { return view('directions.selectresponsable'); })->name('directions.selectresponsable');
         Route::get('/services.selectresponsable', function() { return view('services.selectresponsable'); })->name('services.selectresponsable');
@@ -31,7 +32,7 @@ Route::group([
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
-        Route::get('/personnels/list', 'PersonnelsController@list')->name('personnels.list');
+        Route::get('/employees/list', 'EmployeesController@list')->name('employees.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
         Route::get('/services/list', 'ServicesController@list')->name('services.list');
@@ -43,7 +44,7 @@ Route::group([
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
         Route::get('/nivauxs/list', 'NivauxsController@list')->name('nivauxs.list');
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
-       /*  Route::get('/villages/list', 'VillagesController@list')->name('villages.list'); */
+        Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
@@ -82,7 +83,7 @@ Route::group([
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
         Route::resource('/administrateurs', 'AdministrateursController');
-        Route::resource('/personnels', 'PersonnelsController');
+        Route::resource('/employees', 'EmployeesController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
         Route::resource('/factures', 'FacturesController');

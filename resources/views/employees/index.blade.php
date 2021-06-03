@@ -1,51 +1,50 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des employées')
+@section('title', 'ONFP - Liste employee')
 @section('content')
-        <div class="container-fluid">
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif 
+        <div class="container-fluid">           
           <div class="row">
             <div class="col-md-12">
-                @if (session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
-                @endif
+              @if (session('success'))
+              <div class="alert alert-success">
+                  {{ session('success') }}
+              </div>
+              @elseif (session('message'))
+              <div class="alert alert-success">
+                  {{ session('message') }}
+              </div>
+              @endif
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des des employées
+                      Liste du employee
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('administrateurs.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
+                            <a href="{{route('employees.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-administrateurs">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-employees">
                           <thead class="table-dark">
                             <tr>
+                              <th>Id</th>
                               <th>Civilité</th>
                               <th>Matricule</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Email</th>
-                              <th>Username</th>
-                              <th>Téléphone</th>
-                              <th style="width:10%;">Action</th>
+                              <th>Fonction</th>
+                              <th style="width:120px;"></th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
+                                <th>Id</th>
                                 <th>Civilité</th>
                                 <th>Matricule</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Téléphone</th>
-                                <th>Action</th>
+                                <th>Fonction</th>
+                                <th></th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -59,8 +58,8 @@
         </div>
       </div>
 
-      <div class="modal fade" id="modal_delete_administrateur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-administrateur">
+      <div class="modal fade" id="modal_delete_employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="" id="form-delete-employee">
           @csrf
           @method('DELETE')
           <div class="modal-dialog" role="document">
@@ -75,7 +74,7 @@
                 cliquez sur close pour annuler
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
               </div>
             </div>
@@ -87,18 +86,17 @@
       @push('scripts')
       <script type="text/javascript">
       $(document).ready(function () {
-          $('#table-administrateurs').DataTable( { 
+          $('#table-employees').DataTable( { 
             "processing": true,
             "serverSide": true,
-            "ajax": "{{route('administrateurs.list')}}",
+            "ajax": "{{route('employees.list')}}",
             columns: [
+                    { data: 'id', name: 'id' },
                     { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'matricule', name: 'matricule' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
-                    { data: 'user.email', name: 'user.email' },
-                    { data: 'user.username', name: 'user.username' },
-                    { data: 'user.telephone', name: 'user.telephone' },
+                    { data: 'user.employee.fonction.name', name: 'user.employee.fonction.name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -106,14 +104,24 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('administrateurs.edit',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('administrateurs.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_administrateur ml-1 btn-sm" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
+                        url_e =  "{!! route('employees.edit',':id')!!}".replace(':id', data.id);
+                        url_f =  "{!! route('employees.show',':id')!!}".replace(':id', data.id);
+                        url_d =  "{!! route('employees.destroy',':id')!!}".replace(':id', data.id);
+                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit" title="Modifier"><i class="far fa-edit"></i></a>&nbsp;'+
+                                '<a href='+url_f+'  class=" btn btn-success btn-sm show" title="voir"><i class="far fa-eye"></i></a>&nbsp;'+
+                        '<div class="btn btn-danger btn-sm delete btn_delete_employee ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 7
+                        "targets": 6
                         },
                 ],
+
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                ],
+
+                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+
                 language: {
                   "sProcessing":     "Traitement en cours...",
                   "sSearch":         "Rechercher&nbsp;:",
@@ -142,16 +150,15 @@
                               1: "1 ligne séléctionnée"
                           } 
                   }
-                },
-                order:[[0,'desc'], [0, 'asc']]              
+                }             
           });
 
           
-        $('#table-administrateurs').off('click', '.btn_delete_administrateur').on('click', '.btn_delete_administrateur',
+        $('#table-employees').off('click', '.btn_delete_employee').on('click', '.btn_delete_employee',
         function() { 
           var href=$(this).data('href');
-          $('#form-delete-administrateur').attr('action', href);
-          $('#modal_delete_administrateur').modal();
+          $('#form-delete-employee').attr('action', href);
+          $('#modal_delete_employee').modal();
         });
       });
       

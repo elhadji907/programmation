@@ -19,7 +19,7 @@
                               <th>ID</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th>Selectionner</th>
+                              <th  style="width:10%;">Selectionner</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -27,7 +27,7 @@
                                 <th>ID</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
-                                <th>Selectionner</th>
+                                <th  style="width:10%;">Selectionner</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -60,7 +60,7 @@
                         {
                         "data": null,
                         "render": function (data, type, row) {
-                        url_e =  "{!! route('directions.create','user=:id')!!}".replace(':id', data.id);
+                        url_e =  "{!! route('directions.create','directions=:id')!!}".replace(':id', data.id);
                         return '<a href='+url_e+'  class=" btn btn-primary " ><i class="fas fa-check"></i>';
                         },
                         "targets": 3

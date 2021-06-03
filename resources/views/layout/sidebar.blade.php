@@ -161,9 +161,9 @@
 </li>
 <li class="nav-item">
   @roles('Administrateur')
-<a class="nav-link" href="{{ route('personnels.index') }}">
+<a class="nav-link" href="{{ route('employees.index') }}">
     <span data-feather="layers"></span>
-  <span>Gestion personnel</span>
+  <span>Gestion des employees</span>
 </a>
 @endroles
 </li>
