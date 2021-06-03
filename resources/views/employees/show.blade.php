@@ -1,10 +1,10 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Personnel')
+@section('title', 'ONFP - Fiche employee')
 @section('content')
     
     <style>
     .invoice-box {
-        max-width: 800px;
+        max-width: 90%;
         margin: auto;
         padding: 30px;
         border: 1px solid #eee;
@@ -99,7 +99,7 @@
     <div class="invoice-box">
         <div class="card">
         <div class="card card-header text-center bg-gradient-success">
-            <h1 class="h4 text-white mb-0">FICHE DE RENSEIGNEMENT AGENT</h1>
+            <h1 class="h4 text-white mb-0">FICHE DE RENSEIGNEMENT EMPLOYE</h1>
         </div>
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
@@ -110,12 +110,12 @@
                             <td class="title">
                                 {{-- <img src="" style="width:100%; max-width:300px;"> --}}
                                {{--  <img style="width:50%; max-width:100px;" src="{{ asset('images/image_onfp.jpg') }}"> --}}                             
-                                <img style="width:100%; max-width:100px;" src="{{ asset($personnel->user->profile->getImage()) }}"/>
+                                <img style="width:100%; max-width:100px;" src="{{ asset($employee->user->profile->getImage()) }}"/>
                           
                             </td>
                             <td>
-                                Matricule de solde: {!! $personnel->matricule !!}<br>
-                                {!! __("Date") !!}:  {!! $personnel->created_at->format('d/m/Y') !!}<br>
+                                Matricule de solde: {!! $employee->matricule !!}<br>
+                                {!! __("Date") !!}:  {!! Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -127,23 +127,23 @@
                     <table>
                         <tr>
                             <td>
-                                <b>{!!  $personnel->user->civilite." ".$personnel->user->firstname." ". $personnel->user->name !!}<br>                                
-                                @if ($personnel->user->civilite=="Mme")
+                                <b>{!!  $employee->user->civilite." ".$employee->user->firstname." ". $employee->user->name !!}<br>                                
+                                @if ($employee->user->civilite=="Mme")
                                     {!! ("née le") !!}
                                 @else
                                     {!! ("né le") !!}
                                 @endif
                                 </b>
-                                <b>{!! $personnel->user->date_naissance->format('d/m/Y')." "."à"." ".$personnel->user->lieu_naissance !!}</b><br>
-                                <b>{!! $personnel->user->email !!}</b><br>
-                                <b>{!! $personnel->user->telephone !!}</b><br>
-                                <b>{!! $personnel->user->adresse !!}</b><br>
+                                <b>{!! Carbon\Carbon::parse($employee->user->date_naissance)->format('d/m/Y')." "."à"." ".$employee->user->lieu_naissance !!}</b><br>
+                                <b>{!! $employee->user->email !!}</b><br>
+                                <b>{!! $employee->user->telephone !!}</b><br>
+                                <b>{!! $employee->user->adresse !!}</b><br>
                                 
                             </td>                            
                             <td>
-                                <b>Cin: </b> {{ $personnel->cin }}<br>
-                                <b>Situation familiale: </b>{{ $personnel->user->situation_familiale }}<br>
-                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $personnel->nbrefant }}<br>
+                                <b>Cin: </b> {{ $employee->cin }}<br>
+                                <b>Situation familiale: </b>{{ $employee->user->situation_familiale }}<br>
+                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $employee->nbrefant }}<br>
                             </td>
                         </tr>
                     </table>
@@ -159,10 +159,10 @@
             </tr>            
             <tr class="item">
                 <td>
-                    {{ $personnel->fonction->name }}
+                    {{ $employee->fonction->name }}
                 </td>                
                 <td>
-                    {{ $personnel->debut->format('d/m/Y') }}
+                    {{ Carbon\Carbon::parse($employee->debut)->format('d/m/Y') }}
                 </td>
             </tr>
             <tr class="heading">
@@ -177,7 +177,7 @@
             
             <tr class="item">
                 <td>
-                    {{ $personnel->categorie->name }}
+                    {{ $employee->category->name }}
                </td>
                 
                 <td>
@@ -197,7 +197,7 @@
             
             <tr class="item">
                 <td>
-                    {!! $age =  \Carbon\Carbon::now()->diffInYears($personnel->user->date_naissance) !!}
+                    {!! $age =  \Carbon\Carbon::now()->diffInYears($employee->user->date_naissance) !!}
                     @if ($age >1)
                         {!! __('ans') !!}
                     @else
@@ -206,13 +206,13 @@
                </td>
                 
                 <td>
-                    {!! $an = \Carbon\Carbon::now()->diffInYears($personnel->debut) !!}
+                    {!! $an = \Carbon\Carbon::now()->diffInYears($employee->debut) !!}
                     @if ( $an >1)
                         {!! __('ans') !!}
                     @elseif( $an == 1)
                     {!! __('an') !!}
                     @elseif( $an < 1)
-                    {!!$mois = \Carbon\Carbon::now()->diffInMonths($personnel->debut) !!} mois {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jours
+                    {!!$mois = \Carbon\Carbon::now()->diffInMonths($employee->debut) !!} mois {!! \Carbon\Carbon::now()->diffInDays($employee->debut) !!} jours
                    
                     @endif
                 </td>
@@ -229,12 +229,12 @@
             
            {{--  <tr class="item">
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInYears($personnel->debut) !!} an(s)
+                    {!! \Carbon\Carbon::now()->diffInYears($employee->debut) !!} an(s)
                </td>
                 
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInMonths($personnel->debut) !!} mois
-                    {!! \Carbon\Carbon::now()->diffInDays($personnel->debut) !!} jour(s)
+                    {!! \Carbon\Carbon::now()->diffInMonths($employee->debut) !!} mois
+                    {!! \Carbon\Carbon::now()->diffInDays($employee->debut) !!} jour(s)
                 </td>
             </tr>
              --}}
@@ -245,12 +245,12 @@
                 </td>
                 
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInYears($personnel->user->debut) !!}  an(s)
+                    {!! \Carbon\Carbon::now()->diffInYears($employee->user->debut) !!}  an(s)
                 </td>
             </tr> --}}
         </table>
         <div class="text-center bg-gradient-default"><br/>
-            <a href="{!! url('personnels/' .$personnel->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
+            <a href="{!! url('employees/' .$employee->id. '/edit') !!}" title="modifier" class="btn btn-outline-secondary mt-0">
                 <i class="far fa-edit">&nbsp;Modifier</i>
             </a>
         </div>

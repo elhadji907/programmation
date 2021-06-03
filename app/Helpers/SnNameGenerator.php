@@ -36,6 +36,23 @@ namespace App\Helpers;
 class SnNameGenerator
 {
 
+    public static $direction = array(
+
+        "Direction Général",
+        "Direction de l'Evaluation et de la Certification",
+        "Direction de la planification des projets",
+        "Direction Administrative et Financiere",
+        "Direction de l'Ingenierie et des Operations de Formation",
+    );
+    public static $sigledirection = array(
+
+        "DG",
+        "DEC",
+        "DPP",
+        "DAF",
+        "DIOF",
+    );
+
     public static $civilite = array(
 
         "M.",
@@ -1123,6 +1140,22 @@ class SnNameGenerator
         $dimension=count(self::$civilite);
         $random_index=random_int(0, (int)$dimension-1);
         return self::$civilite[$random_index];
+
+
+    }
+    static function getDirection()
+    {
+        $dimension=count(self::$direction);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$direction[$random_index];
+
+
+    }
+    static function getSigledirection()
+    {
+        $dimension=count(self::$sigledirection);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$sigledirection[$random_index];
 
 
     }
