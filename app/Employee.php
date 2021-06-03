@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 02 Jun 2021 13:53:24 +0000.
+ * Date: Thu, 03 Jun 2021 21:05:34 +0000.
  */
 
 namespace App;
@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $matricule
  * @property string $adresse
  * @property string $cin
- * @property string $fonction
  * @property \Carbon\Carbon $date_embauche
  * @property string $classification
  * @property string $categorie_salaire
@@ -31,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Category $category
  * @property \App\Direction $direction
+ * @property \App\Fonction $fonction
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $charges
  * @property \Illuminate\Database\Eloquent\Collection $congers
@@ -69,7 +69,6 @@ class Employee extends Eloquent
 		'matricule',
 		'adresse',
 		'cin',
-		'fonction',
 		'date_embauche',
 		'classification',
 		'categorie_salaire',

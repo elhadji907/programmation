@@ -27,24 +27,26 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-employees">
                           <thead class="table-dark">
                             <tr>
-                              <th>Id</th>
-                              <th>Civilité</th>
-                              <th>Matricule</th>
+                              <th style="width:5%;">Civilité</th>
+                              <th style="width:5%;">Matricule</th>
                               <th>Prenom</th>
                               <th>Nom</th>
+                              <th>Email</th>
+                              <th>Telephone</th>
                               <th>Fonction</th>
-                              <th style="width:120px;"></th>
+                              <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                                <th>Id</th>
                                 <th>Civilité</th>
                                 <th>Matricule</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
+                                <th>Email</th>
+                                <th>Telephone</th>
                                 <th>Fonction</th>
-                                <th></th>
+                                <th>Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -91,12 +93,13 @@
             "serverSide": true,
             "ajax": "{{route('employees.list')}}",
             columns: [
-                    { data: 'id', name: 'id' },
                     { data: 'user.civilite', name: 'user.civilite' },
                     { data: 'matricule', name: 'matricule' },
                     { data: 'user.firstname', name: 'user.firstname' },
                     { data: 'user.name', name: 'user.name' },
-                    { data: 'user.employee.fonction.name', name: 'user.employee.fonction.name' },
+                    { data: 'user.email', name: 'user.email' },
+                    { data: 'user.telephone', name: 'user.telephone' },
+                    { data: 'user.employee.fonction.sigle', name: 'user.employee.fonction.sigle' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -111,7 +114,7 @@
                                 '<a href='+url_f+'  class=" btn btn-success btn-sm show" title="voir"><i class="far fa-eye"></i></a>&nbsp;'+
                         '<div class="btn btn-danger btn-sm delete btn_delete_employee ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 6
+                        "targets": 7
                         },
                 ],
 

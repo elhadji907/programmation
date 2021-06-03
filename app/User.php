@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Thu, 03 Jun 2021 21:05:27 +0000.
  */
 
 namespace App;
@@ -28,13 +28,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
  * @property string $situation_familiale
+ * @property string $adresse
+ * @property string $bp
+ * @property string $fax
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
  * @property string $created_by
  * @property string $updated_by
  * @property string $deleted_by
  * @property int $roles_id
- * @property string $adresse
  * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -59,11 +61,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	use Notifiable;
-	
 
 	protected $casts = [
 		'roles_id' => 'int'
@@ -92,13 +92,15 @@ class User extends Authenticatable
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
+		'adresse',
+		'bp',
+		'fax',
 		'email_verified_at',
 		'password',
 		'created_by',
 		'updated_by',
 		'deleted_by',
 		'roles_id',
-		'adresse',
 		'remember_token'
 	];
 
@@ -113,7 +115,11 @@ class User extends Authenticatable
 			]);
 		});
 	} 
-
+	public function getRouteKeyName()
+	{
+		return 'username';
+	}
+	
 	public function role()
 	{
 		return $this->belongsTo(\App\Role::class, 'roles_id');

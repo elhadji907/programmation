@@ -18,6 +18,9 @@ $factory->define(App\User::class, function (Faker $faker) {
         'date_naissance' => $faker->dateTime(),
         'lieu_naissance' => $faker->word,
         'situation_familiale' => $faker->word,
+        'adresse' => $faker->text,
+        'bp' => $faker->word,
+        'fax' => $faker->word,
         'email_verified_at' => $faker->dateTime(),
         'password' => bcrypt($faker->password),
         'created_by' => $faker->word,
@@ -26,10 +29,10 @@ $factory->define(App\User::class, function (Faker $faker) {
         'roles_id' => function () {
             return factory(App\Role::class)->create()->id;
         },
-        'adresse' => $faker->text,
         'remember_token' => Str::random(10),
     ];
 }); */
+
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -46,6 +49,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'date_naissance' => $faker->dateTime(),
         'lieu_naissance' => SnmG::getLieunaissance(),
         'situation_familiale' => SnmG::getFamiliale(),
+        'adresse' => $faker->text,
+        'bp' => $faker->postcode,
+        'fax' => $faker->e164PhoneNumber,
         'email_verified_at' => $faker->dateTimeBetween(),
         'password' => bcrypt($faker->password),
         'created_by' => SnmG::getFirstName().' '.SnmG::getFirstName().' ('.Str::random(7).')',

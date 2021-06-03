@@ -1,8 +1,8 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-/* 
-use Faker\Generator as Faker;
+
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Employee::class, function (Faker $faker) {
     return [
@@ -10,7 +10,6 @@ $factory->define(App\Employee::class, function (Faker $faker) {
         'matricule' => $faker->word,
         'adresse' => $faker->word,
         'cin' => $faker->word,
-        'fonction' => $faker->word,
         'date_embauche' => $faker->dateTime(),
         'classification' => $faker->word,
         'categorie_salaire' => $faker->word,
@@ -52,7 +51,6 @@ $factory->define(App\Employee::class,  function (Faker\Generator $faker) {
         'matricule' => $matricule,
         'adresse' => $faker->address,
         'cin' =>  $faker->randomNumber($nbDigit=9),
-        'fonction' => $faker->word,
         'date_embauche' => $faker->dateTime(),
         'classification' => $faker->word,
         'categorie_salaire' => $faker->word,

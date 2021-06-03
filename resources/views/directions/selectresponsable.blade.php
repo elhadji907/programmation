@@ -19,7 +19,7 @@
                               <th>ID</th>
                               <th>Prenom</th>
                               <th>Nom</th>
-                              <th  style="width:10%;">Selectionner</th>
+                              <th style="width:10%;">Selectionner</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
@@ -27,7 +27,7 @@
                                 <th>ID</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
-                                <th  style="width:10%;">Selectionner</th>
+                                <th style="width:10%;">Selectionner</th>
                               </tr>
                             </tfoot>
                           <tbody>

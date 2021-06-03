@@ -15,7 +15,7 @@
                 <div class="card-body">
                         <div class="row pt-5 pl-5">
                             <h4>
-                                Responsable: {{  $user->firstname }} {{  $user->name }}<br/>
+                                Responsable: {{  $directions->chef->user->name }} {{  $directions->chef->user->firstname}}<br/>
                             </h4>
                         </div>
                         <div class="row pt-5"></div>

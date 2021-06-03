@@ -27,7 +27,6 @@ class CreateEmployeesTable extends Migration
             $table->string('matricule', 200);
             $table->string('adresse', 200)->nullable();
             $table->string('cin', 20);
-            $table->string('fonction', 200)->nullable();
             $table->dateTime('date_embauche')->nullable();
             $table->string('classification', 200)->nullable();
             $table->string('categorie_salaire', 200)->nullable();
