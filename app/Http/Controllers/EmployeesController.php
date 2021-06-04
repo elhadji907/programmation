@@ -128,7 +128,7 @@ class EmployeesController extends Controller
         $employee = new Employee([
             'matricule'     =>     $request->input('matricule'),
             'cin'           =>     $request->input('cin'),
-            'debut'         =>     $request->input('date_embauche'),
+            'date_embauche' =>     $request->input('date_embauche'),
             'fin'           =>     $fin,
             'users_id'      =>     $utilisateur->id,
             'categories_id' =>     $request->input('categorie'),
@@ -184,7 +184,7 @@ class EmployeesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employee $employee)
-    {        
+    {
          
         $data = request()->validate([
                 'civilite'      =>  'required|string|max:10',
@@ -205,7 +205,7 @@ class EmployeesController extends Controller
                 'image'         =>  'sometimes|image|max:3000',
             ]
         );
-        
+
         $user = $employee->user;
 
         $direction=$request->input('direction');
@@ -248,7 +248,7 @@ class EmployeesController extends Controller
                 $employee->update([
                 'matricule'         =>      $data['matricule'],
                 'cin'               =>      $data['cin'],
-                'debut'             =>      $data['date_embauche'],
+                'date_embauche'     =>      $data['date_embauche'],
                 'fin'               =>      $fin,
                 'directions_id'     =>      $directions_id,
                 'fonctions_id'      =>      $fonctions_id,
@@ -274,10 +274,11 @@ class EmployeesController extends Controller
 
                 ]);
 
+
                 $employee->update([
                 'matricule'         =>      $data['matricule'],
                 'cin'               =>      $data['cin'],
-                'debut'             =>      $data['date_embauche'],
+                'date_embauche'     =>      $data['date_embauche'],
                 'fin'               =>      $fin,
                 'directions_id'     =>      $directions_id,
                 'fonctions_id'      =>      $fonctions_id,

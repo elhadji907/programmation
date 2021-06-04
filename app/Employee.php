@@ -60,10 +60,6 @@ class Employee extends Eloquent
 		'directions_id' => 'int'
 	];
 
-	protected $dates = [
-		'date_embauche'
-	];
-
 	protected $fillable = [
 		'uuid',
 		'matricule',

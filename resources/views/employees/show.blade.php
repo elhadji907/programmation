@@ -127,23 +127,22 @@
                     <table>
                         <tr>
                             <td>
-                                <b>{!!  $employee->user->civilite." ".$employee->user->firstname." ". $employee->user->name !!}<br>                                
+                                {!!  $employee->user->civilite." ".$employee->user->firstname." ". $employee->user->name !!}<br>                                
                                 @if ($employee->user->civilite=="Mme")
                                     {!! ("née le") !!}
                                 @else
                                     {!! ("né le") !!}
                                 @endif
-                                </b>
-                                <b>{!! Carbon\Carbon::parse($employee->user->date_naissance)->format('d/m/Y')." "."à"." ".$employee->user->lieu_naissance !!}</b><br>
-                                <b>{!! $employee->user->email !!}</b><br>
-                                <b>{!! $employee->user->telephone !!}</b><br>
-                                <b>{!! $employee->user->adresse !!}</b><br>
+                                {!! Carbon\Carbon::parse($employee->user->date_naissance)->format('d/m/Y')." "."à"." ".$employee->user->lieu_naissance !!}<br>
+                                <b>Email : </b>{!! $employee->user->email !!}<br>
+                                <b>Téléphone : </b>{!! $employee->user->telephone !!}<br>
+                                {!! $employee->user->adresse !!}<br>
                                 
                             </td>                            
                             <td>
-                                <b>Cin: </b> {{ $employee->cin }}<br>
-                                <b>Situation familiale: </b>{{ $employee->user->situation_familiale }}<br>
-                                <b>{!! __("Nombre d'enfant") !!}: </b> {{ $employee->nbrefant }}<br>
+                                <b>CIN : </b> {{ $employee->cin }}<br>
+                                <b>SF : </b>{{ $employee->user->situation_familiale }}<br>
+                                <b>{!! __("Nbre enfant") !!}: </b> {{ $employee->nbrefant }}<br>
                             </td>
                         </tr>
                     </table>
@@ -154,7 +153,7 @@
                     {{ __("Fonction") }}
                 </td>                
                 <td>
-                    {{ __("Date d'entrée en fonction") }}
+                    {{ __("Date embauche") }}
                 </td>
             </tr>            
             <tr class="item">
@@ -162,7 +161,7 @@
                     {{ $employee->fonction->name }}
                 </td>                
                 <td>
-                    {{ Carbon\Carbon::parse($employee->debut)->format('d/m/Y') }}
+                    {{ Carbon\Carbon::parse($employee->date_embauche)->format('d/m/Y') }}
                 </td>
             </tr>
             <tr class="heading">
@@ -190,31 +189,33 @@
                 </td>
                 
                 <td>
-                  {{--   {{ __("Année(s) avant la retraite") }} --}}
                   {{ __("Ancienneté") }}
                 </td>
             </tr>
             
             <tr class="item">
                 <td>
-                    {!! $age =  \Carbon\Carbon::now()->diffInYears($employee->user->date_naissance) !!}
-                    @if ($age >1)
-                        {!! __('ans') !!}
-                    @else
-                        {!! __('an') !!}           
-                    @endif
+                      
+                  <?php 
+                  $firstDate  = \Carbon\Carbon::parse($employee->user->date_naissance)->format('Y-m-d'); 
+                  $secondDate = \Carbon\Carbon::now()->format('Y-m-d');
+                  $dateDifference = abs(strtotime($secondDate) - strtotime($firstDate));
+                  $years  = floor($dateDifference / (365 * 60 * 60 * 24));
+                  $months = floor(($dateDifference - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+                  $days   = floor(($dateDifference - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 *24) / (60 * 60 * 24));
+                  ?>
+                    {!! $years ." ".__("an(s)")." ".$months ." ".__("mois")." ".$days." ".__("jour(s)") !!}
                </td>
-                
                 <td>
-                    {!! $an = \Carbon\Carbon::now()->diffInYears($employee->debut) !!}
-                    @if ( $an >1)
-                        {!! __('ans') !!}
-                    @elseif( $an == 1)
-                    {!! __('an') !!}
-                    @elseif( $an < 1)
-                    {!!$mois = \Carbon\Carbon::now()->diffInMonths($employee->debut) !!} mois {!! \Carbon\Carbon::now()->diffInDays($employee->debut) !!} jours
-                   
-                    @endif
+                    <?php  
+                    $firstDat  = \Carbon\Carbon::parse($employee->date_embauche)->format('Y-m-d'); 
+                    $secondDate = \Carbon\Carbon::now()->format('Y-m-d');
+                    $dateDifferenc = abs(strtotime($secondDate) - strtotime($firstDat));
+                    $year  = floor($dateDifferenc / (365 * 60 * 60 * 24));
+                    $month = floor(($dateDifferenc - $year * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+                    $day   = floor(($dateDifferenc - $year * 365 * 60 * 60 * 24 - $month * 30 * 60 * 60 *24) / (60 * 60 * 24));
+                    ?>
+                    {!! $year ." ".__("an(s)")." ".$month ." ".__("mois")." ".$day." ".__("jour(s)") !!}
                 </td>
             </tr>
           {{--   <tr class="heading">
@@ -229,12 +230,12 @@
             
            {{--  <tr class="item">
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInYears($employee->debut) !!} an(s)
+                    {!! \Carbon\Carbon::now()->diffInYears($employee->date_embauche) !!} an(s)
                </td>
                 
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInMonths($employee->debut) !!} mois
-                    {!! \Carbon\Carbon::now()->diffInDays($employee->debut) !!} jour(s)
+                    {!! \Carbon\Carbon::now()->diffInMonths($employee->date_embauche) !!} mois
+                    {!! \Carbon\Carbon::now()->diffInDays($employee->date_embauche) !!} jour(s)
                 </td>
             </tr>
              --}}
@@ -245,7 +246,7 @@
                 </td>
                 
                 <td>
-                    {!! \Carbon\Carbon::now()->diffInYears($employee->user->debut) !!}  an(s)
+                    {!! \Carbon\Carbon::now()->diffInYears($employee->user->date_embauche) !!}  an(s)
                 </td>
             </tr> --}}
         </table>

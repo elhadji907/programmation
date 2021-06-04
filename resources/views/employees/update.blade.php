@@ -152,8 +152,8 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            {!! Form::label("date d'entrée en fonction", null, ['class' => 'control-label']) !!}
-                            {!! Form::date('date_embauche', Carbon\Carbon::parse($employee->debut)->format('Y-m-d'), ['placeholder' => 'La date de recrutement', 'class' => 'form-control']) !!}
+                            {!! Form::label("date embauche", null, ['class' => 'control-label']) !!}
+                            {!! Form::date('date_embauche', Carbon\Carbon::parse($employee->date_embauche)->format('Y-m-d'), ['placeholder' => 'La date de recrutement', 'class' => 'form-control']) !!}
                             <small id="emailHelp" class="form-text text-muted">
                                 @if ($errors->has('date_embauche'))
                                     @foreach ($errors->get('date_embauche') as $message)
