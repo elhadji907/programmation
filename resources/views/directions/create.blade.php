@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Enregistrement direction ou service')
+@section('title', 'ONFP - Enregistrement direction / service')
 @section('content')
     <div class="container">
         <div class="container-fluid">
@@ -15,7 +15,8 @@
                 <div class="card-body">
                         <div class="row pt-5 pl-5">
                             <h4>
-                                Responsable: {{  $directions->chef->user->name }} {{  $directions->chef->user->firstname}}<br/>
+                                Responsable: {{ $direction->name." ".$direction->name ?? 'Aucune direction choisie'}}<br/>
+                                Commune: {{$direction->name ?? 'Aucune fonction attribuée'}}
                             </h4>
                         </div>
                         <div class="row pt-5"></div>

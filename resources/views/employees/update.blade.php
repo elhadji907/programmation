@@ -140,10 +140,16 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label('Situation familiale') !!}
-                            {!! Form::text('familiale', $employee->user->situation_familiale, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control']) !!}
+                            {!! Form::select('familiale', ['Marié(e)' => 'Marié(e)', 'Célibataire' => 'Célibataire'], $employee->user->situation_familiale,
+                            ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' =>
+                            'familiale']) !!}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('Adresse') !!}
+                            {!! Form::text('adresse', $employee->user->adresse, ['placeholder' => 'Votre adresse', 'class' => 'form-control']) !!}
                             <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('familiale'))
-                                    @foreach ($errors->get('familiale') as $message)
+                                @if ($errors->has('adresse'))
+                                    @foreach ($errors->get('adresse') as $message)
                                         <p class="text-danger">{{ $message }}</p>
                                     @endforeach
                                 @endif
@@ -152,7 +158,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            {!! Form::label("date embauche", null, ['class' => 'control-label']) !!}
+                            {!! Form::label('date embauche', null, ['class' => 'control-label']) !!}
                             {!! Form::date('date_embauche', Carbon\Carbon::parse($employee->date_embauche)->format('Y-m-d'), ['placeholder' => 'La date de recrutement', 'class' => 'form-control']) !!}
                             <small id="emailHelp" class="form-text text-muted">
                                 @if ($errors->has('date_embauche'))

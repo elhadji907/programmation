@@ -52,7 +52,11 @@ class EmployeesController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
 
-        return view('employees.index', compact('chart'));
+        $employees = Employee::all();
+
+        /* dd($employees); */
+
+        return view('employees.index', compact('chart', 'employees'));
     }
 
     /**
@@ -115,6 +119,7 @@ class EmployeesController extends Controller
             'date_naissance'        =>      $request->input('date_naiss'),
             'lieu_naissance'        =>      $request->input('lieu'),
             'situation_familiale'   =>      $request->input('familiale'),
+            'adresse'               =>      $request->input('adresse'),
             'email'                 =>      $request->input('email'),
             'telephone'             =>      $request->input('telephone'),
             'password'              =>      Hash::make($request->input('password')),
@@ -197,6 +202,7 @@ class EmployeesController extends Controller
                 'telephone'     =>  'required|string|max:50',
                 'cin'           =>  'required|string|min:12|max:15',
                 'familiale'     =>  'required|string',
+                'adresse'       =>  'string',
                 'date_naiss'    =>  'required|date',
                 'date_embauche' =>  'required|date',
                 'lieu'          =>  'required|string',
@@ -239,6 +245,7 @@ class EmployeesController extends Controller
                 'date_naissance' => $data['date_naiss'],
                 'lieu_naissance' => $data['lieu'],
                 'situation_familiale' => $data['familiale'],
+                'adresse' => $data['adresse'],
                 'telephone' => $data['telephone'],
                 'bp' => $data['bp'],
                 'fax' => $data['fax'],
@@ -266,7 +273,8 @@ class EmployeesController extends Controller
                 'name' => $data['name'],
                 'date_naissance' => $data['date_naiss'],
                 'lieu_naissance' => $data['lieu'],
-                'situation_familiale' => $data['familiale'],                
+                'situation_familiale' => $data['familiale'],    
+                'adresse' => $data['adresse'],            
                 'bp' => $data['bp'],
                 'fax' => $data['fax'],
                 'telephone' => $data['telephone'],

@@ -42,7 +42,13 @@ class DirectionsController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
 
-        return view('directions.create',compact('user', 'chart'));
+       
+       $direction_id=$request->input('direction');
+       $direction=\App\Direction::find($direction_id);
+
+       dd($direction);
+
+        return view('directions.create',compact('user', 'chart','direction'));
     }
 
     /**
@@ -141,7 +147,7 @@ class DirectionsController extends Controller
 
     public function list(Request $request)
     {
-        $directions=Direction::with('chef.user','personnels.fonction')->get();
+        $directions=Direction::with('chef.user','employees.fonction')->get();
         return Datatables::of($directions)->make(true);
 
     }

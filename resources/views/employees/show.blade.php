@@ -136,7 +136,7 @@
                                 {!! Carbon\Carbon::parse($employee->user->date_naissance)->format('d/m/Y')." "."à"." ".$employee->user->lieu_naissance !!}<br>
                                 <b>Email : </b>{!! $employee->user->email !!}<br>
                                 <b>Téléphone : </b>{!! $employee->user->telephone !!}<br>
-                                {!! $employee->user->adresse !!}<br>
+                                <b>Adresse : </b>{!! $employee->user->adresse !!}<br>
                                 
                             </td>                            
                             <td>
