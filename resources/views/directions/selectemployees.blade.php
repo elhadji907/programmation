@@ -14,7 +14,7 @@
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-administrateurs">
+                                id="table-employees">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>ID</th>
@@ -42,14 +42,13 @@
         </div>
     </div>
 @endsection
-
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-administrateurs').DataTable({
+            $('#table-employees').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('administrateurs.list') }}",
+                "ajax": "{{ route('employees.list') }}",
                 columns: [{
                         data: 'id',
                         name: 'id'

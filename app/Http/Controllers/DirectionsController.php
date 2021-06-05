@@ -46,7 +46,7 @@ class DirectionsController extends Controller
        $direction_id=$request->input('direction');
        $direction=\App\Direction::find($direction_id);
 
-       dd($direction);
+       //dd($direction_id);
 
         return view('directions.create',compact('user', 'chart','direction'));
     }
@@ -61,19 +61,21 @@ class DirectionsController extends Controller
     {
         $this->validate(
             $request, [
-                'direction'     => 'required|string|max:250',
-                'sigle'         => 'required|string|max:10',
-                'user'          => 'required|exists:users,id',
+                'input-direction'     => 'required|string|max:250',
+                'input-sigle'         => 'required|string|max:10',
+                'direction'           => 'required|exists:directions,id',
             ]
         );
-        /* dd($request->input('user')); */
+
         $direction = new Direction([            
-            'name'      =>      $request->input('direction'),
-            'sigle'     =>      $request->input('sigle'),
-            'chef_id'   =>      $request->input('user')
+            'name'      =>      $request->input('input-direction'),
+            'sigle'     =>      $request->input('input-sigle'),
+            'chef_id'   =>      $request->input('direction')
 
         ]);
+
         $direction->save();
+
         return redirect()->route('directions.index')->with('success','direction / service ajouté(e) avec succès !');
     }
 
@@ -97,14 +99,12 @@ class DirectionsController extends Controller
     public function edit($id)
     {
         $directions = Direction::find($id);
-
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-        
+        ]);        
         return view('directions.update', compact('directions','id','chart'));
     }
 
@@ -147,7 +147,7 @@ class DirectionsController extends Controller
 
     public function list(Request $request)
     {
-        $directions=Direction::with('chef.user','employees.fonction')->get();
+        $directions=Direction::with('chef','employees')->get();
         return Datatables::of($directions)->make(true);
 
     }
