@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 02 Jun 2021 13:52:29 +0000.
+ * Date: Sun, 06 Jun 2021 19:20:23 +0000.
  */
 
 namespace App;
@@ -16,12 +16,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $name
  * @property string $sigle
- * @property int $types_directions_id
  * @property int $chef_id
+ * @property int $types_directions_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\TypesDirection $types_direction
  * @property \Illuminate\Database\Eloquent\Collection $courriers
  * @property \Illuminate\Database\Eloquent\Collection $imputations
  * @property \Illuminate\Database\Eloquent\Collection $divisions
@@ -35,17 +36,22 @@ class Direction extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'types_directions_id' => 'int',
-		'chef_id' => 'int'
+		'chef_id' => 'int',
+		'types_directions_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'sigle',
-		'types_directions_id',
-		'chef_id'
+		'chef_id',
+		'types_directions_id'
 	];
+
+	public function types_direction()
+	{
+		return $this->belongsTo(\App\TypesDirection::class, 'types_directions_id');
+	}
 
 	public function courriers()
 	{
@@ -70,6 +76,7 @@ class Direction extends Eloquent
 	{
 		return $this->hasMany(\App\Employee::class, 'directions_id');
 	}
+	
 	public function chef()
 	{
 		return $this->belongsTo(\App\Employee::class, 'chef_id');

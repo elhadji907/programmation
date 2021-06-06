@@ -44,8 +44,9 @@ class CreateUsersTable extends Migration
             $table->string('updated_by', 200)->nullable();
             $table->string('deleted_by', 200)->nullable();
             $table->unsignedInteger('roles_id');
-            $table->rememberToken();
 
+            $table->rememberToken();
+            
             $table->unique(["email"], 'email_UNIQUE');
 
             $table->index(["roles_id"], 'fk_users_roles1_idx');

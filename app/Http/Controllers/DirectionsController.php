@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\TypesDirection;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Charts\Courrierchart;
@@ -46,14 +47,14 @@ class DirectionsController extends Controller
        $direction_id=$request->input('direction');
        $direction=\App\Direction::find($direction_id);
 
-
+       $types_directions = TypesDirection::distinct('name')->get()->pluck('name','id')->unique();
        
        $employee_id=$request->input('employee');
        $employee=\App\Employee::find($employee_id);
 
       /*  dd($employee); */
 
-        return view('directions.create',compact('user', 'chart','employee'));
+        return view('directions.create',compact('user', 'chart','employee','types_directions'));
     }
 
     /**
@@ -68,6 +69,7 @@ class DirectionsController extends Controller
             $request, [
                 'input-direction'     => 'required|string|max:250',
                 'input-sigle'         => 'required|string|max:10',
+                'type_direction'      => 'required',
                 'employee'            => 'required|exists:employees,id',
             ]
         );
@@ -79,9 +81,10 @@ class DirectionsController extends Controller
         //dd($employee);
         
         $direction = new Direction([            
-            'name'      =>      $request->input('input-direction'),
-            'sigle'     =>      $request->input('input-sigle'),
-            'chef_id'   =>      $request->input('employee')
+            'name'                  =>      $request->input('input-direction'),
+            'sigle'                 =>      $request->input('input-sigle'),
+            'types_directions_id'   =>      $request->input('type_direction'),
+            'chef_id'               =>      $request->input('employee')
 
         ]);
 

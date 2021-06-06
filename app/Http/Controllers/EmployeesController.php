@@ -166,7 +166,7 @@ class EmployeesController extends Controller
     public function edit(Employee $employee)
     {
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        $directions = Direction::pluck('name','name');
+        $directions = Direction::pluck('sigle','sigle');
         $categories = Category::pluck('name','name');
         $fonctions = Fonction::pluck('sigle','sigle');
 
@@ -216,7 +216,7 @@ class EmployeesController extends Controller
         $user = $employee->user;
 
         $direction=$request->input('direction');
-        $directions_id = Direction::where('name', $direction)->first()->id;
+        $directions_id = Direction::where('sigle', $direction)->first()->id;
 
         $fonction=$request->input('fonction');
         $fonctions_id = Fonction::where('sigle', $fonction)->first()->id;

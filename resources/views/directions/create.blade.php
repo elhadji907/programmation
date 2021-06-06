@@ -16,7 +16,7 @@
                     <div class="row pt-5 pl-5">
                         <h4>
                             <b>Responsable:</b>
-                            {{ $employee->user->firstname.' '.$employee->user->name ?? 'Aucune direction choisie' }}<br />
+                            {{ $employee->user->firstname . ' ' . $employee->user->name ?? 'Aucune direction choisie' }}<br />
                             <b>Fonction:</b> {{ $employee->fonction->name ?? 'Aucune fonction attribuée' }}
                         </h4>
                     </div>
@@ -26,33 +26,49 @@
                         <input type="hidden" name="employee" value="{{ $employee->id }}" class="form-control"
                             name="inputName" id="inputName" placeholder="">
 
-                        <div class="form-group">
-                            <label for="input-direction"><b>Direction / Service:</b></label>
-                            <input type="text" name="input-direction" class="form-control" id="input-direction"
-                                placeholder="Entrer le nom de la direction ou du service" value="{{ old('direction') }}">
-                            <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('direction'))
-                                    @foreach ($errors->get('direction') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                @endif
-                            </small>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="input-direction"><b>Direction / Service:</b></label>
+                                <input type="text" name="input-direction" class="form-control" id="input-direction"
+                                    placeholder="Entrer nom direction"
+                                    value="{{ old('direction') }}">
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('direction'))
+                                        @foreach ($errors->get('direction') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="input-sigle"><b>sigle:</b></label>
+                                <input type="text" name="input-sigle" class="form-control" id="input-sigle"
+                                    placeholder="Entrer sigle"
+                                    value="{{ old('sigle') }}">
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('sigle'))
+                                        @foreach ($errors->get('sigle') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="input-sigle"><b>sigle:</b></label>
-                            <input type="text" name="input-sigle" class="form-control" id="input-sigle"
-                                placeholder="Entrer le sigle(abréviation) de la direction ou du service"
-                                value="{{ old('sigle') }}">
-                            <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('sigle'))
-                                    @foreach ($errors->get('sigle') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                @endif
-                            </small>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {!! Form::label('Type direction :') !!}<span class="text-danger"> <b>*</b> </span>
+                                {!! Form::select('type_direction', $types_directions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'type_direction']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('type_direction'))
+                                        @foreach ($errors->get('type_direction') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary"><i
                                 class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                     </form>

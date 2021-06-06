@@ -60,6 +60,13 @@
           allowClear: true
       });
   </script>
+  <script type="text/javascript">
+    
+    $("#type_direction").select2({
+          placeholder: "sélectionner type direction",
+          allowClear: true
+      });
+  </script>
 
   <script type="text/javascript">
     

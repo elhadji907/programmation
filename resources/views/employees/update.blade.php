@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('direction') !!}
-                            {!! Form::select('direction', $directions, $employee->direction->name, ['placeholder' => '', 'class' => 'form-control', 'id' => 'direction']) !!}
+                            {!! Form::select('direction', $directions, $employee->direction->sigle ?? '', ['placeholder' => '', 'class' => 'form-control', 'id' => 'direction']) !!}
                             <small id="emailHelp" class="form-text text-muted">
                                 @if ($errors->has('direction'))
                                     @foreach ($errors->get('direction') as $message)
