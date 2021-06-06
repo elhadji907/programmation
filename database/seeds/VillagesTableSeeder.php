@@ -67,7 +67,7 @@ class VillagesTableSeeder extends Seeder
                             //$id_gest=$gestionnaires_id[$randk];
                             //echo("Pass 3".PHP_EOL);
                             $role_beneficiaire=App\Role::where("name","Beneficiaire")->first();
-                            $direction_id=App\Direction::all()->random()->id;
+                            /* $direction_id=App\Direction::all()->random()->id; */
 
                             $user=App\User::firstOrNew([
                                 "name"=>$nom,

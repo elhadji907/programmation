@@ -16,14 +16,14 @@
                     <div class="row pt-5 pl-5">
                         <h4>
                             <b>Responsable:</b>
-                            {{ $direction->chef->user->firstname . ' ' . $direction->chef->user->name ?? 'Aucune direction choisie' }}<br />
-                            <b>Fonction:</b> {{ $direction->chef->fonction->name ?? 'Aucune fonction attribuée' }}
+                            {{ $employee->user->firstname.' '.$employee->user->name ?? 'Aucune direction choisie' }}<br />
+                            <b>Fonction:</b> {{ $employee->fonction->name ?? 'Aucune fonction attribuée' }}
                         </h4>
                     </div>
                     <div class="row pt-5"></div>
                     <form method="POST" action="{{ url('directions') }}">
                         @csrf
-                        <input type="hidden" name="direction" value="{{ $direction->id }}" class="form-control"
+                        <input type="hidden" name="employee" value="{{ $employee->id }}" class="form-control"
                             name="inputName" id="inputName" placeholder="">
 
                         <div class="form-group">

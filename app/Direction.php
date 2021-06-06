@@ -70,7 +70,6 @@ class Direction extends Eloquent
 	{
 		return $this->hasMany(\App\Employee::class, 'directions_id');
 	}
-	
 	public function chef()
 	{
 		return $this->belongsTo(\App\Employee::class, 'chef_id');

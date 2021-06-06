@@ -39,13 +39,6 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('direction') !!}
                             {!! Form::select('direction', $directions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'direction']) !!}
-                            <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('direction'))
-                                    @foreach ($errors->get('direction') as $message)
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @endforeach
-                                @endif
-                            </small>
                         </div>
                     </div>
                     <div class="form-row">
@@ -186,8 +179,16 @@
                                 @endif
                             </small>
                         </div>
-                        <div class="invalid-feedback">
-                            {{ $errors->first('familiale') }}
+                        <div class="form-group col-md-6">
+                            {!! Form::label('Adresse') !!}
+                            {!! Form::text('adresse', null, ['placeholder' => 'Votre adresse', 'class' => 'form-control']) !!}
+                            <small id="emailHelp" class="form-text text-muted">
+                                @if ($errors->has('adresse'))
+                                    @foreach ($errors->get('adresse') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @endforeach
+                                @endif
+                            </small>
                         </div>
                     </div>
                     <div class="form-row">

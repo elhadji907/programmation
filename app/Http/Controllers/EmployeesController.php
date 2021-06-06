@@ -54,9 +54,8 @@ class EmployeesController extends Controller
 
         $employees = Employee::all();
 
-        /* dd($employees); */
-
         return view('employees.index', compact('chart', 'employees'));
+
     }
 
     /**
@@ -80,6 +79,7 @@ class EmployeesController extends Controller
         ]);
 
         return view('employees.create',compact('roles', 'civilites','directions','categories','fonctions', 'chart'));
+
     }
 
     /**
@@ -93,16 +93,16 @@ class EmployeesController extends Controller
         $this->validate(
             $request, [
                 'civilite'      =>  'required|string|max:10',
-                'direction'     =>  'required|string|max:10',
                 'matricule'     =>  'required|string|max:50',
                 'categorie'     =>  'required|string|max:50',
                 'firstname'     =>  'required|string|max:50',
-                'fonction'      =>  'required|string|max:50',
+                'fonction'      =>  'required|string',
                 'name'          =>  'required|string|max:50',
                 'username'      =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
                 'cin'           =>  'required|string|min:12|max:15',
+                'adresse'       =>  'string',
                 'familiale'     =>  'required|string',
                 'date_naiss'    =>  'required|date',
                 'date_embauche' =>  'required|date',
@@ -125,6 +125,7 @@ class EmployeesController extends Controller
             'password'              =>      Hash::make($request->input('password')),
             'roles_id'              =>      $roles_id
         ]);
+        
         $utilisateur->save();
 
         $date = Carbon::createFromFormat('Y-m-d', $request->input('date_naiss'));
@@ -252,6 +253,7 @@ class EmployeesController extends Controller
                 'roles_id' => $roles_id,
 
                 ]);
+                
                 $employee->update([
                 'matricule'         =>      $data['matricule'],
                 'cin'               =>      $data['cin'],

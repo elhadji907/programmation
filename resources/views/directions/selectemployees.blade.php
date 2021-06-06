@@ -32,7 +32,6 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -71,7 +70,7 @@
                 "columnDefs": [{
                         "data": null,
                         "render": function(data, type, row) {
-                            url_e = "{!! route('directions.create', 'direction=:id') !!}".replace(':id', data.id);
+                            url_e = "{!! route('directions.create', 'employee=:id') !!}".replace(':id', data.id);
                             return '<a href=' + url_e +
                                 '  class=" btn btn-primary " ><i class="fas fa-check"></i>';
                         },

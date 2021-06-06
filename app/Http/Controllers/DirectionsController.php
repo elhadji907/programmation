@@ -46,9 +46,14 @@ class DirectionsController extends Controller
        $direction_id=$request->input('direction');
        $direction=\App\Direction::find($direction_id);
 
-       //dd($direction_id);
 
-        return view('directions.create',compact('user', 'chart','direction'));
+       
+       $employee_id=$request->input('employee');
+       $employee=\App\Employee::find($employee_id);
+
+      /*  dd($employee); */
+
+        return view('directions.create',compact('user', 'chart','employee'));
     }
 
     /**
@@ -63,14 +68,20 @@ class DirectionsController extends Controller
             $request, [
                 'input-direction'     => 'required|string|max:250',
                 'input-sigle'         => 'required|string|max:10',
-                'direction'           => 'required|exists:directions,id',
+                'employee'            => 'required|exists:employees,id',
             ]
         );
 
+
+        $employee_id=$request->input('employee');
+        $employee=\App\Employee::find($employee_id);
+
+        //dd($employee);
+        
         $direction = new Direction([            
             'name'      =>      $request->input('input-direction'),
             'sigle'     =>      $request->input('input-sigle'),
-            'chef_id'   =>      $request->input('direction')
+            'chef_id'   =>      $request->input('employee')
 
         ]);
 
@@ -122,8 +133,11 @@ class DirectionsController extends Controller
             [
                 'direction'     => 'required|string|max:250',
                 'sigle'         => 'required|string|max:10',
+                'direction'     => 'required|exists:directions,id',
             ]);
+
             $direction = Direction::find($id);
+
             $direction->name   =     $request->input('direction');
             $direction->sigle  =     $request->input('sigle');
 
@@ -147,7 +161,7 @@ class DirectionsController extends Controller
 
     public function list(Request $request)
     {
-        $directions=Direction::with('chef','employees')->get();
+        $directions=Direction::with('employees','chef')->get();
         return Datatables::of($directions)->make(true);
 
     }

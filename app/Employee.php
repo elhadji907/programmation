@@ -164,4 +164,9 @@ class Employee extends Eloquent
 	{
 		return $this->hasMany(\App\Stagiaire::class, 'employees_id');
 	}
+		
+	public function chef()
+	{
+		return $this->belongsTo(\App\Direction::class, 'chef_id');
+	}
 }

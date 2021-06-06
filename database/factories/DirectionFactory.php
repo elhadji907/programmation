@@ -18,7 +18,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Direction::class, function (Faker\Generator $faker) {
-    $chef_id = App\Administrateur::all()->random()->id;
+    $chef_id = App\Employee::all()->random()->id;
 
     return [
         'name' => SnmG::getDirection(),

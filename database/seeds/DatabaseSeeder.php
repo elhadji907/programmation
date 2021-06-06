@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesCourriersTableSeeder::class);
         $this->call(AdministrateursTableSeeder::class);
         $this->call(GestionnairesTableSeeder::class);
+        $this->call(VillagesTableSeeder::class);
         $this->call(NiveauxTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
         $this->call(DiplomesTableSeeder::class);
@@ -39,9 +40,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartementsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        $this->call(DirectionsTableSeeder::class);
         $this->call(EmployeesTableSeeder::class);
-        $this->call(VillagesTableSeeder::class);
+        /* $this->call(DirectionsTableSeeder::class); */
         //$this->call(DemandeursTableSeeder::class);
         //$this->call(IndividuellesTableSeeder::class);
         //$this->call(BeneficiairesTableSeeder::class);

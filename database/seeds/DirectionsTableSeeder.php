@@ -11,7 +11,7 @@ class DirectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Direction::class,16)->create();
+        factory(App\Direction::class,1)->create();
                 
     }
 }
