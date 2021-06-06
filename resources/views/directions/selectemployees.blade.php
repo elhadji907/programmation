@@ -18,17 +18,23 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>ID</th>
+                                        <th>Matricule</th>
                                         <th>Prenom</th>
                                         <th>Nom</th>
-                                        <th style="width:10%;">Selectionner</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th style="width:8%;">Selectionner</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
                                         <th>ID</th>
+                                        <th>Matricule</th>
                                         <th>Prenom</th>
                                         <th>Nom</th>
-                                        <th style="width:10%;">Selectionner</th>
+                                        <th>Email</th>
+                                        <th>Téléphone</th>
+                                        <th style="width:8%;">Selectionner</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -41,6 +47,8 @@
         </div>
     </div>
 @endsection
+
+
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
@@ -53,12 +61,24 @@
                         name: 'id'
                     },
                     {
+                        data: 'user.employee.matricule',
+                        name: 'user.employee.matricule'
+                    },
+                    {
                         data: 'user.firstname',
                         name: 'user.firstname'
                     },
                     {
                         data: 'user.name',
                         name: 'user.name'
+                    },
+                    {
+                        data: 'user.email',
+                        name: 'user.email'
+                    },
+                    {
+                        data: 'user.telephone',
+                        name: 'user.telephone'
                     },
                     {
                         data: null,
@@ -74,7 +94,7 @@
                             return '<a href=' + url_e +
                                 '  class=" btn btn-primary " ><i class="fas fa-check"></i>';
                         },
-                        "targets": 3
+                        "targets": 6
                     },
 
                 ],
