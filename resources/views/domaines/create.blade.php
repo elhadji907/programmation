@@ -19,7 +19,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="input-name"><b>{{ __("Secteur d'activité") }}:</b></label>
-                                    <select name="secteur" id="secteur" class="form-control">
+                                    <select name="secteur" id="secteur" class="form-control" data-width="100%">
                                             <option value="">{{ ("--sélectionner--") }}</option>
                                             @foreach($secteurs as $secteur)
                                                 <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>

@@ -19,7 +19,7 @@
                            @csrf
                            <input type="hidden" name="_method" value="PATCH" /> 
                             <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 <label for="input-name"><b>{{ __("Nom du domaine") }}:</b></label>
                                 <input type="text" name="name" class="form-control" id="input-name" placeholder="ex: primaire" value="{{ old('name') ?? $domaines->name }}">
                                 <small id="emailHelp" class="form-text text-muted">
@@ -30,9 +30,9 @@
                                         @endif
                                 </small>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 <label for="input-name"><b>{{ __("Secteur d'activité") }}:</b></label>
-                                <select name="secteur" id="secteur" class="form-control">
+                                <select name="secteur" id="secteur" class="form-control" data-width="100%">
                                         <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
                                         <option value="">{{ __("-----sélectionner-----") }}</option>
                                         @foreach($secteurs as $secteur)

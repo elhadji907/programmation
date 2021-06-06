@@ -17,12 +17,11 @@
                         <form method="POST" action="{{ action('DirectionsController@update', $id) }}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH" />
-                            <div class="form-row">
-                                <div class="col-md-12 col-lg-8 col-xs-12 col-sm-12">
+                            <div class="row">
+                                <div class="form-group col col-md-12 col-lg-8 col-xs-12 col-sm-12">
                                     <label for="input-direction"><b>Direction / Service:</b></label>
                                     <input type="text" name="direction" class="form-control" id="input-direction"
-                                        placeholder="Entrer le nom de la direction ou du service"
-                                        value="{{ $directions->name }}">
+                                        placeholder="Entrer nom direction" value="{{ $directions->name }}">
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('direction'))
                                             @foreach ($errors->get('direction') as $message)
@@ -31,11 +30,10 @@
                                         @endif
                                     </small>
                                 </div>
-                                <div class="col-md-12 col-lg-4 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-12 col-lg-4 col-xs-12 col-sm-12">
                                     <label for="input-sigle"><b>sigle:</b></label>
                                     <input type="text" name="sigle" class="form-control" id="input-sigle"
-                                        placeholder="Entrer le sigle(abréviation) de la direction ou du service"
-                                        value="{{ $directions->sigle }}">
+                                        placeholder="Entrer sigle" value="{{ $directions->sigle }}">
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('sigle'))
                                             @foreach ($errors->get('sigle') as $message)
@@ -44,9 +42,22 @@
                                         @endif
                                     </small>
                                 </div>
-                                &nbsp;
-                                &nbsp;
                             </div>
+                            <div class="row">
+                                <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                    {!! Form::label('Type direction') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('type_direction', $types_directions, $directions->types_direction->name, ['placeholder' => '', 'data-width'=>'100%', 'class' => 'form-control', 'id' => 'type_direction']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('type_direction'))
+                                            @foreach ($errors->get('type_direction') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                            </div>
+                            &nbsp;
+                            &nbsp;
                             <button type="submit" class="btn btn-outline-primary float-right"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>

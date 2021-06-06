@@ -119,7 +119,10 @@ class DirectionsController extends Controller
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);        
-        return view('directions.update', compact('directions','id','chart'));
+        
+        $types_directions = TypesDirection::distinct('name')->get()->pluck('name','name')->unique();
+
+        return view('directions.update', compact('directions','id','chart','types_directions'));
     }
 
     /**
@@ -137,7 +140,6 @@ class DirectionsController extends Controller
                 'direction'     => 'required|string|max:250',
                 'sigle'         => 'required|string|max:10',
                 'type_direction'      => 'required',
-                'employee'            => 'required|exists:employees,id',
             ]);
 
             $direction = Direction::find($id);
