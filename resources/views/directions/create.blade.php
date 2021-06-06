@@ -28,10 +28,9 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-8">
-                                <label for="input-direction"><b>Direction / Service:</b></label>
-                                <input type="text" name="input-direction" class="form-control" id="input-direction"
-                                    placeholder="Entrer nom direction"
-                                    value="{{ old('direction') }}">
+                                <label for="input-direction"><b>Nom Direction:</b></label>
+                                <input type="text" name="direction" class="form-control" id="direction"
+                                    placeholder="Entrer nom direction" value="{{ old('direction') }}">
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('direction'))
                                         @foreach ($errors->get('direction') as $message)
@@ -42,9 +41,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="input-sigle"><b>sigle:</b></label>
-                                <input type="text" name="input-sigle" class="form-control" id="input-sigle"
-                                    placeholder="Entrer sigle"
-                                    value="{{ old('sigle') }}">
+                                <input type="text" name="sigle" class="form-control" id="sigle"
+                                    placeholder="Entrer sigle" value="{{ old('sigle') }}">
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('sigle'))
                                         @foreach ($errors->get('sigle') as $message)

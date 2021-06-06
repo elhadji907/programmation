@@ -67,8 +67,8 @@ class DirectionsController extends Controller
     {
         $this->validate(
             $request, [
-                'input-direction'     => 'required|string|max:250',
-                'input-sigle'         => 'required|string|max:10',
+                'direction'     => 'required|string|max:250',
+                'sigle'         => 'required|string|max:10',
                 'type_direction'      => 'required',
                 'employee'            => 'required|exists:employees,id',
             ]
@@ -81,8 +81,8 @@ class DirectionsController extends Controller
         //dd($employee);
         
         $direction = new Direction([            
-            'name'                  =>      $request->input('input-direction'),
-            'sigle'                 =>      $request->input('input-sigle'),
+            'name'                  =>      $request->input('direction'),
+            'sigle'                 =>      $request->input('sigle'),
             'types_directions_id'   =>      $request->input('type_direction'),
             'chef_id'               =>      $request->input('employee')
 
@@ -136,7 +136,8 @@ class DirectionsController extends Controller
             [
                 'direction'     => 'required|string|max:250',
                 'sigle'         => 'required|string|max:10',
-                'direction'     => 'required|exists:directions,id',
+                'type_direction'      => 'required',
+                'employee'            => 'required|exists:employees,id',
             ]);
 
             $direction = Direction::find($id);
