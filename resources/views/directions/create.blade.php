@@ -41,8 +41,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="input-sigle"><b>sigle:</b></label>
-                                <input type="text" name="sigle" class="form-control" id="sigle"
-                                    placeholder="Entrer sigle" value="{{ old('sigle') }}">
+                                <input type="text" name="sigle" class="form-control" id="sigle" placeholder="Entrer sigle"
+                                    value="{{ old('sigle') }}">
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('sigle'))
                                         @foreach ($errors->get('sigle') as $message)
@@ -56,7 +56,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 {!! Form::label('Type direction :') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::select('type_direction', $types_directions, null, ['placeholder' => '', 'data-width'=>'100%', 'class' => 'form-control', 'id' => 'type_direction']) !!}
+                                {!! Form::select('type_direction', $types_directions, null, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'type_direction']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('type_direction'))
                                         @foreach ($errors->get('type_direction') as $message)

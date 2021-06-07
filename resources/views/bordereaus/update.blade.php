@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     {!! Form::label('Imputation') !!}                    
-                                    {!! Form::select('imputations[]', $imputations, null, ['multiple'=>'multiple', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
+                                    {!! Form::select('imputations[]', $imputations, null, ['multiple'=>'multiple', 'data-width' => '100%', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
                                 </div> 
                             </div>
                             <div class="form-row">
@@ -95,7 +95,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     {!! Form::label('', null, ['class' => 'control-label']) !!}                    
-                                    {!! Form::file('file', null, ['class'=>'form-control-file']) !!}
+                                    {!! Form::file('file', null, ['class'=>'form-control-file', 'data-width' => '100%']) !!}
                                     @if ($bordereau->courrier->file !== "")
                                     <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint" target="_blank" href="{{ asset($bordereau->courrier->getFile()) }}">
                                         <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
@@ -103,7 +103,7 @@
                                     @endif             
                                 </div>
                                 <div class="form-group col-md-6">                
-                                    {!! Form::text('legende', $bordereau->courrier->legende, ['placeholder'=>'attribué un nom du fichier joint', 'class'=>'form-control']) !!}                    
+                                    {!! Form::text('legende', $bordereau->courrier->legende, ['placeholder'=>'attribué un nom du fichier joint', 'data-width' => '100%', 'class'=>'form-control']) !!}                    
                                 </div> 
                             </div>
                             <div class="bg-gradient-secondary text-center">
@@ -113,7 +113,7 @@
                                 
                                 <div class="form-group col-md-12">
                                     {!! Form::label("Projet") !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('projet', $projets, $bordereau->courrier->projet->sigle, ['placeholder' => '', 'class' =>
+                                    {!! Form::select('projet', $projets, $bordereau->courrier->projet->sigle, ['placeholder' => '', 'data-width' => '100%', 'class' =>
                                     'form-control', 'id' => 'projet']) !!}
                                 </div>                               
                             </div>
