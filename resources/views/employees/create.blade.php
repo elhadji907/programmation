@@ -169,8 +169,8 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            {!! Form::label('Situation familiale') !!}
-                            {!! Form::text('familiale', null, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control']) !!}
+                            {!! Form::label('Situation familiale :') !!}
+                            {!! Form::select('familiale', ['Marié(e)' => 'Marié(e)', 'Célibataire' => 'Célibataire'], null, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' => 'familiale']) !!}
                             <small id="emailHelp" class="form-text text-muted">
                                 @if ($errors->has('familiale'))
                                     @foreach ($errors->get('familiale') as $message)
@@ -179,6 +179,19 @@
                                 @endif
                             </small>
                         </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('date embauche', null, ['class' => 'control-label']) !!}
+                            {!! Form::date('date_embauche', null, ['placeholder' => 'La date de recrutement', 'class' => 'form-control']) !!}
+                            <small id="emailHelp" class="form-text text-muted">
+                                @if ($errors->has('date_embauche'))
+                                    @foreach ($errors->get('date_embauche') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @endforeach
+                                @endif
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             {!! Form::label('Adresse') !!}
                             {!! Form::text('adresse', null, ['placeholder' => 'Votre adresse', 'class' => 'form-control']) !!}
@@ -190,25 +203,36 @@
                                 @endif
                             </small>
                         </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('Autre Adresse') !!}
+                            {!! Form::text('autre_adresse', null, ['placeholder' => 'Votre deuxième adresse', 'class' => 'form-control']) !!}
+                            <small id="emailHelp" class="form-text text-muted">
+                                @if ($errors->has('autre_adresse'))
+                                    @foreach ($errors->get('autre_adresse') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @endforeach
+                                @endif
+                            </small>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            {!! Form::label("date embauche", null, ['class' => 'control-label']) !!}
-                            {!! Form::date('date_embauche', null, ['placeholder' => 'La date de recrutement', 'class' => 'form-control']) !!}
+                            {!! Form::label('Telephone portable') !!}
+                            {!! Form::text('telephone', null, ['placeholder' => 'Numero de telephone portable', 'class' => 'form-control']) !!}
                             <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('date_embauche'))
-                                    @foreach ($errors->get('date_embauche') as $message)
+                                @if ($errors->has('telephone'))
+                                    @foreach ($errors->get('telephone') as $message)
                                         <p class="text-danger">{{ $message }}</p>
                                     @endforeach
                                 @endif
                             </small>
                         </div>
                         <div class="form-group col-md-6">
-                            {!! Form::label('Telephone') !!}
-                            {!! Form::text('telephone', null, ['placeholder' => 'Numero de telephone', 'class' => 'form-control']) !!}
+                            {!! Form::label('Telephone Fixe') !!}
+                            {!! Form::text('fixe', null, ['placeholder' => 'Numero de telephone fixe', 'class' => 'form-control']) !!}
                             <small id="emailHelp" class="form-text text-muted">
-                                @if ($errors->has('telephone'))
-                                    @foreach ($errors->get('telephone') as $message)
+                                @if ($errors->has('fixe'))
+                                    @foreach ($errors->get('fixe') as $message)
                                         <p class="text-danger">{{ $message }}</p>
                                     @endforeach
                                 @endif

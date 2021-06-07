@@ -1,4 +1,4 @@
- {{--   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>  --}}
+   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> 
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 {{--   <!-- Core plugin JavaScript--> --}}
@@ -16,11 +16,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"></script>
-
-  {{--  <script src="{{ asset('dist/js/select2.min.js') }}"></script>  --}}
+  <script src="{{ asset('dist/js/select2.min.js') }}"></script> 
     
   <script type="text/javascript">
   

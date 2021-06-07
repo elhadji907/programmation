@@ -9,6 +9,7 @@ use App\Role;
 use App\Objet;
 use App\Direction;
 use App\Courrier;
+use Auth;
 use App\Category;
 use App\Fonction;
 use Carbon\Carbon;
@@ -100,6 +101,7 @@ class EmployeesController extends Controller
                 'name'          =>  'required|string|max:50',
                 'username'      =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
+                'fixe'          =>  'required|string|max:50',
                 'email'         =>  'required|email|max:255|unique:users,email',
                 'cin'           =>  'required|string|min:12|max:15',
                 'adresse'       =>  'string',
@@ -111,8 +113,28 @@ class EmployeesController extends Controller
         ); 
         
         $roles_id = Role::where('name','Administrateur')->first()->id;
+
+        $civilite = $request->input('civilite');
+        
+        if ($civilite == "Mme") {
+           $sexe = "F";
+        } elseif ($civilite == "M.") {
+            $sexe = "M";
+        } else {
+               $sexe = "";
+        }
+
+        
+       
+       $created_by1 = Auth::user()->firstname;
+       $created_by2 = Auth::user()->name;
+       $created_by3 = Auth::user()->username;
+
+       $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
+
         $utilisateur = new User([      
             'civilite'              =>      $request->input('civilite'),      
+            'sexe'                  =>      $sexe,      
             'firstname'             =>      $request->input('firstname'),
             'name'                  =>      $request->input('name'),
             'username'              =>      $request->input('username'),
@@ -122,8 +144,13 @@ class EmployeesController extends Controller
             'adresse'               =>      $request->input('adresse'),
             'email'                 =>      $request->input('email'),
             'telephone'             =>      $request->input('telephone'),
+            'fixe'                  =>      $request->input('fixe'),
+            'bp'                    =>      $request->input('bp'),
+            'fax'                   =>      $request->input('fax'),
             'password'              =>      Hash::make($request->input('password')),
-            'roles_id'              =>      $roles_id
+            'roles_id'              =>      $roles_id,
+            'created_by'            =>      $created_by,
+            'updated_by'            =>      $created_by
         ]);
         
         $utilisateur->save();
@@ -137,6 +164,7 @@ class EmployeesController extends Controller
             'date_embauche' =>     $request->input('date_embauche'),
             'fin'           =>     $fin,
             'users_id'      =>     $utilisateur->id,
+            'adresse'       =>      $request->input('autre_adresse'),
             'categories_id' =>     $request->input('categorie'),
             'directions_id' =>     $request->input('direction'),
             'fonctions_id'  =>     $request->input('fonction')
@@ -190,8 +218,7 @@ class EmployeesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Employee $employee)
-    {
-         
+    {         
         $data = request()->validate([
                 'civilite'      =>  'required|string|max:10',
                 'direction'     =>  'required|string',
@@ -201,15 +228,18 @@ class EmployeesController extends Controller
                 'fonction'      =>  'required|string',
                 'name'          =>  'required|string|max:50',
                 'telephone'     =>  'required|string|max:50',
+                'fixe'          =>  'required|string|max:50',
                 'cin'           =>  'required|string|min:12|max:15',
                 'familiale'     =>  'required|string',
                 'adresse'       =>  'string',
+                'autre_adresse' =>  'string',
                 'date_naiss'    =>  'required|date',
                 'date_embauche' =>  'required|date',
                 'lieu'          =>  'required|string',
                 'bp'            =>  'string',
                 'fax'           =>  'string',
                 'image'         =>  'sometimes|image|max:3000',
+                'updated_by'         =>  'string',
             ]
         );
 
@@ -228,7 +258,24 @@ class EmployeesController extends Controller
 
         $date = Carbon::createFromFormat('Y-m-d', $request->input('date_naiss'));
         $fin = $date->addYears(60);
+
+        $civilite = $request->input('civilite');
         
+        if ($civilite == "Mme") {
+           $sexe = "F";
+        } elseif ($civilite == "M.") {
+            $sexe = "M";
+        } else {
+               $sexe = "";
+        }
+
+        $updated_by1 = Auth::user()->firstname;
+        $updated_by2 = Auth::user()->name;
+        $updated_by3 = Auth::user()->username;
+
+        $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
+
+                
         if (request('image')) {
             $imagePath = request('image')->store('avatars', 'public');
     
@@ -241,6 +288,7 @@ class EmployeesController extends Controller
     
                 $user->update([
                 'civilite' => $data['civilite'],
+                'sexe' => $sexe,
                 'firstname' => $data['firstname'],
                 'name' => $data['name'],
                 'date_naissance' => $data['date_naiss'],
@@ -248,9 +296,11 @@ class EmployeesController extends Controller
                 'situation_familiale' => $data['familiale'],
                 'adresse' => $data['adresse'],
                 'telephone' => $data['telephone'],
+                'fixe' => $data['fixe'],
                 'bp' => $data['bp'],
                 'fax' => $data['fax'],
                 'roles_id' => $roles_id,
+                'updated_by' =>     $updated_by,
 
                 ]);
                 
@@ -258,6 +308,7 @@ class EmployeesController extends Controller
                 'matricule'         =>      $data['matricule'],
                 'cin'               =>      $data['cin'],
                 'date_embauche'     =>      $data['date_embauche'],
+                'adresse'           =>      $data['autre_adresse'],
                 'fin'               =>      $fin,
                 'directions_id'     =>      $directions_id,
                 'fonctions_id'      =>      $fonctions_id,
@@ -271,6 +322,7 @@ class EmployeesController extends Controller
 
                 $user->update([
                 'civilite' => $data['civilite'],
+                'sexe' => $sexe,
                 'firstname' => $data['firstname'],
                 'name' => $data['name'],
                 'date_naissance' => $data['date_naiss'],
@@ -280,16 +332,18 @@ class EmployeesController extends Controller
                 'bp' => $data['bp'],
                 'fax' => $data['fax'],
                 'telephone' => $data['telephone'],
+                'fixe' => $data['fixe'],
                 'roles_id' => $roles_id,
+                'updated_by'   =>     $updated_by,
 
                 ]);
-
 
                 $employee->update([
                 'matricule'         =>      $data['matricule'],
                 'cin'               =>      $data['cin'],
                 'date_embauche'     =>      $data['date_embauche'],
                 'fin'               =>      $fin,
+                'adresse'           =>      $data['autre_adresse'],
                 'directions_id'     =>      $directions_id,
                 'fonctions_id'      =>      $fonctions_id,
                 'categories_id'     =>      $categories_id,

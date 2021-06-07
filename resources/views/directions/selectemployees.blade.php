@@ -14,7 +14,7 @@
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-employees">
+                                id="table-employees" style="height: 100px;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>ID</th>
@@ -23,7 +23,7 @@
                                         <th>Nom</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
-                                        <th style="width:8%;">Selectionner</th>
+                                        <th style="width:2%;">Choisir</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
@@ -34,7 +34,7 @@
                                         <th>Nom</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
-                                        <th style="width:8%;">Selectionner</th>
+                                        <th>Choisir</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -92,7 +92,7 @@
                         "render": function(data, type, row) {
                             url_e = "{!! route('directions.create', 'employee=:id') !!}".replace(':id', data.id);
                             return '<a href=' + url_e +
-                                '  class=" btn btn-primary " ><i class="fas fa-check"></i>';
+                                '  class="btn btn-outline-primary" ><i class="fa fa-check" aria-hidden="true"></i>';
                         },
                         "targets": 6
                     },
