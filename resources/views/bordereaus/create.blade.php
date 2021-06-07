@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Nbre de pièces :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::number('nombre_de_piece', null, ['placeholder' => 'Le nombre de pièces', 'class' => 'form-control', 'min' => '0', 'max' => '100']) !!}
+                                    {!! Form::number('nombre_de_piece', 1, ['placeholder' => 'Le nombre de pièces', 'class' => 'form-control', 'min' => '0', 'max' => '100']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('nombre_de_piece'))
                                             @foreach ($errors->get('nombre_de_piece') as $message)

@@ -100,7 +100,11 @@
     <div class="invoice-box justify-content-center">
         <div class="card">            
             <div class="card card-header text-center bg-gradient-success">
-                <h1 class="h4 text-white mb-0">{!! $bordereau->courrier->types_courrier->name !!}</h1>
+               {{--   <h1 class="h4 text-white mb-0">{!! $bordereau->courrier->types_courrier->name !!}</h1>  --}}
+                <h1 class="h4 card-title text-center text-white h-100 text-uppercase mb-0"><b>{!! $bordereau->courrier->types_courrier->name !!}
+                    {!! ' ' !!} N° : </b><span
+                    class="font-italic">{{ $bordereau->numero_mandat ?? 'Aucun numéro' }}</span></h1>
+
             </div> 
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
@@ -114,7 +118,7 @@
                             </td>
                             <td>
                                 Numéro #:                                   
-                                {!! $bordereau->numero !!}<br>
+                                {!! $bordereau->numero_mandat !!}<br>
                                 Date correspondance:  {!! Carbon\Carbon::parse($bordereau->courrier->date_cores)->format('d/m/Y') !!}<br>
                                 Date réception:  {!! Carbon\Carbon::parse($bordereau->courrier->date_recep)->format('d/m/Y') !!}<br>
                             </td>
