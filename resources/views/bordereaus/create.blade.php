@@ -82,7 +82,7 @@
                                     </small>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Date mandatement :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::label('Date mandatement :', null, ['class' => 'control-label']) !!}
                                     {!! Form::date('date_mandat', null, ['placeholder' => 'La date de naissance', 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('date_mandat'))

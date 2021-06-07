@@ -62,7 +62,7 @@
                                     !!}
                                 </div>                                
                                 <div class="form-group col-md-6">
-                                    {!! Form::label('Date de mandatement :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::label('Date de mandatement :', null, ['class' => 'control-label']) !!}
                                     {!! Form::date('date_mandat', Carbon\Carbon::parse( $bordereau->date_mandat)->format('Y-m-d'), ['placeholder' => 'La date de naissance', 'class' =>
                                     'form-control']) !!}
                                 </div>

@@ -22,9 +22,12 @@
                         {{-- <h4 class="card-category"><b><u>Objet</u> : </b>{!! $bordereau->courrier->objet ?? 'Aucun objet' !!}</h4> --}}
                         <p><b><u class="h4">Designation</u> : </b>{{ $bordereau->designation ?? 'Aucune designation' }}</p>
                         <p><b><u class="h4">Observation</u> : </b>{{ $bordereau->observation ?? 'Aucune observation' }}</p>
+                        <div class="d-flex justify-content-between align-items-center pt-2">
                         <p><b><u class="h4">Montant</u> : </b><span
                                 class="font-italic">{{ $bordereau->montant ?? 'Aucune montant' }}</span>{!! ' F CFA' !!}
                         </p>
+                        <span><b><u class="h4">Date mandatement</u> : </b>{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') ?? "Pas encore mandaté" !!}</span>
+                    </div>
                         <div class="d-flex justify-content-between align-items-center pt-2">
                             <small>Posté le {!! Carbon\Carbon::parse($bordereau->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
                             <span class="badge badge-primary">{!! $bordereau->courrier->user->firstname !!}&nbsp;{!! $bordereau->courrier->user->name !!}</span>
