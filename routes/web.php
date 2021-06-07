@@ -67,6 +67,7 @@ Route::group([
         Route::get('/banques/list', 'BanquesController@list')->name('banques.list');
         Route::get('/missions/list', 'MissionsController@list')->name('missions.list');
         Route::get('/bordereaus/list', 'BordereausController@list')->name('bordereaus.list');
+        Route::get('/listes/list', 'ListesController@list')->name('listes.list');
         Route::get('/tresors/list', 'TresorsController@list')->name('tresors.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
@@ -92,6 +93,7 @@ Route::group([
         Route::resource('/banques', 'BanquesController');
         Route::resource('/missions', 'MissionsController');
         Route::resource('/bordereaus', 'BordereausController');
+        Route::resource('/listes', 'ListesController');
         Route::resource('/tresors', 'TresorsController');
         Route::resource('/presentations', 'PresentationsController');
         Route::resource('/recues', 'RecuesController');

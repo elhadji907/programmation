@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Mon, 07 Jun 2021 22:57:38 +0000.
  */
 
 namespace App;
@@ -22,27 +22,27 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $nombre_de_piece
  * @property string $observation
  * @property int $courriers_id
+ * @property int $listes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Courrier $courrier
- * @property \Illuminate\Database\Eloquent\Collection $listes
+ * @property \App\Liste $liste
  *
  * @package App
  */
 class Bordereau extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'numero_mandat' => 'int',
 		'montant' => 'float',
 		'nombre_de_piece' => 'int',
-		'courriers_id' => 'int'
+		'courriers_id' => 'int',
+		'listes_id' => 'int'
 	];
 
 	protected $dates = [
@@ -58,7 +58,8 @@ class Bordereau extends Eloquent
 		'montant',
 		'nombre_de_piece',
 		'observation',
-		'courriers_id'
+		'courriers_id',
+		'listes_id'
 	];
 
 	public function courrier()
@@ -66,8 +67,8 @@ class Bordereau extends Eloquent
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
-	public function listes()
+	public function liste()
 	{
-		return $this->hasMany(\App\Liste::class, 'bordereaus_id');
+		return $this->belongsTo(\App\Liste::class, 'listes_id');
 	}
 }

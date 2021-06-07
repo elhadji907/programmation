@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RecuesTableSeeder::class);
         $this->call(ProgrammesTableSeeder::class);
         $this->call(LieuxsTableSeeder::class);
+        $this->call(ListesTableSeeder::class);
         $this->call(BordereausTableSeeder::class);
         $this->call(FacturesdafsTableSeeder::class);
         $this->call(TresorsTableSeeder::class);

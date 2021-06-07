@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Mon, 07 Jun 2021 22:57:46 +0000.
  */
 
 namespace App;
@@ -14,37 +14,31 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $numero
  * @property string $name
  * @property string $sigle
- * @property int $bordereaus_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Bordereau $bordereau
+ * @property \Illuminate\Database\Eloquent\Collection $bordereaus
  *
  * @package App
  */
 class Liste extends Eloquent
 {
-		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
-
-	protected $casts = [
-		'bordereaus_id' => 'int'
-	];
 
 	protected $fillable = [
 		'uuid',
+		'numero',
 		'name',
-		'sigle',
-		'bordereaus_id'
+		'sigle'
 	];
 
-	public function bordereau()
+	public function bordereaus()
 	{
-		return $this->belongsTo(\App\Bordereau::class, 'bordereaus_id');
+		return $this->hasMany(\App\Bordereau::class, 'listes_id');
 	}
 }

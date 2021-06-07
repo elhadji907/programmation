@@ -32,14 +32,22 @@ class CreateBordereausTable extends Migration
             $table->integer('nombre_de_piece')->nullable();
             $table->longText('observation')->nullable();
             $table->unsignedInteger('courriers_id');
+            $table->unsignedInteger('listes_id')->nullable();
 
             $table->index(["courriers_id"], 'fk_bordereaus_courriers1_idx');
+
+            $table->index(["listes_id"], 'fk_bordereaus_listes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
             $table->foreign('courriers_id', 'fk_bordereaus_courriers1_idx')
                 ->references('id')->on('courriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('listes_id', 'fk_bordereaus_listes1_idx')
+                ->references('id')->on('listes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -17,8 +17,12 @@ $factory->define(App\Bordereau::class, function (Faker $faker) {
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
         },
+        'listes_id' => function () {
+            return factory(App\Liste::class)->create()->id;
+        },
     ];
 }); */
+
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -30,6 +34,8 @@ $factory->define(App\Bordereau::class, function (Faker\Generator $faker) use ($a
     $types_courrier_id=App\TypesCourrier::where('name','Bordereau')->first()->id;
     $annee = date('y');
     $numero_courrier = date('His');
+
+    $liste_id=App\Liste::all()->random()->id;
     
     return [
         'numero' => 'BD'.$autoIncremente_bd->current()."".$annee,
@@ -41,6 +47,9 @@ $factory->define(App\Bordereau::class, function (Faker\Generator $faker) use ($a
         'observation' => $faker->text,
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
+        },
+        'listes_id' => function () use($liste_id) {
+            return $liste_id;
         },
     ];
 });

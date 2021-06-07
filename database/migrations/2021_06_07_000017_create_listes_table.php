@@ -24,19 +24,11 @@ class CreateListesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
+            $table->string('numero', 200)->nullable();
             $table->string('name', 200)->nullable();
             $table->string('sigle', 200)->nullable();
-            $table->unsignedInteger('bordereaus_id')->nullable();
-
-            $table->index(["bordereaus_id"], 'fk_listes_bordereaus1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('bordereaus_id', 'fk_listes_bordereaus1_idx')
-                ->references('id')->on('bordereaus')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

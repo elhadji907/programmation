@@ -101,6 +101,9 @@
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">
       <span>Bordereaux</span>
     </a>
+    <a class="collapse-item" href="{{ route('listes.index') }}">
+      <span>Liste des B.</span>
+    </a>
     <a class="collapse-item" href="{{ route('facturesdafs.index') }}">
       <span>Factures</span>
     </a>
