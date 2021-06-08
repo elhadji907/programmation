@@ -25,6 +25,14 @@
               allowClear: true
           });
   </script>  
+    
+  <script type="text/javascript">
+  
+        $("#classeur").select2({
+              placeholder: "sélectionner un classeur",
+              allowClear: true
+          });
+  </script>  
   <script type="text/javascript">
   
         $("#projet").select2({

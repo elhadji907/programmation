@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 07 Jun 2021 22:57:46 +0000.
+ * Date: Tue, 08 Jun 2021 11:57:37 +0000.
  */
 
 namespace App;
@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $numero
+ * @property string $destinataire
+ * @property \Carbon\Carbon $date
  * @property string $name
- * @property string $sigle
+ * @property string $liste
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -30,11 +32,17 @@ class Liste extends Eloquent
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
+	protected $dates = [
+		'date'
+	];
+
 	protected $fillable = [
 		'uuid',
 		'numero',
+		'destinataire',
+		'date',
 		'name',
-		'sigle'
+		'liste'
 	];
 
 	public function bordereaus()

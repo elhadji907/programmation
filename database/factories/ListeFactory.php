@@ -8,10 +8,13 @@ $factory->define(App\Liste::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
+        'destinataire' => $faker->word,
+        'date' => $faker->dateTime(),
         'name' => $faker->name,
-        'sigle' => $faker->word,
+        'liste' => $faker->word,
     ];
 }); */
+
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
@@ -23,9 +26,11 @@ $factory->define(App\Liste::class, function (Faker\Generator $faker) use ($autoI
     $annee = date('y');
 
     return [
-        'numero' => 'Liste'.$autoIncremente_liste->current()."_".$annee,
+        'numero' => 'Feuil'.$autoIncremente_liste->current()."_".$annee,
+        'destinataire' => $faker->name,
+        'date' => $faker->dateTime(),
         'name' => $faker->name,
-        'sigle' => $faker->word,
+        'liste' => '',
     ];
 });
 

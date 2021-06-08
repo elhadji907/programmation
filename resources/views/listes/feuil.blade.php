@@ -1,9 +1,9 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste B')
+@section('title', 'B. DAF'.' '.$liste->numero)
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 @if (session()->has('success'))
                     <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                 @endif
@@ -15,56 +15,68 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Liste B
+                        {!! $liste->numero !!}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div align="right">
-                                <a href="{{ route('listes.create') }}">
+                                <a href="{{ route('bordereaus.create') }}">
                                     <div class="btn btn-success btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-listes">
+                                id="table-bordereaus">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th style="width:10%;">N°</th>
-                                        <th style="width:75%;">{!! __('Numéro') !!}</th>
-                                        <th style="width:15%;">Action</th>
+                                        <th style="width:5%;">N°</th>
+                                        <th style="width:8%;">{!! __('Numéro') !!}</th>
+                                        <th style="width:8%;">{!! __('Date/MP') !!}</th>
+                                        <th style="width:30%;">{!! __('Désignation') !!}</th>
+                                        <th>{!! __('Projet') !!}</th>
+                                        <th>{!! __('Montant') !!}</th>
+                                        <th style="width:5%;">{!! __('Nb/Pc') !!}</th>
+                                        <th>{!! __('Observation') !!}</th>
+                                        <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
                                         <th>N°</th>
                                         <th>{!! __('Numéro') !!}</th>
+                                        <th>{!! __('Date/MP') !!}</th>
+                                        <th>{!! __('Désignation') !!}</th>
+                                        <th>{!! __('Projet') !!}</th>
+                                        <th>{!! __('Montant') !!}</th>
+                                        <th>{!! __('Nb/Pc') !!}</th>
+                                        <th>{!! __('Observation') !!}</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($listes as $liste)
+                                    @foreach ($bordereaus as $bordereau)
                                         <tr>
                                             <td>{!! $i++ !!}</td>
-                                            <td>
-                                                <a style="color: darkorange; text-decoration: none;"
-                                                    href="{!! url('listes/'. $liste->id) !!}" class="view" title="voir"
-                                                    target="_blank">
-                                                    {!! $liste->numero !!}
-                                                </a>
-                                            </td>
+                                            <td>{!! $bordereau->numero !!}</td>
+                                            <td>{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') !!}</td>
+                                            <td>{!! $bordereau->designation !!}</td>
+                                            <td>{!! $bordereau->courrier->projet->sigle !!}</td>
+                                            <td>{!! $bordereau->montant !!}</td>
+                                            <td>{!! $bordereau->nombre_de_piece !!}</td>
+                                            <td>{!! $bordereau->observation !!}</td>
                                             <td class="d-flex align-items-center justify-content-center">
-                                                <a href="{!! url('listes/' . $liste->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 &nbsp
-                                                <a href="{!! url('listes/' . $liste->id) !!}" class='btn btn-primary btn-sm'
+                                                <a href="{!! url('bordereaus/' . $bordereau->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'listes/' . $liste->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                {!! Form::open(['method' => 'DELETE', 'url' => 'bordereaus/' . $bordereau->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
                                                 {!! Form::close() !!}
                                             </td>
@@ -83,7 +95,7 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-listes').DataTable({
+            $('#table-bordereaus').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print',

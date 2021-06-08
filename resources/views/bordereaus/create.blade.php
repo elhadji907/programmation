@@ -8,9 +8,9 @@
                     <div class="alert alert-success" role="alert">{{ session('success') }}</div>
                 @endif
                 <div class="row pt-0"></div>
-                <div class="card">
+                <div class="card p-3">
                     <div class="card-header card-header-primary text-center">
-                        <h3 class="card-title">Enregistrement bordereaux</h3>
+                        <h3 class="h4 card-title text-center h-100 text-uppercase mb-0">Enregistrement bordereaux</h3>
                     </div>
                     <div class="card-body">
                         <b> NB </b> : Les champs (<span class="text-danger"> <b>*</b> </span>) sont obligatoires
@@ -160,10 +160,25 @@
                                     </small>
                                 </div>
                             </div>
+                            <div class="bg-gradient-secondary text-center">
+                                <p class="h4 text-white mb-2">METTRE DANS UN CLASSEUR</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                    {!! Form::label('Classeur :', null, ['class' => 'control-label']) !!}
+                                    {!! Form::select('liste', $listes, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'classeur', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('classeur'))
+                                            @foreach ($errors->get('classeur') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary float-right"><i
                                     class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                         </form>
-
                         <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -193,7 +208,6 @@
                                                     });
 
                                                 </script>
-
                                             @endpush
                                         @endif
                                     </div>

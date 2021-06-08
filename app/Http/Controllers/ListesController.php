@@ -51,7 +51,9 @@ class ListesController extends Controller
      */
     public function show(Liste $liste)
     {
-        //
+        $bordereaus = $liste->bordereaus;
+        
+        return view('listes.feuil', compact('bordereaus','liste'));
     }
 
     /**

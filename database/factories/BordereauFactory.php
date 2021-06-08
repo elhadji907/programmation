@@ -36,15 +36,17 @@ $factory->define(App\Bordereau::class, function (Faker\Generator $faker) use ($a
     $numero_courrier = date('His');
 
     $liste_id=App\Liste::all()->random()->id;
+
+    $nombre = rand(1, 9);
     
     return [
         'numero' => 'BD'.$autoIncremente_bd->current()."".$annee,
-        'numero_mandat' => $faker->randomNumber(),
+        'numero_mandat' => $autoIncremente_bd->current(),
         'date_mandat' => $faker->dateTime(),
-        'designation' => $faker->text,
+        'designation' => $faker->paragraph(1),
         'montant' => $faker->randomFloat(),
-        'nombre_de_piece' => $faker->randomNumber(),
-        'observation' => $faker->text,
+        'nombre_de_piece' => $nombre,
+        'observation' => $faker->paragraph(1),
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
         },
@@ -56,7 +58,7 @@ $factory->define(App\Bordereau::class, function (Faker\Generator $faker) use ($a
 
 function autoIncremente_bd()
 {
-    for ($i = 0; $i < 100000; $i++) {
+    for ($i = 100; $i < 999; $i++) {
         yield $i;
     }
 }

@@ -35,7 +35,8 @@
                                         <th style="width:5%;">Projet</th>
                                         <th style="width:10%;">Montant</th>
                                         <th style="width:10%;">Nbre pièces</th>
-                                        <th style="width:25%;">Bobservations</th>
+                                        <th style="width:20%;">Bobservations</th>
+                                        <th style="width:5%;">Classeur</th>
                                         <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
@@ -48,6 +49,7 @@
                                         <th>Montant</th>
                                         <th>Nbre pièces</th>
                                         <th>Bobservations</th>
+                                        <th>Classeur</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -63,14 +65,14 @@
                                             <td class="align-middle">{!! $bordereau->montant !!}</td>
                                             <td class="align-middle">{!! $bordereau->nombre_de_piece !!}</td>
                                             <td class="align-middle">{!! $bordereau->observation !!}</td>
-                                            <td class="d-flex align-items-center justify-content-center"
-                                                style="height: 150px;">
-                                                @can('update', $bordereau->courrier)
+                                            <td class="align-middle"><a href="">{!! $bordereau->liste->numero !!}</a></td>
+                                            <td class="align-middle d-flex align-items-baseline">
+                                                {{--  @can('update', $bordereau->courrier)  --}}
                                                     <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                         title="modifier">
                                                         <i class="far fa-edit"></i>
                                                     </a>
-                                                @endcan
+                                               {{--   @endcan  --}}
                                                 &nbsp
                                                 <a href="{!! url('courriers/' . $bordereau->courrier->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">

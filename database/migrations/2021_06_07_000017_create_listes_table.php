@@ -25,8 +25,10 @@ class CreateListesTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
+            $table->string('destinataire', 200)->nullable();
+            $table->dateTime('date')->nullable();
             $table->string('name', 200)->nullable();
-            $table->string('sigle', 200)->nullable();
+            $table->string('liste', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

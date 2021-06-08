@@ -117,6 +117,23 @@
                                     'form-control', 'id' => 'projet']) !!}
                                 </div>                               
                             </div>
+                            
+                            <div class="bg-gradient-secondary text-center">
+                                <p class="h4 text-white mb-2">METTRE DANS UN CLASSEUR</p>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                    {!! Form::label('Classeur :', null, ['class' => 'control-label']) !!}
+                                    {!! Form::select('liste', $listes, $bordereau->liste->numero, ['placeholder' => '', 'class' => 'form-control', 'id' => 'classeur', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('classeur'))
+                                            @foreach ($errors->get('classeur') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                            </div>
                            
                             {!! Form::submit('Enregistrer', ['class'=>'btn btn-outline-primary pull-right', ]) !!}
                             {!! Form::close() !!}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bordereau;
 use App\Projet;
+use App\Liste;
 use App\Daf;
 use Illuminate\Http\Request;
 
@@ -52,6 +53,7 @@ class BordereausController extends Controller
     public function create()
     {
         $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        $listes = Liste::distinct('numero')->get()->pluck('numero','id')->unique();
         $types = TypesCourrier::get();
         $numCourrier = date('YmdHis');
         $date = Carbon::parse('now');
@@ -60,7 +62,7 @@ class BordereausController extends Controller
         $imputations = Imputation::pluck('sigle','id');
         $date_r = Carbon::now();
 
-        return view('bordereaus.create',compact('numCourrier', 'date', 'directions','imputations', 'date_r','projets','types'));
+        return view('bordereaus.create',compact('numCourrier', 'date', 'directions','imputations', 'date_r','projets','types','listes'));
     }
 
     /**
@@ -119,6 +121,7 @@ class BordereausController extends Controller
             'nombre_de_piece'           =>      $request->input('nombre_de_piece'),
             'designation'               =>      $request->input('designation'),
             'observation'               =>      $request->input('observation'),
+            'listes_id'                 =>      $request->input('liste'),
             'courriers_id'              =>      $courrier->id
 
         ]);
@@ -149,13 +152,14 @@ class BordereausController extends Controller
      */
     public function edit(Bordereau $bordereau)
     {
-        $this->authorize('update',  $bordereau->courrier);
+       /*  $this->authorize('update',  $bordereau->courrier); */
 
         $directions = Direction::pluck('sigle','id');
         $projets = Projet::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $listes = Liste::distinct('numero')->get()->pluck('numero','numero')->unique();
         $imputations = Imputation::pluck('sigle','id');
 
-         return view('bordereaus.update', compact('bordereau', 'directions','imputations', 'projets'));
+         return view('bordereaus.update', compact('bordereau', 'directions','imputations', 'projets','listes'));
     }
 
     /**
@@ -182,7 +186,9 @@ class BordereausController extends Controller
         );
 
     $projet = $request->input('projet');
+    $liste = $request->input('liste');
     $projet_id = Projet::where('sigle',$projet)->first()->id;
+    $liste_id = Liste::where('numero',$liste)->first()->id;
         
     if (request('file')) { 
        $filePath = request('file')->store('bordereaus', 'public');
@@ -216,6 +222,7 @@ class BordereausController extends Controller
        $bordereau->observation              =      $request->input('observation');
        $bordereau->courriers_id             =      $courrier->id; 
        $courrier->projets_id                =      $projet_id;
+       $bordereau->listes_id                =      $liste_id;
 
        $bordereau->save();
        
@@ -250,6 +257,7 @@ class BordereausController extends Controller
        $bordereau->designation              =      $request->input('designation');
        $bordereau->observation              =      $request->input('observation');
        $bordereau->courriers_id             =      $courrier->id; 
+       $bordereau->listes_id                =      $liste_id;
 
        $bordereau->save();
 
