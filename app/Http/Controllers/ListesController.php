@@ -104,13 +104,16 @@ class ListesController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        
+        $liste = Liste::find($id);
+        $liste->numero  =   $request->input('numero');
+
         $this->validate(
             $request, 
             [
-                'numero' =>  'required|string|max:50|unique:listes,numero',
+                'numero' =>  'required|string|max:50|unique:listes,numero,'.$liste->id,
             ]);   
-        $liste = Liste::find($id);
-        $liste->numero  =   $request->input('numero');
+
         $liste->save();
         return redirect()->route('listes.index')->with('success','enregistrement modifié avec succès !');
     }
@@ -132,5 +135,6 @@ class ListesController extends Controller
     {
         $listes=Liste::get();
         return Datatables::of($listes)->make(true);
+
     }
 }

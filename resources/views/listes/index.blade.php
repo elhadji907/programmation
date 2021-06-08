@@ -32,7 +32,7 @@
                                         <th style="width:10%;">N°</th>
                                         <th style="width:75%;">{!! __('Feuil') !!}</th>
                                         <th>{!! __('Quantité') !!}</th>
-                                        <th style="width:15%;">Action</th>
+                                        <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
@@ -66,11 +66,6 @@
                                                 <a href="{!! url('listes/' . $liste->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit"></i>
-                                                </a>
-                                                &nbsp
-                                                <a href="{!! url('listes/' . $liste->id) !!}" class='btn btn-primary btn-sm'
-                                                    title="voir">
-                                                    <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
                                                 {!! Form::open(['method' => 'DELETE', 'url' => 'listes/' . $liste->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}

@@ -36,10 +36,10 @@
                                     <tr>
                                         <th style="width:7%;">N° MP</th>
                                         <th style="width:8%;">Date MP</th>
-                                        <th style="width:25%;">Désignation réglement</th>
+                                        <th style="width:30%;">Désignation réglement</th>
                                         <th style="width:5%;">Projet</th>
                                         <th style="width:10%;">Montant</th>
-                                        <th style="width:10%;">Nbre pièces</th>
+                                        <th style="width:5%;">Nb/Pc</th>
                                         <th style="width:20%;">Bobservations</th>
                                         <th style="width:5%;">Classeur</th>
                                         <th style="width:10%;">Action</th>
