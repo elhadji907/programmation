@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Enregistrement secteurs')
+@section('title', 'ONFP - Enregistrement feuil')
 @section('content')
 <div class="content">
     <div class="container col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -11,19 +11,19 @@
             <div class="card">
                 <div class="card-header card-header-primary text-center">
                     <h3 class="card-title">{{ ("Enregistrement") }}</h3>
-                    <p class="card-category">{{ ("Secteur d'activité") }}</p>
+                    <p class="card-category">{{ ("liste d'activité") }}</p>
                 </div>
                 <div class="card-body">
                                                
-                        <form method="POST" action="{{ url('secteurs') }}">
+                        <form method="POST" action="{{ url('listes') }}">
                            @csrf
                             <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="input-name"><b>{{ __("Nom du secteur d'activité") }}:</b></label>
-                                <input type="text" name="name" class="form-control" id="input-name" placeholder="ex: primaire" value="{{ old('name') }}">
+                                <label for="input-name"><b>{{ __("Numero") }}:</b></label>
+                                <input type="text" name="numero" class="form-control" id="input-name" placeholder="ex: Feuil1_21" value="{{ $feuil ?? old('numero') }}">
                                 <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('name'))
-                                        @foreach ($errors->get('name') as $message)
+                                        @if ($errors->has('numero'))
+                                        @foreach ($errors->get('numero') as $message)
                                         <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                         @endif

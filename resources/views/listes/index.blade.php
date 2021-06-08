@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste B')
+@section('title', 'ONFP - Feuils')
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Liste B
+                        Feuils
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -30,14 +30,16 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th style="width:10%;">N°</th>
-                                        <th style="width:75%;">{!! __('Numéro') !!}</th>
+                                        <th style="width:75%;">{!! __('Feuil') !!}</th>
+                                        <th>{!! __('Quantité') !!}</th>
                                         <th style="width:15%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
                                         <th>N°</th>
-                                        <th>{!! __('Numéro') !!}</th>
+                                        <th>{!! __('Feuil') !!}</th>
+                                        <th>{!! __('Quantité') !!}</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -48,10 +50,17 @@
                                             <td>{!! $i++ !!}</td>
                                             <td>
                                                 <a style="color: darkorange; text-decoration: none;"
-                                                    href="{!! url('listes/'. $liste->id) !!}" class="view" title="voir"
+                                                    href="{!! url('listes/' . $liste->id) !!}" class="view" title="voir"
                                                     target="_blank">
                                                     {!! $liste->numero !!}
                                                 </a>
+                                            </td>
+                                            <td>
+                                                @foreach ($liste->bordereaus as $bordereau)
+                                                    @if ($loop->last)
+                                                        {!! $loop->count !!}
+                                                    @endif
+                                                @endforeach
                                             </td>
                                             <td class="d-flex align-items-center justify-content-center">
                                                 <a href="{!! url('listes/' . $liste->id . '/edit') !!}" class='btn btn-success btn-sm'

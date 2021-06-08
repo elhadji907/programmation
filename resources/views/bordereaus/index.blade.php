@@ -14,16 +14,21 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-table"></i>
-                        Liste des bordereaux
+                    <div class="card-header d-flex justify-content-between align-items-center pt-0">
+                        <p><i class="fas fa-table"></i>
+                        Liste des bordereaux</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div align="right">
-                                <a href="{!! url('bordereaus/create') !!}">
-                                    <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
-                                </a>
+                            <div class="d-flex justify-content-between align-items-center pb-3">
+                                <p>
+                                    <a target="_blank" class="btn btn-primary  btn-sm" href="{{ route('listes.index') }}"><i class="fas fa-eye"></i>&nbsp;Voir toutes les feuilles</a>
+                                </p>
+                                <span>
+                                    <a href="{!! url('bordereaus/create') !!}">
+                                        <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
+                                    </a>
+                                </span>
                             </div>
                             <table class="table table-bordered table-striped" id="table-bordereaus" width="100%"
                                 cellspacing="0">
@@ -65,7 +70,13 @@
                                             <td class="align-middle">{!! $bordereau->montant !!}</td>
                                             <td class="align-middle">{!! $bordereau->nombre_de_piece !!}</td>
                                             <td class="align-middle">{!! $bordereau->observation !!}</td>
-                                            <td class="align-middle"><a href="">{!! $bordereau->liste->numero !!}</a></td>
+                                            <td class="align-middle">
+                                                <a style="color: darkorange; text-decoration: none;"
+                                                href="{!! url('listes/'. $bordereau->liste->id) !!}" class="view" title="voir"
+                                                target="_blank">                                                
+                                                {!! $bordereau->liste->numero !!}
+                                            </a>
+                                            </td>
                                             <td class="align-middle d-flex align-items-baseline">
                                                 {{--  @can('update', $bordereau->courrier)  --}}
                                                     <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'

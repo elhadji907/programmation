@@ -11,6 +11,6 @@ class ListesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Liste::class,25)->create();
+        factory(App\Liste::class,2)->create();
     }
 }

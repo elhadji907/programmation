@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'B. DAF'.' '.$liste->numero)
+@section('title', 'B. DAF' . ' ' . $liste->numero)
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
