@@ -23,6 +23,7 @@
                                         <th>Nom</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
+                                        <th>Fonction</th>
                                         <th style="width:2%;">Choisir</th>
                                     </tr>
                                 </thead>
@@ -34,6 +35,7 @@
                                         <th>Nom</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
+                                        <th>Fonction</th>
                                         <th>Choisir</th>
                                     </tr>
                                 </tfoot>
@@ -81,6 +83,10 @@
                         name: 'user.telephone'
                     },
                     {
+                        data: 'user.employee.fonction.sigle',
+                        name: 'user.employee.fonction.sigle'
+                    },
+                    {
                         data: null,
                         orderable: false,
                         searchable: false
@@ -94,7 +100,7 @@
                             return '<a href=' + url_e +
                                 '  class="btn btn-outline-primary" ><i class="fa fa-check" aria-hidden="true"></i>';
                         },
-                        "targets": 6
+                        "targets": 7
                     },
 
                 ],

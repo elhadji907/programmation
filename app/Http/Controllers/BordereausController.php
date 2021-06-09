@@ -226,7 +226,7 @@ class BordereausController extends Controller
 
        $bordereau->save();
        
-       $courrier->imputations()->sync($request->input('imputations'));
+       $courrier->directions()->sync($request->input('directions'));
 
         }
     else{   
@@ -262,7 +262,7 @@ class BordereausController extends Controller
        $bordereau->save();
 
        
-       $courrier->imputations()->sync($request->input('imputations'));
+       $courrier->directions()->sync($request->input('directions'));
 
          }
          

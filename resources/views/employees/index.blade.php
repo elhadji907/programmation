@@ -38,7 +38,8 @@
                                         <th>Lieu Nais.</th>
                                         <th>Email</th>
                                         <th>Telephone</th>
-                                        <th>Fonction</th>
+                                        <th style="width:15%;">Fonction</th>
+                                        <th>Direction</th>
                                         <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
@@ -53,6 +54,7 @@
                                         <th>Email</th>
                                         <th>Telephone</th>
                                         <th>Fonction</th>
+                                        <th>Direction</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -67,7 +69,15 @@
                                             <td>{!! $employee->user->lieu_naissance !!}</td>
                                             <td>{!! $employee->user->email !!}</td>
                                             <td>{!! $employee->user->telephone !!}</td>
-                                            <td>{!! $employee->fonction->sigle !!}</td>
+                                            <td>{!! $employee->fonction->name !!}</td>
+                                            <td>
+                                                @if(isset($employee->direction->sigle ))
+                                                    {!! $employee->direction->sigle !!}
+                                                @else
+                                                
+                                                @endif
+                                                
+                                            </td>
                                             <td style="text-align: center;"
                                                 class="d-flex align-items-baseline align-content-center">
                                                 <a href="{!! url('employees/' . $employee->id . '/edit') !!}" class='btn btn-success btn-sm'

@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     {!! Form::label('Imputation') !!}                    
-                                    {!! Form::select('imputations[]', $imputations, null, ['multiple'=>'multiple', 'data-width' => '100%', 'class'=>'form-control', 'id'=>'imputation']) !!}                    
+                                    {!! Form::select('directions[]', $directions, null, ['multiple'=>'multiple', 'data-width' => '100%', 'class'=>'form-control', 'id'=>'direction']) !!}                    
                                 </div> 
                             </div>
                             <div class="form-row">
@@ -145,6 +145,6 @@
 @endsection
 @section('javascripts')
     <script type="text/javascript">
-        $('#imputation').select2().val({!! json_encode($bordereau->courrier->imputations()->allRelatedIds()) !!}).trigger('change');
+        $('#direction').select2().val({!! json_encode($bordereau->courrier->directions()->allRelatedIds()) !!}).trigger('change');
     </script>
 @endsection

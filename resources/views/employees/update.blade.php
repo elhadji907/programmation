@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             {!! Form::label('fonction') !!}
-                            {!! Form::select('fonction', $fonctions, $employee->fonction->sigle, ['placeholder' => '', 'class' => 'form-control', 'id' => 'fonction']) !!}
+                            {!! Form::select('fonction', $fonctions, $employee->fonction->name, ['placeholder' => '', 'class' => 'form-control', 'id' => 'fonction']) !!}
                             <small id="emailHelp" class="form-text text-muted">
                                 @if ($errors->has('fonction'))
                                     @foreach ($errors->get('fonction') as $message)

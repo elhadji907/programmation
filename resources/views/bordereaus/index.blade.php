@@ -14,7 +14,7 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center pt-0">
+                    <div class="card-header">
                         <p><i class="fas fa-table"></i>
                         Liste des bordereaux</p>
                     </div>

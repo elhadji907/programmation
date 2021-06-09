@@ -220,13 +220,13 @@
                         </tr>
                         <tr class="item">
                             <td>
-                                @foreach ($bordereau->courrier->imputations as $imputation)
-                                    {!! $imputation->destinataire !!}<br>
+                                @foreach ($bordereau->courrier->directions as $direction)
+                                    {!! $direction->name !!}<br>
                                 @endforeach
                             </td>
                             <td>
-                                @foreach ($bordereau->courrier->imputations as $imputation)
-                                    {!! $imputation->sigle !!}<br>
+                                @foreach ($bordereau->courrier->directions as $direction)
+                                       {!! $direction->chef->user->firstname. '   ' . $direction->chef->user->name !!}<br>
                                 @endforeach
                             </td>
                         </tr>

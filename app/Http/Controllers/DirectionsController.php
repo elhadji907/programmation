@@ -143,9 +143,14 @@ class DirectionsController extends Controller
             ]);
 
             $direction = Direction::find($id);
+            
+            $types_directions_id = TypesDirection::where('name',$request->input('type_direction'))->first()->id;
+            
+           /*  dd($types_directions_id); */
 
-            $direction->name   =     $request->input('direction');
-            $direction->sigle  =     $request->input('sigle');
+            $direction->name                    =     $request->input('direction');
+            $direction->sigle                   =     $request->input('sigle');
+            $direction->types_directions_id     =     $types_directions_id;
 
             $direction->save();
         

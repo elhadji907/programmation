@@ -39,18 +39,18 @@ class SnNameGenerator
     public static $direction = array(
 
         "Direction Général",
-/*         "Direction de l'Evaluation et de la Certification",
+        "Direction de l'Evaluation et de la Certification",
         "Direction de la planification des projets",
         "Direction Administrative et Financiere",
-        "Direction de l'Ingenierie et des Operations de Formation", */
+        "Direction de l'Ingenierie et des Operations de Formation",
     );
     public static $sigledirection = array(
 
         "DG",
-/*         "DEC",
+        "DEC",
         "DPP",
         "DAF",
-        "DIOF", */
+        "DIOF",
     );
 
     public static $civilite = array(
