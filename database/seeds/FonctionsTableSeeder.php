@@ -155,9 +155,10 @@ $fonction36=App\Fonction::firstOrCreate(
             ["name"=>"Chauffeur"],
             ["sigle"=>"Chauffeur"],
             ["uuid"=>Str::uuid()]);
-
-
-
+$fonction37=App\Fonction::firstOrCreate(
+            ["name"=>"Chef du service informatique"],
+            ["sigle"=>"Chef SI"],
+            ["uuid"=>Str::uuid()]);
         }
     }
     

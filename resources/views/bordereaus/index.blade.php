@@ -78,12 +78,12 @@
                                             </a>
                                             </td>
                                             <td class="align-middle d-flex align-items-baseline">
-                                                {{--  @can('update', $bordereau->courrier)  --}}
+                                                @can('update', $bordereau->courrier)
                                                     <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                         title="modifier">
                                                         <i class="far fa-edit"></i>
                                                     </a>
-                                               {{--   @endcan  --}}
+                                                @endcan
                                                 &nbsp
                                                 <a href="{!! url('courriers/' . $bordereau->courrier->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">

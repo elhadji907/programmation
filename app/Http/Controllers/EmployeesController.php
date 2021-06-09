@@ -232,7 +232,7 @@ class EmployeesController extends Controller
                 'cin'           =>  'required|string|min:12|max:15',
                 'familiale'     =>  'required|string',
                 'adresse'       =>  'string',
-                'autre_adresse' =>  'string',
+                'autre_adresse' =>  '',
                 'date_naiss'    =>  'required|date',
                 'date_embauche' =>  'required|date',
                 'lieu'          =>  'required|string',

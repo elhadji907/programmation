@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\Fonction;
 use App\TypesDirection;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -43,18 +44,18 @@ class DirectionsController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
 
-       
        $direction_id=$request->input('direction');
        $direction=\App\Direction::find($direction_id);
 
        $types_directions = TypesDirection::distinct('name')->get()->pluck('name','id')->unique();
+       $fonctions = Fonction::distinct('name')->get()->pluck('name','id')->unique();
        
        $employee_id=$request->input('employee');
        $employee=\App\Employee::find($employee_id);
 
       /*  dd($employee); */
 
-        return view('directions.create',compact('user', 'chart','employee','types_directions'));
+        return view('directions.create',compact('user', 'chart','employee','types_directions','fonctions'));
     }
 
     /**
@@ -101,7 +102,8 @@ class DirectionsController extends Controller
      */
     public function show(Direction $direction)
     {
-        //
+        $employees = $direction->employees;
+        return view('directions.show', compact('employees','direction'));
     }
 
     /**

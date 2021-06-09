@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste directions et services')
+@section('title', $direction->name)
 @section('content')
     <div class="container-fluid">
         @if (session()->has('success'))
@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Liste des directions et services
+                        {!! $direction->name !!}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -29,44 +29,57 @@
                                 id="table-directions">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th style="width:5%;">N°</th>
-                                        <th>Name</th>
-                                        <th>Sigle</th>
-                                        <th>Type direction</th>
-                                        <th>Responsable</th>
+                                        <th style="width:5%;">Matricule</th>
+                                        <th style="width:5%;">Civilité</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th style="width:8%;">Date Nais.</th>
+                                        <th>Lieu Nais.</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th style="width:15%;">Fonction</th>
                                         <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th>N°</th>
-                                        <th>Name</th>
-                                        <th>Sigle</th>
-                                        <th>Type direction</th>
-                                        <th>Responsable</th>
-                                        <th style="width:10%;">Action</th>
+                                        <th>Matricule</th>
+                                        <th>Civilité</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Date Nais.</th>
+                                        <th>Lieu Nais.</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th>Fonction</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($directions as $direction)
+                                    @foreach ($employees as $employee)
                                         <tr>
-                                            <td>{!! $i++ !!}</td>
-                                            <td>{!!  $direction->name !!}</td>
-                                            <td>{!! $direction->sigle !!}</td>
-                                            <td>{!! $direction->types_direction->name !!}</td>
-                                            <td>{!! $direction->chef->user->firstname. '   ' . $direction->chef->user->name !!}</td>
-                                            <td class="d-flex align-items-baseline">
-                                                <a href="{!! url('directions/' . $direction->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                            <td>{!! $employee->matricule !!}</td>
+                                            <td>{!! $employee->user->civilite !!}</td>
+                                            <td>{!! $employee->user->firstname !!}</td>
+                                            <td>{!! $employee->user->name !!}</td>
+                                            <td>{!! $employee->user->date_naissance->format('d/m/Y') !!}</td>
+                                            <td>{!! $employee->user->lieu_naissance !!}</td>
+                                            <td>{!! $employee->user->email !!}</td>
+                                            <td>{!! $employee->user->telephone !!}</td>
+                                            <td>{!! $employee->fonction->name !!}</td>
+                                            <td style="text-align: center;"
+                                                class="d-flex align-items-baseline align-content-center">
+                                                <a href="{!! url('employees/' . $employee->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit">&nbsp;</i>
                                                 </a>
-                                                &nbsp; <a href="{!! url('directions/' . $direction->id) !!}" class='btn btn-primary btn-sm'
-                                                    title="voir" target="_blanck">
+                                                &nbsp;
+                                                <a href="{!! url('employees/' . $employee->id) !!}" class='btn btn-primary btn-sm'
+                                                    title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'directions/' . $direction->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                {!! Form::open(['method' => 'DELETE', 'url' => 'employees/' . $employee->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
                                                 {!! Form::close() !!}
                                             </td>
