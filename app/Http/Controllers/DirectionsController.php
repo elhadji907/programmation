@@ -102,8 +102,14 @@ class DirectionsController extends Controller
      */
     public function show(Direction $direction)
     {
+
         $employees = $direction->employees;
-        return view('directions.show', compact('employees','direction'));
+
+        $direction_courriers = $direction->courriers;
+
+        $courriers = $direction->courriers()->paginate(2);
+        
+        return view('directions.show', compact('employees','courriers','direction','direction_courriers'));
     }
 
     /**

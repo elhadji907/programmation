@@ -12,6 +12,30 @@
                         {{ session('message') }}
                     </div>
                 @endif
+                @roles('Administrateur')
+                <div class="list-group mb-1">
+                    @foreach ($direction_courriers as $courrier)
+                        <div class="list-group-item">
+                                <p class="h4 card-title h-100 m-0"><b><u class="h4">Type </u> : </b> {!! $courrier->types_courrier->name !!}
+                                </p>
+                                <p class="h4 card-title h-100 mb-0"><b><u class="h4">Objet </u> : </b><a class="font-italic"
+                                        style="text-decoration:none"
+                                        href="{!! route('courriers.show', $courrier->id) !!}">{!! $courrier->objet !!}</a></p>
+                                <p><b><u class="h4">Expéditeur </u> : </b>{!! $courrier->expediteur !!}</p>
+                                <p><b><u class="h4">Description </u> : </b>{!! $courrier->description !!}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small>Posté le {!! $courrier->created_at->format('d/m/Y à H:m') !!}</small>
+                                    <span
+                                        class="badge badge-primary">{!! $courrier->user->firstname !!}&nbsp;{!! $courrier->user->name !!}</span>
+                                </div>
+                        </div>
+                    @endforeach
+                    <hr>
+                </div>
+                <div class="d-flex justify-content-center pt-2">
+                    {!! $courriers->links() !!}
+                </div>
+                @endroles
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
@@ -19,10 +43,16 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div align="right">
-                                <a href="{{ route('directions.selectemployees') }}">
-                                    <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
-                                </a>
+
+                            <div class="d-flex justify-content-between align-items-center pb-3">
+                                <p>
+                                    {{-- <a target="_blank" class="btn btn-primary  btn-sm" href=""><i class="fas fa-eye"></i>&nbsp;Voir les courriers</a> --}}
+                                </p>
+                                <span>
+                                    <a href="{{ route('directions.selectemployees') }}">
+                                        <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
+                                    </a>
+                                </span>
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"

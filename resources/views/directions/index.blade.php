@@ -52,10 +52,10 @@
                                     @foreach ($directions as $direction)
                                         <tr>
                                             <td>{!! $i++ !!}</td>
-                                            <td>{!!  $direction->name !!}</td>
+                                            <td>{!! $direction->name !!}</td>
                                             <td>{!! $direction->sigle !!}</td>
                                             <td>{!! $direction->types_direction->name !!}</td>
-                                            <td>{!! $direction->chef->user->firstname. '   ' . $direction->chef->user->name !!}</td>
+                                            <td>{!! $direction->chef->user->firstname . '   ' . $direction->chef->user->name !!}</td>
                                             <td class="d-flex align-items-baseline">
                                                 <a href="{!! url('directions/' . $direction->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
