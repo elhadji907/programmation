@@ -30,6 +30,7 @@ class CourriersController extends Controller
         $internes = \App\Interne::get()->count();
         $departs = \App\Depart::get()->count();
         $bordereaus = \App\Bordereau::get()->count();
+        $facturesdafs = \App\Facturesdaf::get()->count();
 
         $courrier = Courrier::get()->count();
         
@@ -43,7 +44,7 @@ class CourriersController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
         
-        return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart', 'bordereaus'));
+        return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart', 'bordereaus','facturesdafs'));
     }
 
     /**
@@ -59,9 +60,11 @@ class CourriersController extends Controller
         $courriers = Courrier::get()->count();
         $demandes = \App\Demandeur::get()->count();
         $bordereaus = \App\Bordereau::get()->count();
+        $facturesdafs = \App\Facturesdaf::get()->count();
 
 
-        return view('courriers.create', compact('courriers', 'recues', 'demandes', 'internes', 'departs', 'bordereaus'));
+
+        return view('courriers.create', compact('courriers', 'recues', 'demandes', 'internes', 'departs', 'bordereaus','facturesdafs'));
     }
 
     /**
@@ -90,12 +93,14 @@ class CourriersController extends Controller
         $departs = $courrier->departs;
         $internes = $courrier->internes;
         $bordereaus = $courrier->bordereaus;
+        $facturesdafs = $courrier->facturesdafs;
         
         $recue = \App\Recue::get()->count();
         $interne = \App\Interne::get()->count();
         $depart = \App\Depart::get()->count();
         $courrier = Courrier::get()->count();
         $bordereau = \App\Bordereau::get()->count();
+        $facturesdaf = \App\Facturesdaf::get()->count();
 
         $chart      = Courrier::all();
 
@@ -116,8 +121,11 @@ class CourriersController extends Controller
         } elseif($typescourrier == 'Bordereau') {    
             return view('bordereaus.show', compact('bordereaus','courrier','chart'));
 
-        }  elseif($typescourrier == 'Tresor') {    
+        } elseif($typescourrier == 'Tresor') {    
             return view('tresors.show', compact('tresors','courrier','chart'));
+
+        } elseif($typescourrier == 'Factures daf') {    
+            return view('facturesdafs.show', compact('facturesdafs','courrier','chart'));
 
         } else {
             return view('courriers.show', compact('courrier','chart'));
@@ -135,6 +143,7 @@ class CourriersController extends Controller
         $departs = $courrier->departs;
         $internes = $courrier->internes;
         $bordereaus = $courrier->bordereaus;
+        $facturesdafs = $courrier->facturesdafs;
         // $demandes = $courrier->demandeurs;
         
         $recue = \App\Recue::get()->count();
@@ -142,6 +151,7 @@ class CourriersController extends Controller
         $depart = \App\Depart::get()->count();
         $courrier = Courrier::get()->count();
         $bordereau = \App\Bordereau::get()->count();
+        $facturesdaf = \App\Facturesdaf::get()->count();
 
         $chart      = Courrier::all();
 
@@ -160,10 +170,16 @@ class CourriersController extends Controller
             } elseif($typescourrier == 'Courriers internes') {    
                 return view('internes.show', compact('internes','courrier','chart'));
     
-            }  elseif($typescourrier == 'Bordereau') {    
+            }  
+            elseif($typescourrier == 'Bordereau') {    
                 return view('bordereaus.show', compact('bordereaus','courrier','chart'));
     
-            }  elseif($typescourrier == 'Tresor') {    
+            }  
+            elseif($typescourrier == 'Factures daf') {    
+                return view('facturesdafs.show', compact('facturesdafs','courrier','chart'));
+    
+            }  
+            elseif($typescourrier == 'Tresor') {    
                 return view('tresors.show', compact('tresors','courrier','chart'));
     
             }else {
@@ -187,12 +203,14 @@ class CourriersController extends Controller
     $departs = $courrier->departs;
     $internes = $courrier->internes;
     $bordereaus = $courrier->bordereaus;
+    $facturesdafs = $courrier->facturesdafs;
     
     $recue = \App\Recue::get()->count();
     $interne = \App\Interne::get()->count();
     $depart = \App\Depart::get()->count();
     $courrier = Courrier::get()->count();
     $bordereau = \App\Bordereau::get()->count();
+    $facturesdaf = \App\Facturesdaf::get()->count();
 
     $chart      = Courrier::all();
 
@@ -214,7 +232,10 @@ class CourriersController extends Controller
     }  elseif($typescourrier == 'Bordereau') {    
         return view('bordereaus.details', compact('bordereaus','courrier','chart'));
 
-    }  elseif($typescourrier == 'Tresor') {    
+    } elseif($typescourrier == 'Factures daf') {    
+        return view('facturesdafs.details', compact('facturesdafs','courrier','chart'));
+
+    }   elseif($typescourrier == 'Tresor') {    
         return view('tresors.details', compact('tresors','courrier','chart'));
 
     }else {

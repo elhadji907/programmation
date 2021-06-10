@@ -141,7 +141,21 @@ class BordereausController extends Controller
      */
     public function show(Bordereau $bordereau)
     {
-        //
+
+        $directions = $bordereau->courrier->directions;
+
+        //dd($directions);
+
+
+        
+        //$directions = Direction::pluck('sigle','id');
+        $projets = Projet::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $listes = Liste::distinct('numero')->get()->pluck('numero','numero')->unique();
+        $imputations = Imputation::pluck('sigle','id');
+        
+        dd("En ours de construction...");
+        
+        return view('bordereaus.imputations', compact('bordereau', 'directions','imputations', 'projets','listes'));
     }
 
     /**
@@ -177,7 +191,7 @@ class BordereausController extends Controller
                 'expediteur'            =>  'required|string|max:100',
                 'telephone'             =>  'required|string|max:50',
                 'email'                 =>  'required|email|max:255',
-                'numero_mandat'         =>  'required|string|max:30||unique:bordereaus,numero_mandat,'.$bordereau->id,
+                'numero_mandat'         =>  'required|string|max:30|unique:bordereaus,numero_mandat,'.$bordereau->id,
                 'montant'               =>  'required',
                 'nombre_de_piece'       =>  'required',
                 'designation'           =>  'required',
@@ -216,12 +230,10 @@ class BordereausController extends Controller
        $bordereau->montant                  =      $request->input('montant');
        $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
        $bordereau->date_mandat              =      $request->input('date_mandat');
-       $bordereau->montant                  =      $request->input('montant');
        $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
        $bordereau->designation              =      $request->input('designation');
        $bordereau->observation              =      $request->input('observation');
        $bordereau->courriers_id             =      $courrier->id; 
-       $courrier->projets_id                =      $projet_id;
        $bordereau->listes_id                =      $liste_id;
 
        $bordereau->save();
@@ -252,7 +264,6 @@ class BordereausController extends Controller
        $bordereau->montant                  =      $request->input('montant');
        $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
        $bordereau->date_mandat              =      $request->input('date_mandat');
-       $bordereau->montant                  =      $request->input('montant');
        $bordereau->nombre_de_piece          =      $request->input('nombre_de_piece');
        $bordereau->designation              =      $request->input('designation');
        $bordereau->observation              =      $request->input('observation');
@@ -280,7 +291,7 @@ class BordereausController extends Controller
         $bordereau->courrier->delete();
         $bordereau->delete();
                 
-        $message = 'Le courrier n° '.$bordereau->numero_mandat.' a été supprimé(e)';
+        $message = 'Le bordereau n° '.$bordereau->numero_mandat.' a été supprimé(e)';
         return redirect()->route('bordereaus.index')->with(compact('message'));
     }
 }

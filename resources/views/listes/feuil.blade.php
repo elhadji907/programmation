@@ -29,7 +29,6 @@
                                 id="table-bordereaus">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th style="width:5%;">N°</th>
                                         <th style="width:8%;">{!! __('Numéro') !!}</th>
                                         <th style="width:8%;">{!! __('Date/MP') !!}</th>
                                         <th style="width:30%;">{!! __('Désignation') !!}</th>
@@ -42,7 +41,6 @@
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th>N°</th>
                                         <th>{!! __('Numéro') !!}</th>
                                         <th>{!! __('Date/MP') !!}</th>
                                         <th>{!! __('Désignation') !!}</th>
@@ -57,7 +55,7 @@
                                     <?php $i = 1; ?>
                                     @foreach ($bordereaus as $bordereau)
                                         <tr>
-                                            <td>{!! $i++ !!}</td>
+                                            {{-- <td>{!! $i++ !!}</td> --}}
                                             <td>{!! $bordereau->numero !!}</td>
                                             <td>{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') !!}</td>
                                             <td>{!! $bordereau->designation !!}</td>
@@ -65,20 +63,24 @@
                                             <td>{!! $bordereau->montant !!}</td>
                                             <td>{!! $bordereau->nombre_de_piece !!}</td>
                                             <td>{!! $bordereau->observation !!}</td>
-                                            <td class="d-flex align-items-center justify-content-center">
-                                                <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'
-                                                    title="modifier">
-                                                    <i class="far fa-edit"></i>
-                                                </a>
+                                            <td class="align-middle d-flex align-items-baseline">
+                                                @can('update', $bordereau->courrier)
+                                                    <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                        title="modifier" target="_blank">
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                @endcan
                                                 &nbsp
-                                                <a href="{!! url('bordereaus/' . $bordereau->id) !!}" class='btn btn-primary btn-sm'
-                                                    title="voir">
+                                                <a href="{!! url('courriers/' . $bordereau->courrier->id) !!}" class='btn btn-primary btn-sm'
+                                                    title="voir" target="_blank">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'bordereaus/' . $bordereau->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
-                                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
-                                                {!! Form::close() !!}
+                                                @can('delete', $bordereau->courrier)
+                                                    {!! Form::open(['method' => 'DELETE', 'url' => 'bordereaus/' . $bordereau->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
+                                                    {!! Form::close() !!}
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

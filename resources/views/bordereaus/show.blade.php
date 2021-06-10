@@ -56,6 +56,13 @@
                     </div>
                 @endforeach
             </div>
+           {{--  <hr>
+            <div align="center">
+                <a href="{!! url('bordereaus/' . $bordereau->id) !!}" title="voir les d&eacute;tails du courrier"
+                    class="btn btn-success">
+                    <i class="far fa-arrow-alt-circle-right">&nbsp;Imputer agent</i>
+                </a>
+            </div> --}}
             <hr>
             <div class="card">
                 <div class="card-body">

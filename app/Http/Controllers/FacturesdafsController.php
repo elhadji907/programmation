@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 
+use App\Projet;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
 use App\Courrier;
@@ -49,7 +50,16 @@ public function __construct()
      */
     public function create()
     {
-        //
+        $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        $types = TypesCourrier::get();
+        $numCourrier = date('YmdHis');
+        $date = Carbon::parse('now');
+        $date = $date->format('Y-m-d');
+        $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
+        $date_r = Carbon::now();
+
+        return view('facturesdafs.create',compact('numCourrier', 'date', 'directions','imputations', 'date_r','projets','types','listes'));
     }
 
     /**
@@ -60,7 +70,65 @@ public function __construct()
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'date_imp'              =>  'required|date',
+                'date_recep'            =>  'required|date',
+                'date_cg'               =>  'required|date',
+                'date_dg'               =>  'required|date',
+                'date_ac'               =>  'required|date',
+                'telephone'             =>  'required|string|max:50',
+                'email'                 =>  'required|email|max:255',
+                'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
+                'montant'               =>  'required',
+                'tva_ir'                =>  'required',
+                'designation'           =>  'required'
+            ]
+        );
+
+        $types_courrier_id = TypesCourrier::where('name','Factures daf')->first()->id;
+        $user_id  = Auth::user()->id;
+        $courrier_id = Courrier::get()->last()->id;
+        $annee = date('Y');
+        $numCourrier = $courrier_id;
+
+        $direction = \App\Direction::first();
+        $imputation = \App\Imputation::first();
+        $courrier = \App\Courrier::first();
+
+        
+
+        $courrier = new Courrier([
+            'numero'                    =>      $request->input('numero_courrier'),
+            'designation'               =>      $request->input('designation'),
+            'telephone'                 =>      $request->input('telephone'),
+            'email'                     =>      $request->input('email'),
+            'tva_ir'                    =>      $request->input('tva_ir'),
+            'types_courriers_id'        =>      $types_courrier_id,
+            'users_id'                  =>      $user_id,
+        ]);
+
+        $courrier->save();
+
+        $facturesdafs = new Facturesdaf([      
+            'numero'                    =>      $request->input('numero_mandat'),
+            'date_recep'                =>      $request->input('date_recep'),    
+            'date_transmission'         =>      $request->input('date_imp'),    
+            'date_dg'                   =>      $request->input('date_dg'),    
+            'date_cg'                   =>      $request->input('date_cg'),    
+            'date_ac'                   =>      $request->input('date_ac'),       
+            'montant'                   =>      $request->input('montant'),
+            'designation'               =>      $request->input('designation'),
+            'observation'               =>      $request->input('observation'),
+            'courriers_id'              =>      $courrier->id
+
+        ]);
+
+        $facturesdafs->save();
+
+        /* $courrier->directions()->sync($request->imputations); */
+        
+        return redirect()->route('facturesdafs.index')->with('success','bordereau ajoutée avec succès !');
     }
 
     /**
@@ -82,7 +150,12 @@ public function __construct()
      */
     public function edit(Facturesdaf $facturesdaf)
     {
-        //
+        $this->authorize('update',  $facturesdaf->courrier);
+
+        $directions = Direction::pluck('sigle','id');
+        $imputations = Imputation::pluck('sigle','id');
+
+         return view('facturesdafs.update', compact('facturesdaf', 'directions','imputations'));
     }
 
     /**
@@ -94,7 +167,91 @@ public function __construct()
      */
     public function update(Request $request, Facturesdaf $facturesdaf)
     {
-        //
+        $this->validate(
+            $request, [
+                'date_imp'              =>  'required|date',
+                'date_recep'            =>  'required|date',
+                'date_cg'               =>  'required|date',
+                'date_dg'               =>  'required|date',
+                'date_ac'               =>  'required|date',
+                'telephone'             =>  'required|string|max:50',
+                'email'                 =>  'required|email|max:255',
+                'numero_courrier'       =>  'required|unique:courriers,numero,'.$facturesdaf->courrier->id,
+                'numero_mandat'         =>  'required|unique:facturesdafs,numero,'.$facturesdaf->id,
+                'montant'               =>  'required',
+                'tva_ir'                =>  'required',
+                'designation'           =>  'required'
+
+            ]
+        );
+        
+    if (request('file')) { 
+       $filePath = request('file')->store('facturesdafs', 'public');
+       $courrier = $facturesdaf->courrier; 
+       $types_courrier_id = TypesCourrier::where('name','Factures daf')->first()->id;
+       $user_id  = Auth::user()->id;
+
+       $courrier->numero                    =      $request->input('numero_mandat');
+       $courrier->email                     =      $request->input('email');
+       $courrier->telephone                 =      $request->input('telephone');
+       $courrier->types_courriers_id        =      $types_courrier_id;
+       $courrier->users_id                  =      $user_id;
+       $courrier->file                      =      $filePath;
+       $courrier->legende                   =      $request->input('legende');
+       $courrier->tva_ir                    =      $request->input('tva_ir');
+
+    
+       $courrier->save();
+
+       $facturesdaf->numero                     =      $request->input('numero_courrier');
+       $facturesdaf->date_recep                 =      $request->input('date_recep');
+       $facturesdaf->date_transmission          =      $request->input('date_imp');
+       $facturesdaf->date_dg                    =      $request->input('date_dg');
+       $facturesdaf->date_cg                    =      $request->input('date_cg');
+       $facturesdaf->date_ac                    =      $request->input('date_ac');
+       $facturesdaf->montant                    =      $request->input('montant');
+       $facturesdaf->designation                =      $request->input('designation');
+       $facturesdaf->observation                =      $request->input('observation');
+       $facturesdaf->courriers_id               =      $courrier->id; 
+
+       $facturesdaf->save();
+       
+       $courrier->directions()->sync($request->input('directions'));
+
+        }
+    else{   
+        $courrier = $facturesdaf->courrier; 
+        $types_courrier_id = TypesCourrier::where('name','Factures daf')->first()->id;
+        $user_id  = Auth::user()->id;
+ 
+        $courrier->numero                    =      $request->input('numero_mandat');
+        $courrier->email                     =      $request->input('email');
+        $courrier->telephone                 =      $request->input('telephone');
+        $courrier->types_courriers_id        =      $types_courrier_id;
+        $courrier->users_id                  =      $user_id;
+        $courrier->tva_ir                    =      $request->input('tva_ir');
+ 
+     
+        $courrier->save();
+ 
+        $facturesdaf->numero                     =      $request->input('numero_mandat');
+        $facturesdaf->date_recep                 =      $request->input('date_recep');
+        $facturesdaf->date_transmission          =      $request->input('date_imp');
+        $facturesdaf->date_dg                    =      $request->input('date_dg');
+        $facturesdaf->date_cg                    =      $request->input('date_cg');
+        $facturesdaf->date_ac                    =      $request->input('date_ac');
+        $facturesdaf->montant                    =      $request->input('montant');
+        $facturesdaf->designation                =      $request->input('designation');
+        $facturesdaf->observation                =      $request->input('observation');
+        $facturesdaf->courriers_id               =      $courrier->id; 
+ 
+        $facturesdaf->save();
+        
+        $courrier->directions()->sync($request->input('directions'));
+
+         }
+         
+       return redirect()->route('courriers.show', $facturesdaf->courrier->id)->with('success','courrier modifié avec succès !');
     }
 
     /**

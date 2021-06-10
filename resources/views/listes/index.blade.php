@@ -68,9 +68,9 @@
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'listes/' . $liste->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                               {{--  {!! Form::open(['method' => 'DELETE', 'url' => 'listes/' . $liste->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
-                                                {!! Form::close() !!}
+                                                {!! Form::close() !!} --}}
                                             </td>
                                         </tr>
                                     @endforeach

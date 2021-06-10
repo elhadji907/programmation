@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche bordereau')
+@section('title', 'ONFP - Fiche facturesdaf')
 @section('content')
     
     <style>
@@ -96,11 +96,11 @@
     }
     </style>
     
-    @foreach ($bordereaus as $bordereau)  
+    @foreach ($facturesdafs as $facturesdaf)  
     <div class="invoice-box justify-content-center">
         <div class="card">            
             <div class="card card-header text-center bg-gradient-success">
-                <h1 class="h4 text-white mb-0">{!! $bordereau->courrier->types_courrier->name !!}</h1>
+                <h1 class="h4 text-white mb-0">{!! $facturesdaf->courrier->types_courrier->name !!}</h1>
             </div> 
         <div class="card-body">
         <table method="POST" cellpadding="0" cellspacing="0">
@@ -114,9 +114,9 @@
                             </td>
                             <td>
                                 Numéro #:                                   
-                                {!! $bordereau->numero !!}<br>
-                                Date correspondance:  {!! Carbon\Carbon::parse($bordereau->courrier->date_cores)->format('d/m/Y') !!}<br>
-                                Date réception:  {!! Carbon\Carbon::parse($bordereau->courrier->date_recep)->format('d/m/Y') !!}<br>
+                                {!! $facturesdaf->numero !!}<br>
+                                Date correspondance:  {!! Carbon\Carbon::parse($facturesdaf->courrier->date_cores)->format('d/m/Y') !!}<br>
+                                Date réception:  {!! Carbon\Carbon::parse($facturesdaf->courrier->date_recep)->format('d/m/Y') !!}<br>
                             </td>
                         </tr>
                     </table>
@@ -129,18 +129,18 @@
                         <tr>
                             <td>
                                 <h3>{{ __('EXPEDITEUR') }}</h3>
-                                <b>Nom:</b> {{ $bordereau->courrier->expediteur }}<br>
-                                <b>Adresse:</b> {{ $bordereau->courrier->adresse }}<br>
-                                <b>E-mail:</b> {{ $bordereau->courrier->email }}<br>
-                                <b>Tel:</b> {{ $bordereau->courrier->telephone }}<br>
-                                <b>Fax:</b> {{ $bordereau->courrier->fax }}<br>
-                                <b>BP:</b> {{ $bordereau->courrier->bp }}<br>
+                                <b>Nom:</b> {{ $facturesdaf->courrier->expediteur }}<br>
+                                <b>Adresse:</b> {{ $facturesdaf->courrier->adresse }}<br>
+                                <b>E-mail:</b> {{ $facturesdaf->courrier->email }}<br>
+                                <b>Tel:</b> {{ $facturesdaf->courrier->telephone }}<br>
+                                <b>Fax:</b> {{ $facturesdaf->courrier->fax }}<br>
+                                <b>BP:</b> {{ $facturesdaf->courrier->bp }}<br>
                             </td>
                             
                             <td>
                                 <h3>{{ __('GESTIONNAIRE') }}</h3>
-                                <b>Nom:</b> {{ $bordereau->courrier->user->firstname }}&nbsp;&nbsp;{{ $bordereau->courrier->user->name }}<br>
-                                <b>Tel:</b> {{ $bordereau->courrier->user->telephone }}
+                                <b>Nom:</b> {{ $facturesdaf->courrier->user->firstname }}&nbsp;&nbsp;{{ $facturesdaf->courrier->user->name }}<br>
+                                <b>Tel:</b> {{ $facturesdaf->courrier->user->telephone }}
                             </td>
                         </tr>
                     </table>
@@ -159,11 +159,11 @@
             
             <tr class="details">
                 <td>
-                        {{ $bordereau->courrier->objet }}
+                        {{ $facturesdaf->courrier->objet }}
                 </td>                
                 <td>
-                    @if ($bordereau->courrier->file !== "")
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($bordereau->courrier->getFile()) }}">
+                    @if ($facturesdaf->courrier->file !== "")
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($facturesdaf->courrier->getFile()) }}">
                             <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
                         </a>                                            
                     @else
@@ -184,7 +184,7 @@
             <tr class="item">
                 
                 <td colspan="2">
-                    {{ $bordereau->courrier->message }} 
+                    {{ $facturesdaf->courrier->message }} 
                 </td>
             </tr>
             <tr class="heading">
@@ -199,13 +199,13 @@
             
             <tr class="item">
                 <td>
-                    @foreach ($bordereau->courrier->imputations as $imputation)
+                    @foreach ($facturesdaf->courrier->imputations as $imputation)
                       {!! $imputation->destinataire !!}<br>
                     @endforeach
                </td>
                 
                 <td>
-                    @foreach ($bordereau->courrier->imputations as $imputation)
+                    @foreach ($facturesdaf->courrier->imputations as $imputation)
                     {!! $imputation->sigle !!}<br>
                     @endforeach
                 </td>
@@ -213,12 +213,12 @@
         </table>
 
         <div class="d-flex justify-content-between align-items-center mt-5">
-            @can('update', $bordereau->courrier)
-                <a href="{!! url('bordereaus/' .$bordereau->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+            @can('update', $facturesdaf->courrier)
+                <a href="{!! url('facturesdafs/' .$facturesdaf->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                     <i class="far fa-edit">&nbsp;Modifier</i>
                 </a>
             @endcan
-            <a href="{!! route('courriers.show', $bordereau->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+            <a href="{!! route('courriers.show', $facturesdaf->courrier->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                 <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
             </a>
         </div>

@@ -26,7 +26,7 @@
               <table class="table table-bordered table-striped" id="table-facturesdafs" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th style="width:10%;">N° Courrier</th>
+                    <th style="width:8%;">N° Cour.</th>
                     <th style="width:8%;">Date imp.</th>
                     <th style="width:9%;">Date recep.</th>
                     <th>Designation</th>
@@ -40,7 +40,7 @@
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    <th>N° Courrier</th>
+                    <th>N° Cour.</th>
                     <th>Date imp.</th>
                     <th>Date recep.</th>
                     <th>Designation</th>
@@ -57,7 +57,7 @@
                   @foreach ($facturesdafs as $facturesdaf)
                   <tr>
                      {{-- <td class="align-middle">{!! $i++ !!}</td>  --}}
-                    <td class="align-middle">{!! $facturesdaf->numero !!}</td>
+                    <td class="align-middle">{!! $facturesdaf->courrier->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_depart)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_recep)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! $facturesdaf->designation !!}</td>         
@@ -66,7 +66,7 @@
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_cg)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_dg)->format('d/m/Y') !!}</td>        
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_ac)->format('d/m/Y') !!}</td>        
-                    <td class="d-flex align-items-center justify-content-center" style="height: 150px;">
+                    <td class="d-flex align-items-center justify-content-center">
                       @can('update', $facturesdaf->courrier)
                         <a href="{!! url('facturesdafs/' .$facturesdaf->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
