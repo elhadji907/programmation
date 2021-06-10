@@ -99,7 +99,7 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
         'designation' => $faker->text,
         'date_visa' => $faker->dateTime(),
         'date_mandat' => $faker->dateTime(),
-        'tva_ir' => $faker->word,
+        'tva_ir' => $faker->randomNumber(),
         'nb_pc' => $faker->word,
         'destinataire' => $faker->word,
         'date_paye' => $faker->dateTime(),

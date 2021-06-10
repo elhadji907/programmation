@@ -25,8 +25,8 @@
                         <p><b><u class="h4">Observation</u> : </b>{{ $facturesdaf->observation ?? 'Aucune observation' }}
                         </p>
                         <div class="d-flex justify-content-between align-items-center pt-2">
-                            <p><b><u class="h4">Montant</u> : </b><span
-                                    class="font-italic">{{ $facturesdaf->montant ?? 'Aucune montant' }}</span>{!! ' F CFA' !!}
+                            <p><b><u class="h4">Montant </u> : </b><span
+                                    class="font-italic">{{ $facturesdaf->courrier->total ?? 'Aucune montant' }}</span>{!! ' F CFA' !!}
                             </p>
                             <span><b><u class="h4">Date mandat</u> : </b>{!! Carbon\Carbon::parse($facturesdaf->date_mandat)->format('d/m/Y') ?? 'Pas encore mandaté' !!}</span>
                         </div>

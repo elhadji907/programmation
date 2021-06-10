@@ -81,7 +81,6 @@ public function __construct()
                 'email'                 =>  'required|email|max:255',
                 'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
                 'montant'               =>  'required',
-                'tva_ir'                =>  'required',
                 'designation'           =>  'required'
             ]
         );
@@ -95,15 +94,20 @@ public function __construct()
         $direction = \App\Direction::first();
         $imputation = \App\Imputation::first();
         $courrier = \App\Courrier::first();
-
-        
+      
+        $montant    =    $request->input('montant');        
+        $tva_ir     =    $montant*(18/100);
+        $total      =    $tva_ir + $montant;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
+            'objet'                     =>      $request->input('objet'),
             'designation'               =>      $request->input('designation'),
-            'telephone'                 =>      $request->input('telephone'),
+            'telephone'                 =>      $request->input('telephone'),     
+            'montant'                   =>      $montant,
+            'total'                     =>      $total,
             'email'                     =>      $request->input('email'),
-            'tva_ir'                    =>      $request->input('tva_ir'),
+            'tva_ir'                    =>      $tva_ir,
             'types_courriers_id'        =>      $types_courrier_id,
             'users_id'                  =>      $user_id,
         ]);
@@ -117,7 +121,7 @@ public function __construct()
             'date_dg'                   =>      $request->input('date_dg'),    
             'date_cg'                   =>      $request->input('date_cg'),    
             'date_ac'                   =>      $request->input('date_ac'),       
-            'montant'                   =>      $request->input('montant'),
+            'montant'                   =>      $montant,
             'designation'               =>      $request->input('designation'),
             'observation'               =>      $request->input('observation'),
             'courriers_id'              =>      $courrier->id
@@ -128,7 +132,7 @@ public function __construct()
 
         /* $courrier->directions()->sync($request->imputations); */
         
-        return redirect()->route('facturesdafs.index')->with('success','bordereau ajoutée avec succès !');
+        return redirect()->route('facturesdafs.index')->with('success','facture ajoutée avec succès !');
     }
 
     /**
@@ -179,11 +183,14 @@ public function __construct()
                 'numero_courrier'       =>  'required|unique:courriers,numero,'.$facturesdaf->courrier->id,
                 'numero_mandat'         =>  'required|unique:facturesdafs,numero,'.$facturesdaf->id,
                 'montant'               =>  'required',
-                'tva_ir'                =>  'required',
                 'designation'           =>  'required'
 
             ]
         );
+
+        $montant    =    $request->input('montant');        
+        $tva_ir     =    $montant*(18/100);
+        $total      =    $tva_ir + $montant;
         
     if (request('file')) { 
        $filePath = request('file')->store('facturesdafs', 'public');
@@ -192,13 +199,17 @@ public function __construct()
        $user_id  = Auth::user()->id;
 
        $courrier->numero                    =      $request->input('numero_mandat');
+       $courrier->objet                     =      $request->input('objet');
        $courrier->email                     =      $request->input('email');
        $courrier->telephone                 =      $request->input('telephone');
        $courrier->types_courriers_id        =      $types_courrier_id;
        $courrier->users_id                  =      $user_id;
        $courrier->file                      =      $filePath;
        $courrier->legende                   =      $request->input('legende');
-       $courrier->tva_ir                    =      $request->input('tva_ir');
+       $courrier->adresse                   =      $request->input('adresse');
+       $courrier->tva_ir                    =      $tva_ir;
+       $courrier->montant                   =      $montant;
+       $courrier->total                     =      $total;
 
     
        $courrier->save();
@@ -209,7 +220,7 @@ public function __construct()
        $facturesdaf->date_dg                    =      $request->input('date_dg');
        $facturesdaf->date_cg                    =      $request->input('date_cg');
        $facturesdaf->date_ac                    =      $request->input('date_ac');
-       $facturesdaf->montant                    =      $request->input('montant');
+       $facturesdaf->montant                    =      $montant;
        $facturesdaf->designation                =      $request->input('designation');
        $facturesdaf->observation                =      $request->input('observation');
        $facturesdaf->courriers_id               =      $courrier->id; 
@@ -225,11 +236,15 @@ public function __construct()
         $user_id  = Auth::user()->id;
  
         $courrier->numero                    =      $request->input('numero_mandat');
+        $courrier->objet                     =      $request->input('objet');
         $courrier->email                     =      $request->input('email');
         $courrier->telephone                 =      $request->input('telephone');
+        $courrier->adresse                   =      $request->input('adresse');
         $courrier->types_courriers_id        =      $types_courrier_id;
         $courrier->users_id                  =      $user_id;
-        $courrier->tva_ir                    =      $request->input('tva_ir');
+        $courrier->tva_ir                    =      $tva_ir;
+        $courrier->montant                   =      $montant;
+        $courrier->total                     =      $total;
  
      
         $courrier->save();
@@ -240,7 +255,7 @@ public function __construct()
         $facturesdaf->date_dg                    =      $request->input('date_dg');
         $facturesdaf->date_cg                    =      $request->input('date_cg');
         $facturesdaf->date_ac                    =      $request->input('date_ac');
-        $facturesdaf->montant                    =      $request->input('montant');
+        $facturesdaf->montant                    =      $montant;
         $facturesdaf->designation                =      $request->input('designation');
         $facturesdaf->observation                =      $request->input('observation');
         $facturesdaf->courriers_id               =      $courrier->id; 
@@ -262,6 +277,10 @@ public function __construct()
      */
     public function destroy(Facturesdaf $facturesdaf)
     {
-        //
+        $facturesdaf->courrier->delete();
+        $facturesdaf->delete();
+                
+        $message = 'La facture n° '.$facturesdaf->numero.' a été supprimé(e)';
+        return redirect()->route('facturesdafs.index')->with(compact('message'));
     }
 }

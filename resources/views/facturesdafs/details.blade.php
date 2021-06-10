@@ -199,14 +199,13 @@
             
             <tr class="item">
                 <td>
-                    @foreach ($facturesdaf->courrier->imputations as $imputation)
-                      {!! $imputation->destinataire !!}<br>
+                    @foreach ($facturesdaf->courrier->directions as $direction)
+                        {!! $direction->name !!}<br>
                     @endforeach
-               </td>
-                
+                </td>
                 <td>
-                    @foreach ($facturesdaf->courrier->imputations as $imputation)
-                    {!! $imputation->sigle !!}<br>
+                    @foreach ($facturesdaf->courrier->directions as $direction)
+                           {!! $direction->chef->user->firstname. '   ' . $direction->chef->user->name !!}<br>
                     @endforeach
                 </td>
             </tr>            

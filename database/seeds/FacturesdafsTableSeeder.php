@@ -11,6 +11,6 @@ class FacturesdafsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Facturesdaf::class,17)->create();
+        factory(App\Facturesdaf::class,77)->create();
     }
 }
