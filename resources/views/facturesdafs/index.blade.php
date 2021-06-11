@@ -30,8 +30,7 @@
                     <th style="width:8%;">Date imp.</th>
                     <th style="width:9%;">Date recep.</th>
                     <th>Designation</th>
-                    <th>Montant HT</th>
-                    <th>TVA/IR</th>
+                    <th>Montant total</th>
                     <th style="width:8%;">Visa CG</th>
                     <th style="width:9%;">Mandat DG</th>
                     <th style="width:8%;">Date AC</th>
@@ -44,8 +43,7 @@
                     <th>Date imp.</th>
                     <th>Date recep.</th>
                     <th>Designation</th>
-                    <th>Montant HT</th>
-                    <th>TVA/IR</th>
+                    <th>Montant total</th>
                     <th>Visa CG</th>
                     <th>Mandat DG</th>
                     <th>Date AC</th>
@@ -60,9 +58,8 @@
                     <td class="align-middle">{!! $facturesdaf->courrier->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_depart)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_recep)->format('d/m/Y') !!}</td>
-                    <td class="align-middle">{!! $facturesdaf->designation !!}</td>         
-                    <td class="align-middle">{!! $facturesdaf->montant !!}</td>         
-                    <td class="align-middle">{!! $facturesdaf->courrier->tva_ir !!}</td>   
+                    <td class="align-middle">{!! $facturesdaf->designation !!}</td>      
+                    <td class="align-middle">{!! $facturesdaf->courrier->total !!}</td>   
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_cg)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_dg)->format('d/m/Y') !!}</td>        
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_ac)->format('d/m/Y') !!}</td>        

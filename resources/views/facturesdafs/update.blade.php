@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Montant HT :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('montant', $facturesdaf->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
@@ -99,18 +99,18 @@
                                     @endif
                                 </small>
                             </div>
-                            {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('TVA/IR :') !!}
-                                {!! Form::text('tva_ir', $facturesdaf->courrier->tva_ir, ['placeholder' => 'TVA/IR', 'class' => 'form-control']) !!}
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                {!! Form::label('Autre montant :') !!}
+                                {!! Form::text('autres_montant', $facturesdaf->courrier->autres_montant, ['placeholder' => 'Autre montant', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('tva_ir'))
-                                        @foreach ($errors->get('tva_ir') as $message)
+                                    @if ($errors->has('autres_montant'))
+                                        @foreach ($errors->get('autres_montant') as $message)
                                             <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                     @endif
                                 </small>
-                            </div> --}}
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            </div>
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Numéro mandat :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('numero_mandat', $facturesdaf->numero, ['placeholder' => 'Le numéro du mandat', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">

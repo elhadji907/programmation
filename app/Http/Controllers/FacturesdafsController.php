@@ -95,16 +95,20 @@ public function __construct()
         $imputation = \App\Imputation::first();
         $courrier = \App\Courrier::first();
       
-        $montant    =    $request->input('montant');        
-        $tva_ir     =    $montant*(18/100);
-        $total      =    $tva_ir + $montant;
+        $montant            =    $request->input('montant');        
+        $autres_montant     =    $request->input('autres_montant');        
+        $tva_ir             =    $montant*(18/100);
+        $total              =    $tva_ir + $montant + $autres_montant;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
             'objet'                     =>      $request->input('objet'),
             'designation'               =>      $request->input('designation'),
-            'telephone'                 =>      $request->input('telephone'),     
+            'telephone'                 =>      $request->input('telephone'),
+            'date_recep'                =>      $request->input('date_recep'),    
+            'date_imp'                  =>      $request->input('date_imp'),       
             'montant'                   =>      $montant,
+            'autres_montant'            =>      $autres_montant,
             'total'                     =>      $total,
             'email'                     =>      $request->input('email'),
             'tva_ir'                    =>      $tva_ir,
@@ -188,9 +192,10 @@ public function __construct()
             ]
         );
 
-        $montant    =    $request->input('montant');        
-        $tva_ir     =    $montant*(18/100);
-        $total      =    $tva_ir + $montant;
+        $montant            =    $request->input('montant');        
+        $autres_montant     =    $request->input('autres_montant');        
+        $tva_ir             =    $montant*(18/100);
+        $total              =    $tva_ir + $montant + $autres_montant;
         
     if (request('file')) { 
        $filePath = request('file')->store('facturesdafs', 'public');
@@ -202,13 +207,17 @@ public function __construct()
        $courrier->objet                     =      $request->input('objet');
        $courrier->email                     =      $request->input('email');
        $courrier->telephone                 =      $request->input('telephone');
+       $courrier->date_recep                =      $request->input('date_recep');
+       $courrier->date_imp                  =      $request->input('date_imp');
        $courrier->types_courriers_id        =      $types_courrier_id;
        $courrier->users_id                  =      $user_id;
        $courrier->file                      =      $filePath;
        $courrier->legende                   =      $request->input('legende');
        $courrier->adresse                   =      $request->input('adresse');
+       $courrier->designation               =      $request->input('designation');
        $courrier->tva_ir                    =      $tva_ir;
        $courrier->montant                   =      $montant;
+       $courrier->autres_montant            =      $autres_montant;
        $courrier->total                     =      $total;
 
     
@@ -240,10 +249,14 @@ public function __construct()
         $courrier->email                     =      $request->input('email');
         $courrier->telephone                 =      $request->input('telephone');
         $courrier->adresse                   =      $request->input('adresse');
+        $courrier->date_recep                =      $request->input('date_recep');
+        $courrier->date_imp                  =      $request->input('date_imp');
+        $courrier->designation               =      $request->input('designation');
         $courrier->types_courriers_id        =      $types_courrier_id;
         $courrier->users_id                  =      $user_id;
         $courrier->tva_ir                    =      $tva_ir;
         $courrier->montant                   =      $montant;
+        $courrier->autres_montant            =      $autres_montant;
         $courrier->total                     =      $total;
  
      
