@@ -1,7 +1,7 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-/*
+/* 
 use Faker\Generator as Faker;
 
 $factory->define(App\Courrier::class, function (Faker $faker) {
@@ -28,22 +28,34 @@ $factory->define(App\Courrier::class, function (Faker $faker) {
         'date_cores' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
-        'gestionnaires_id' => function () {
-            return factory(App\Gestionnaire::class)->create()->id;
-        },
+        'designation' => $faker->text,
+        'date_visa' => $faker->dateTime(),
+        'date_mandat' => $faker->dateTime(),
+        'tva_ir' => $faker->word,
+        'nb_pc' => $faker->word,
+        'destinataire' => $faker->word,
+        'date_paye' => $faker->dateTime(),
+        'num_bord' => $faker->randomNumber(),
+        'montant' => $faker->randomFloat(),
+        'autres_montant' => $faker->randomFloat(),
+        'total' => $faker->randomFloat(),
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
-        },
-        'employees_id' => function () {
-            return factory(App\Employee::class)->create()->id;
         },
         'types_courriers_id' => function () {
             return factory(App\TypesCourrier::class)->create()->id;
         },
+        'projets_id' => function () {
+            return factory(App\Projet::class)->create()->id;
+        },
+        'traitementcourriers_id' => function () {
+            return factory(App\Traitementcourrier::class)->create()->id;
+        },
     ];
 });
-*/
-use App\Helpers\SnNameGenerator as SnmG;
+ */
+
+ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $autoIncre = autoIncre();
@@ -52,8 +64,14 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
     $autoIncre->next();
 
     $user_id=App\User::all()->random()->id;
+    $projet_id=App\Projet::all()->random()->id;
     $annee = date('y');
     $numero_courrier = date('His');
+
+    $montant = $faker->randomFloat();
+    $autre_montant = $faker->randomFloat();
+
+    $total = $montant + $autre_montant;
 
 
     return [
@@ -78,17 +96,23 @@ $factory->define(App\Courrier::class, function (Faker\Generator $faker) use ($au
         'date_cores' => $faker->dateTime(),
         'date_rejet' => $faker->dateTime(),
         'date_liq' => $faker->dateTime(),
+        'designation' => $faker->text,
+        'date_visa' => $faker->dateTime(),
+        'date_mandat' => $faker->dateTime(),
+        'tva_ir' => $faker->randomNumber(),
+        'nb_pc' => $faker->word,
+        'destinataire' => $faker->word,
+        'date_paye' => $faker->dateTime(),
+        'num_bord' => $faker->randomNumber(),
+        'montant' => $montant,
+        'autres_montant' => $autre_montant,
+        'total' => $total,
+        'projets_id' => function ()  use($projet_id) {
+            return $projet_id;
+       },
         'users_id' => function ()  use($user_id) {
             return $user_id;
         },
-        /*
-        'employees_id' => function () {
-            return factory(App\Employee::class)->create()->id;
-        },
-        'types_courriers_id' => function () {
-            return factory(App\TypesCourrier::class)->create()->id;
-        },
-        */
     ];
 });
 

@@ -35,7 +35,7 @@ class VillagesTableSeeder extends Seeder
                         $commune_=App\Commune::firstOrNew(["nom"=>$commune->nom]);
                         $arrondissement_->communes()->save($commune_);
                         foreach ((array)$commune->village as $village) {
-                            if(App\Village::count()<70){
+                            if(App\Village::count()<15){
                             $village_=App\Village::firstOrNew(["nom"=>$village->nom]);
                             $commune_->villages()->save($village_);
 
@@ -67,7 +67,7 @@ class VillagesTableSeeder extends Seeder
                             //$id_gest=$gestionnaires_id[$randk];
                             //echo("Pass 3".PHP_EOL);
                             $role_beneficiaire=App\Role::where("name","Beneficiaire")->first();
-                            $direction_id=App\Direction::all()->random()->id;
+                            /* $direction_id=App\Direction::all()->random()->id; */
 
                             $user=App\User::firstOrNew([
                                 "name"=>$nom,

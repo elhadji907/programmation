@@ -23,15 +23,15 @@ Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
     { 
+        Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
         Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
-        Route::get('/directions.selectresponsable', function() { return view('directions.selectresponsable'); })->name('directions.selectresponsable');
-        Route::get('/services.selectresponsable', function() { return view('services.selectresponsable'); })->name('services.selectresponsable');
+        Route::get('/directions.selectemployees', function() { return view('directions.selectemployees'); })->name('directions.selectemployees');
         Route::get('/internes.selectdirection', function() { return view('internes.selectdirection'); })->name('internes.selectdirection');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
-        Route::get('/personnels/list', 'PersonnelsController@list')->name('personnels.list');
+        Route::get('/employees/list', 'EmployeesController@list')->name('employees.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
         Route::get('/services/list', 'ServicesController@list')->name('services.list');
@@ -43,7 +43,7 @@ Route::group([
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
         Route::get('/nivauxs/list', 'NivauxsController@list')->name('nivauxs.list');
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
-       /*  Route::get('/villages/list', 'VillagesController@list')->name('villages.list'); */
+        Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
@@ -60,13 +60,15 @@ Route::group([
         Route::get('/lister_term/{localitesliste}/{nom_module}', 'LocalitesController@lister_term')->name('localites.lister_term');
 
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
-        Route::get('/dafs/list', 'DafsController@list')->name('dafs.list');
         Route::get('/factures/list', 'FacturesController@list')->name('factures.list');
+        Route::get('/facturesdafs/list', 'FacturesdafsController@list')->name('facturesdafs.list');
         Route::get('/etats/list', 'EtatsController@list')->name('etats.list');
         Route::get('/previsions/list', 'EtatsprevisController@list')->name('previsions.list');
         Route::get('/banques/list', 'BanquesController@list')->name('banques.list');
         Route::get('/missions/list', 'MissionsController@list')->name('missions.list');
         Route::get('/bordereaus/list', 'BordereausController@list')->name('bordereaus.list');
+        Route::get('/listes/list', 'ListesController@list')->name('listes.list');
+        Route::get('/tresors/list', 'TresorsController@list')->name('tresors.list');
         Route::get('/presentations/list', 'PresentationsController@list')->name('presentations.list');
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
@@ -81,16 +83,18 @@ Route::group([
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
         Route::resource('/administrateurs', 'AdministrateursController');
-        Route::resource('/personnels', 'PersonnelsController');
+        Route::resource('/employees', 'EmployeesController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
-        Route::resource('/dafs', 'DafsController');
         Route::resource('/factures', 'FacturesController');
+        Route::resource('/facturesdafs', 'FacturesdafsController');
         Route::resource('/etats', 'EtatsController');
         Route::resource('/previsions', 'EtatsprevisController');
         Route::resource('/banques', 'BanquesController');
         Route::resource('/missions', 'MissionsController');
         Route::resource('/bordereaus', 'BordereausController');
+        Route::resource('/listes', 'ListesController');
+        Route::resource('/tresors', 'TresorsController');
         Route::resource('/presentations', 'PresentationsController');
         Route::resource('/recues', 'RecuesController');
         Route::resource('/departs', 'DepartsController');

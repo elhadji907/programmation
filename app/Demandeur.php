@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $situation
  * @property string $telephone
  * @property string $fixe
+ * @property int $nbre_piece
  * @property string $items1
  * @property string $items2
- * @property string $items3
  * @property \Carbon\Carbon $date1
  * @property \Carbon\Carbon $date2
  * @property int $users_id
@@ -58,12 +58,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Demandeur extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
 
 	protected $casts = [
+		'nbre_piece' => 'int',
 		'users_id' => 'int',
 		'lieux_id' => 'int',
 		'items_id' => 'int'
@@ -92,9 +94,9 @@ class Demandeur extends Eloquent
 		'situation',
 		'telephone',
 		'fixe',
+		'nbre_piece',
 		'items1',
 		'items2',
-		'items3',
 		'date1',
 		'date2',
 		'users_id',
@@ -130,21 +132,21 @@ class Demandeur extends Eloquent
 	public function diplomes()
 	{
 		return $this->belongsToMany(\App\Diplome::class, 'demandeurs_has_diplomes', 'demandeurs_id', 'diplomes_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function disponibilites()
 	{
 		return $this->belongsToMany(\App\Disponibilite::class, 'demandeurs_has_disponibilites', 'demandeurs_id', 'disponibilites_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function modules()
 	{
 		return $this->belongsToMany(\App\Module::class, 'demandeurs_has_modules', 'demandeurs_id', 'modules_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

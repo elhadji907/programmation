@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -29,7 +29,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Programme extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -54,14 +55,14 @@ class Programme extends Eloquent
 	public function modules()
 	{
 		return $this->belongsToMany(\App\Module::class, 'programmes_has_modules', 'programmes_id', 'modules_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 
 	public function regions()
 	{
 		return $this->belongsToMany(\App\Region::class, 'programmes_has_regions', 'programmes_id', 'regions_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 }

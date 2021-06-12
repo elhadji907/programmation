@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\Fonction;
+use App\TypesDirection;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Charts\Courrierchart;
@@ -16,14 +18,16 @@ class DirectionsController extends Controller
      */
     public function index()
     {
-        //
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
         ]);
-        return view('directions.index', compact('chart'));
+
+       $directions = \App\Direction::all();
+
+        return view('directions.index', compact('chart', 'directions'));
     }
 
     /**
@@ -40,7 +44,18 @@ class DirectionsController extends Controller
            'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
        ]);
 
-        return view('directions.create',compact('user', 'chart'));
+       $direction_id=$request->input('direction');
+       $direction=\App\Direction::find($direction_id);
+
+       $types_directions = TypesDirection::distinct('name')->get()->pluck('name','id')->unique();
+       $fonctions = Fonction::distinct('name')->get()->pluck('name','id')->unique();
+       
+       $employee_id=$request->input('employee');
+       $employee=\App\Employee::find($employee_id);
+
+      /*  dd($employee); */
+
+        return view('directions.create',compact('user', 'chart','employee','types_directions','fonctions'));
     }
 
     /**
@@ -55,17 +70,27 @@ class DirectionsController extends Controller
             $request, [
                 'direction'     => 'required|string|max:250',
                 'sigle'         => 'required|string|max:10',
-                'user'          => 'required|exists:users,id',
+                'type_direction'      => 'required',
+                'employee'            => 'required|exists:employees,id',
             ]
         );
-        /* dd($request->input('user')); */
+
+
+        $employee_id=$request->input('employee');
+        $employee=\App\Employee::find($employee_id);
+
+        //dd($employee);
+        
         $direction = new Direction([            
-            'name'      =>      $request->input('direction'),
-            'sigle'     =>      $request->input('sigle'),
-            'chef_id'   =>      $request->input('user')
+            'name'                  =>      $request->input('direction'),
+            'sigle'                 =>      $request->input('sigle'),
+            'types_directions_id'   =>      $request->input('type_direction'),
+            'chef_id'               =>      $request->input('employee')
 
         ]);
+
         $direction->save();
+
         return redirect()->route('directions.index')->with('success','direction / service ajouté(e) avec succès !');
     }
 
@@ -77,7 +102,14 @@ class DirectionsController extends Controller
      */
     public function show(Direction $direction)
     {
-        //
+
+        $employees = $direction->employees;
+
+        $direction_courriers = $direction->courriers;
+
+        $courriers = $direction->courriers()->paginate(2);
+        
+        return view('directions.show', compact('employees','courriers','direction','direction_courriers'));
     }
 
     /**
@@ -88,14 +120,17 @@ class DirectionsController extends Controller
      */
     public function edit($id)
     {
-        $direction = Direction::find($id);
+        $directions = Direction::find($id);
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
         $chart->dataset('STATISTIQUES', 'bar', ['','',''])->options([
             'backgroundColor'=>["#3e95cd", "#8e5ea2","#3cba9f"],
-        ]);
-        return view('directions.update', compact('direction','id','chart'));
+        ]);        
+        
+        $types_directions = TypesDirection::distinct('name')->get()->pluck('name','name')->unique();
+
+        return view('directions.update', compact('directions','id','chart','types_directions'));
     }
 
     /**
@@ -112,10 +147,18 @@ class DirectionsController extends Controller
             [
                 'direction'     => 'required|string|max:250',
                 'sigle'         => 'required|string|max:10',
+                'type_direction'      => 'required',
             ]);
+
             $direction = Direction::find($id);
-            $direction->name   =     $request->input('direction');
-            $direction->sigle  =     $request->input('sigle');
+            
+            $types_directions_id = TypesDirection::where('name',$request->input('type_direction'))->first()->id;
+            
+           /*  dd($types_directions_id); */
+
+            $direction->name                    =     $request->input('direction');
+            $direction->sigle                   =     $request->input('sigle');
+            $direction->types_directions_id     =     $types_directions_id;
 
             $direction->save();
         
@@ -137,7 +180,7 @@ class DirectionsController extends Controller
 
     public function list(Request $request)
     {
-        $directions=Direction::with('chef.user','personnels.fonction')->get();
+        $directions=Direction::with('employees','chef')->get();
         return Datatables::of($directions)->make(true);
 
     }

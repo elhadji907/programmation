@@ -73,21 +73,62 @@
 </li>
 
 <li class="nav-item">
-  @roles('Administrateur|Courrier')
-<a class="nav-link" href="{{ route('dafs.index') }}">
-    <span data-feather="folder"></span>
-  <span>Dossiers DAF</span>
-</a>
-@endroles
-</li>
-
-<li class="nav-item">
     @roles('Administrateur|Courrier')
   <a class="nav-link" href="{{ route('courriers.index') }}">
       <span data-feather="mail"></span>
     <span>Gestion courriers</span>
   </a>
   @endroles
+</li>
+
+<li class="nav-item">
+  @roles('Administrateur')
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages_daf" aria-expanded="true" aria-controls="collapsePages_daf">
+  <span data-feather="folder"></span>
+  <span>DOSSIERS DAF</span>
+</a>
+@endroles
+<div id="collapsePages_daf" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+  <div class="bg-white py-2 collapse-inner rounded">
+   {{--   <h6 class="collapse-header"></h6>  --}}
+    @guest
+    <a class="collapse-item" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
+    @if (Route::has('register'))
+    <a class="collapse-item" href="{{ route('register') }}">{{ __("S'inscrire") }}</a>
+    @endif
+    @else
+    {{--  <h6 class="collapse-header">UTILISATEURS</h6>  --}}
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>Bordereaux</span>
+    </a>
+    {{--  <a class="collapse-item" href="{{ route('listes.index') }}">
+      <span>Liste des B.</span>
+    </a>  --}}
+    <a class="collapse-item" href="{{ route('facturesdafs.index') }}">
+      <span>Factures</span>
+    </a>
+    <a class="collapse-item" href="{{ route('tresors.index') }}">
+      <span>Recettes Trésor</span>
+    </a>      
+    </a>
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>Frais Bancaire</span>
+    </a>
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>Ordres de missions</span>
+    </a>
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>Etat paiement</span>
+    </a>
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>EPP</span>
+    </a>
+    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+      <span>FAD</span>
+    </a>
+    @endguest
+  </div>
+</div>
 </li>
 <li class="nav-item">
     @roles('Administrateur')
@@ -123,9 +164,9 @@
 </li>
 <li class="nav-item">
   @roles('Administrateur')
-<a class="nav-link" href="{{ route('personnels.index') }}">
+<a class="nav-link" href="{{ route('employees.index') }}">
     <span data-feather="layers"></span>
-  <span>Gestion personnel</span>
+  <span>Gestion des employees</span>
 </a>
 @endroles
 </li>
@@ -201,14 +242,6 @@
   </a>
   @endroles
 </li>
-{{--  <li class="nav-item">
-    @roles('Administrateur|Courrier')
-  <a class="nav-link" href="{{ route('presentations.index') }}">
-      <span data-feather="layers"></span>
-    <span>Statistiques</span>
-  </a>
-  @endroles
-</li>  --}}
 <li class="nav-item">
     @roles('Administrateur')
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
@@ -220,7 +253,7 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Écrans de connexion:</h6>
       <a class="collapse-item"  href="{{ route('profiles.show', ['user'=>auth()->user()]) }}">
-        {{ str_limit(Auth::user()->email, 18, '...') }}
+      {{--    {{ str_limit(Auth::user()->email, 18, '...') }}  --}}
         </a>
       <!-- Authentication Links -->
       @guest
@@ -237,13 +270,7 @@
       <a class="collapse-item" href="{{ route('gestionnaires.index') }}">
         <span data-feather="user"></span>
         <span>Gestionnaires</span>
-      </a>
-
-     {{--   <a class="collapse-item" href="{{ route('beneficiaires.index') }}">
-        <span data-feather="user"></span>
-        <span>Bénéficiaires</span>
-      </a>  --}}
-      
+      </a>      
       </a>
       <a class="collapse-item" href="{{ route('villages.index') }}">
         <span data-feather="user"></span>
@@ -253,23 +280,6 @@
     </div>
   </div>
 </li>
-
-{{--  
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-  <a class="nav-link" href="charts.html">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Charts</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="{{ url('/table')  }}">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Tables</span></a>
-</li>  
---}}
-
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -20,11 +20,15 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \Illuminate\Database\Eloquent\Collection $missions
+ * @property \Illuminate\Database\Eloquent\Collection $sorties
  *
  * @package App
  */
 class Vehicule extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -35,4 +39,14 @@ class Vehicule extends Eloquent
 		'marque',
 		'type_carburant'
 	];
+
+	public function missions()
+	{
+		return $this->hasMany(\App\Mission::class, 'vehicules_id');
+	}
+
+	public function sorties()
+	{
+		return $this->hasMany(\App\Sorty::class, 'vehicules_id');
+	}
 }

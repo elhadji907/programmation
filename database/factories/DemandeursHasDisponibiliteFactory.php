@@ -6,11 +6,11 @@ use Faker\Generator as Faker;
 
 $factory->define(App\DemandeursHasDisponibilite::class, function (Faker $faker) {
     return [
-        'disponibilites_id' => function () {
-            return factory(App\Disponibilite::class)->create()->id;
-        },
         'demandeurs_id' => function () {
             return factory(App\Demandeur::class)->create()->id;
+        },
+        'disponibilites_id' => function () {
+            return factory(App\Disponibilite::class)->create()->id;
         },
     ];
 });

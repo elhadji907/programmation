@@ -1,66 +1,64 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-/*
-use Faker\Generator as Faker;
+
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Bordereau::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
         'numero_mandat' => $faker->randomNumber(),
-        'dafs_id' => function () {
-            return factory(App\Daf::class)->create()->id;
-        },
         'date_mandat' => $faker->dateTime(),
         'designation' => $faker->text,
         'montant' => $faker->randomFloat(),
         'nombre_de_piece' => $faker->randomNumber(),
         'observation' => $faker->text,
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
+        },
+        'listes_id' => function () {
+            return factory(App\Liste::class)->create()->id;
+        },
     ];
-});
-*/
-
-use Faker\Generator as Faker;
+}); */
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
-$autoIncr = autoIncr();
+$autoIncremente_bd = autoIncremente_bd();
 
+$factory->define(App\Bordereau::class, function (Faker\Generator $faker) use ($autoIncremente_bd) {
+    $autoIncremente_bd->next();
 
-$factory->define(App\Bordereau::class, function (Faker $faker) use ($autoIncr) {
-
-    $dafs_id=App\Daf::all()->random()->id;
+    $types_courrier_id=App\TypesCourrier::where('name','Bordereau')->first()->id;
     $annee = date('y');
+    $numero_courrier = date('His');
 
+    $liste_id=App\Liste::all()->random()->id;
+
+    $nombre = rand(1, 9);
+    
     return [
-        'numero' => 'B'.$autoIncr->current()."".$annee,
-        'numero_mandat' => $faker->randomNumber(),
-        'dafs_id' => function ()  use($dafs_id) {
-            return $dafs_id;
-        },
+        'numero' => 'BD'.$autoIncremente_bd->current()."".$annee,
+        'numero_mandat' => $autoIncremente_bd->current(),
         'date_mandat' => $faker->dateTime(),
-        'designation' => $faker->text,
+        'designation' => $faker->paragraph(1),
         'montant' => $faker->randomFloat(),
-        'nombre_de_piece' => $faker->randomNumber(),
-        'observation' => $faker->text,
+        'nombre_de_piece' => $nombre,
+        'observation' => $faker->paragraph(1),
+        'courriers_id' => function () use($types_courrier_id) {
+            return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
+        },
+        'listes_id' => function () use($liste_id) {
+            return $liste_id;
+        },
     ];
 });
 
-function autoIncr()
+function autoIncremente_bd()
 {
-    for ($i = 0; $i < 100000; $i++) {
-        if (strlen($i) <= 1) {
-            yield '0000'.$i;
-        } elseif (strlen($i) > 1 && strlen($i) <= 2) {
-            yield '000'.$i;
-        } elseif(strlen($i) > 2 && strlen($i) <= 3) {
-            yield '00'.$i;
-        } elseif(strlen($i) > 3 && strlen($i) <= 4) {
-            yield '0'.$i;
-        } else{
-            yield $i;
-        }
+    for ($i = 100; $i < 999; $i++) {
+        yield $i;
     }
 }

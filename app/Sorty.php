@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 25 Apr 2021 12:16:33 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -46,7 +46,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Sorty extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'distance' => 'int',

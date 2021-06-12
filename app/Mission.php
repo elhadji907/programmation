@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 25 Apr 2021 12:16:23 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -35,10 +35,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property float $accompt
  * @property int $employees_id
  * @property int $vehicules_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Courrier $courrier
  * @property \App\Employee $employee
  * @property \App\Vehicule $vehicule
  *
@@ -46,7 +48,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Mission extends Eloquent
 {
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
+	use \App\Helpers\UuidForKey;
+	
 
 	protected $casts = [
 		'distance' => 'int',
@@ -55,7 +60,8 @@ class Mission extends Eloquent
 		'reliquat' => 'float',
 		'accompt' => 'float',
 		'employees_id' => 'int',
-		'vehicules_id' => 'int'
+		'vehicules_id' => 'int',
+		'courriers_id' => 'int'
 	];
 
 	protected $dates = [
@@ -90,8 +96,14 @@ class Mission extends Eloquent
 		'reliquat',
 		'accompt',
 		'employees_id',
-		'vehicules_id'
+		'vehicules_id',
+		'courriers_id'
 	];
+
+	public function courrier()
+	{
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
 
 	public function employee()
 	{

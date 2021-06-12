@@ -184,8 +184,8 @@ class DepartsController extends Controller
         );
 
        
-        if (request('file')) { 
-            $filePath = request('file')->store('departs', 'public');
+    if (request('file')) { 
+       $filePath = request('file')->store('departs', 'public');
        $courrier = $depart->courrier; 
        $types_courrier_id = TypesCourrier::where('name','Courriers departs')->first()->id;
        $user_id  = Auth::user()->id;

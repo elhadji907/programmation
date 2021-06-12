@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:17 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -20,12 +20,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $employees
- * @property \Illuminate\Database\Eloquent\Collection $salaires
  *
  * @package App
  */
 class Category extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
@@ -38,10 +38,5 @@ class Category extends Eloquent
 	public function employees()
 	{
 		return $this->hasMany(\App\Employee::class, 'categories_id');
-	}
-
-	public function salaires()
-	{
-		return $this->hasMany(\App\Salaire::class, 'categories_id');
 	}
 }

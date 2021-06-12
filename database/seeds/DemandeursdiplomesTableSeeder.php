@@ -11,6 +11,6 @@ class DemandeursdiplomesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Demandeursdiplome::class,25)->create();
+        factory(App\Demandeursdiplome::class,2)->create();
     }
 }

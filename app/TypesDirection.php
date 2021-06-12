@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Sun, 06 Jun 2021 19:22:35 +0000.
  */
 
 namespace App;
@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property string $categorie
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -25,15 +24,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class TypesDirection extends Eloquent
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $fillable = [
 		'uuid',
-		'name',
-		'categorie'
+		'name'
 	];
 
 	public function directions()

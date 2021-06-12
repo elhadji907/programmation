@@ -215,8 +215,8 @@ class InternesController extends Controller
        $interne->courriers_id          =      $courrier->id; 
 
        $interne->save();
-       //$courrier->directions()->sync($request->input('directions'));
-       $courrier->imputations()->sync($request->input('imputations'));
+       $courrier->directions()->sync($request->input('directions'));
+       //$courrier->imputations()->sync($request->input('imputations'));
         }
          else{   
             $courrier = $interne->courrier;
@@ -242,8 +242,8 @@ class InternesController extends Controller
             $interne->courriers_id          =      $courrier->id;
      
             $interne->save();
-            //$courrier->directions()->sync($request->input('directions'));
-            $courrier->imputations()->sync($request->input('imputations'));
+            $courrier->directions()->sync($request->input('directions'));
+            //$courrier->imputations()->sync($request->input('imputations'));
  
 
          }

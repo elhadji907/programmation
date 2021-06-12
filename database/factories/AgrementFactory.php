@@ -9,6 +9,8 @@ $factory->define(App\Agrement::class, function (Faker $faker) {
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
         'name' => $faker->name,
+        'rccm' => $faker->word,
+        'quitus' => $faker->word,
         'ninea' => $faker->word,
         'adresse' => $faker->word,
         'bp' => $faker->word,
@@ -25,6 +27,21 @@ $factory->define(App\Agrement::class, function (Faker $faker) {
         },
         'operateurs_id' => function () {
             return factory(App\Operateur::class)->create()->id;
+        },
+        'responsables_id' => function () {
+            return factory(App\Responsable::class)->create()->id;
+        },
+        'quitus_id' => function () {
+            return factory(App\Quitus::class)->create()->id;
+        },
+        'rccms_id' => function () {
+            return factory(App\Rccm::class)->create()->id;
+        },
+        'nineas_id' => function () {
+            return factory(App\Ninea::class)->create()->id;
+        },
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
         },
     ];
 });

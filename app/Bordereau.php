@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 29 Apr 2021 10:57:17 +0000.
+ * Date: Mon, 07 Jun 2021 22:57:38 +0000.
  */
 
 namespace App;
@@ -16,18 +16,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $numero
  * @property int $numero_mandat
- * @property int $dafs_id
  * @property \Carbon\Carbon $date_mandat
  * @property string $designation
  * @property float $montant
  * @property int $nombre_de_piece
  * @property string $observation
+ * @property int $courriers_id
+ * @property int $listes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Daf $daf
- * @property \Illuminate\Database\Eloquent\Collection $listes
+ * @property \App\Courrier $courrier
+ * @property \App\Liste $liste
  *
  * @package App
  */
@@ -38,9 +39,10 @@ class Bordereau extends Eloquent
 
 	protected $casts = [
 		'numero_mandat' => 'int',
-		'dafs_id' => 'int',
 		'montant' => 'float',
-		'nombre_de_piece' => 'int'
+		'nombre_de_piece' => 'int',
+		'courriers_id' => 'int',
+		'listes_id' => 'int'
 	];
 
 	protected $dates = [
@@ -51,21 +53,22 @@ class Bordereau extends Eloquent
 		'uuid',
 		'numero',
 		'numero_mandat',
-		'dafs_id',
 		'date_mandat',
 		'designation',
 		'montant',
 		'nombre_de_piece',
-		'observation'
+		'observation',
+		'courriers_id',
+		'listes_id'
 	];
 
-	public function daf()
+	public function courrier()
 	{
-		return $this->belongsTo(\App\Daf::class, 'dafs_id')->latest();
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
 	}
 
-	public function listes()
+	public function liste()
 	{
-		return $this->hasMany(\App\Liste::class, 'bordereaus_id')->latest();
+		return $this->belongsTo(\App\Liste::class, 'listes_id');
 	}
 }

@@ -74,7 +74,6 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     {!! Form::label('Situation familiale :') !!}
-                                    
                                     {!! Form::select('familiale', ['Marié' => 'Marié', 
                                                              'Célibataire' => 'Célibataire'],
                                      null, ['placeholder' => 'Votre situation familiale', 'class'  

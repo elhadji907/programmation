@@ -1,4 +1,4 @@
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> 
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 {{--   <!-- Core plugin JavaScript--> --}}
@@ -16,12 +16,20 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-  <script src="{{ asset('dist/js/select2.min.js') }}"></script>
+  <script src="{{ asset('dist/js/select2.min.js') }}"></script> 
     
   <script type="text/javascript">
   
         $("#objet").select2({
               placeholder: "sélectionner un objet",
+              allowClear: true
+          });
+  </script>  
+    
+  <script type="text/javascript">
+  
+        $("#classeur").select2({
+              placeholder: "sélectionner un classeur",
               allowClear: true
           });
   </script>  
@@ -34,12 +42,11 @@
   </script>
   <script type="text/javascript">
   
-        $("#structure").select2({
-              placeholder: "sélectionner une structure",
-              allowClear: true
-          });
-  </script>
-
+    $("#matricule_emp").select2({
+          placeholder: "sélectionner le matricule du responsable",
+          allowClear: true
+      });
+</script>
   <script type="text/javascript">
   
     $("#civilite").select2({
@@ -48,9 +55,23 @@
       });
 </script>  
   <script type="text/javascript">
+  
+        $("#structure").select2({
+              placeholder: "sélectionner une structure",
+              allowClear: true
+          });
+  </script>
+  <script type="text/javascript">
     
     $("#type_demande").select2({
           placeholder: "sélectionner type de demande",
+          allowClear: true
+      });
+  </script>
+  <script type="text/javascript">
+    
+    $("#type_direction").select2({
+          placeholder: "sélectionner type direction",
           allowClear: true
       });
   </script>

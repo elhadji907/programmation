@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Sun, 30 May 2021 10:51:17 +0000.
  */
 
 namespace App;
@@ -14,44 +14,51 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property float $montant
- * @property float $prime
- * @property int $note
- * @property float $autre_montant
- * @property int $categories_id
+ * @property \Carbon\Carbon $date_debut
+ * @property \Carbon\Carbon $date_fin
+ * @property float $charges_patronale
+ * @property float $charge_salariale
+ * @property float $brut
+ * @property int $employees_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Category $category
+ * @property \App\Employee $employee
  *
  * @package App
  */
 class Salaire extends Eloquent
-{	
+{
+		
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	
 
 	protected $casts = [
-		'montant' => 'float',
-		'prime' => 'float',
-		'note' => 'int',
-		'autre_montant' => 'float',
-		'categories_id' => 'int'
+		'charges_patronale' => 'float',
+		'charge_salariale' => 'float',
+		'brut' => 'float',
+		'employees_id' => 'int'
+	];
+
+	protected $dates = [
+		'date_debut',
+		'date_fin'
 	];
 
 	protected $fillable = [
 		'uuid',
-		'montant',
-		'prime',
-		'note',
-		'autre_montant',
-		'categories_id'
+		'date_debut',
+		'date_fin',
+		'charges_patronale',
+		'charge_salariale',
+		'brut',
+		'employees_id'
 	];
 
-	public function category()
+	public function employee()
 	{
-		return $this->belongsTo(\App\Category::class, 'categories_id');
+		return $this->belongsTo(\App\Employee::class, 'employees_id');
 	}
 }

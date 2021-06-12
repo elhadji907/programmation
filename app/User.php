@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 21 Apr 2021 18:20:18 +0000.
+ * Date: Thu, 03 Jun 2021 21:05:27 +0000.
  */
 
 namespace App;
@@ -28,13 +28,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\Carbon $date_naissance
  * @property string $lieu_naissance
  * @property string $situation_familiale
+ * @property string $adresse
+ * @property string $bp
+ * @property string $fax
  * @property \Carbon\Carbon $email_verified_at
  * @property string $password
  * @property string $created_by
  * @property string $updated_by
  * @property string $deleted_by
  * @property int $roles_id
- * @property string $adresse
  * @property string $remember_token
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -53,15 +55,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $postes
  * @property \Illuminate\Database\Eloquent\Collection $profiles
+ * @property \Illuminate\Database\Eloquent\Collection $imputations
  *
  * @package App
  */
 class User extends Authenticatable
-{	
+{
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	use Notifiable;
-	
 
 	protected $casts = [
 		'roles_id' => 'int'
@@ -90,15 +92,19 @@ class User extends Authenticatable
 		'date_naissance',
 		'lieu_naissance',
 		'situation_familiale',
+		'adresse',
+		'bp',
+		'fax',
 		'email_verified_at',
 		'password',
 		'created_by',
 		'updated_by',
 		'deleted_by',
 		'roles_id',
-		'adresse',
 		'remember_token'
 	];
+
+	
 	protected static function boot(){
 		parent::boot();
 		static::created(function ($user){
@@ -109,11 +115,11 @@ class User extends Authenticatable
 			]);
 		});
 	} 
-
 	public function getRouteKeyName()
 	{
 		return 'username';
 	}
+	
 	public function role()
 	{
 		return $this->belongsTo(\App\Role::class, 'roles_id');
@@ -138,7 +144,6 @@ class User extends Authenticatable
 	{
 		return $this->morphMany('\App\Comment', 'commentable')->latest();
 	}
-
 
 	public function comptable()
 	{
@@ -180,6 +185,12 @@ class User extends Authenticatable
 		return $this->hasOne(\App\Profile::class, 'users_id');
 	}
 
+	public function imputations()
+	{
+		return $this->belongsToMany(\App\Imputation::class, 'users_has_imputations', 'users_id', 'imputations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
 	//gestion des roles
 	public function hasRole($roleName)
 	{
