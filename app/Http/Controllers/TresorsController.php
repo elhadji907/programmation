@@ -71,20 +71,21 @@ class TresorsController extends Controller
     {
         $this->validate(
             $request, [
-                'objet'         =>  'required|string|max:200',
-                'expediteur'    =>  'required|string|max:100',
-                'telephone'     =>  'required|string|max:50',
-                'email'         =>  'required|email|max:255',
-                'numero_mandat'         =>  'required',
-                'date_mandat'           =>  'required|date_format:Y-m-d',
+                'date_imp'              =>  'required|date',
+                'date_recep'            =>  'required|date',
+                'date_cg'               =>  'required|date',
+                'date_dg'               =>  'required|date',
+                'date_ac'               =>  'required|date',
+                'telephone'             =>  'required|string|max:50',
+                'email'                 =>  'required|email|max:255',
+                'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
                 'montant'               =>  'required',
-                'nombre_de_piece'       =>  'required',
-                'designation'           =>  'required',
+                'designation'           =>  'required'
             ]
         );
 
         
-        $types_courrier_id = TypesCourrier::where('name','tresor')->first()->id;
+        $types_courrier_id = TypesCourrier::where('name','Tresors')->first()->id;
         $user_id  = Auth::user()->id;
         $courrier_id = Courrier::get()->last()->id;
         $annee = date('Y');
@@ -94,14 +95,24 @@ class TresorsController extends Controller
         $imputation = \App\Imputation::first();
         $courrier = \App\Courrier::first();
 
+        
+        $montant            =    $request->input('montant');        
+        $autres_montant     =    $request->input('autres_montant');        
+        $tva_ir             =    $montant*(18/100);
+        $total              =    $tva_ir + $montant + $autres_montant;
+
         $courrier = new Courrier([
-            'numero'                    =>      'DA'.$request->input('numero_mandat'),
+            'numero'                    =>      $request->input('numero_courrier'),
             'objet'                     =>      $request->input('objet'),
-            'message'                   =>      $request->input('message'),
-            'expediteur'                =>      $request->input('expediteur'),
+            'designation'               =>      $request->input('designation'),
             'telephone'                 =>      $request->input('telephone'),
+            'date_recep'                =>      $request->input('date_recep'),    
+            'date_imp'                  =>      $request->input('date_imp'),       
+            'montant'                   =>      $montant,
+            'autres_montant'            =>      $autres_montant,
+            'total'                     =>      $total,
             'email'                     =>      $request->input('email'),
-            'projets_id'                =>      $request->input('projet'),
+            'tva_ir'                    =>      $tva_ir,
             'types_courriers_id'        =>      $types_courrier_id,
             'users_id'                  =>      $user_id,
         ]);
@@ -110,11 +121,13 @@ class TresorsController extends Controller
         $courrier->save();
 
         $tresors = new Tresor([      
-            'numero'                    =>     'TR'.$request->input('numero_mandat'),
-            'numero_mandat'             =>      $request->input('numero_mandat'),  
-            'date_mandat'               =>      $request->input('date_mandat'),    
-            'montant'                   =>      $request->input('montant'),
-            'nombre_de_piece'           =>      $request->input('nombre_de_piece'),
+            'numero'                    =>      $request->input('numero_mandat'),
+            'date_recep'                =>      $request->input('date_recep'),    
+            'date_transmission'         =>      $request->input('date_imp'),    
+            'date_dg'                   =>      $request->input('date_dg'),    
+            'date_cg'                   =>      $request->input('date_cg'),    
+            'date_ac'                   =>      $request->input('date_ac'),       
+            'montant'                   =>      $montant,
             'designation'               =>      $request->input('designation'),
             'observation'               =>      $request->input('observation'),
             'courriers_id'              =>      $courrier->id
@@ -167,80 +180,97 @@ class TresorsController extends Controller
         
         $this->validate(
             $request, [
-                'objet'                 =>  'required|string|max:200',
-                'expediteur'            =>  'required|string|max:100',
+                'date_imp'              =>  'required|date',
+                'date_recep'            =>  'required|date',
+                'date_cg'               =>  'required|date',
+                'date_dg'               =>  'required|date',
+                'date_ac'               =>  'required|date',
                 'telephone'             =>  'required|string|max:50',
                 'email'                 =>  'required|email|max:255',
-                'numero_mandat'         =>  'required',
-                'date_mandat'           =>  'required|date_format:Y-m-d',
+                'numero_courrier'       =>  'required|unique:courriers,numero,'.$tresor->courrier->id,
+                'numero_mandat'         =>  'required|unique:tresors,numero,'.$tresor->id,
                 'montant'               =>  'required',
-                'nombre_de_piece'       =>  'required',
-                'designation'           =>  'required',
+                'designation'           =>  'required'
 
             ]
         );
         
+        $montant            =    $request->input('montant');        
+        $autres_montant     =    $request->input('autres_montant');        
+        $tva_ir             =    $montant*(18/100);
+        $total              =    $tva_ir + $montant + $autres_montant;
+
     if (request('file')) { 
        $filePath = request('file')->store('tresors', 'public');
        $courrier = $tresor->courrier; 
-       $types_courrier_id = TypesCourrier::where('name','Tresor')->first()->id;
+       $types_courrier_id = TypesCourrier::where('name','Tresors')->first()->id;
        $user_id  = Auth::user()->id;
 
        $courrier->numero                    =      $request->input('numero_mandat');
        $courrier->objet                     =      $request->input('objet');
-       $courrier->message                   =      $request->input('message');
-       $courrier->expediteur                =      $request->input('expediteur');
        $courrier->email                     =      $request->input('email');
        $courrier->telephone                 =      $request->input('telephone');
+       $courrier->date_recep                =      $request->input('date_recep');
+       $courrier->date_imp                  =      $request->input('date_imp');
        $courrier->types_courriers_id        =      $types_courrier_id;
        $courrier->users_id                  =      $user_id;
        $courrier->file                      =      $filePath;
        $courrier->legende                   =      $request->input('legende');
+       $courrier->adresse                   =      $request->input('adresse');
+       $courrier->designation               =      $request->input('designation');
+       $courrier->tva_ir                    =      $tva_ir;
+       $courrier->montant                   =      $montant;
+       $courrier->autres_montant            =      $autres_montant;
+       $courrier->total                     =      $total;
     
        $courrier->save();
 
-       $tresor->numero                   =      $request->input('numero_mandat');
-       $tresor->numero_mandat            =      $request->input('numero_mandat');
-       $tresor->date_mandat              =      $request->input('date_mandat');
-       $tresor->montant                  =      $request->input('montant');
-       $tresor->nombre_de_piece          =      $request->input('nombre_de_piece');
-       $tresor->date_mandat              =      $request->input('date_mandat');
-       $tresor->montant                  =      $request->input('montant');
-       $tresor->nombre_de_piece          =      $request->input('nombre_de_piece');
-       $tresor->designation              =      $request->input('designation');
-       $tresor->observation              =      $request->input('observation');
-       $tresor->courriers_id             =      $courrier->id;
+       $tresor->numero                     =      $request->input('numero_courrier');
+       $tresor->date_recep                 =      $request->input('date_recep');
+       $tresor->date_transmission          =      $request->input('date_imp');
+       $tresor->date_dg                    =      $request->input('date_dg');
+       $tresor->date_cg                    =      $request->input('date_cg');
+       $tresor->date_ac                    =      $request->input('date_ac');
+       $tresor->montant                    =      $montant;
+       $tresor->designation                =      $request->input('designation');
+       $tresor->observation                =      $request->input('observation');
+       $tresor->courriers_id               =      $courrier->id; 
 
        $tresor->save();
 
         }
     else{   
         $courrier = $tresor->courrier; 
-        $types_courrier_id = TypesCourrier::where('name','Tresor')->first()->id;
+        $types_courrier_id = TypesCourrier::where('name','Tresors')->first()->id;
         $user_id  = Auth::user()->id;
 
-       $courrier->numero                    =      $request->input('numero_mandat');
-       $courrier->objet                     =      $request->input('objet');
-       $courrier->message                   =      $request->input('message');
-       $courrier->expediteur                =      $request->input('expediteur');
-       $courrier->email                     =      $request->input('email');
-       $courrier->telephone                 =      $request->input('telephone');
-       $courrier->types_courriers_id        =      $types_courrier_id;
-       $courrier->users_id                  =      $user_id;
+        $courrier->numero                    =      $request->input('numero_mandat');
+        $courrier->objet                     =      $request->input('objet');
+        $courrier->email                     =      $request->input('email');
+        $courrier->telephone                 =      $request->input('telephone');
+        $courrier->adresse                   =      $request->input('adresse');
+        $courrier->date_recep                =      $request->input('date_recep');
+        $courrier->date_imp                  =      $request->input('date_imp');
+        $courrier->designation               =      $request->input('designation');
+        $courrier->types_courriers_id        =      $types_courrier_id;
+        $courrier->users_id                  =      $user_id;
+        $courrier->tva_ir                    =      $tva_ir;
+        $courrier->montant                   =      $montant;
+        $courrier->autres_montant            =      $autres_montant;
+        $courrier->total                     =      $total;
     
        $courrier->save();
 
-       $tresor->numero                   =      $request->input('numero_mandat');
-       $tresor->numero_mandat            =      $request->input('numero_mandat');
-       $tresor->date_mandat              =      $request->input('date_mandat');
-       $tresor->montant                  =      $request->input('montant');
-       $tresor->nombre_de_piece          =      $request->input('nombre_de_piece');
-       $tresor->date_mandat              =      $request->input('date_mandat');
-       $tresor->montant                  =      $request->input('montant');
-       $tresor->nombre_de_piece          =      $request->input('nombre_de_piece');
-       $tresor->designation              =      $request->input('designation');
-       $tresor->observation              =      $request->input('observation');
-       $tresor->courriers_id             =      $courrier->id; 
+       $tresor->numero                       =      $request->input('numero_mandat');
+       $tresor->date_recep                   =      $request->input('date_recep');
+       $tresor->date_transmission            =      $request->input('date_imp');
+       $tresor->date_dg                      =      $request->input('date_dg');
+       $tresor->date_cg                      =      $request->input('date_cg');
+       $tresor->date_ac                      =      $request->input('date_ac');
+       $tresor->montant                      =      $montant;
+       $tresor->designation                  =      $request->input('designation');
+       $tresor->observation                  =      $request->input('observation');
+       $tresor->courriers_id                 =      $courrier->id; 
 
        $tresor->save();
 

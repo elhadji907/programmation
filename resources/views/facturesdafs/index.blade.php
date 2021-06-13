@@ -30,7 +30,7 @@
                     <th style="width:8%;">Date imp.</th>
                     <th style="width:9%;">Date recep.</th>
                     <th>Designation</th>
-                    <th>Montant total</th>
+                    <th style="width:15%;">Montant total</th>
                     <th style="width:8%;">Visa CG</th>
                     <th style="width:9%;">Mandat DG</th>
                     <th style="width:8%;">Date AC</th>
@@ -59,7 +59,7 @@
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_depart)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_recep)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! $facturesdaf->designation !!}</td>      
-                    <td class="align-middle">{!! $facturesdaf->courrier->total !!}</td>   
+                    <td class="align-middle">{!! number_format($facturesdaf->courrier->total,3, ',', ' ') . ' ' !!}</td>   
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_cg)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_dg)->format('d/m/Y') !!}</td>        
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_ac)->format('d/m/Y') !!}</td>        

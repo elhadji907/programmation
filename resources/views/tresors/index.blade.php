@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des recettes du trésor')
+@section('title', 'ONFP - Recette trésor')
 @section('content')
   <div class="container-fluid">
     <div class="row">
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Liste des recettes du trésor
+                Recette trésor
             </div>             
           <div class="card-body">
             <div class="table-responsive">
@@ -26,28 +26,28 @@
               <table class="table table-bordered table-striped" id="table-tresors" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th style="width:10%;">N° Courrier</th>
-                    <th style="width:10%;">Date imp.</th>
-                    <th style="width:10%;">Date recep.</th>
-                    <th style="width:20%;">Désignation</th>
-                    <th style="width:10%;">Montant</th>
-                    <th style="width:10%;">Visa CG</th>
-                    <th style="width:10%;">Mandat DG</th>
-                    <th style="width:20%;">Date AC</th>
+                    <th style="width:8%;">Date imp.</th>
+                    <th style="width:9%;">Date recep.</th>
+                    <th style="width:8%;">N° Cour.</th>
+                    <th>Designation</th>
+                    <th style="width:15%;">Montant total</th>
+                    <th style="width:8%;">Visa CG</th>
+                    <th style="width:9%;">Mandat DG</th>
+                    <th style="width:8%;">Date AC</th>
                     <th style="width:10%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    <th style="width:10%;">N° Courrier</th>
-                    <th style="width:10%;">Date imp.</th>
-                    <th style="width:10%;">Date recep.</th>
-                    <th style="width:20%;">Désignation</th>
-                    <th style="width:10%;">Montant</th>
-                    <th style="width:10%;">Visa CG</th>
-                    <th style="width:10%;">Mandat DG</th>
-                    <th style="width:20%;">Date AC</th>
-                    <th style="width:10%;">Action</th>
+                    <th>Date imp.</th>
+                    <th>Date recep.</th>
+                    <th>N° Cour.</th>
+                    <th>Designation</th>
+                    <th>Montant total</th>
+                    <th>Visa CG</th>
+                    <th>Mandat DG</th>
+                    <th>Date AC</th>
+                    <th>Action</th>
                   </tr>
                 </tfoot>
                 <tbody>              
@@ -55,15 +55,15 @@
                   @foreach ($tresors as $tresor)
                   <tr>
                      {{-- <td class="align-middle">{!! $i++ !!}</td>  --}}
-                    <td class="align-middle">{!! $tresor->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_depart)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_recep)->format('d/m/Y') !!}</td>
-                    <td class="align-middle">{!! $tresor->designation !!}</td>                  
-                    <td class="align-middle">{!! $tresor->montant !!}</td>   
-                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_cg)->format('d/m/Y') !!}</td>      
-                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_dg)->format('d/m/Y') !!}</td>      
-                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_ac)->format('d/m/Y') !!}</td>
-                    <td class="d-flex align-items-center justify-content-center" style="height: 150px;">
+                    <td class="align-middle">{!! $tresor->courrier->numero !!}</td>
+                    <td class="align-middle">{!! $tresor->designation !!}</td>      
+                    <td class="align-middle">{!! number_format($tresor->courrier->total,3, ',', ' ') . ' ' !!}</td>   
+                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_cg)->format('d/m/Y') !!}</td>
+                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_dg)->format('d/m/Y') !!}</td>        
+                    <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_ac)->format('d/m/Y') !!}</td>        
+                    <td class="d-flex align-items-center justify-content-center">
                       @can('update', $tresor->courrier)
                         <a href="{!! url('tresors/' .$tresor->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
