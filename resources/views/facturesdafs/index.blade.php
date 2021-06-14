@@ -58,7 +58,7 @@
                     <td class="align-middle">{!! $facturesdaf->courrier->numero !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_depart)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_recep)->format('d/m/Y') !!}</td>
-                    <td class="align-middle">{!! $facturesdaf->designation !!}</td>      
+                    <td class="align-middle">{!! $facturesdaf->courrier->designation !!}</td>      
                     <td class="align-middle">{!! number_format($facturesdaf->courrier->total,3, ',', ' ') . ' ' !!}</td>   
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_cg)->format('d/m/Y') !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($facturesdaf->date_dg)->format('d/m/Y') !!}</td>        

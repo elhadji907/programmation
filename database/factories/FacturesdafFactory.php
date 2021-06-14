@@ -38,8 +38,6 @@ $factory->define(App\Facturesdaf::class, function (Faker\Generator $faker) use (
     return [
         'numero' => 'FD'.$autoIncremente_fd->current()."".$annee,
         'date_recep' => $faker->dateTime(),
-        'designation' => $faker->text,
-        'observation' => $faker->text,
         'montant' => $faker->randomFloat(),
         'date_depart' => $faker->dateTime(),
         'date_retour' => $faker->dateTime(),

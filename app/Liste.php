@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 08 Jun 2021 11:57:37 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Liste extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 

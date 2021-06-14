@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 02 Jun 2021 13:52:19 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -38,7 +38,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $designation
  * @property \Carbon\Carbon $date_visa
  * @property \Carbon\Carbon $date_mandat
- * @property string $tva_ir
+ * @property float $tva
+ * @property float $ir
  * @property string $nb_pc
  * @property string $destinataire
  * @property \Carbon\Carbon $date_paye
@@ -82,10 +83,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Courrier extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
+		'tva' => 'float',
+		'ir' => 'float',
 		'num_bord' => 'int',
 		'montant' => 'float',
 		'autres_montant' => 'float',
@@ -134,7 +138,8 @@ class Courrier extends Eloquent
 		'designation',
 		'date_visa',
 		'date_mandat',
-		'tva_ir',
+		'tva',
+		'ir',
 		'nb_pc',
 		'destinataire',
 		'date_paye',

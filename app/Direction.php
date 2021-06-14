@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 06 Jun 2021 19:20:23 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Direction extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -75,10 +76,5 @@ class Direction extends Eloquent
 	public function employees()
 	{
 		return $this->hasMany(\App\Employee::class, 'directions_id');
-	}
-	
-	public function chef()
-	{
-		return $this->belongsTo(\App\Employee::class, 'chef_id');
 	}
 }

@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjetsTable extends Migration
+class CreateVehiculesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'projets';
+    public $tableName = 'vehicules';
 
     /**
      * Run the migrations.
-     * @table projets
+     * @table vehicules
      *
      * @return void
      */
@@ -24,8 +24,10 @@ class CreateProjetsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200)->nullable();
-            $table->string('sigle', 200)->nullable();
+            $table->string('matricule', 200)->nullable();
+            $table->string('marque', 200)->nullable();
+            $table->string('type_carburant', 200)->nullable();
+            $table->string('kilometrage', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

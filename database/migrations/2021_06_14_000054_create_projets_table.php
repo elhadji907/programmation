@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVehiculesTable extends Migration
+class CreateProjetsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'vehicules';
+    public $tableName = 'projets';
 
     /**
      * Run the migrations.
-     * @table vehicules
+     * @table projets
      *
      * @return void
      */
@@ -24,11 +24,23 @@ class CreateVehiculesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('matricule', 200)->nullable();
-            $table->string('marque', 200)->nullable();
-            $table->string('type_carburant', 200)->nullable();
+            $table->string('name', 200)->nullable();
+            $table->string('sigle', 200)->nullable();
+            $table->unsignedInteger('depenses_id')->nullable();
+            $table->timestamp('debut')->nullable();
+            $table->dateTime('fin')->nullable();
+            $table->double('budjet')->nullable();
+            $table->longText('locatite')->nullable();
+
+            $table->index(["depenses_id"], 'fk_projets_depenses1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
+
+
+            $table->foreign('depenses_id', 'fk_projets_depenses1_idx')
+                ->references('id')->on('depenses')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

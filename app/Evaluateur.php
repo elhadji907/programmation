@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -32,10 +32,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Evaluateur extends Eloquent
 {
-		
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $dates = [
 		'date'

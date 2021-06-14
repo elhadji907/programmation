@@ -46,9 +46,11 @@ class CreateCourriersTable extends Migration
             $table->dateTime('date_rejet')->nullable();
             $table->dateTime('date_liq')->nullable();
             $table->longText('designation')->nullable();
+            $table->longText('observation')->nullable();
             $table->dateTime('date_visa')->nullable();
             $table->dateTime('date_mandat')->nullable();
-            $table->string('tva_ir', 200)->nullable();
+            $table->double('tva')->nullable();
+            $table->double('ir')->nullable();
             $table->string('nb_pc', 45)->nullable();
             $table->string('destinataire', 200)->nullable();
             $table->dateTime('date_paye')->nullable();

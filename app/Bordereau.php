@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 07 Jun 2021 22:57:38 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Bordereau extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 

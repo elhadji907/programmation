@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 03 Jun 2021 21:05:34 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Employee extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -58,6 +59,10 @@ class Employee extends Eloquent
 		'categories_id' => 'int',
 		'fonctions_id' => 'int',
 		'directions_id' => 'int'
+	];
+
+	protected $dates = [
+		'date_embauche'
 	];
 
 	protected $fillable = [
@@ -163,10 +168,5 @@ class Employee extends Eloquent
 	public function stagiaires()
 	{
 		return $this->hasMany(\App\Stagiaire::class, 'employees_id');
-	}
-		
-	public function chef()
-	{
-		return $this->belongsTo(\App\Direction::class, 'chef_id');
 	}
 }

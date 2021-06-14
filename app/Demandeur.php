@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -45,7 +45,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Item $item
  * @property \App\Lieux $lieux
  * @property \App\User $user
- * @property \Illuminate\Database\Eloquent\Collection $charges
  * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
@@ -59,10 +58,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Demandeur extends Eloquent
 {
-		
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'nbre_piece' => 'int',
@@ -117,11 +115,6 @@ class Demandeur extends Eloquent
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
-	}
-
-	public function charges()
-	{
-		return $this->hasMany(\App\Charge::class, 'demandeurs_id');
 	}
 
 	public function collectives()

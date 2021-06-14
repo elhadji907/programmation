@@ -72,7 +72,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $role = Role::where('name','Demandeur')->first()->id;
-        $direction_id = Direction::where('sigle','DG')->first()->id;
+        /* $direction_id = Direction::where('sigle','DG')->first()->id; */
       
         return User::create([
             'civilite' => $data['civilite'],
@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'telephone' => $data['telephone'],
             'password' => Hash::make($data['password']),
             'roles_id'  => $role,
-            'directions_id' => $direction_id,
+            /* 'directions_id' => $direction_id, */
         ]);
     }
 }

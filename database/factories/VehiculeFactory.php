@@ -10,5 +10,6 @@ $factory->define(App\Vehicule::class, function (Faker $faker) {
         'matricule' => $faker->word,
         'marque' => $faker->word,
         'type_carburant' => $faker->word,
+        'type_carburant' => $faker->randomNumber(),
     ];
 });

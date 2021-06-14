@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 30 May 2021 10:51:17 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -29,16 +29,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Region $region
- * @property \Illuminate\Database\Eloquent\Collection $charges
  *
  * @package App
  */
 class Ecole extends Eloquent
 {
-		
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-	
 
 	protected $casts = [
 		'regions_id' => 'int'
@@ -65,10 +63,5 @@ class Ecole extends Eloquent
 	public function region()
 	{
 		return $this->belongsTo(\App\Region::class, 'regions_id');
-	}
-
-	public function charges()
-	{
-		return $this->hasMany(\App\Charge::class, 'ecoles_id');
 	}
 }

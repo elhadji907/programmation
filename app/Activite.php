@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:23 +0000.
+ * Date: Mon, 14 Jun 2021 21:40:22 +0000.
  */
 
 namespace App;
@@ -10,46 +10,34 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Titre
+ * Class Activite
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property int $demandeurs_id
- * @property string $titre1
- * @property \Carbon\Carbon $date1
+ * @property string $lieu
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Demandeur $demandeur
+ * @property \Illuminate\Database\Eloquent\Collection $depenses
  *
  * @package App
  */
-class Titre extends Eloquent
+class Activite extends Eloquent
 {
 	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
-	protected $casts = [
-		'demandeurs_id' => 'int'
-	];
-
-	protected $dates = [
-		'date1'
-	];
-
 	protected $fillable = [
 		'uuid',
 		'name',
-		'demandeurs_id',
-		'titre1',
-		'date1'
+		'lieu'
 	];
 
-	public function demandeur()
+	public function depenses()
 	{
-		return $this->belongsTo(\App\Demandeur::class, 'demandeurs_id');
+		return $this->hasMany(\App\Depense::class, 'activites_id');
 	}
 }
