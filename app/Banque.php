@@ -36,11 +36,23 @@ class Banque extends Eloquent
 		'courriers_id' => 'int'
 	];
 
+	protected $dates = [
+		'date_dg',
+		'date_cg',
+		'date_ac'
+	];
+
 	protected $fillable = [
 		'uuid',
 		'name',
 		'numero',
-		'courriers_id'
+		'montant',
+		'designation',
+		'observation',
+		'courriers_id',
+		'date_dg',
+		'date_cg',
+		'date_ac'
 	];
 
 	public function courrier()

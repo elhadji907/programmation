@@ -29,6 +29,12 @@ $factory->define(App\Banque::class, function (Faker\Generator $faker) use ($auto
     return [
         'numero' => 'BQ'.$autoIncremente_bq->current()."".$annee,
         'name' => $faker->name,
+        'observation' => $faker->paragraph(1),
+        'designation' => $faker->paragraph(1),
+        'montant' => $faker->randomFloat(),
+        'date_dg' => $faker->dateTime(),
+        'date_cg' => $faker->dateTime(),
+        'date_ac' => $faker->dateTime(),
         'courriers_id' => function () use($types_courrier_id) {
             return factory(App\Courrier::class)->create(["types_courriers_id"=>$types_courrier_id])->id;
         },

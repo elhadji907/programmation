@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartementsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        //$this->call(EmployeesTableSeeder::class);
+        $this->call(EmployeesTableSeeder::class);
         $this->call(TypesDirectionsTableSeeder::class);
         //$this->call(DirectionsTableSeeder::class);
         //$this->call(DemandeursTableSeeder::class);

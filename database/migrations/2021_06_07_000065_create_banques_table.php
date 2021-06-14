@@ -26,6 +26,12 @@ class CreateBanquesTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->string('numero', 200)->nullable();
+            $table->longText('designation')->nullable();
+            $table->longText('observation')->nullable();
+            $table->double('montant')->nullable();
+            $table->dateTime('date_dg')->nullable();
+            $table->dateTime('date_cg')->nullable();
+            $table->dateTime('date_ac')->nullable();
             $table->unsignedInteger('courriers_id');
 
             $table->index(["courriers_id"], 'fk_banques_courriers1_idx');

@@ -11,6 +11,6 @@ class BanquesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Banque::class,10)->create();
+        factory(App\Banque::class,38)->create();
     }
 }

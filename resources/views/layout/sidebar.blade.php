@@ -111,7 +111,7 @@
       <span>Recettes Trésor</span>
     </a>      
     </a>
-    <a class="collapse-item" href="{{ route('bordereaus.index') }}">
+    <a class="collapse-item" href="{{ route('banques.index') }}">
       <span>Frais Bancaire</span>
     </a>
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">

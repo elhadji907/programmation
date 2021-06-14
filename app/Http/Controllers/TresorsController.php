@@ -237,6 +237,7 @@ class TresorsController extends Controller
        $tresor->courriers_id               =      $courrier->id; 
 
        $tresor->save();
+       $courrier->directions()->sync($request->input('directions'));
 
         }
     else{   
@@ -273,6 +274,7 @@ class TresorsController extends Controller
        $tresor->courriers_id                 =      $courrier->id; 
 
        $tresor->save();
+       $courrier->directions()->sync($request->input('directions'));
 
          }
 
