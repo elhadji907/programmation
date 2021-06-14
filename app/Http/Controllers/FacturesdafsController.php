@@ -79,7 +79,8 @@ public function __construct()
                 'date_ac'               =>  'required|date',
                 'telephone'             =>  'required|string|max:50',
                 'email'                 =>  'required|email|max:255',
-                'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
+                'numero_courrier'       =>  'required|unique:courriers,numero',
+                'numero_mandat'         =>  'required|unique:bordereaus,numero',
                 'montant'               =>  'required',
                 'designation'           =>  'required'
             ]
