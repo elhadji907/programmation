@@ -116,7 +116,7 @@
                                         </td>
                                         <td>
                                             Numéro #:
-                                            {!! $facturesdaf->numero !!}<br>
+                                            {!! $facturesdaf->courrier->numero !!}<br>
                                             Date imputation: {!! Carbon\Carbon::parse($facturesdaf->courrier->date_imp)->format('d/m/Y') !!}<br>
                                             Date réception: {!! Carbon\Carbon::parse($facturesdaf->courrier->date_recep)->format('d/m/Y') !!}<br>
                                         </td>
@@ -136,9 +136,9 @@
                                             <b>E-mail:</b> {{ $facturesdaf->courrier->email }}<br>
                                             <b>Tel:</b> {{ $facturesdaf->courrier->telephone }}<br>
                                             @if (isset($facturesdaf->courrier->fax))
-                                            <b>Fax:</b> {{ $facturesdaf->courrier->fax }}<br>
+                                                <b>Fax:</b> {{ $facturesdaf->courrier->fax }}<br>
                                             @elseif(isset($facturesdaf->courrier->bp))
-                                            <b>BP:</b> {{ $facturesdaf->courrier->bp }}<br>
+                                                <b>BP:</b> {{ $facturesdaf->courrier->bp }}<br>
                                             @endif
                                         </td>
 
@@ -153,7 +153,7 @@
                             </td>
                         </tr>
 
-                        <tr class="heading">
+                        {{-- <tr class="heading">
                             <td>
                                 {{ __('OBJET') }}
                             </td>
@@ -177,22 +177,33 @@
                                     Aucun fichier joint
                                 @endif
                             </td>
-                        </tr>
+                        </tr> --}}
                         <tr class="heading">
                             <td>
                                 Designation
                             </td>
                             <td>
-
+                                Télécharger
                             </td>
 
                         </tr>
 
                         <tr class="item">
 
-                            <td colspan="2">
-                                {{ $facturesdaf->designation }}
+                            <td>
+                                {{ $facturesdaf->courrier->designation }}
                             </td>
+                            <td>
+                                @if ($facturesdaf->courrier->file !== '')
+                                    <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint"
+                                        target="_blank" href="{{ asset($facturesdaf->courrier->getFile()) }}">
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                @else
+                                    Aucun fichier joint
+                                @endif
+                            </td>
+
                         </tr>
                         <tr class="heading">
                             <td>
@@ -206,7 +217,7 @@
 
                         <tr class="item">
                             <td>
-                                
+
                             </td>
                             <td>
                                 {!! Carbon\Carbon::parse($facturesdaf->date_dg)->format('d/m/Y') !!}
@@ -224,7 +235,7 @@
 
                         <tr class="item">
                             <td>
-                                
+
                             </td>
                             <td>
                                 {!! Carbon\Carbon::parse($facturesdaf->date_cg)->format('d/m/Y') !!}
@@ -242,7 +253,7 @@
 
                         <tr class="item">
                             <td>
-                                
+
                             </td>
                             <td>
                                 {!! Carbon\Carbon::parse($facturesdaf->date_ac)->format('d/m/Y') !!}
@@ -250,7 +261,7 @@
                         </tr>
                         <tr class="heading">
                             <td>
-                                IMPUTATION
+                                IMPUTATION DIRECTION
                             </td>
 
                             <td>
@@ -280,25 +291,27 @@
                         <tr class="item">
                             <td>Montant HT</td>
 
-                            <td>{!! number_format($facturesdaf->courrier->montant,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            <td>{!! number_format($facturesdaf->courrier->montant, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
                         </tr>
+                        @if (isset($facturesdaf->courrier->tva) && $facturesdaf->courrier->tva != '0')
+                            <tr class="item">
+                                <td>TVA/IR (18%)</td>
 
-                        <tr class="item">
-                            <td>TVA/IR (18%)</td>
+                                <td>{!! number_format($facturesdaf->courrier->tva, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
+                        @if (isset($facturesdaf->courrier->autres_montant) && $facturesdaf->courrier->autres_montant != '0')
+                            <tr class="item last">
+                                <td>Autre montant</td>
 
-                            <td>{!! number_format($facturesdaf->courrier->tva_ir,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
-                        </tr>
-
-                        <tr class="item last">
-                            <td>Autre montant</td>
-
-                            <td>{!! number_format($facturesdaf->courrier->autres_montant,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
-                        </tr>
+                                <td>{!! number_format($facturesdaf->courrier->autres_montant, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
 
                         <tr class="total">
                             <td></td>
 
-                            <td>Total: {!! number_format($facturesdaf->courrier->total,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            <td>Total: {!! number_format($facturesdaf->courrier->total, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
                         </tr>
                     </table>
 

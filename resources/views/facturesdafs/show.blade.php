@@ -20,9 +20,9 @@
                                 {!! ' ' !!} N° : </b><span
                                 class="font-italic">{{ $facturesdaf->numero ?? 'Aucun numéro' }}</span></h1>
                         {{-- <h4 class="card-category"><b><u>Objet</u> : </b>{!! $facturesdaf->courrier->objet ?? 'Aucun objet' !!}</h4> --}}
-                        <p><b><u class="h4">Designation</u> : </b>{{ $facturesdaf->designation ?? 'Aucune designation' }}
+                        <p><b><u class="h4">Designation</u> : </b>{{ $facturesdaf->courrier->designation ?? 'Aucune designation' }}
                         </p>
-                        <p><b><u class="h4">Observation</u> : </b>{{ $facturesdaf->observation ?? 'Aucune observation' }}
+                        <p><b><u class="h4">Observation</u> : </b>{{ $facturesdaf->courrier->observation ?? 'Aucune observation' }}
                         </p>
                         <div class="d-flex justify-content-between align-items-center pt-2">
                             <p><b><u class="h4">Montant </u> : </b><span
@@ -35,11 +35,11 @@
                             <span class="badge badge-primary">{!! $facturesdaf->courrier->user->firstname !!}&nbsp;{!! $facturesdaf->courrier->user->name !!}</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            @can('update', $facturesdaf->courrier)
+                            {{--  @can('update', $facturesdaf->courrier)  --}}
                                 <a href="{!! url('facturesdafs/' . $facturesdaf->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                     <i class="far fa-edit">&nbsp;Modifier</i>
                                 </a>
-                            @endcan
+                            {{--  @endcan  --}}
                             <a href="{!! url('courriers/' . $facturesdaf->courrier->id . '/edit') !!}" title="voir les d&eacute;tails du courrier"
                                 class="btn btn-outline-primary">
                                 <i class="far fa-eye">&nbsp;D&eacute;tails</i>
@@ -47,11 +47,11 @@
                             {{-- <a href="{!! url('courriers/' .$facturesdaf->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a> --}}
-                            @can('delete', $facturesdaf->courrier)
+                            {{--  @can('delete', $facturesdaf->courrier)  --}}
                                 {!! Form::open(['method' => 'DELETE', 'url' => 'facturesdafs/' . $facturesdaf->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                 {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title' => 'supprimer']) !!}
                                 {!! Form::close() !!}
-                            @endcan
+                            {{--  @endcan  --}}
                         </div>
                     </div>
                 @endforeach

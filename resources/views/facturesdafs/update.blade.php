@@ -31,7 +31,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Date imputation :', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_imp', Carbon\Carbon::parse($facturesdaf->date_imp)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
+                                {!! Form::date('date_imp', Carbon\Carbon::parse($facturesdaf->courrier->date_imp)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('date_imp'))
                                         @foreach ($errors->get('date_imp') as $message)
@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Date reception :', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_recep', Carbon\Carbon::parse($facturesdaf->date_recep)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
+                                {!! Form::date('date_recep', Carbon\Carbon::parse($facturesdaf->courrier->date_recep)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('date_recep'))
                                         @foreach ($errors->get('date_recep') as $message)
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Designation') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::textarea('designation', $facturesdaf->designation, ['placeholder' => 'designation', 'rows' => 2, 'class' => 'form-control']) !!}
+                                {!! Form::textarea('designation', $facturesdaf->courrier->designation, ['placeholder' => 'designation', 'rows' => 2, 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('designation'))
                                         @foreach ($errors->get('designation') as $message)
@@ -90,7 +90,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Montant HT :') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::text('montant', $facturesdaf->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
+                                {!! Form::text('montant', $facturesdaf->courrier->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('montant'))
                                         @foreach ($errors->get('montant') as $message)
@@ -195,7 +195,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Observations :') !!}
-                                {!! Form::textarea('observation', $facturesdaf->observation, ['placeholder' => 'observations éventuelles', 'rows' => 2, 'class' => 'form-control']) !!}
+                                {!! Form::textarea('observation', $facturesdaf->courrier->observation, ['placeholder' => 'observations éventuelles', 'rows' => 2, 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('observation'))
                                         @foreach ($errors->get('observation') as $message)

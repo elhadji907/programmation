@@ -56,6 +56,19 @@
                                     </small>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                    {!! Form::label('Responsable') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('employee', $employees, $directions->chef->matricule, ['placeholder' => '', 'data-width'=>'100%', 'class' => 'form-control', 'id' => 'employee']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('employee'))
+                                            @foreach ($errors->get('employee') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                            </div>
                             &nbsp;
                             &nbsp;
                             <button type="submit" class="btn btn-outline-primary float-right"><i

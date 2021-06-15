@@ -25,6 +25,13 @@
               allowClear: true
           });
   </script>  
+  <script type="text/javascript">
+  
+        $("#employee").select2({
+              placeholder: "choisir responsable",
+              allowClear: true
+          });
+  </script>  
     
   <script type="text/javascript">
   

@@ -98,13 +98,15 @@ public function __construct()
       
         $montant            =    $request->input('montant');        
         $autres_montant     =    $request->input('autres_montant');        
-        $tva_ir             =    $montant*(18/100);
-        $total              =    $tva_ir + $montant + $autres_montant;
+        $tva                =    $montant*(18/100);
+        $ir                 =    $request->input('ir');
+        $total              =    $tva + $montant + $autres_montant + $ir;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
             'objet'                     =>      $request->input('objet'),
             'designation'               =>      $request->input('designation'),
+            'observation'               =>      $request->input('observation'),
             'telephone'                 =>      $request->input('telephone'),
             'date_recep'                =>      $request->input('date_recep'),    
             'date_imp'                  =>      $request->input('date_imp'),       
@@ -112,7 +114,8 @@ public function __construct()
             'autres_montant'            =>      $autres_montant,
             'total'                     =>      $total,
             'email'                     =>      $request->input('email'),
-            'tva_ir'                    =>      $tva_ir,
+            'tva'                       =>      $tva,
+            'ir'                        =>      $ir,
             'types_courriers_id'        =>      $types_courrier_id,
             'users_id'                  =>      $user_id,
         ]);
@@ -127,8 +130,6 @@ public function __construct()
             'date_cg'                   =>      $request->input('date_cg'),    
             'date_ac'                   =>      $request->input('date_ac'),       
             'montant'                   =>      $montant,
-            'designation'               =>      $request->input('designation'),
-            'observation'               =>      $request->input('observation'),
             'courriers_id'              =>      $courrier->id
 
         ]);
@@ -159,7 +160,7 @@ public function __construct()
      */
     public function edit(Facturesdaf $facturesdaf)
     {
-        $this->authorize('update',  $facturesdaf->courrier);
+        /* $this->authorize('update',  $facturesdaf->courrier); */
 
         $directions = Direction::pluck('sigle','id');
         $imputations = Imputation::pluck('sigle','id');
@@ -195,8 +196,9 @@ public function __construct()
 
         $montant            =    $request->input('montant');        
         $autres_montant     =    $request->input('autres_montant');        
-        $tva_ir             =    $montant*(18/100);
-        $total              =    $tva_ir + $montant + $autres_montant;
+        $tva                =    $montant*(18/100);
+        $ir                 =    $request->input('ir');
+        $total              =    $tva + $montant + $autres_montant + $ir;
         
     if (request('file')) { 
        $filePath = request('file')->store('facturesdafs', 'public');
@@ -216,7 +218,8 @@ public function __construct()
        $courrier->legende                   =      $request->input('legende');
        $courrier->adresse                   =      $request->input('adresse');
        $courrier->designation               =      $request->input('designation');
-       $courrier->tva_ir                    =      $tva_ir;
+       $courrier->tva                       =      $tva;
+       $courrier->ir                        =      $ir;
        $courrier->montant                   =      $montant;
        $courrier->autres_montant            =      $autres_montant;
        $courrier->total                     =      $total;
@@ -231,8 +234,6 @@ public function __construct()
        $facturesdaf->date_cg                    =      $request->input('date_cg');
        $facturesdaf->date_ac                    =      $request->input('date_ac');
        $facturesdaf->montant                    =      $montant;
-       $facturesdaf->designation                =      $request->input('designation');
-       $facturesdaf->observation                =      $request->input('observation');
        $facturesdaf->courriers_id               =      $courrier->id; 
 
        $facturesdaf->save();
@@ -255,7 +256,8 @@ public function __construct()
         $courrier->designation               =      $request->input('designation');
         $courrier->types_courriers_id        =      $types_courrier_id;
         $courrier->users_id                  =      $user_id;
-        $courrier->tva_ir                    =      $tva_ir;
+        $courrier->tva                       =      $tva;
+        $courrier->ir                        =      $ir;
         $courrier->montant                   =      $montant;
         $courrier->autres_montant            =      $autres_montant;
         $courrier->total                     =      $total;
@@ -270,8 +272,6 @@ public function __construct()
         $facturesdaf->date_cg                    =      $request->input('date_cg');
         $facturesdaf->date_ac                    =      $request->input('date_ac');
         $facturesdaf->montant                    =      $montant;
-        $facturesdaf->designation                =      $request->input('designation');
-        $facturesdaf->observation                =      $request->input('observation');
         $facturesdaf->courriers_id               =      $courrier->id; 
  
         $facturesdaf->save();

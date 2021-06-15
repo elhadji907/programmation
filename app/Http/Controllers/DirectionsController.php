@@ -121,6 +121,8 @@ class DirectionsController extends Controller
     public function edit($id)
     {
         $directions = Direction::find($id);
+        //dd($directions);
+
         $chart      = \App\Courrier::all();
         $chart = new Courrierchart;
         $chart->labels(['', '', '']);
@@ -129,8 +131,14 @@ class DirectionsController extends Controller
         ]);        
         
         $types_directions = TypesDirection::distinct('name')->get()->pluck('name','name')->unique();
+        
+        //dd($types_directions);
 
-        return view('directions.update', compact('directions','id','chart','types_directions'));
+        $employees = \App\Employee::distinct('matricule')->get()->pluck('matricule','matricule')->unique();
+
+        //dd($employees);
+
+        return view('directions.update', compact('directions','id','chart','types_directions','employees'));
     }
 
     /**
@@ -156,9 +164,16 @@ class DirectionsController extends Controller
             
            /*  dd($types_directions_id); */
 
+           //dd($request->input('employee'));
+           
+            $employee = \App\Employee::where('matricule',$request->input('employee'))->first()->id;
+
+            //dd($employee);
+
             $direction->name                    =     $request->input('direction');
             $direction->sigle                   =     $request->input('sigle');
             $direction->types_directions_id     =     $types_directions_id;
+            $direction->chef_id                 =     $employee;
 
             $direction->save();
         

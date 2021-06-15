@@ -148,7 +148,7 @@ public function __construct()
      */
     public function edit(Banque $banque)
     {
-        $this->authorize('update',  $banque->courrier);
+        /* $this->authorize('update',  $banque->courrier); */
 
         $directions = Direction::pluck('sigle','id');
         $imputations = Imputation::pluck('sigle','id');

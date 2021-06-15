@@ -64,21 +64,21 @@
                     <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_dg)->format('d/m/Y') !!}</td>        
                     <td class="align-middle">{!! Carbon\Carbon::parse($tresor->date_ac)->format('d/m/Y') !!}</td>        
                     <td class="d-flex align-items-center justify-content-center">
-                      @can('update', $tresor->courrier)
+                      {{--  @can('update', $tresor->courrier)  --}}
                         <a href="{!! url('tresors/' .$tresor->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit"></i>
                         </a>
-                        @endcan 
+                        {{--  @endcan   --}}
                         &nbsp
                          <a href="{!! url('courriers/' .$tresor->courrier->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
                         &nbsp;
-                        @can('delete', $tresor->courrier)
+                        {{--  @can('delete', $tresor->courrier)  --}}
                           {!! Form::open(['method'=>'DELETE', 'url'=>'tresors/' .$tresor->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                           {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                           {!! Form::close() !!}
-                          @endcan 
+                          {{--  @endcan   --}}
                     </td>
                   </tr>
                   @endforeach  

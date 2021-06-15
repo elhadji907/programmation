@@ -29,7 +29,7 @@ $factory->define(App\Direction::class, function (Faker\Generator $faker) {
 
     return [
         'name' => SnmG::getDirection(),
-        'sigle' => SnmG::getSigledirection(),
+        'sigle' => "",
         'chef_id' => function ()use($employees_id) {
             return $employees_id;
         },

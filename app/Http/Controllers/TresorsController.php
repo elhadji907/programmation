@@ -160,7 +160,7 @@ class TresorsController extends Controller
      */
     public function edit(Tresor $tresor)
     {
-        $this->authorize('update',  $tresor->courrier);
+        /* $this->authorize('update',  $tresor->courrier); */
 
         $directions = Direction::pluck('sigle','id');
         $imputations = Imputation::pluck('sigle','id');

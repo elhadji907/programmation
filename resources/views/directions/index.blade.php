@@ -55,7 +55,11 @@
                                             <td>{!! $direction->name !!}</td>
                                             <td>{!! $direction->sigle !!}</td>
                                             <td>{!! $direction->types_direction->name !!}</td>
-                                            <td>{!! $direction->chef->user->firstname . '   ' . $direction->chef->user->name !!}</td>
+                                            <td>
+                                                @if (isset($direction->chef))
+                                                {!! $direction->chef->user->firstname . '   ' . $direction->chef->user->name !!}                                                    
+                                                @endif
+                                            </td>
                                             <td class="d-flex align-items-baseline">
                                                 <a href="{!! url('directions/' . $direction->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">

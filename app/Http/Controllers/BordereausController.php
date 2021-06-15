@@ -166,7 +166,7 @@ class BordereausController extends Controller
      */
     public function edit(Bordereau $bordereau)
     {
-        $this->authorize('update',  $bordereau->courrier);
+        /* $this->authorize('update',  $bordereau->courrier); */
 
         $directions = Direction::pluck('sigle','id');
         $projets = Projet::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
