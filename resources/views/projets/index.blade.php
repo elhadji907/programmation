@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des domaines')
+@section('title', 'ONFP - Liste des projets')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -15,33 +15,66 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des domaines
+                      Liste des projets
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('domaines.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
+                            <a href="{{route('projets.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-domaines">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-projets">
                           <thead class="table-dark">
                             <tr>
-                              <th>ID</th>
-                              <th>Domaine</th>
-                              <th>{!! __("Secteur d'activité") !!}</th>
+                              <th>N°</th>
+                              <th>{!! __("Projet") !!}</th>
+                              <th>{!! __("Sigle") !!}</th>
+                              <th style="width:12%;">{!! __("Budjet") !!}</th>
+                              <th>{!! __("Début") !!}</th>
+                              <th>{!! __("Fin") !!}</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                                <th>ID</th>
-                                <th>Domaine</th>
-                                <th>{!! __("Secteur d'activité") !!}</th>
+                                <th>N°</th>
+                                <th>{!! __("Projet") !!}</th>
+                                <th>{!! __("Sigle") !!}</th>
+                                <th>{!! __("Budjet") !!}</th>
+                                <th>{!! __("Début") !!}</th>
+                                <th>{!! __("Fin") !!}</th>
                                 <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
-                           
+                            <?php $i = 1 ?>
+                            @foreach ($projets as $projet)
+                            <tr>
+                               <td class="align-middle">{!! $i++ !!}</td> 
+                              <td class="align-middle">{!! $projet->name !!}</td>   
+                              <td class="align-middle">{!! $projet->sigle !!}</td>   
+                              <td class="align-middle">{!! number_format($projet->budjet,0, ',', ' ') . ' ' !!}</td>   
+                              <td class="align-middle">{!! Carbon\Carbon::parse($projet->debut)->format('d/m/Y') !!}</td>        
+                              <td class="align-middle">{!! Carbon\Carbon::parse($projet->fin)->format('d/m/Y') !!}</td>        
+                              <td class="d-flex align-items-center justify-content-center">
+                               {{--   @can('update', $projet)  --}}
+                                  <a href="{!! url('projets/' .$projet->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                                    <i class="far fa-edit"></i>
+                                  </a>
+                                  {{--  @endcan  --}} 
+                                  &nbsp
+                                   <a href="{!! url('courriers/' .$projet->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                                    <i class="far fa-eye">&nbsp;</i>
+                                  </a>
+                                  &nbsp;
+                                  {{--  @can('delete', $projet)  --}}
+                                    {!! Form::open(['method'=>'DELETE', 'url'=>'projets/' .$projet->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
+                                    {!! Form::close() !!}
+                                    {{--  @endcan  --}} 
+                              </td>
+                            </tr>
+                            @endforeach  
                           </tbody>
                       </table>                        
                 </div>
@@ -78,76 +111,46 @@
 
       @push('scripts')
       <script type="text/javascript">
-      $(document).ready(function () {
-          $('#table-domaines').DataTable( { 
-            "processing": true,
-            "serverSide": true,
-            "ajax": "{{route('domaines.list')}}",
-            columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'secteur.name', name: 'secteur.name' },
-                    { data: null ,orderable: false, searchable: false}
-
-                ],
-                "columnDefs": [
-                        {
-                        "data": null,
-                        "render": function (data, type, row) {
-                        url_e =  "{!! route('domaines.edit',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('domaines.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit" title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_domaine btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
-                        },
-                        "targets": 3
-                        },
-                ],
-
-                dom: 'lBfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print',
-                ],
-
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
-                language: {
-                  "sProcessing":     "Traitement en cours...",
-                  "sSearch":         "Rechercher&nbsp;:",
-                  "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-                  "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                  "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                  "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                  "sInfoPostFix":    "",
-                  "sLoadingRecords": "Chargement en cours...",
-                  "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                  "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-                  "oPaginate": {
-                      "sFirst":      "Premier",
-                      "sPrevious":   "Pr&eacute;c&eacute;dent",
-                      "sNext":       "Suivant",
-                      "sLast":       "Dernier"
-                  },
-                  "oAria": {
-                      "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-                      "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                  },
-                  "select": {
-                          "rows": {
-                              _: "%d lignes séléctionnées",
-                              0: "Aucune ligne séléctionnée",
-                              1: "1 ligne séléctionnée"
-                          } 
+        $(document).ready( function () {
+          $('#table-projets').DataTable({
+            dom: 'lBfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print',
+            ],
+            "lengthMenu": [ [5,10, 25, 50, 100, -1], [5,10, 25, 50, 100, "Tout"] ],
+            "order": [
+                  [ 0, 'asc' ]
+                  ],
+                  language: {
+                    "sProcessing":     "Traitement en cours...",
+                    "sSearch":         "Rechercher&nbsp;:",
+                    "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                    "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                    "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    "sInfoPostFix":    "",
+                    "sLoadingRecords": "Chargement en cours...",
+                    "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                    "oPaginate": {
+                        "sFirst":      "Premier",
+                        "sPrevious":   "Pr&eacute;c&eacute;dent",
+                        "sNext":       "Suivant",
+                        "sLast":       "Dernier"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                    },
+                    "select": {
+                            "rows": {
+                                _: "%d lignes séléctionnées",
+                                0: "Aucune ligne séléctionnée",
+                                1: "1 ligne séléctionnée"
+                            }
+                    }
                   }
-                },            
           });
-
-          
-        $('#table-domaines').off('click', '.btn_delete_domaine').on('click', '.btn_delete_domaine',
-        function() { 
-          var href=$(this).data('href');
-          $('#form-delete-domaine').attr('action', href);
-          $('#modal_delete_domaine').modal();
-        });
-      });
-      
-  </script> 
-  @endpush
+      } );
+      </script> 
+      @endpush
