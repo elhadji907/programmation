@@ -33,14 +33,22 @@ class CreateDepensesTable extends Migration
             $table->double('autre_montant')->nullable();
             $table->double('total')->nullable();
             $table->unsignedInteger('activites_id')->nullable();
+            $table->unsignedInteger('projets_id')->nullable();
 
             $table->index(["activites_id"], 'fk_depenses_activites1_idx');
+
+            $table->index(["projets_id"], 'fk_depenses_projets1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
             $table->foreign('activites_id', 'fk_depenses_activites1_idx')
                 ->references('id')->on('activites')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('projets_id', 'fk_depenses_projets1_idx')
+                ->references('id')->on('projets')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

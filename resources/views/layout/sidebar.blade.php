@@ -98,6 +98,12 @@
     @endif
     @else
     {{--  <h6 class="collapse-header">UTILISATEURS</h6>  --}}
+    <a class="collapse-item" href="{{ route('activites.index') }}">
+      <span>Activites</span>
+    </a> 
+    <a class="collapse-item" href="{{ route('projets.index') }}">
+      <span>Projets</span>
+    </a> 
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">
       <span>Bordereaux</span>
     </a>
@@ -109,8 +115,10 @@
     </a>
     <a class="collapse-item" href="{{ route('tresors.index') }}">
       <span>Recettes Trésor</span>
-    </a>      
-    </a>
+    </a> 
+    <a class="collapse-item" href="{{ route('tresors.index') }}">
+      <span>Recettes Trésor</span>
+    </a> 
     <a class="collapse-item" href="{{ route('banques.index') }}">
       <span>Frais Bancaire</span>
     </a>

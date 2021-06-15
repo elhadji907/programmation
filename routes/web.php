@@ -41,6 +41,8 @@ Route::group([
         Route::get('/diplomes/list', 'DiplomesController@list')->name('diplomes.list');
         Route::get('/modules/list', 'ModulesController@list')->name('modules.list');
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
+        Route::get('/activites/list', 'ActivitesController@list')->name('activites.list');
+        Route::get('/projets/list', 'ProjetsController@list')->name('projets.list');
         Route::get('/nivauxs/list', 'NivauxsController@list')->name('nivauxs.list');
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
@@ -107,6 +109,8 @@ Route::group([
         Route::resource('/diplomes', 'DiplomesController');
         Route::resource('/modules', 'ModulesController');
         Route::resource('/secteurs', 'SecteursController');
+        Route::resource('/activites', 'ActivitesController');
+        Route::resource('/projets', 'ProjetsController');
         Route::resource('/nivauxs', 'NivauxsController');
         Route::resource('/options', 'OptionsController');
         Route::resource('/villages', 'VillagesController');
