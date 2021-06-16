@@ -122,7 +122,7 @@ class ProjetsController extends Controller
     public function destroy(Projet $projet)
     {
         $projet->delete();
-        $message = $projet->name.' a été supprimé(e)';
+        $message = "Le projet ".$projet->sigle." a été supprimé avec succès";
         return redirect()->route('projets.index')->with(compact('message'));
     }
 

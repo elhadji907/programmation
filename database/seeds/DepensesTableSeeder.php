@@ -11,6 +11,6 @@ class DepensesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Depense::class,5)->create();
     }
 }

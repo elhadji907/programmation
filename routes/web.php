@@ -43,6 +43,7 @@ Route::group([
         Route::get('/secteurs/list', 'SecteursController@list')->name('secteurs.list');
         Route::get('/activites/list', 'ActivitesController@list')->name('activites.list');
         Route::get('/projets/list', 'ProjetsController@list')->name('projets.list');
+        Route::get('/depenses/list', 'DepensesController@list')->name('depenses.list');
         Route::get('/nivauxs/list', 'NivauxsController@list')->name('nivauxs.list');
         Route::get('/options/list', 'OptionsController@list')->name('options.list');
         Route::get('/villages/list', 'VillagesController@list')->name('villages.list');
@@ -111,6 +112,7 @@ Route::group([
         Route::resource('/secteurs', 'SecteursController');
         Route::resource('/activites', 'ActivitesController');
         Route::resource('/projets', 'ProjetsController');
+        Route::resource('/depenses', 'DepensesController');
         Route::resource('/nivauxs', 'NivauxsController');
         Route::resource('/options', 'OptionsController');
         Route::resource('/villages', 'VillagesController');

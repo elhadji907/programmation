@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Depense;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class DepensesController extends Controller
 {
@@ -14,7 +15,9 @@ class DepensesController extends Controller
      */
     public function index()
     {
-        //
+        $depenses = Depense::all();
+
+        return view('depenses.index', compact('depenses'));
     }
 
     /**

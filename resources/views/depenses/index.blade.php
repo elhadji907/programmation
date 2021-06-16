@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des projets')
+@section('title', 'ONFP - Liste des depenses')
 @section('content')
         <div class="container-fluid">
             @if (session()->has('success'))
@@ -15,60 +15,65 @@
               <div class="card"> 
                   <div class="card-header">
                       <i class="fas fa-table"></i>
-                      Liste des projets
+                      Liste des depenses
                   </div>              
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">
-                            <a href="{{route('projets.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
+                            <a href="{{route('depenses.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
                           </div>
                           <br />
-                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-projets">
+                        <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-depenses">
                           <thead class="table-dark">
                             <tr>
                               <th>N°</th>
-                              <th>{!! __("Projet") !!}</th>
-                              <th>{!! __("Sigle") !!}</th>
-                              <th style="width:12%;">{!! __("Budjet (F CFA)") !!}</th>
-                              <th>{!! __("Début") !!}</th>
-                              <th>{!! __("Fin") !!}</th>
-                              <th style="width:10%;">Action</th>
+                              <th style="width:12%;">Activités</th>
+                              <th>Désignation</th>
+                              <th>Fournisseurs</th>
+                              <th style="width:10%;">Montant</th>
+                              <th style="width:10%;">TVA</th>
+                              <th style="width:5%;">IR</th>
+                              <th style="width:12%;">Montant TTC</th>
+                              <th style="width:5%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>N°</th>
-                                <th>{!! __("Projet") !!}</th>
-                                <th>{!! __("Sigle") !!}</th>
-                                <th>{!! __("Budjet (F CFA)") !!}</th>
-                                <th>{!! __("Début") !!}</th>
-                                <th>{!! __("Fin") !!}</th>
-                                <th style="width:10%;">Action</th>
+                                <th>Activités</th>
+                                <th>Désignation</th>
+                                <th>Fournisseurs</th>
+                                <th>Montant</th>
+                                <th>TVA</th>
+                                <th>IR</th>
+                                <th>Montant TTC</th>
+                                <th>Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
                             <?php $i = 1 ?>
-                            @foreach ($projets as $projet)
+                            @foreach ($depenses as $depense)
                             <tr>
-                               <td class="align-middle">{!! $i++ !!}</td> 
-                              <td class="align-middle">{!! $projet->name !!}</td>   
-                              <td class="align-middle">{!! $projet->sigle !!}</td>   
-                              <td class="align-middle">{!! number_format($projet->budjet,0, ',', ' ') . ' ' !!}</td>   
-                              <td class="align-middle">{!! Carbon\Carbon::parse($projet->debut)->format('d/m/Y') !!}</td>        
-                              <td class="align-middle">{!! Carbon\Carbon::parse($projet->fin)->format('d/m/Y') !!}</td>        
+                              <td class="align-middle">{!! $i++ !!}</td> 
+                              <td class="align-middle">{!! $depense->activite->name !!}</td>   
+                              <td class="align-middle">{!! $depense->designation !!}</td>   
+                              <td class="align-middle">{!! $depense->fournisseurs !!}</td>   
+                              <td class="align-middle">{!! number_format($depense->montant,0, ',', ' ') . ' ' !!}</td>   
+                              <td class="align-middle">{!! number_format($depense->tva,0, ',', ' ') . ' ' !!}</td>   
+                              <td class="align-middle">{!! number_format($depense->ir,0, ',', ' ') . ' ' !!}</td>   
+                              <td class="align-middle">{!! number_format($depense->total,0, ',', ' ') . ' ' !!}</td>   
                               <td class="d-flex align-items-center justify-content-center">
-                               {{--   @can('update', $projet)  --}}
-                                  <a href="{!! url('projets/' .$projet->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                               {{--   @can('update', $depense)  --}}
+                                  <a href="{!! url('depenses/' .$depense->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                                     <i class="far fa-edit"></i>
                                   </a>
                                   {{--  @endcan  --}} 
                                   &nbsp
-                                {{--     <a href="{!! url('courriers/' .$projet->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                                {{--     <a href="{!! url('courriers/' .$depense->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                                     <i class="far fa-eye">&nbsp;</i>
                                   </a>  --}}
-                                  &nbsp;
-                                  {{--  @can('delete', $projet)  --}}
-                                    {!! Form::open(['method'=>'DELETE', 'url'=>'projets/' .$projet->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                  {{--  @can('delete', $depense)  --}}
+                                    {!! Form::open(['method'=>'DELETE', 'url'=>'depenses/' .$depense->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
                                     {!! Form::close() !!}
                                     {{--  @endcan  --}} 
@@ -112,7 +117,7 @@
       @push('scripts')
       <script type="text/javascript">
         $(document).ready( function () {
-          $('#table-projets').DataTable({
+          $('#table-depenses').DataTable({
             dom: 'lBfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print',

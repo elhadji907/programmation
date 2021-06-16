@@ -104,6 +104,9 @@
     <a class="collapse-item" href="{{ route('projets.index') }}">
       <span>Projets</span>
     </a> 
+    <a class="collapse-item" href="{{ route('depenses.index') }}">
+      <span>Dépenses</span>
+    </a> 
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">
       <span>Bordereaux</span>
     </a>
