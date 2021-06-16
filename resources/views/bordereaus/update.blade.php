@@ -104,7 +104,6 @@
                             <p class="h4 text-white mb-2">PROJET</p>
                         </div>
                         <div class="form-row">
-
                             <div class="form-group col-md-12">
                                 {!! Form::label('Projet') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::select('projet', $projets, $bordereau->courrier->projet->sigle, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'projet']) !!}

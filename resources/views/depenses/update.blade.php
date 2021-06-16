@@ -14,70 +14,34 @@
                         <p class="card-category">{{ 'depense' }}</p>
                     </div>
                     <div class="card-body">
-
-                        <form method="POST" action="{{ action('DepensesController@update', $id) }}">
+                        {!! Form::open(['url' => 'depenses/' . $depense->id, 'method' => 'PATCH', 'files' => true]) !!}
                             @csrf
-                            <input type="hidden" name="_method" value="PATCH" />
                             <div class="form-row">
                                 <div class="form-group col col-md-8 col-lg-8 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __("Projet") }}:</b></label>
-                                    <select name="projet" id="projet" class="form-control" data-width="100%">
-                                        <option value="{{ $projet->id }}">{{ $projet->name }}</option>
-                                        <option value="">{{ __('-----sélectionner-----') }}</option>
-                                        @foreach ($projets as $projet)
-                                            <option value="{{ $projet->id }}">{{ $projet->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('secteur'))
-                                            @foreach ($errors->get('secteur') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
+                                    <div class="form-group col-md-12">
+                                        {!! Form::label('Projet') !!}<span class="text-danger"> <b>*</b> </span>
+                                        {!! Form::select('projet', $projets, $depense->projet->name, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'projet']) !!}
+                                    </div>
                                 </div>
                                 <div class="form-group col col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __("Sigle") }}:</b></label>
-                                    <select disabled name="sigle" id="projet-sigle" class="form-control" data-width="100%">
-                                        <option value="{{ $projet->id }}">{{ $projet->sigle }}</option>
-                                        <option value="">{{ __('-----sélectionner-----') }}</option>
-                                        @foreach ($projets as $projet)
-                                            <option value="{{ $projet->id }}">{{ $projet->sigle }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('secteur'))
-                                            @foreach ($errors->get('secteur') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
+                                    <div class="form-group col-md-12">
+                                        {!! Form::label('Sigle') !!}<span class="text-danger"> <b>*</b> </span>
+                                        {!! Form::select('sigle', $sigles, $depense->projet->sigle, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'projet-sigle', 'disabled' => 'disabled']) !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __("Activié") }}:</b></label>
-                                    <select name="activite" id="activite" class="form-control" data-width="100%">
-                                        <option value="{{ $activite->id }}">{{ $activite->name }}</option>
-                                        <option value="">{{ __('-----sélectionner-----') }}</option>
-                                        @foreach ($activites as $activite)
-                                            <option value="{{ $activite->id }}">{{ $activite->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('secteur'))
-                                            @foreach ($errors->get('secteur') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
+                                    <div class="form-group col-md-12">
+                                        {!! Form::label('Activité') !!}<span class="text-danger"> <b>*</b> </span>
+                                        {!! Form::select('activite', $activites, $depense->activite->name, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'activite']) !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Désignation') }}:</b></label>
-                                    <input type="text" name="designation" class="form-control" id="input-designation"
-                                        placeholder="Désignation" value="{{ old('designation') ?? $depenses->designation }}">
+                                    {!! Form::label('Désignation :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::textarea('designation', $depense->designation, ['placeholder' => "Nom et prénom de l'expéditeur", 'rows' => 1, 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('designation'))
                                             @foreach ($errors->get('designation') as $message)
@@ -89,9 +53,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Fournisseur') }}:</b></label>
-                                    <input type="text" name="fournisseur" class="form-control" id="input-fournisseur"
-                                        placeholder="Désignation" value="{{ old('fournisseur') ?? $depenses->fournisseurs }}">
+                                    {!! Form::label('Fournisseur :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::textarea('fournisseur', $depense->fournisseurs, ['placeholder' => "Nom et prénom de l'expéditeur", 'rows' => 1, 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('fournisseur'))
                                             @foreach ($errors->get('fournisseur') as $message)
@@ -102,10 +65,9 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col col-md-8 col-lg-8 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Montant') }}:</b></label>
-                                    <input type="text" name="montant" class="form-control" id="input-montant"
-                                        placeholder="Montant" value="{{ old('montant') ?? $depenses->montant }}">
+                                <div class="form-group col col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                    {!! Form::label('Montant :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::text('montant', $depense->montant, ['placeholder' => 'Montant', 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('montant'))
                                             @foreach ($errors->get('montant') as $message)
@@ -115,9 +77,8 @@
                                     </small>
                                 </div>
                                 <div class="form-group col col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('IR') }}:</b></label>
-                                    <input type="text" name="ir" class="form-control" id="input-ir"
-                                        placeholder="IR" value="{{ old('ir') ?? $depenses->ir }}">
+                                    {!! Form::label('IR :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::text('ir', $depense->ir, ['placeholder' => 'IR', 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('ir'))
                                             @foreach ($errors->get('ir') as $message)
@@ -126,10 +87,20 @@
                                         @endif
                                     </small>
                                 </div>
+                                <div class="form-group col col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                    {!! Form::label('Autre Montant :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::text('autre_montant', $depense->autre_montant, ['placeholder' => 'Autre Montant', 'class' => 'form-control']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('autre_montant'))
+                                            @foreach ($errors->get('autre_montant') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i
-                                    class="far fa-paper-plane"></i>&nbsp;Modifier</button>
-                        </form>
+                            {!! Form::submit('Modifier', ['class' => 'btn btn-outline-primary pull-right']) !!}
+                            {!! Form::close() !!}
                         <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

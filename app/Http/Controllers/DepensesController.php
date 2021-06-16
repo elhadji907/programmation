@@ -29,7 +29,10 @@ class DepensesController extends Controller
      */
     public function create()
     {
-        return view('depenses.create');
+        $projets = Projet::distinct('name')->get()->pluck('sigle','id')->unique();
+        $activites = Activite::distinct('name')->get()->pluck('name','id')->unique();
+
+        return view('depenses.create',compact('projets','activites'));
     }
 
     /**
@@ -42,24 +45,41 @@ class DepensesController extends Controller
     {
         $this->validate(
             $request, [
-               
-                'name'  =>  'required|string|max:200|unique:projets,name',
-                'sigle' =>  'required|string|max:20|unique:projets,sigle',
-                'debut' =>  'date',
-                'fin'   =>  'date',
+                'montant'               =>  'required|string',
+                'projet'                =>  'required|string',
+                'activite'              =>  'required|string',
+                'fournisseur'           =>  'required|string',
+                'designation'           =>  'required|string',
             ]
         );
-        $projet = new Projet([      
-            'name'              =>      $request->input('name'),
-            'sigle'             =>      $request->input('sigle'),
-            'debut'             =>      $request->input('debut'),
-            'fin'               =>      $request->input('fin'),
-            'budjet'            =>      $request->input('budjet'),
+
+        $montant            =    $request->input('montant');
+        $autre_montant     =    $request->input('autres_montant');     
+        $ir                 =    $request->input('ir');    
+        $tva                =    $montant*(18/100);
+        $total              =    $tva + $montant + $autre_montant + $ir;
+
+        
+        $numero = Depense::get()->last()->id;
+
+        $depense = new Depense([       
+            'numero'                    =>      $numero,
+            'montant'                   =>      $montant,
+            'autre_montant'             =>      $autre_montant,  
+            'ir'                        =>      $ir,   
+            'tva'                       =>      $tva,   
+            'total'                     =>      $total,   
+            'fournisseurs'              =>      $request->input('fournisseur'),
+            'designation'               =>      $request->input('designation'),
+            'projets_id'                =>      $request->input('projet'),
+            'activites_id'              =>      $request->input('activite')
 
         ]);
+
+        $depense->save();
         
-        $projet->save();
-        return redirect()->route('projets.index')->with('success','enregistrement effectué avec succès !');
+        return redirect()->route('depenses.index')->with('success','dépense ajoutée avec succès !');
+
     }
 
     /**
@@ -79,17 +99,13 @@ class DepensesController extends Controller
      * @param  \App\Depense  $depense
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $depenses = Depense::find($id);
-
-        $activite = $depenses->activite;
-        $projet = $depenses->projet;
-
-        $activites = Activite::get();
-        $projets = Projet::get();
+    public function edit(Depense $depense)
+    {       
+        $projets = Projet::distinct('name')->get()->pluck('name','name')->unique();
+        $sigles = Projet::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $activites = Activite::distinct('name')->get()->pluck('name','name')->unique();
         /* dd("$secteurs"); */
-        return view('depenses.update', compact('depenses','activite','projet','activites','projets','id'));
+        return view('depenses.update', compact('depense','activites','projets','sigles'));
     }
 
     /**
@@ -101,7 +117,44 @@ class DepensesController extends Controller
      */
     public function update(Request $request, Depense $depense)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'designation'       =>  'required|string',
+                'fournisseur'       =>  'required|string',
+                'montant'           =>  'required|string',
+                'activite'          =>  'required|string',
+                'projet'            =>  'required|string'
+
+            ]);   
+
+        $projet     = $request->input('projet');
+        $activite   = $request->input('activite');
+
+        
+        $montant            =    $request->input('montant');
+        $autre_montant     =    $request->input('autres_montant');     
+        $ir                 =    $request->input('ir');    
+        $tva                =    $montant*(18/100);
+        $total              =    $tva + $montant + $autre_montant + $ir;
+
+        $projet_id = Projet::where('name',$projet)->first()->id;
+        $activite_id = Activite::where('name',$activite)->first()->id;
+
+        
+        $depense->designation           =   $request->input('designation');
+        $depense->fournisseurs          =   $request->input('fournisseur');
+        $depense->montant               =   $montant;
+        $depense->tva                   =   $tva;
+        $depense->ir                    =   $ir;
+        $depense->autre_montant         =   $autre_montant;
+        $depense->total                 =   $total;
+        $depense->activites_id          =   $activite_id;
+        $depense->projets_id            =   $projet_id;
+
+        $depense->save();
+
+        return redirect()->route('depenses.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**

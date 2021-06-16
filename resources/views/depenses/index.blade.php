@@ -34,9 +34,9 @@
                                         <th style="width:12%;">Activités</th>
                                         <th>Désignation</th>
                                         <th>Fournisseurs</th>
-                                        <th style="width:10%;">Montant</th>
-                                        <th style="width:10%;">TVA</th>
-                                        <th style="width:5%;">IR</th>
+                                        <th style="width:12%;">Montant</th>
+                                        <th style="width:12%;">TVA</th>
+                                        <th style="width:10%;">IR</th>
                                         <th style="width:12%;">Montant TTC</th>
                                         <th style="width:5%;">Action</th>
                                     </tr>
