@@ -32,6 +32,20 @@
               allowClear: true
           });
   </script>  
+  <script type="text/javascript">
+  
+        $("#activite").select2({
+              placeholder: "choisir activité",
+              allowClear: true
+          });
+  </script>  
+  <script type="text/javascript">
+  
+        $("#projet-sigle").select2({
+              placeholder: "choisir sigle",
+              allowClear: true
+          });
+  </script>  
     
   <script type="text/javascript">
   

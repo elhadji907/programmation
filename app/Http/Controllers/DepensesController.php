@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Depense;
+use App\Projet;
+use App\Activite;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
@@ -27,7 +29,7 @@ class DepensesController extends Controller
      */
     public function create()
     {
-        //
+        return view('depenses.create');
     }
 
     /**
@@ -38,7 +40,26 @@ class DepensesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+               
+                'name'  =>  'required|string|max:200|unique:projets,name',
+                'sigle' =>  'required|string|max:20|unique:projets,sigle',
+                'debut' =>  'date',
+                'fin'   =>  'date',
+            ]
+        );
+        $projet = new Projet([      
+            'name'              =>      $request->input('name'),
+            'sigle'             =>      $request->input('sigle'),
+            'debut'             =>      $request->input('debut'),
+            'fin'               =>      $request->input('fin'),
+            'budjet'            =>      $request->input('budjet'),
+
+        ]);
+        
+        $projet->save();
+        return redirect()->route('projets.index')->with('success','enregistrement effectué avec succès !');
     }
 
     /**
@@ -58,9 +79,17 @@ class DepensesController extends Controller
      * @param  \App\Depense  $depense
      * @return \Illuminate\Http\Response
      */
-    public function edit(Depense $depense)
+    public function edit($id)
     {
-        //
+        $depenses = Depense::find($id);
+
+        $activite = $depenses->activite;
+        $projet = $depenses->projet;
+
+        $activites = Activite::get();
+        $projets = Projet::get();
+        /* dd("$secteurs"); */
+        return view('depenses.update', compact('depenses','activite','projet','activites','projets','id'));
     }
 
     /**

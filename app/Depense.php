@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Wed, 16 Jun 2021 12:10:12 +0000.
  */
 
 namespace App;
@@ -23,18 +23,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property float $autre_montant
  * @property float $total
  * @property int $activites_id
+ * @property int $projets_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Activite $activite
- * @property \Illuminate\Database\Eloquent\Collection $projets
+ * @property \App\Projet $projet
  *
  * @package App
  */
 class Depense extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -44,7 +44,8 @@ class Depense extends Eloquent
 		'ir' => 'float',
 		'autre_montant' => 'float',
 		'total' => 'float',
-		'activites_id' => 'int'
+		'activites_id' => 'int',
+		'projets_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -57,7 +58,8 @@ class Depense extends Eloquent
 		'ir',
 		'autre_montant',
 		'total',
-		'activites_id'
+		'activites_id',
+		'projets_id'
 	];
 
 	public function activite()
@@ -65,8 +67,8 @@ class Depense extends Eloquent
 		return $this->belongsTo(\App\Activite::class, 'activites_id');
 	}
 
-	public function projets()
+	public function projet()
 	{
-		return $this->hasMany(\App\Projet::class, 'depenses_id');
+		return $this->belongsTo(\App\Projet::class, 'projets_id');
 	}
 }
