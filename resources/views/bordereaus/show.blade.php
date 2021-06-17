@@ -31,15 +31,19 @@
                             <span><b><u class="h4">Date mandat</u> : </b>{!! Carbon\Carbon::parse($bordereau->date_mandat)->format('d/m/Y') ?? 'Pas encore mandaté' !!}</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center pt-2">
-                            <small>Posté le {!! Carbon\Carbon::parse($bordereau->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                            <small>Créé le {!! Carbon\Carbon::parse($bordereau->courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                            <span class="badge badge-primary">{!! $bordereau->courrier->user->created_by !!}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <small>Modifié le {!! Carbon\Carbon::parse($bordereau->courrier->updated_at)->format('d/m/Y à H:i:s') !!}</small>
                             <span class="badge badge-primary">{!! $bordereau->courrier->user->firstname !!}&nbsp;{!! $bordereau->courrier->user->name !!}</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            @can('update', $bordereau->courrier)
+                           {{--   @can('update', $bordereau->courrier)  --}}
                                 <a href="{!! url('bordereaus/' . $bordereau->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                     <i class="far fa-edit">&nbsp;Modifier</i>
                                 </a>
-                            @endcan
+                           {{--   @endcan  --}}
                             <a href="{!! url('courriers/' . $bordereau->courrier->id . '/edit') !!}" title="voir les d&eacute;tails du courrier"
                                 class="btn btn-outline-primary">
                                 <i class="far fa-eye">&nbsp;D&eacute;tails</i>
@@ -47,11 +51,11 @@
                             {{-- <a href="{!! url('courriers/' .$bordereau->courrier->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
                             </a> --}}
-                            @can('delete', $bordereau->courrier)
+                            {{--  @can('delete', $bordereau->courrier)  --}}
                                 {!! Form::open(['method' => 'DELETE', 'url' => 'bordereaus/' . $bordereau->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                 {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title' => 'supprimer']) !!}
                                 {!! Form::close() !!}
-                            @endcan
+                          {{--    @endcan  --}}
                         </div>
                     </div>
                 @endforeach

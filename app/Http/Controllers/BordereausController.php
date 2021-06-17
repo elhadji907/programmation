@@ -100,7 +100,7 @@ class BordereausController extends Controller
         
 
         $courrier = new Courrier([
-            'numero'                    =>      'DA'.$request->input('numero_mandat'),
+            'numero'                    =>      $request->input('numero_mandat'),
             'objet'                     =>      $request->input('objet'),
             'message'                   =>      $request->input('message'),
             'expediteur'                =>      $request->input('expediteur'),
@@ -114,7 +114,7 @@ class BordereausController extends Controller
         $courrier->save();
 
         $bordereaus = new Bordereau([      
-            'numero'                    =>     'B0'.$request->input('numero_mandat'),
+            'numero'                    =>      $request->input('numero_mandat'),
             'numero_mandat'             =>      $request->input('numero_mandat'),  
             'date_mandat'               =>      $request->input('date_mandat'),    
             'montant'                   =>      $request->input('montant'),
