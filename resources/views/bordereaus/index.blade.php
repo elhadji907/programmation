@@ -2,6 +2,10 @@
 @section('title', 'ONFP - Liste des bordereaux')
 @section('content')
     <div class="container-fluid">
+        <!-- Page Heading -->
+       {{--   <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the 
+        <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>  --}}
         <div class="row">
             <div class="col-md-12">
                 @if (session('success'))
@@ -13,20 +17,19 @@
                         {{ session('message') }}
                     </div>
                 @endif
-                <div class="card">
-                    <div class="card-header">
-                        <p><i class="fas fa-table"></i>
-                        Liste des bordereaux</p>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>Liste des bordereaux</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="d-flex justify-content-between align-items-center pb-3">
                                 <p>
-                                    <a target="_blank" class="btn btn-primary  btn-sm" href="{{ route('listes.index') }}"><i class="fas fa-eye"></i>&nbsp;Voir toutes les feuilles</a>
+                                    {{--  <a target="_blank" class="btn btn-primary  btn-sm" href="{{ route('listes.index') }}"><i class="fas fa-eye"></i>&nbsp;Voir toutes les feuilles</a>  --}}
                                 </p>
                                 <span>
                                     <a href="{!! url('bordereaus/create') !!}">
-                                        <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
+                                        <div class="btn btn-success btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
                                     </a>
                                 </span>
                             </div>
@@ -42,7 +45,7 @@
                                         <th style="width:5%;">Nb/Pc</th>
                                         <th style="width:20%;">Bobservations</th>
                                         <th style="width:5%;">Classeur</th>
-                                        <th style="width:10%;">Action</th>
+                                        <th style="width:10%;"></th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
@@ -55,7 +58,7 @@
                                         <th>Nbre pièces</th>
                                         <th>Bobservations</th>
                                         <th>Classeur</th>
-                                        <th>Action</th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
