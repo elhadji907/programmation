@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Thu, 17 Jun 2021 12:29:30 +0000.
  */
 
 namespace App;
@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $demandeurs_id
  * @property string $sigle
  * @property string $statut
- * @property string $projet
  * @property string $description
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Collective extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -53,7 +51,6 @@ class Collective extends Eloquent
 		'demandeurs_id',
 		'sigle',
 		'statut',
-		'projet',
 		'description'
 	];
 

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Thu, 17 Jun 2021 12:28:47 +0000.
  */
 
 namespace App;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
- * @property int $code
+ * @property string $code
  * @property string $name
  * @property string $qualifications
  * @property string $effectif_total
@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $lieu
  * @property string $convention_col
  * @property string $decret
+ * @property string $beneficiaires
  * @property int $ingenieurs_id
  * @property int $factures_id
  * @property int $agents_id
@@ -40,7 +41,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $conventions_id
  * @property int $programmes_id
  * @property int $operateurs_id
- * @property int $demandeurs_id
  * @property int $traitements_id
  * @property int $niveauxs_id
  * @property int $specialites_id
@@ -53,7 +53,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Facture $facture
  * @property \App\Convention $convention
  * @property \App\Courrier $courrier
- * @property \App\Demandeur $demandeur
  * @property \App\Detf $detf
  * @property \App\Ingenieur $ingenieur
  * @property \App\Niveaux $niveaux
@@ -61,7 +60,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Programme $programme
  * @property \App\Specialite $specialite
  * @property \App\Traitement $traitement
- * @property \Illuminate\Database\Eloquent\Collection $beneficiaires
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $details
  * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $evaluations
@@ -70,12 +69,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Formation extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'code' => 'int',
 		'prevue_h' => 'int',
 		'prevue_f' => 'int',
 		'forme_h' => 'int',
@@ -88,7 +85,6 @@ class Formation extends Eloquent
 		'conventions_id' => 'int',
 		'programmes_id' => 'int',
 		'operateurs_id' => 'int',
-		'demandeurs_id' => 'int',
 		'traitements_id' => 'int',
 		'niveauxs_id' => 'int',
 		'specialites_id' => 'int',
@@ -122,6 +118,7 @@ class Formation extends Eloquent
 		'lieu',
 		'convention_col',
 		'decret',
+		'beneficiaires',
 		'ingenieurs_id',
 		'factures_id',
 		'agents_id',
@@ -129,7 +126,6 @@ class Formation extends Eloquent
 		'conventions_id',
 		'programmes_id',
 		'operateurs_id',
-		'demandeurs_id',
 		'traitements_id',
 		'niveauxs_id',
 		'specialites_id',
@@ -154,11 +150,6 @@ class Formation extends Eloquent
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
-	}
-
-	public function demandeur()
-	{
-		return $this->belongsTo(\App\Demandeur::class, 'demandeurs_id');
 	}
 
 	public function detf()
@@ -200,6 +191,13 @@ class Formation extends Eloquent
 	{
 		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiaires_has_formations', 'formations_id', 'beneficiaires_id')
 					->withPivot('deleted_at')
+					->withTimestamps();
+	}
+
+	public function demandeurs()
+	{
+		return $this->belongsToMany(\App\Demandeur::class, 'demandeurs_has_formations', 'formations_id', 'demandeurs_id')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

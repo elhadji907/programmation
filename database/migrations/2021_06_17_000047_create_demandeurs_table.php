@@ -48,12 +48,31 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('lieux_id')->nullable();
             $table->unsignedInteger('items_id')->nullable();
+            $table->unsignedInteger('projets_id')->nullable();
+            $table->unsignedInteger('programmes_id')->nullable();
+            $table->unsignedInteger('regions_id')->nullable();
+            $table->string('file1', 200)->nullable();
+            $table->string('file2', 200)->nullable();
+            $table->string('file3', 200)->nullable();
+            $table->string('file4', 200)->nullable();
+            $table->string('file5', 200)->nullable();
+            $table->string('file6', 200)->nullable();
+            $table->string('file7', 200)->nullable();
+            $table->string('file8', 200)->nullable();
+            $table->string('file9', 200)->nullable();
+            $table->string('file10', 200)->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
             $table->index(["lieux_id"], 'fk_demandeurs_lieux1_idx');
 
             $table->index(["items_id"], 'fk_demandeurs_items1_idx');
+
+            $table->index(["projets_id"], 'fk_demandeurs_projets1_idx');
+
+            $table->index(["programmes_id"], 'fk_demandeurs_programmes1_idx');
+
+            $table->index(["regions_id"], 'fk_demandeurs_regions1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -70,6 +89,21 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('items_id', 'fk_demandeurs_items1_idx')
                 ->references('id')->on('items')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('projets_id', 'fk_demandeurs_projets1_idx')
+                ->references('id')->on('projets')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('programmes_id', 'fk_demandeurs_programmes1_idx')
+                ->references('id')->on('programmes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('regions_id', 'fk_demandeurs_regions1_idx')
+                ->references('id')->on('regions')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -24,7 +24,7 @@ class CreateFormationsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->unsignedInteger('code');
+            $table->string('code', 200);
             $table->string('name', 200)->nullable();
             $table->string('qualifications', 200)->nullable();
             $table->string('effectif_total', 200)->nullable();
@@ -43,6 +43,7 @@ class CreateFormationsTable extends Migration
             $table->string('lieu', 200)->nullable();
             $table->string('convention_col', 200)->nullable();
             $table->string('decret', 200)->nullable();
+            $table->string('beneficiaires', 200)->nullable();
             $table->unsignedInteger('ingenieurs_id')->nullable();
             $table->unsignedInteger('factures_id')->nullable();
             $table->unsignedInteger('agents_id')->nullable();
@@ -50,7 +51,6 @@ class CreateFormationsTable extends Migration
             $table->unsignedInteger('conventions_id')->nullable();
             $table->unsignedInteger('programmes_id')->nullable();
             $table->unsignedInteger('operateurs_id')->nullable();
-            $table->unsignedInteger('demandeurs_id')->nullable();
             $table->unsignedInteger('traitements_id')->nullable();
             $table->unsignedInteger('niveauxs_id')->nullable();
             $table->unsignedInteger('specialites_id')->nullable();
@@ -67,8 +67,6 @@ class CreateFormationsTable extends Migration
             $table->index(["programmes_id"], 'fk_formations_programmes1_idx');
 
             $table->index(["operateurs_id"], 'fk_formations_operateurs1_idx');
-
-            $table->index(["demandeurs_id"], 'fk_formations_demandeurs1_idx');
 
             $table->index(["traitements_id"], 'fk_formations_traitements1_idx');
 
@@ -110,11 +108,6 @@ class CreateFormationsTable extends Migration
 
             $table->foreign('operateurs_id', 'fk_formations_operateurs1_idx')
                 ->references('id')->on('operateurs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('demandeurs_id', 'fk_formations_demandeurs1_idx')
-                ->references('id')->on('demandeurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

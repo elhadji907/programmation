@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulesTable extends Migration
+class CreateCollectivesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'modules';
+    public $tableName = 'collectives';
 
     /**
      * Run the migrations.
-     * @table modules
+     * @table collectives
      *
      * @return void
      */
@@ -24,25 +24,21 @@ class CreateModulesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('name', 200)->nullable();
-            $table->string('sigle', 45)->nullable();
-            $table->unsignedInteger('domaines_id')->nullable();
-            $table->unsignedInteger('specialites_id')->nullable();
+            $table->string('name', 200);
+            $table->string('items1', 200)->nullable();
+            $table->timestamp('date1')->nullable();
+            $table->unsignedInteger('demandeurs_id');
+            $table->string('sigle', 100)->nullable();
+            $table->string('statut', 100)->nullable();
+            $table->longText('description')->nullable();
 
-            $table->index(["domaines_id"], 'fk_modules_domaines1_idx');
-
-            $table->index(["specialites_id"], 'fk_modules_specialites1_idx');
+            $table->index(["demandeurs_id"], 'fk_collectives_demandeurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('domaines_id', 'fk_modules_domaines1_idx')
-                ->references('id')->on('domaines')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('specialites_id', 'fk_modules_specialites1_idx')
-                ->references('id')->on('specialites')
+            $table->foreign('demandeurs_id', 'fk_collectives_demandeurs1_idx')
+                ->references('id')->on('demandeurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

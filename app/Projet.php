@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 16 Jun 2021 12:10:48 +0000.
+ * Date: Thu, 17 Jun 2021 12:27:20 +0000.
  */
 
 namespace App;
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \Illuminate\Database\Eloquent\Collection $courriers
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $depenses
  *
  * @package App
@@ -56,6 +57,11 @@ class Projet extends Eloquent
 	public function courriers()
 	{
 		return $this->hasMany(\App\Courrier::class, 'projets_id');
+	}
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'projets_id');
 	}
 
 	public function depenses()

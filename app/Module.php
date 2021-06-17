@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Thu, 17 Jun 2021 12:29:15 +0000.
  */
 
 namespace App;
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $sigle
  * @property int $domaines_id
  * @property int $specialites_id
+ * @property string $qualification
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -34,7 +35,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Module extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -48,7 +48,8 @@ class Module extends Eloquent
 		'name',
 		'sigle',
 		'domaines_id',
-		'specialites_id'
+		'specialites_id',
+		'qualification'
 	];
 
 	public function domaine()

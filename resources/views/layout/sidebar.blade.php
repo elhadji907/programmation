@@ -98,15 +98,6 @@
     @endif
     @else
     {{--  <h6 class="collapse-header">UTILISATEURS</h6>  --}}
-    <a class="collapse-item" href="{{ route('activites.index') }}">
-      <span>Activites</span>
-    </a> 
-    <a class="collapse-item" href="{{ route('projets.index') }}">
-      <span>Projets</span>
-    </a> 
-    <a class="collapse-item" href="{{ route('depenses.index') }}">
-      <span>Dépenses</span>
-    </a> 
     <a class="collapse-item" href="{{ route('bordereaus.index') }}">
       <span>Bordereaux</span>
     </a>
@@ -141,6 +132,37 @@
   </div>
 </div>
 </li>
+<li class="nav-item">
+  @roles('Administrateur')
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages_projet" aria-expanded="true" aria-controls="collapsePages_projet">
+  <span data-feather="folder"></span>
+  <span>PROJETS</span>
+</a>
+@endroles
+<div id="collapsePages_projet" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+  <div class="bg-white py-2 collapse-inner rounded">
+   {{--   <h6 class="collapse-header"></h6>  --}}
+    @guest
+    <a class="collapse-item" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
+    @if (Route::has('register'))
+    <a class="collapse-item" href="{{ route('register') }}">{{ __("S'inscrire") }}</a>
+    @endif
+    @else
+    {{--  <h6 class="collapse-header">UTILISATEURS</h6>  --}}
+    <a class="collapse-item" href="{{ route('activites.index') }}">
+      <span>Activites</span>
+    </a> 
+    <a class="collapse-item" href="{{ route('projets.index') }}">
+      <span>Projets</span>
+    </a> 
+    <a class="collapse-item" href="{{ route('depenses.index') }}">
+      <span>Dépenses</span>
+    </a> 
+    @endguest
+  </div>
+</div>
+</li>
+
 <li class="nav-item">
     @roles('Administrateur')
   <a class="nav-link" href="{{ route('operateurs.index') }}">
