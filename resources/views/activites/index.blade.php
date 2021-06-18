@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des activites')
+@section('title', 'ONFP - Activites')
 @section('content')
         <div class="container-fluid">
           <div class="row justify-content-center">
@@ -12,11 +12,10 @@
                     {{ session('message') }}
                 </div>
                 @endif
-              <div class="card"> 
-                  <div class="card-header">
-                      <i class="fas fa-table"></i>
-                      Liste des activites
-                  </div>              
+              <div class="card  shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>&nbsp;Activités</h6>
+                </div>
                 <div class="card-body">
                       <div class="table-responsive">
                           <div align="right">

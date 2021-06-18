@@ -31,7 +31,17 @@ class RolesTableSeeder extends Seeder
         $role18 = App\Role::firstOrCreate(["name"=>"Demandeur"],["uuid"=>Str::uuid()]);
         $role19 = App\Role::firstOrCreate(["name"=>"Operateur"],["uuid"=>Str::uuid()]);
         $role20 = App\Role::firstOrCreate(["name"=>"Nologin"],["uuid"=>Str::uuid()]);
-        $role21 = App\Role::firstOrCreate(["name"=>"Individuelle"],["uuid"=>Str::uuid()]);
-        $role22 = App\Role::firstOrCreate(["name"=>"DAF"],["uuid"=>Str::uuid()]);
+        $role21 = App\Role::firstOrCreate(["name"=>"DAF"],["uuid"=>Str::uuid()]);
+        $role22 = App\Role::firstOrCreate(["name"=>"FDAF"],["uuid"=>Str::uuid()]);
+        $role23 = App\Role::firstOrCreate(["name"=>"RHDAF"],["uuid"=>Str::uuid()]);
+        $role24 = App\Role::firstOrCreate(["name"=>"LOGDAF"],["uuid"=>Str::uuid()]);
+        $role25 = App\Role::firstOrCreate(["name"=>"ADMIN"],["uuid"=>Str::uuid()]);
+        $role26 = App\Role::firstOrCreate(["name"=>"PRDPP"],["uuid"=>Str::uuid()]);
+        $role27 = App\Role::firstOrCreate(["name"=>"PLDPP"],["uuid"=>Str::uuid()]);
+        $role28 = App\Role::firstOrCreate(["name"=>"Consultant"],["uuid"=>Str::uuid()]);
+        $role29 = App\Role::firstOrCreate(["name"=>"SUIVI"],["uuid"=>Str::uuid()]);
+        $role30 = App\Role::firstOrCreate(["name"=>"EVDEC"],["uuid"=>Str::uuid()]);
+
+
     }
 }

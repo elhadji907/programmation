@@ -109,10 +109,7 @@
     </a>
     <a class="collapse-item" href="{{ route('tresors.index') }}">
       <span>Recettes Trésor</span>
-    </a> 
-    <a class="collapse-item" href="{{ route('tresors.index') }}">
-      <span>Recettes Trésor</span>
-    </a> 
+    </a>
     <a class="collapse-item" href="{{ route('banques.index') }}">
       <span>Frais Bancaire</span>
     </a>

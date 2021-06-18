@@ -13,11 +13,10 @@
               {{ session('message') }}
           </div>
           @endif
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Recette trésor
-            </div>             
+        <div class="card  shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>&nbsp;Recettes trésor</h6>
+          </div>  
           <div class="card-body">
             <div class="table-responsive">
               <div align="right">

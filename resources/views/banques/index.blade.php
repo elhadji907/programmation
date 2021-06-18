@@ -13,11 +13,10 @@
               {{ session('message') }}
           </div>
           @endif
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Frais bancaire
-            </div>             
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>&nbsp;Frais bancaire</h6>
+          </div>            
           <div class="card-body">
             <div class="table-responsive">
               <div align="right">
