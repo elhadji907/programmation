@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $pre_requis
  * @property string $adresse
  * @property string $type
- * @property string $projet
  * @property string $situation
  * @property string $telephone
  * @property string $fixe
@@ -105,7 +104,6 @@ class Demandeur extends Eloquent
 		'pre_requis',
 		'adresse',
 		'type',
-		'projet',
 		'situation',
 		'telephone',
 		'fixe',

@@ -36,7 +36,6 @@ class CreateDemandeursTable extends Migration
             $table->longText('pre_requis')->nullable();
             $table->longText('adresse')->nullable();
             $table->string('type', 200)->nullable();
-            $table->longText('projet')->nullable();
             $table->string('situation', 200)->nullable();
             $table->string('telephone', 200)->nullable();
             $table->string('fixe', 200)->nullable();

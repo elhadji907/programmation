@@ -49,7 +49,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'date_naissance' => $faker->dateTime(),
         'lieu_naissance' => SnmG::getLieunaissance(),
         'situation_familiale' => SnmG::getFamiliale(),
-        'adresse' => $faker->text,
+        'adresse' => $faker->address,
         'bp' => $faker->postcode,
         'fax' => $faker->e164PhoneNumber,
         'email_verified_at' => $faker->dateTimeBetween(),

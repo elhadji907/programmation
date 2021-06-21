@@ -80,6 +80,54 @@ class SnNameGenerator
         "M",
         "F",
     );
+    public static $etablissement = array(
+
+        "UCAD (université Cheikh Anta Diop) - Dakar",
+        "UGB (université Gaston Berger) - Saint-Louis",
+        "UDZ (université de Ziguinchor) - Ziguinchor",
+        "UT (université de Thiès) - Thiès",
+        "UB-CUR (université de Bambey) - Bambey",
+        "UVS (université Virtuelle du Sénégal)",
+        "ESP et UCAD - École supérieure polytechnique de Dakar et École polytechnique de Thiès",
+        "ENA - haute fonction publique - Dakar",
+        "ENSETP - École normale supérieure d'enseignement technique et professionnel",
+        "ENDSS - médecine (formation technique et professionnelle) - Dakar",
+        "ENS (UCAD) - enseignement - Dakar",
+        "INSEPS (UCAD) - enseignement du sport - Dakar",
+        "IUPA (UCAD) - pêche et aquaculture - Dakar",
+        "DIT - Dakar Institute of Technology - Informatique - Dakar",
+        "ESMT (École supérieure multinationale des télécommunications)",
+        "CESAG - Centre africain d'études supérieures en gestion - Dakar",
+        "EIA - École internationale des affaires Depuis 1998, formation en management avec diverses spécialités",
+        "ENCR - (École nationale des Cadres ruraux) agriculture et élevage - Bambey",
+        "ENSA - agronomie - Thiès",
+        "ENTSS - (École nationale des travailleurs sociaux spécialisés) - Dakar",
+        "ENEA - statistiques/ planification/ gestion urbaine - Dakar",
+        "EBAD (UCAD) - École de bibliothécaires archivistes et documentalistes - Dakar",
+        "CESTI (UCAD) - journalisme/ communication - Dakar",
+        "ILEA (UCAD) - Langues étrangères appliquées au Tourisme et aux Affaires - Dakar",
+        "ESMT - École supérieure multinationale des télécommunications - Dakar",
+        "ESG Dakar - École supérieure de gestion - Dakar - commerce et management",
+        "IST (UCAD) - formation d’ingénieurs géologues - Dakar",
+        "ISE (UCAD) - environnement - Dakar",
+        "ISED (UCAD) - santé et développement - Dakar",
+        "IPDSR (UCAD) - population / développement / santé de la reproduction -Dakar",
+        "ISG (UCAD) - finance/ comptabilité/ gestion - Dakar",
+        "IAM - (Institut africain de management)",
+        "ISI - (Institut supérieur d'informatique)",
+        "ISM - (Institut supérieur de management)",
+        "Groupe Supdeco Dakar (École supérieure de commerce de Dakar)",
+        "AFI-L'UE - (L'université de l'Entreprise) - Dakar",
+        "ESTM (École supérieure de technologie et de management)",
+        "UEA (université Euro - Afrique), en partenariat avec l'université Jules Verne de Picardie - Dakar",
+        
+    );
+
+    public static $deja = array(
+
+        "Oui",
+        "Non",
+    );
 
     public static $familiale = array(
 
@@ -1185,6 +1233,20 @@ class SnNameGenerator
         return self::$sexe[$random_index];
 
 
+    }
+
+    static function getEtablissement()
+    {
+        $dimension=count(self::$etablissement);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$etablissement[$random_index];
+    }
+
+    static function getDeja()
+    {
+        $dimension=count(self::$deja);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$deja[$random_index];
     }
     
     static function getFamiliale()
