@@ -88,12 +88,43 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-8 col-lg-8 col-xs-12 col-sm-12" style="margin:auto">
                                 {!! Form::label('Montant HT :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('montant', $facturesdaf->courrier->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('montant'))
                                         @foreach ($errors->get('montant') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12 pt-5" style="margin:auto">
+                                {!! Form::label('TVA :') !!}<span class="text-danger"> <b>*</b> </span>
+                                <span class="form-check form-check-inline">
+                                    {{ Form::radio('tva', 'oui', false, ['class' => 'form-check-input']) }}
+                                    <label class="form-check-label ml-2" for="inlineRadio1">Oui</label>
+                                </span>
+                                <span class="form-check form-check-inline">
+                                    {{ Form::radio('tva', 'non', false, ['class' => 'form-check-input']) }}
+                                    <label class="form-check-label ml-2" for="inlineRadio2">Non</label>
+                                </span>
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('tva'))
+                                        @foreach ($errors->get('tva') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" style="margin:auto">
+                                {!! Form::label('IR :') !!}
+                                {!! Form::text('ir', $facturesdaf->courrier->ir, ['placeholder' => 'IR', 'class' => 'form-control']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('ir'))
+                                        @foreach ($errors->get('ir') as $message)
                                             <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                     @endif
@@ -209,7 +240,7 @@
                             <div class="form-group col-md-6">
                                 {!! Form::label('', null, ['class' => 'control-label']) !!}
                                 {!! Form::file('file', null, ['class' => 'form-control-file', 'data-width' => '100%']) !!}
-                                @if ($facturesdaf->courrier->file !== '')
+                                @if (isset($facturesdaf->courrier->file))
                                     <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint"
                                         target="_blank" href="{{ asset($facturesdaf->courrier->getFile()) }}">
                                         <i class="fas fa-download">&nbsp;Télécharger le courrier</i>

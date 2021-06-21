@@ -82,6 +82,7 @@ public function __construct()
                 'numero_courrier'       =>  'required|unique:courriers,numero',
                 'numero_mandat'         =>  'required|unique:bordereaus,numero',
                 'montant'               =>  'required',
+                'tva'                   =>  'required',
                 'designation'           =>  'required'
             ]
         );
@@ -97,10 +98,19 @@ public function __construct()
         $courrier = \App\Courrier::first();
       
         $montant            =    $request->input('montant');        
-        $autres_montant     =    $request->input('autres_montant');        
-        $tva                =    $montant*(18/100);
+        $autres_montant     =    $request->input('autres_montant');
+
+        $total1 = $montant + $autres_montant;
+
+        if($request->input('tva') == "oui"){
+            $tva                =    $total1*(18/100);
+        }else{            
+            $tva                =    "0";
+        }
+
         $ir                 =    $request->input('ir');
-        $total              =    $tva + $montant + $autres_montant + $ir;
+
+        $total              =    $tva + $total1 + $ir;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
@@ -128,8 +138,7 @@ public function __construct()
             'date_transmission'         =>      $request->input('date_imp'),    
             'date_dg'                   =>      $request->input('date_dg'),    
             'date_cg'                   =>      $request->input('date_cg'),    
-            'date_ac'                   =>      $request->input('date_ac'),       
-            'montant'                   =>      $montant,
+            'date_ac'                   =>      $request->input('date_ac'),  
             'courriers_id'              =>      $courrier->id
 
         ]);
@@ -189,16 +198,26 @@ public function __construct()
                 'numero_courrier'       =>  'required|unique:courriers,numero,'.$facturesdaf->courrier->id,
                 'numero_mandat'         =>  'required|unique:facturesdafs,numero,'.$facturesdaf->id,
                 'montant'               =>  'required',
+                'tva'                   =>  'required',
                 'designation'           =>  'required'
 
             ]
         );
 
         $montant            =    $request->input('montant');        
-        $autres_montant     =    $request->input('autres_montant');        
-        $tva                =    $montant*(18/100);
+        $autres_montant     =    $request->input('autres_montant');
+
+        $total1 = $montant + $autres_montant;
+
+        if($request->input('tva') == "oui"){
+            $tva                =    $total1*(18/100);
+        }else{            
+            $tva                =    "0";
+        }
+
         $ir                 =    $request->input('ir');
-        $total              =    $tva + $montant + $autres_montant + $ir;
+
+        $total              =    $tva + $total1 + $ir;
         
     if (request('file')) { 
        $filePath = request('file')->store('facturesdafs', 'public');

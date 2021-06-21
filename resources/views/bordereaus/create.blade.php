@@ -141,9 +141,6 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="form-row">
-
-                            </div>
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">PROJET</p>
                             </div>

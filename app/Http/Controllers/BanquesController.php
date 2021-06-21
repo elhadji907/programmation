@@ -71,11 +71,10 @@ public function __construct()
             $request, [
                 'date_dg'               =>  'required|date',
                 'date_ac'               =>  'required|date',
-                'telephone'             =>  'required|string|max:50',
-                'email'                 =>  'required|email|max:255',
                 'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
                 'montant'               =>  'required',
                 'tva'                   =>  'required',
+                'observation'           =>  'required',
                 'designation'           =>  'required'
             ]
         );
@@ -92,10 +91,19 @@ public function __construct()
 
         
         $montant            =    $request->input('montant');        
-        $autres_montant     =    $request->input('autres_montant');        
-        $tva                =    $montant*(18/100);
+        $autres_montant     =    $request->input('autres_montant');
+
+        $total1 = $montant + $autres_montant;
+
+        if($request->input('tva') == "oui"){
+            $tva                =    $total1*(18/100);
+        }else{            
+            $tva                =    "0";
+        }
+
         $ir                 =    $request->input('ir');
-        $total              =    $tva + $montant + $autres_montant + $ir;
+
+        $total              =    $tva + $total1 + $ir;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
@@ -110,6 +118,7 @@ public function __construct()
             'ir'                        =>      $ir,
             'types_courriers_id'        =>      $types_courrier_id,
             'users_id'                  =>      $user_id,
+            'projets_id'                =>      $request->input('projet'),
         ]);
 
         
@@ -173,20 +182,33 @@ public function __construct()
             $request, [
                 'date_dg'               =>  'required|date',
                 'date_ac'               =>  'required|date',
-                'telephone'             =>  'required|string|max:50',
-                'email'                 =>  'required|email|max:255',
                 'numero_courrier'       =>  'required|unique:courriers,numero,'.$banque->courrier->id,
                 'montant'               =>  'required',
+                'tva'                   =>  'required',
+                'observation'           =>  'required',
                 'designation'           =>  'required'
 
             ]
         );
         
+    $projet = $request->input('projet');
+    $liste = $request->input('liste');
+    $projet_id = Projet::where('sigle',$projet)->first()->id;
+        
         $montant            =    $request->input('montant');        
-        $autres_montant     =    $request->input('autres_montant');        
-        $tva                =    $montant*(18/100);
+        $autres_montant     =    $request->input('autres_montant');
+
+        $total1 = $montant + $autres_montant;
+
+        if($request->input('tva') == "oui"){
+            $tva                =    $total1*(18/100);
+        }else{            
+            $tva                =    "0";
+        }
+
         $ir                 =    $request->input('ir');
-        $total              =    $tva + $montant + $autres_montant + $ir;
+
+        $total              =    $tva + $total1 + $ir;
 
     if (request('file')) { 
        $filePath = request('file')->store('banques', 'public');
@@ -208,6 +230,7 @@ public function __construct()
        $courrier->montant                   =      $montant;
        $courrier->autres_montant            =      $autres_montant;
        $courrier->total                     =      $total;
+       $courrier->projets_id                =      $projet_id;
     
        $courrier->save();
 
@@ -238,6 +261,7 @@ public function __construct()
         $courrier->montant                   =      $montant;
         $courrier->autres_montant            =      $autres_montant;
         $courrier->total                     =      $total;
+        $courrier->projets_id                =      $projet_id;
     
        $courrier->save();
 

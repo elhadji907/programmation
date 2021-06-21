@@ -194,7 +194,7 @@
                                 {{ $facturesdaf->courrier->designation }}
                             </td>
                             <td>
-                                @if ($facturesdaf->courrier->file !== '')
+                                @if (isset($facturesdaf->courrier->file))
                                     <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint"
                                         target="_blank" href="{{ asset($facturesdaf->courrier->getFile()) }}">
                                         <i class="fas fa-download"></i>

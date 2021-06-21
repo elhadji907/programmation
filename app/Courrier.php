@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Mon, 21 Jun 2021 16:05:58 +0000.
  */
 
 namespace App;
@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $date_rejet
  * @property \Carbon\Carbon $date_liq
  * @property string $designation
+ * @property string $observation
  * @property \Carbon\Carbon $date_visa
  * @property \Carbon\Carbon $date_mandat
  * @property float $tva
@@ -83,7 +84,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Courrier extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -136,6 +136,7 @@ class Courrier extends Eloquent
 		'date_rejet',
 		'date_liq',
 		'designation',
+		'observation',
 		'date_visa',
 		'date_mandat',
 		'tva',
@@ -153,7 +154,6 @@ class Courrier extends Eloquent
 		'traitementcourriers_id'
 	];
 
-	
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
 		return "/storage/" . $filePath;

@@ -29,28 +29,6 @@
                         {!! Form::open(['url' => 'banques/' . $banque->id, 'method' => 'PATCH', 'files' => true]) !!}
                         @csrf
                         <div class="form-row">
-                           {{--  <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                {!! Form::label('Date imputation :', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_imp', Carbon\Carbon::parse($banque->date_imp)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('date_imp'))
-                                        @foreach ($errors->get('date_imp') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div> --}}
-                           {{--  <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                {!! Form::label('Date reception :', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_recep', Carbon\Carbon::parse($banque->date_recep)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('date_recep'))
-                                        @foreach ($errors->get('date_recep') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div> --}}
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Numéro du courrier') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('numero_courrier', $banque->courrier->numero, ['placeholder' => 'numero du courrier', 'class' => 'form-control']) !!}
@@ -64,18 +42,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                           {{--  <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('Objet') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::textarea('objet', $banque->courrier->objet, ['placeholder' => 'objet', 'rows' => 2, 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('objet'))
-                                        @foreach ($errors->get('objet') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div> --}}
-                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Designation') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::textarea('designation', $banque->courrier->designation, ['placeholder' => 'designation', 'rows' => 2, 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
@@ -86,11 +53,22 @@
                                     @endif
                                 </small>
                             </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                {!! Form::label('observation') !!}<span class="text-danger"> <b>*</b> </span>
+                                {!! Form::textarea('observation', $banque->courrier->observation, ['placeholder' => 'observation', 'rows' => 2, 'class' => 'form-control']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('observation'))
+                                        @foreach ($errors->get('observation') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-10 col-lg-10 col-xs-12 col-sm-12" style="margin:auto">
                                 {!! Form::label('Montant HT :') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::text('montant', $banque->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
+                                {!! Form::text('montant', $banque->courrier->montant, ['placeholder' => 'Le montant en F CFA', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('montant'))
                                         @foreach ($errors->get('montant') as $message)
@@ -99,7 +77,38 @@
                                     @endif
                                 </small>
                             </div>
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-2 col-lg-2 col-xs-12 col-sm-12 pt-5" style="margin:auto">
+                                {!! Form::label('TVA :') !!}<span class="text-danger"> <b>*</b> </span>
+                                <span class="form-check form-check-inline">
+                                    {{ Form::radio('tva', 'oui', false, ['class' => 'form-check-input']) }}
+                                    <label class="form-check-label ml-2" for="inlineRadio1">Oui</label>
+                                </span>
+                                <span class="form-check form-check-inline">
+                                    {{ Form::radio('tva', 'non', false, ['class' => 'form-check-input']) }}
+                                    <label class="form-check-label ml-2" for="inlineRadio2">Non</label>
+                                </span>
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('tva'))
+                                        @foreach ($errors->get('tva') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" style="margin:auto">
+                                {!! Form::label('IR:') !!}
+                                {!! Form::text('ir', $banque->courrier->ir, ['placeholder' => 'IR', 'class' => 'form-control']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('ir'))
+                                        @foreach ($errors->get('ir') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" style="margin:auto">
                                 {!! Form::label('Autre montant :') !!}
                                 {!! Form::text('autres_montant', $banque->courrier->autres_montant, ['placeholder' => 'Autre montant', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
@@ -110,7 +119,7 @@
                                     @endif
                                 </small>
                             </div>
-                            {{-- <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12" style="margin:auto">
                                 {!! Form::label('Numéro mandat :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('numero_mandat', $banque->numero, ['placeholder' => 'Le numéro du mandat', 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
@@ -120,20 +129,9 @@
                                         @endforeach
                                     @endif
                                 </small>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="form-row">
-                           {{--  <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                {!! Form::label('Visa CG :', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_cg', Carbon\Carbon::parse($banque->date_cg)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('date_cg'))
-                                        @foreach ($errors->get('date_cg') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div> --}}
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Visa DG :', null, ['class' => 'control-label']) !!}
                                 {!! Form::date('date_dg', Carbon\Carbon::parse($banque->date_dg)->format('Y-m-d'), ['placeholder' => '', 'class' => 'form-control']) !!}
@@ -158,60 +156,10 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('Adresse e-mail') !!} <span class="text-danger"> <b>*</b> </span>
-                                {!! Form::email('email', $banque->courrier->email, ['placeholder' => 'adresse e-mail', 'class' => 'form-control', 'id' => 'email']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('email'))
-                                        @foreach ($errors->get('email') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div>
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('Téléphone') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::text('telephone', $banque->courrier->telephone, ['placeholder' => 'numero de téléphone', 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('telephone'))
-                                        @foreach ($errors->get('telephone') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                {!! Form::label('Adresse') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::textarea('adresse', $banque->courrier->adresse, ['placeholder' => 'adresse', 'rows' => 2, 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('adresse'))
-                                        @foreach ($errors->get('adresse') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                {!! Form::label('Observations :') !!}
-                                {!! Form::textarea('observation', $banque->courrier->observation, ['placeholder' => 'observations éventuelles', 'rows' => 2, 'class' => 'form-control']) !!}
-                                <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('observation'))
-                                        @foreach ($errors->get('observation') as $message)
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @endforeach
-                                    @endif
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-md-6">
                                 {!! Form::label('', null, ['class' => 'control-label']) !!}
                                 {!! Form::file('file', null, ['class' => 'form-control-file', 'data-width' => '100%']) !!}
-                                @if ($banque->courrier->file !== '')
+                                @if (isset($banque->courrier->file))
                                     <a class="btn btn-outline-secondary mt-2" title="télécharger le fichier joint"
                                         target="_blank" href="{{ asset($banque->courrier->getFile()) }}">
                                         <i class="fas fa-download">&nbsp;Télécharger le courrier</i>
