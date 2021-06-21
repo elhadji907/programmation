@@ -14,7 +14,11 @@ class IndividuellesController extends Controller
      */
     public function index()
     {
-        //
+        $individuelles = Individuelle::all();
+
+        //dd($individuelles);
+
+        return view('individuelles.index', compact('individuelles'));
     }
 
     /**

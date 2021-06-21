@@ -42,7 +42,7 @@ $factory->define(App\Collective::class, function (Faker\Generator $faker) {
     $nombre = rand(1, 9);
     return [
         'cin' => $cin,
-        'name' => SnmG::getFirstName().' '.SnmG::getFirstName(),
+        'name' => SnmG::getEtablissement(),
         'date1' => $faker->dateTime(),
         'demandeurs_id' => function ()  use($demandeurs_id) {
             return $demandeurs_id;

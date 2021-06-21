@@ -66,7 +66,7 @@
                   @foreach ($demandeurs as $demandeur)
                   <tr> 
                     <td>{!! $i++ !!}</td>
-                    <td>{!! $demandeur->numero_courrier !!}</td>
+                    <td>{!! $demandeur->numero !!}</td>
                     <td>{!! $demandeur->user->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>
                     <td>{!! $demandeur->user->firstname !!}</td>

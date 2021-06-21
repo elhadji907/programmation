@@ -14,7 +14,11 @@ class CollectivesController extends Controller
      */
     public function index()
     {
-        //
+        $collectives = Collective::all();
+
+        //dd($collectives);
+
+        return view('collectives.index', compact('collectives'));
     }
 
     /**
