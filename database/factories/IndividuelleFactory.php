@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Individuelle::class, function (Faker $faker) {
     return [
@@ -19,6 +19,44 @@ $factory->define(App\Individuelle::class, function (Faker $faker) {
         'date1' => $faker->dateTime(),
         'demandeurs_id' => function () {
             return factory(App\Demandeur::class)->create()->id;
+        },
+    ];
+}); */
+
+use App\Helpers\SnNameGenerator as SnmG;
+use Illuminate\Support\Str;
+
+$factory->define(App\Individuelle::class, function (Faker\Generator $faker) {
+
+    $demandeurs_id = App\Demandeur::all()->random()->id;
+    
+    $nombre1 = rand(1, 2);
+    $nombre2 = rand(100, 999);
+    $nombre3 = rand(1965, 1998);
+    $nombre4 = rand(1, 9);
+    $nombre5 = rand(0, 9);
+    $nombre6 = rand(0, 9);
+    $nombre7 = rand(0, 9);
+    $nombre8 = rand(0, 9);
+    $nombre9 = rand(0, 9);
+    
+    $cin = $nombre1.$nombre2.$nombre3.$nombre4.$nombre5.$nombre6.$nombre7.$nombre8.$nombre9;
+
+    $nombre = rand(1, 9);
+
+    return [
+        'cin' => $cin,
+        'nbre_pieces' => $nombre,
+        'legende' => $faker->text,
+        'reference' => $faker->text,
+        'experience' => $faker->text,
+        'projet' => $faker->text,
+        'prerequis' => $faker->text,
+        'information' => $faker->text,
+        'items1' => $faker->word,
+        'date1' => $faker->dateTime(),
+        'demandeurs_id' => function ()  use($demandeurs_id) {
+            return $demandeurs_id;
         },
     ];
 });

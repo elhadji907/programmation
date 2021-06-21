@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:29:30 +0000.
+ * Date: Mon, 21 Jun 2021 19:21:54 +0000.
  */
 
 namespace App;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $cin
  * @property string $name
  * @property string $items1
  * @property \Carbon\Carbon $date1
@@ -45,6 +46,7 @@ class Collective extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'cin',
 		'name',
 		'items1',
 		'date1',

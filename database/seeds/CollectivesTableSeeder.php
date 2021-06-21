@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class IndividuellesTableSeeder extends Seeder
+class CollectivesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class IndividuellesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Individuelle::class,31)->create();
+        factory(App\Collective::class,31)->create();
     }
 }
