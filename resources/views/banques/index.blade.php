@@ -55,7 +55,7 @@
                     <td class="align-middle">{!! $banque->courrier->numero !!}</td>
                     <td class="align-middle">{!! $banque->courrier->designation !!}</td>    
                     <td class="align-middle">{!! number_format($banque->courrier->total,3, ',', ' ') . ' ' !!}</td>   
-                    <td class="align-middle">{!! $banque->observation !!}</td>      
+                    <td class="align-middle">{!! $banque->courrier->observation !!}</td>      
                     <td class="align-middle">{!! $banque->courrier->projet->sigle !!}</td>
                     <td class="align-middle">{!! Carbon\Carbon::parse($banque->date_dg)->format('d/m/Y') !!}</td>        
                     <td class="align-middle">{!! Carbon\Carbon::parse($banque->date_ac)->format('d/m/Y') !!}</td>        

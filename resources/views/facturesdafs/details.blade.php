@@ -295,9 +295,16 @@
                         </tr>
                         @if (isset($facturesdaf->courrier->tva) && $facturesdaf->courrier->tva != '0')
                             <tr class="item">
-                                <td>TVA/IR (18%)</td>
+                                <td>{{__("TVA (18%)")}}</td>
 
                                 <td>{!! number_format($facturesdaf->courrier->tva, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
+                        @if (isset($facturesdaf->courrier->ir) && $facturesdaf->courrier->ir != '0')
+                            <tr class="item">
+                                <td>{{__("IR")}}</td>
+
+                                <td>{!! number_format($facturesdaf->courrier->ir, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
                             </tr>
                         @endif
                         @if (isset($facturesdaf->courrier->autres_montant) && $facturesdaf->courrier->autres_montant != '0')

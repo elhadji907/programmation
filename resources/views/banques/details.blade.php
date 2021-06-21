@@ -282,18 +282,27 @@
 
                             <td>{!! number_format($banque->courrier->montant,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
                         </tr>
+                        @if (isset($banque->courrier->tva) && $banque->courrier->tva != '0')
+                            <tr class="item">
+                                <td>{{__("TVA (18%)")}}</td>
 
-                        <tr class="item">
-                            <td>TVA/IR (18%)</td>
+                                <td>{!! number_format($banque->courrier->tva, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
+                        @if (isset($banque->courrier->ir) && $banque->courrier->ir != '0')
+                            <tr class="item">
+                                <td>{{__("IR")}}</td>
 
-                            <td>{!! number_format($banque->courrier->tva_ir,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
-                        </tr>
+                                <td>{!! number_format($banque->courrier->ir, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
+                        @if (isset($banque->courrier->autres_montant) && $banque->courrier->autres_montant != '0')
+                            <tr class="item last">
+                                <td>Autre montant</td>
 
-                        <tr class="item last">
-                            <td>Autre montant</td>
-
-                            <td>{!! number_format($banque->courrier->autres_montant,3, ',', ' ') . ' ' . 'F CFA' !!}</td>
-                        </tr>
+                                <td>{!! number_format($banque->courrier->autres_montant, 3, ',', ' ') . ' ' . 'F CFA' !!}</td>
+                            </tr>
+                        @endif
 
                         <tr class="total">
                             <td></td>

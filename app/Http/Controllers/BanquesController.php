@@ -75,6 +75,7 @@ public function __construct()
                 'email'                 =>  'required|email|max:255',
                 'numero_courrier'       =>  'required|unique:bordereaus,numero_mandat',
                 'montant'               =>  'required',
+                'tva'                   =>  'required',
                 'designation'           =>  'required'
             ]
         );
@@ -92,18 +93,21 @@ public function __construct()
         
         $montant            =    $request->input('montant');        
         $autres_montant     =    $request->input('autres_montant');        
-        $tva_ir             =    $montant*(18/100);
-        $total              =    $tva_ir + $montant + $autres_montant;
+        $tva                =    $montant*(18/100);
+        $ir                 =    $request->input('ir');
+        $total              =    $tva + $montant + $autres_montant + $ir;
 
         $courrier = new Courrier([
             'numero'                    =>      $request->input('numero_courrier'),
             'designation'               =>      $request->input('designation'),
+            'observation'               =>      $request->input('observation'),
             'telephone'                 =>      $request->input('telephone'),    
             'montant'                   =>      $montant,
             'autres_montant'            =>      $autres_montant,
             'total'                     =>      $total,
             'email'                     =>      $request->input('email'),
-            'tva_ir'                    =>      $tva_ir,
+            'tva'                       =>      $tva,
+            'ir'                        =>      $ir,
             'types_courriers_id'        =>      $types_courrier_id,
             'users_id'                  =>      $user_id,
         ]);
@@ -116,8 +120,6 @@ public function __construct()
             'date_dg'                   =>      $request->input('date_dg'),     
             'date_ac'                   =>      $request->input('date_ac'),       
             'montant'                   =>      $montant,
-            'designation'               =>      $request->input('designation'),
-            'observation'               =>      $request->input('observation'),
             'courriers_id'              =>      $courrier->id
 
         ]);
@@ -182,8 +184,9 @@ public function __construct()
         
         $montant            =    $request->input('montant');        
         $autres_montant     =    $request->input('autres_montant');        
-        $tva_ir             =    $montant*(18/100);
-        $total              =    $tva_ir + $montant + $autres_montant;
+        $tva                =    $montant*(18/100);
+        $ir                 =    $request->input('ir');
+        $total              =    $tva + $montant + $autres_montant + $ir;
 
     if (request('file')) { 
        $filePath = request('file')->store('banques', 'public');
@@ -199,7 +202,9 @@ public function __construct()
        $courrier->legende                   =      $request->input('legende');
        $courrier->adresse                   =      $request->input('adresse');
        $courrier->designation               =      $request->input('designation');
-       $courrier->tva_ir                    =      $tva_ir;
+       $courrier->observation               =      $request->input('observation');
+       $courrier->tva                       =      $tva;
+       $courrier->ir                        =      $tva;
        $courrier->montant                   =      $montant;
        $courrier->autres_montant            =      $autres_montant;
        $courrier->total                     =      $total;
@@ -210,8 +215,6 @@ public function __construct()
        $banque->date_dg                    =      $request->input('date_dg');
        $banque->date_ac                    =      $request->input('date_ac');
        $banque->montant                    =      $montant;
-       $banque->designation                =      $request->input('designation');
-       $banque->observation                =      $request->input('observation');
        $banque->courriers_id               =      $courrier->id; 
 
        $banque->save();
@@ -227,9 +230,11 @@ public function __construct()
         $courrier->telephone                 =      $request->input('telephone');
         $courrier->adresse                   =      $request->input('adresse');
         $courrier->designation               =      $request->input('designation');
+        $courrier->observation               =      $request->input('observation');
         $courrier->types_courriers_id        =      $types_courrier_id;
         $courrier->users_id                  =      $user_id;
-        $courrier->tva_ir                    =      $tva_ir;
+        $courrier->tva                       =      $tva;
+        $courrier->ir                        =      $ir;
         $courrier->montant                   =      $montant;
         $courrier->autres_montant            =      $autres_montant;
         $courrier->total                     =      $total;
@@ -240,8 +245,6 @@ public function __construct()
        $banque->date_dg                      =      $request->input('date_dg');
        $banque->date_ac                      =      $request->input('date_ac');
        $banque->montant                      =      $montant;
-       $banque->designation                  =      $request->input('designation');
-       $banque->observation                  =      $request->input('observation');
        $banque->courriers_id                 =      $courrier->id; 
 
        $banque->save();

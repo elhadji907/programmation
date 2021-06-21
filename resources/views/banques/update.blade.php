@@ -77,7 +77,7 @@
                             </div> --}}
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Designation') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::textarea('designation', $banque->designation, ['placeholder' => 'designation', 'rows' => 2, 'class' => 'form-control']) !!}
+                                {!! Form::textarea('designation', $banque->courrier->designation, ['placeholder' => 'designation', 'rows' => 2, 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('designation'))
                                         @foreach ($errors->get('designation') as $message)
@@ -197,7 +197,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Observations :') !!}
-                                {!! Form::textarea('observation', $banque->observation, ['placeholder' => 'observations éventuelles', 'rows' => 2, 'class' => 'form-control']) !!}
+                                {!! Form::textarea('observation', $banque->courrier->observation, ['placeholder' => 'observations éventuelles', 'rows' => 2, 'class' => 'form-control']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('observation'))
                                         @foreach ($errors->get('observation') as $message)
