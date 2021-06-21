@@ -108,11 +108,11 @@
                                 </div>                                
                         </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                               {{--   <div class="form-group col-md-6">
                                     {!! Form::label("Type demande :") !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
                                     'form-control', 'id' => 'type_demande']) !!}
-                                </div>
+                                </div>  --}}
                                 <div class="form-group col-md-6">
                                     {!! Form::label("module :") !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('modules', $modules, null, ['placeholder' => '', 'class' =>
@@ -121,11 +121,11 @@
 
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                               {{--   <div class="form-group col-md-6">
                                     {!! Form::label("Niveau d'etude :") !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('niveaux', $niveaux, null, ['placeholder' => '', 'class' =>
                                     'form-control', 'id' => 'niveau']) !!}
-                                </div>
+                                </div>  --}}
     
                                 <div class="form-group col-md-6">
                                     {!! Form::label("Diplômes :") !!}<span class="text-danger"> <b>*</b> </span>
@@ -165,11 +165,11 @@
                             </div>
 
                             
-                            <div class="form-group col-md-6">
+                           {{--   <div class="form-group col-md-6">
                                 {!! Form::label("localité :") !!}
                                 {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
                                 'form-control', 'id' => 'localite']) !!}
-                            </div>
+                            </div>  --}}
 
                         </div>                        
                         <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"

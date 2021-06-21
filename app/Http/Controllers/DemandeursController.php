@@ -44,11 +44,13 @@ class DemandeursController extends Controller
 
         $user_role  =   Auth::user()->role->name;
         
-        $demandeurs = Demandeur::with('user.demandeur.modules','user.demandeur.localite')->get(); 
+        $demandeurs = Demandeur::all();
+        
+        return view('demandeurs.index',compact('roles','demandeurs'));
 
         /* dd($demandeurs); */
 
-       $localites = Localite::with('demandeurs.localite')->get();
+      /*  $localites = Localite::with('demandeurs.localite')->get();
       
         $ziguinchor = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Ziguinchor')
@@ -68,9 +70,9 @@ class DemandeursController extends Controller
 
         $thies = Demandeur::with('user.demandeur.localite')
         ->get()->where('user.demandeur.localite.name','Thiès')
-        ->pluck('user.demandeur.localite.name','id')->count();
+        ->pluck('user.demandeur.localite.name','id')->count(); */
 
-        $total = $ziguinchor+$dakar+$saintlouis+$kaolack+$thies;
+        /* $total = $ziguinchor+$dakar+$saintlouis+$kaolack+$thies;
 
         $pompiste = "0";
         $graisseur = "0";
@@ -112,7 +114,7 @@ class DemandeursController extends Controller
             'managerstation',
             'caissier',
             'pompiste'));
-        }
+        } */
     }
 
     /**
@@ -125,18 +127,16 @@ class DemandeursController extends Controller
         $roles = Role::get();
         /* $civilites = User::select('civilite')->distinct()->get(); */
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
+        //$niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         
-        $objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
-        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','id')->unique();
+        //$objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
-        $localites = Localite::distinct('name')->get()->pluck('name','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
       
-        return view('demandeurs.create',compact('roles', 'departements', 'diplomes', 'localites', 'civilites','niveaux', 'objets', 'types_demandes','modules','programmes'));
+        return view('demandeurs.create',compact('roles', 'departements', 'diplomes', 'civilites', 'modules','programmes'));
 
     }
 
