@@ -139,7 +139,7 @@ class ModulesController extends Controller
 
     public function list(Request $request)
     {
-        $modules=Module::with('domaine.secteur')->get();
+        $modules=Module::with('domaine.secteur','demandeurs')->get();
         return Datatables::of($modules)->make(true);
     }
 }

@@ -24,9 +24,7 @@ Route::group([
     ], function()
     { 
         Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
-        Route::get('/recues.selectdirection', function() { return view('recues.selectdirection'); })->name('recues.selectdirection');
         Route::get('/directions.selectemployees', function() { return view('directions.selectemployees'); })->name('directions.selectemployees');
-        Route::get('/internes.selectdirection', function() { return view('internes.selectdirection'); })->name('internes.selectdirection');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Individuelle;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class IndividuellesController extends Controller
 {
@@ -85,5 +86,11 @@ class IndividuellesController extends Controller
     public function destroy(Individuelle $individuelle)
     {
         //
+    }
+    public function list(Request $request)
+    {
+        $modules=Individuelle::with('demandeur.modules')->get();
+        return Datatables::of($modules)->make(true);
+
     }
 }
