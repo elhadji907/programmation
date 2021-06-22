@@ -28,13 +28,13 @@
                           <thead class="table-dark">
                             <tr>
                               <th>Numéro</th>
-                              <th>Nom du groupement</th>
-                              <th>Date nais.</th>
-                              <th>Lieu nais.</th>
-                              <th>Téléphone</th>
+                              <th style="width:25%;">Nom du groupement</th>
+                              <th>Dépot</th>
+                              <th style="width:15%;">Type structure</th>
+                              <th style="width:10%;">Responsable</th>
                               <th>Module</th>
                               <th>Localité</th>
-                              <th>Statut</th>
+                              <th>Etat</th>
                               <th style="width:08%;">Action</th>
                             </tr>
                           </thead>
@@ -42,12 +42,12 @@
                               <tr>
                               <th>Numéro</th>
                               <th>Nom du groupement</th>
-                              <th>Date nais.</th>
-                              <th>Lieu nais.</th>
-                              <th>Téléphone</th>
+                              <th>Dépot</th>
+                              <th>Type structure</th>
+                              <th>Responsable</th>
                               <th>Module</th>
                               <th>Localité</th>
-                              <th>Statut</th>
+                              <th>Etat</th>
                               <th>Action</th>
                               </tr>
                             </tfoot>
@@ -58,9 +58,9 @@
                     {{-- <td>{!! $i++ !!}</td> --}}
                     <td>{!! $collective->demandeur->numero !!}</td>
                     <td>{!! $collective->name !!}</td>
-                    <td>{!! $collective->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                    <td>{!! $collective->demandeur->user->lieu_naissance !!}</td>
-                    <td>{!! str_limit($collective->demandeur->user->telephone, 9, '') !!}</td>
+                    <td>{!! $collective->demandeur->date_depot->format('d/m/Y') !!}</td>
+                    <td>{!! $collective->statut!!}</td>
+                    <td>{!! $collective->demandeur->user->firstname !!} {{" "}} {!! $collective->demandeur->user->name !!}</td>
                     <td>
                       @foreach ($collective->demandeur->modules as $module)
                       {!! $module->name !!}
@@ -109,7 +109,7 @@
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print',
         ],
-        "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
+        "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Tout"] ],
         "order": [
               [ 0, 'asc' ]
               ],

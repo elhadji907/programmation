@@ -63,6 +63,9 @@
         <div id="collapsePages_formation" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('demandeurs.index') }}">
+                    <span>Toutes</span>
+                </a>
                 <a class="collapse-item" href="{{ route('individuelles.index') }}">
                     <span>individuelles</span>
                 </a>

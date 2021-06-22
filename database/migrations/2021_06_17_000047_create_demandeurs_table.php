@@ -42,6 +42,7 @@ class CreateDemandeursTable extends Migration
             $table->integer('nbre_piece')->nullable();
             $table->string('items1', 200)->nullable();
             $table->string('items2', 200)->nullable();
+            $table->dateTime('date_depot')->nullable();
             $table->timestamp('date1')->nullable();
             $table->timestamp('date2')->nullable();
             $table->unsignedInteger('users_id');

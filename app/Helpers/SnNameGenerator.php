@@ -59,6 +59,16 @@ class SnNameGenerator
         "Mme",
     );
 
+    public static $statut = array(
+
+        "GIE",
+        "Association",
+        "Entreprise",
+        "Institut publique",
+        "Institut privée",
+        "Amicale Etudiants/Elèves",
+    );
+
     public static $situation = array(
         "Elève",
         "Etudiant(e)",
@@ -1213,6 +1223,15 @@ class SnNameGenerator
         $dimension=count(self::$situation);
         $random_index=random_int(0, (int)$dimension-1);
         return self::$situation[$random_index];
+
+
+    }
+
+    static function getStatut()
+    {
+        $dimension=count(self::$statut);
+        $random_index=random_int(0, (int)$dimension-1);
+        return self::$statut[$random_index];
 
 
     }

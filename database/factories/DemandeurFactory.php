@@ -19,13 +19,13 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'pre_requis' => $faker->text,
         'adresse' => $faker->text,
         'type' => $faker->word,
-        'projet' => $faker->text,
         'situation' => $faker->word,
         'telephone' => $faker->word,
         'fixe' => $faker->word,
         'nbre_piece' => $faker->randomNumber(),
         'items1' => $faker->word,
         'items2' => $faker->word,
+        'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
         'date2' => $faker->dateTime(),
         'users_id' => function () {
@@ -58,7 +58,6 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'file10' => $faker->word,
     ];
 }); */
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -93,6 +92,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         'telephone' => $faker->e164PhoneNumber,
         'fixe' => $faker->phoneNumber,
         'nbre_piece' => $nombre,
+        'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
         'date2' => $faker->dateTime(),
         'users_id' => function () use($role_id) {

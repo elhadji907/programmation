@@ -27,8 +27,6 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Individuelle::class, function (Faker\Generator $faker) {
-
-    $demandeurs_id = App\Demandeur::all()->random()->id;
     
     $nombre1 = rand(1, 2);
     $nombre2 = rand(100, 999);
@@ -55,8 +53,8 @@ $factory->define(App\Individuelle::class, function (Faker\Generator $faker) {
         'information' => $faker->text,
         'items1' => $faker->word,
         'date1' => $faker->dateTime(),
-        'demandeurs_id' => function ()  use($demandeurs_id) {
-            return $demandeurs_id;
+        'demandeurs_id' => function ()  {
+            return factory(App\Demandeur::class)->create()->id;
         },
     ];
 });

@@ -24,9 +24,7 @@ use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $factory->define(App\Collective::class, function (Faker\Generator $faker) {
-    
-    $demandeurs_id = App\Demandeur::all()->random()->id;
-    
+       
     $nombre1 = rand(1, 2);
     $nombre2 = rand(100, 999);
     $nombre3 = rand(1965, 1998);
@@ -44,11 +42,11 @@ $factory->define(App\Collective::class, function (Faker\Generator $faker) {
         'cin' => $cin,
         'name' => SnmG::getEtablissement(),
         'date1' => $faker->dateTime(),
-        'demandeurs_id' => function ()  use($demandeurs_id) {
-            return $demandeurs_id;
+        'demandeurs_id' => function ()  {
+            return factory(App\Demandeur::class)->create()->id;
         },
         'sigle' => $faker->word,
-        'statut' => $faker->word,
+        'statut' => SnmG::getStatut(),
         'description' => $faker->text,
     ];
 });

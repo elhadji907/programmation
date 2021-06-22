@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:28:06 +0000.
+ * Date: Tue, 22 Jun 2021 08:53:36 +0000.
  */
 
 namespace App;
@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $nbre_piece
  * @property string $items1
  * @property string $items2
+ * @property \Carbon\Carbon $date_depot
  * @property \Carbon\Carbon $date1
  * @property \Carbon\Carbon $date2
  * @property int $users_id
@@ -57,6 +58,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Item $item
  * @property \App\Lieux $lieux
  * @property \App\Programme $programme
+ * @property \App\Projet $projet
  * @property \App\Region $region
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $collectives
@@ -86,6 +88,7 @@ class Demandeur extends Eloquent
 	];
 
 	protected $dates = [
+		'date_depot',
 		'date1',
 		'date2'
 	];
@@ -110,6 +113,7 @@ class Demandeur extends Eloquent
 		'nbre_piece',
 		'items1',
 		'items2',
+		'date_depot',
 		'date1',
 		'date2',
 		'users_id',

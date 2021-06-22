@@ -11,10 +11,10 @@ class ModulesTableSeeder extends Seeder
      */
     public function run()
     {
-       /*   $module1 =  App\Module::firstOrCreate(["name"=>"Accueil"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
+         $module1 =  App\Module::firstOrCreate(["name"=>"Accueil"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
          $module2 =  App\Module::firstOrCreate(["name"=>"Assistanat de direction"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
          $module3 =  App\Module::firstOrCreate(["name"=>"Gestion administrative"],["domaines_id"=>"1"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module4 =  App\Module::firstOrCreate(["name"=>"Secrétariat"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]); */
+         $module4 =  App\Module::firstOrCreate(["name"=>"Secrétariat"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
 
          $module5 =  App\Module::firstOrCreate(["name"=>"Laveur"],["domaines_id"=>"34"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
          $module6 =  App\Module::firstOrCreate(["name"=>"Graisseur"],["domaines_id"=>"34"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
