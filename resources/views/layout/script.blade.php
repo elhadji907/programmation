@@ -71,7 +71,14 @@
   <script type="text/javascript">
   
     $("#civilite").select2({
-          placeholder: "sélectionner un sexe",
+          placeholder: "sélectionner civilité",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
+    $("#region").select2({
+          placeholder: "sélectionner region",
           allowClear: true
       });
 </script>  

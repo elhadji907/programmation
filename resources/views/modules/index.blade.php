@@ -29,32 +29,19 @@
                   <tr>
                     <th>N°</th>
                      <th>{!! __("module") !!}</th>
+                     <th>{!! __("Domaine") !!}</th>
+                     <th>{!! __("Secteur") !!}</th>
                      <th>{!! __("Effectif") !!}</th>
-                     <th>{!! __("Dakar") !!}</th>
-                     <th>{!! __("Kaolack") !!}</th>
-                     <th>{!! __("Saint-Louis") !!}</th>
-                     <th>{!! __("Ziguinchor") !!}</th>
                     <th  style="width:10%;">Action</th>
                   </tr>
                 </thead>
-                <tfoot>
-                    <tr class="table-info">
-                      <th colspan="2" style="text-align: center">Total</th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                    <tr class="table-dark">
+                <tfoot class="table-dark">
+                    <tr>
                       <th>N°</th>
                        <th>{!! __("module") !!}</th>
+                       <th>{!! __("Domaine") !!}</th>
+                       <th>{!! __("Secteur") !!}</th>
                        <th>{!! __("Effectif") !!}</th>
-                       <th>{!! __("Dakar") !!}</th>
-                       <th>{!! __("Kaolack") !!}</th>
-                       <th>{!! __("Saint-Louis") !!}</th>
-                       <th>{!! __("Ziguinchor") !!}</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -64,24 +51,8 @@
                   <tr> 
                     <td>{!! $i++ !!}</td>
                     <td>{!! $module->name !!}</td>
-                    <td>
-                      @foreach ($module->demandeurs as $demandeur)
-                      @if($loop->last)
-                      {!! $loop->count !!}
-                      @endif
-                      @endforeach
-                    </td>
-                    <td>
-                    {{--    @foreach ($module->demandeurs as $demandeur)
-                      @if ($demandeur->localite->name == "Dakar")
-                      @foreach ($demandeur->modules as $module)
-                      {!! $loop->count !!}
-                      @endforeach            
-                      @endif
-                      @endforeach  --}}
-                    </td>
-                    <td></td>
-                    <td></td>
+                    <td>{!! $module->domaine->name !!}</td>
+                    <td>{!! $module->domaine->secteur->name !!}</td>
                     <td></td>
                     <td class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('modules/' .$module->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">

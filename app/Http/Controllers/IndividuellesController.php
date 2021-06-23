@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Individuelle;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Departement;
+use App\Diplome;
+use App\Module;
+use App\Programme;
+use App\User;
+
 
 class IndividuellesController extends Controller
 {
@@ -29,7 +35,13 @@ class IndividuellesController extends Controller
      */
     public function create()
     {
-        //
+        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();        
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+      
+        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules','programmes'));
     }
 
     /**
