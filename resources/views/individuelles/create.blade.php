@@ -161,12 +161,12 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Département :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
+                                    {!! Form::label('Région :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('regions[]', $regions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Région :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
+                                    {!! Form::label('Département :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
@@ -228,7 +228,7 @@
                             </div>
                             <div class="form-row">
 
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                     {!! Form::label('Programme :') !!}
                                     {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' => 'form-control', 'id' => 'programme', 'data-width' => '100%']) !!}
                                 </div>

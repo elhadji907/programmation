@@ -6,6 +6,7 @@ use App\Individuelle;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Departement;
+use App\Region;
 use App\Diplome;
 use App\Module;
 use App\Programme;
@@ -40,8 +41,9 @@ class IndividuellesController extends Controller
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+        $regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
       
-        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules','programmes'));
+        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'regions'));
     }
 
     /**
