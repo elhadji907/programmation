@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Région :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('region', $regions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -181,6 +181,19 @@
                                             @endforeach
                                         @endif
                                     </small>
+                                </div> --}}
+                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    <label for="input-region"><b>{{ __('Région') }}:</b></label>
+                                    <select class="regiondepartement form-control" id="prod_cat_id">
+                                        <option value="0" disabled="true" selected="true">--Sélectionner région--</option>
+                                        @foreach ($regions as $region)
+                                            <option value="{{ $region->id }}">{{ $region->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="input-departement"><b>{{ __('Département') }}:</b></label>
+                                    <select class="nomdepartement form-control">
+                                        <option value="0" disabled="true" selected="true">Nom du Département</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
@@ -274,8 +287,6 @@
                                     {!! Form::label('Programme :') !!}
                                     {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' => 'form-control', 'id' => 'programme', 'data-width' => '100%']) !!}
                                 </div>
-
-
                                 {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label("localité :") !!}
                                 {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
@@ -283,24 +294,6 @@
                             </div> --}}
 
                             </div>
-
-                            <span>Product Category: </span>
-                            <select style="width: 200px" class="productcategory" id="prod_cat_id">
-
-                                <option value="0" disabled="true" selected="true">-Select-</option>
-                                @foreach ($prod as $cat)
-                                    <option value="{{ $cat->id }}">{{ $cat->nom }}</option>
-                                @endforeach
-
-                            </select>
-
-                            <span>Product Name: </span>
-                            <select style="width: 200px" class="productname">
-
-                                <option value="0" disabled="true" selected="true">Product Name</option>
-                            </select>
-
-
                             <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                 placeholder="Mot de passe">
                             {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' => 'form-control']) !!}
@@ -357,35 +350,36 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $(document).on('change', '.productcategory', function() {
+            $(document).on('change', '.regiondepartement', function() {
                 // console.log("hmm its change");
 
-                var cat_id = $(this).val();
-                // console.log(cat_id);
+                var departement_id = $(this).val();
+                // console.log(departement_id);
                 var div = $(this).parent();
 
                 var op = " ";
 
                 $.ajax({
                     type: 'get',
-                    url: '{!! URL::to('findProductName') !!}',
+                    url: '{!! URL::to('findNomDept') !!}',
                     data: {
-                        'id': cat_id
+                        'id': departement_id
                     },
-                    success: function(data) {
+                    success: function(departements) {
                         //console.log('success');
 
-                        //console.log(data);
+                        //console.log(departements);
 
-                        //console.log(data.length);
-                        op += '<option value="0" selected disabled>chose product</option>';
-                        for (var i = 0; i < data.length; i++) {
-                            op += '<option value="' + data[i].id + '">' + data[i].nom +
+                        //console.log(departements.length);
+                        op +=
+                            '<option value="0" selected disabled>Sélectionner département</option>';
+                        for (var i = 0; i < departements.length; i++) {
+                            op += '<option value="' + departements[i].id + '">' + departements[i].nom +
                                 '</option>';
                         }
 
-                        div.find('.productname').html(" ");
-                        div.find('.productname').append(op);
+                        div.find('.nomdepartement').html(" ");
+                        div.find('.nomdepartement').append(op);
                     },
                     error: function() {
 
@@ -393,7 +387,7 @@
                 });
             });
 
-            $(document).on('change', '.productname', function() {
+            {{-- $(document).on('change', '.nomdepartement', function() {
                 var prod_id = $(this).val();
 
                 var a = $(this).parent();
@@ -402,17 +396,17 @@
                 $.ajax({
                     type: 'get',
                     url: '{!! URL::to('findPrice') !!}',
-                    data: {
+                    departements: {
                         'id': prod_id
                     },
-                    dataType: 'json', //return data will be json
-                    success: function(data) {
+                    departementsType: 'json', //return departements will be json
+                    success: function(departements) {
                         console.log("price");
-                        console.log(data.price);
+                        console.log(departements.price);
 
-                        // here price is coloumn name in products table data.coln name
+                        // here price is coloumn name in products table departements.coln name
 
-                        a.find('.prod_price').val(data.price);
+                        a.find('.prod_price').val(departements.price);
 
                     },
                     error: function() {
@@ -421,7 +415,7 @@
                 });
 
 
-            });
+            }); --}}
 
         });
     </script>

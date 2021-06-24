@@ -91,6 +91,13 @@
 </script>  
   <script type="text/javascript">
   
+    $("#region_id").select2({
+          placeholder: "sélectionner region",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
         $("#structure").select2({
               placeholder: "sélectionner une structure",
               allowClear: true

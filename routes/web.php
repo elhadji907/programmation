@@ -24,7 +24,7 @@ Route::group([
     ], function()
     { 
 
-        Route::get('/findProductName','IndividuellesController@findProductName');
+        Route::get('/findNomDept','IndividuellesController@findNomDept');
 
         Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
         Route::get('/directions.selectemployees', function() { return view('directions.selectemployees'); })->name('directions.selectemployees');

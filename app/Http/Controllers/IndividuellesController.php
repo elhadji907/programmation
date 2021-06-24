@@ -49,20 +49,20 @@ class IndividuellesController extends Controller
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
-        $regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
-        $prod = Region::all();
+        //$regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
+        $regions = Region::all();
         //dd($regions);      
-        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'regions', 'prod'));
+        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'regions'));
     }
 
-    public function findProductName(Request $request){
+    public function findNomDept(Request $request){
 
 		
 	    //if our chosen id and products table prod_cat_id col match the get first 100 data 
 
         //$request->id here is the id of our chosen option id
-        $data=Departement::select('nom','id')->where('regions_id',$request->id)->take(100)->get();
-        return response()->json($data);//then sent this data to ajax success
+        $departements=Departement::select('nom','id')->where('regions_id',$request->id)->take(100)->get();
+        return response()->json($departements);//then sent this data to ajax success
 	}
 
 
