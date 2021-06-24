@@ -23,6 +23,9 @@ Route::group([
     'middleware' => 'App\Http\Middleware\Auth',
     ], function()
     { 
+
+        Route::get('/findProductName','IndividuellesController@findProductName');
+
         Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
         Route::get('/directions.selectemployees', function() { return view('directions.selectemployees'); })->name('directions.selectemployees');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');

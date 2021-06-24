@@ -84,6 +84,13 @@
 </script>  
   <script type="text/javascript">
   
+    $("#commune").select2({
+          placeholder: "sélectionner commune",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
         $("#structure").select2({
               placeholder: "sélectionner une structure",
               allowClear: true

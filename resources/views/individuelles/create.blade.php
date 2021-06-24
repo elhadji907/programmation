@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Enregistrement demandeurs')
+@section('title', 'ONFP - Enregistrement demandeur individuelle')
 @section('content')
     <div class="content">
         <div class="container col-12 col-md-12 col-lg-8 col-xl-12">
@@ -10,14 +10,14 @@
                 <div class="row pt-0"></div>
                 <div class="card">
                     <div class="card-header card-header-primary text-center">
-                        <h3 class="card-title">Enregistrement demandeurs</h3>
+                        <h3 class="card-title">Enregistrement demandeur individuelle</h3>
                     </div>
                     <div class="card-body">
                         <b> NB </b> : Les champs<span class="text-danger"> <b>*</b> </span>sont obligatoires
                         <div class="bg-gradient-secondary text-center">
                             <p class="h4 text-white mb-2 mt-0">IDENTIFICATION</p>
                         </div>
-                        <form method="POST" action="{{ url('demandeurs') }}">
+                        <form method="POST" action="{{ url('individuelles') }}">
                             @csrf
                             <div class="form-row">
                                 <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
@@ -162,11 +162,25 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Région :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('regions[]', $regions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
+                                    {!! Form::select('region', $regions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('region'))
+                                            @foreach ($errors->get('region') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Département :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('departements[]', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
+                                    {!! Form::select('departement', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('departement'))
+                                            @foreach ($errors->get('departement') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
@@ -176,10 +190,24 @@
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Numéro courrier :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier', 'class' => 'form-control']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('numero_courrier'))
+                                            @foreach ($errors->get('numero_courrier') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Date dépot :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' => 'form-control']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('date_depot'))
+                                            @foreach ($errors->get('date_depot') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -190,7 +218,14 @@
                                 </div> --}}
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('module :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('modules', $modules, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'module', 'data-width' => '100%']) !!}
+                                    {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'module', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('modules'))
+                                            @foreach ($errors->get('modules') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
                                 {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label("Niveau d'etude :") !!}<span class="text-danger"> <b>*</b> </span>
@@ -201,6 +236,13 @@
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Diplômes :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('diplomes[]', $diplomes, null, ['placeholder' => 'diplome', 'class' => 'form-control', 'id' => 'diplome', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('diplomes'))
+                                            @foreach ($errors->get('diplomes') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
                                 </div>
 
                             </div>
@@ -241,6 +283,24 @@
                             </div> --}}
 
                             </div>
+
+                            <span>Product Category: </span>
+                            <select style="width: 200px" class="productcategory" id="prod_cat_id">
+
+                                <option value="0" disabled="true" selected="true">-Select-</option>
+                                @foreach ($prod as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->nom }}</option>
+                                @endforeach
+
+                            </select>
+
+                            <span>Product Name: </span>
+                            <select style="width: 200px" class="productname">
+
+                                <option value="0" disabled="true" selected="true">Product Name</option>
+                            </select>
+
+
                             <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                 placeholder="Mot de passe">
                             {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' => 'form-control']) !!}
@@ -292,3 +352,79 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(document).on('change', '.productcategory', function() {
+                // console.log("hmm its change");
+
+                var cat_id = $(this).val();
+                // console.log(cat_id);
+                var div = $(this).parent();
+
+                var op = " ";
+
+                $.ajax({
+                    type: 'get',
+                    url: '{!! URL::to('findProductName') !!}',
+                    data: {
+                        'id': cat_id
+                    },
+                    success: function(data) {
+                        //console.log('success');
+
+                        //console.log(data);
+
+                        //console.log(data.length);
+                        op += '<option value="0" selected disabled>chose product</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            op += '<option value="' + data[i].id + '">' + data[i].nom +
+                                '</option>';
+                        }
+
+                        div.find('.productname').html(" ");
+                        div.find('.productname').append(op);
+                    },
+                    error: function() {
+
+                    }
+                });
+            });
+
+            $(document).on('change', '.productname', function() {
+                var prod_id = $(this).val();
+
+                var a = $(this).parent();
+                console.log(prod_id);
+                var op = "";
+                $.ajax({
+                    type: 'get',
+                    url: '{!! URL::to('findPrice') !!}',
+                    data: {
+                        'id': prod_id
+                    },
+                    dataType: 'json', //return data will be json
+                    success: function(data) {
+                        console.log("price");
+                        console.log(data.price);
+
+                        // here price is coloumn name in products table data.coln name
+
+                        a.find('.prod_price').val(data.price);
+
+                    },
+                    error: function() {
+
+                    }
+                });
+
+
+            });
+
+        });
+    </script>
+
+
+@endpush
