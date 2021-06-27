@@ -32,9 +32,7 @@ class IndividuellesController extends Controller
     
     public function getStates($id) {
         $states = DB::table("departements")->where("regions_id",$id)->pluck("nom","id");
-
         return json_encode($states);
-
     }
 
     /**
@@ -50,22 +48,15 @@ class IndividuellesController extends Controller
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
         //$regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
-        $regions = Region::all();
+        //$regions = Region::all();
         //dd($regions);      
-        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'regions'));
+        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes'));
     }
 
     public function findNomDept(Request $request){
-
-		
-	    //if our chosen id and products table prod_cat_id col match the get first 100 data 
-
-        //$request->id here is the id of our chosen option id
         $departements=Departement::select('nom','id')->where('regions_id',$request->id)->take(100)->get();
-        return response()->json($departements);//then sent this data to ajax success
+        return response()->json($departements);
 	}
-
-
 
     /**
      * Store a newly created resource in storage.

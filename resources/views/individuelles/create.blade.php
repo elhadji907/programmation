@@ -127,7 +127,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Civilité :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('civilite', $civilites, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'civilite', 'data-width' => '100%']) !!}
+                                    {!! Form::select('civilite', ['M.' => 'M.', 'Mme' => 'Mme'], null, ['placeholder' => 'sélectionner civilité', 'class' => 'form-control', 'id' => 'civilite', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('civilite'))
                                             @foreach ($errors->get('civilite') as $message)
@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Situation familiale :') !!}
-                                    {!! Form::select('familiale', ['Marié' => 'Marié', 'Célibataire' => 'Célibataire'], null, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' => 'familiale', 'data-width' => '100%']) !!}
+                                    {!! Form::select('familiale', ['Marié(e)' => 'Marié(e)', 'Célibataire' => 'Célibataire'], null, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' => 'familiale', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
                                         @if ($errors->has('familiale'))
                                             @foreach ($errors->get('familiale') as $message)
@@ -160,18 +160,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Région :') !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('region', $regions, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'region', 'data-width' => '100%']) !!}
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('region'))
-                                            @foreach ($errors->get('region') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
-                                </div>
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Département :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('departement', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -181,26 +170,13 @@
                                             @endforeach
                                         @endif
                                     </small>
-                                </div> --}}
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    <label for="input-region"><b>{{ __('Région') }}:</b></label>
-                                    <select class="regiondepartement form-control" id="prod_cat_id">
-                                        <option value="0" disabled="true" selected="true">--Sélectionner région--</option>
-                                        @foreach ($regions as $region)
-                                            <option value="{{ $region->id }}">{{ $region->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="input-departement"><b>{{ __('Département') }}:</b></label>
-                                    <select class="nomdepartement form-control">
-                                        <option value="0" disabled="true" selected="true">Nom du Département</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">DEMANDE</p>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Numéro courrier :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::text('numero_courrier', null, ['placeholder' => 'Le numéro du courrier', 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -211,7 +187,18 @@
                                         @endif
                                     </small>
                                 </div>
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                    {!! Form::label('Nbre de pièces fournis:') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::number('nombre_de_piece', 3, ['placeholder' => 'Le nombre de pièces fournis', 'class' => 'form-control', 'min' => '3', 'max' => '20']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('nombre_de_piece'))
+                                            @foreach ($errors->get('nombre_de_piece') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Date dépot :', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::date('date_depot', null, ['placeholder' => 'La date de dépot', 'class' => 'form-control']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -224,12 +211,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label("Type demande :") !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('type_demande', $types_demandes, null, ['placeholder' => '--sélectionnez--', 'class' =>
-                                    'form-control', 'id' => 'type_demande']) !!}
-                                </div> --}}
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('module :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('modules[]', $modules, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'module', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -240,13 +222,18 @@
                                         @endif
                                     </small>
                                 </div>
-                                {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label("Niveau d'etude :") !!}<span class="text-danger"> <b>*</b> </span>
-                                    {!! Form::select('niveaux', $niveaux, null, ['placeholder' => '', 'class' =>
-                                    'form-control', 'id' => 'niveau']) !!}
-                                </div> --}}
-
-                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                    {!! Form::label('Niveau d\'étude :') !!}<span class="text-danger"> <b>*</b> </span>
+                                    {!! Form::select('niveau_etude', ['Aucun' => 'Aucun', 'Elémentaire' => 'Elémentaire', 'Moyen' => 'Moyen', 'Secondaire' => 'Secondaire', 'Supérieur' => 'Supérieur', 'Arabe' => 'Arabe'], null, ['placeholder' => 'Niveau d\'étude', 'class' => 'form-control', 'id' => 'niveau_etude', 'data-width' => '100%']) !!}
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('niveau_etude'))
+                                            @foreach ($errors->get('niveau_etude') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     {!! Form::label('Diplômes :') !!}<span class="text-danger"> <b>*</b> </span>
                                     {!! Form::select('diplomes[]', $diplomes, null, ['placeholder' => 'diplome', 'class' => 'form-control', 'id' => 'diplome', 'data-width' => '100%']) !!}
                                     <small id="emailHelp" class="form-text text-muted">
@@ -257,42 +244,31 @@
                                         @endif
                                     </small>
                                 </div>
-
                             </div>
-                            {{-- <div class="form-row">
-                            <div class="form-group col-md-12">
-                                {!! Form::label('Projet :') !!}
-                                {!! Form::textarea('projet', null, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
-                                'class' => 'form-control']) !!}
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    {!! Form::label('Projet professionnelle :') !!}
+                                    {!! Form::textarea('projet', null, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4, 'class' => 'form-control']) !!}
+                                </div>
                             </div>
-                        </div> --}}
-                            {{-- <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('Expérience :') !!}
-                                {!! Form::textarea('experience', null, ['placeholder' => 'Votre expérience', 'rows' => 3,
-                                'class' => 'form-control']) !!}
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    {!! Form::label('Qualifications :') !!}
+                                    {!! Form::textarea('qualification', null, ['placeholder' => 'Qualifications et autres diplômes', 'rows' => 3, 'class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    {!! Form::label('experience :') !!}
+                                    {!! Form::textarea('experience', null, ['placeholder' => 'Experience', 'rows' => 3, 'class' => 'form-control']) !!}
+                                </div>
                             </div>
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label('Information :') !!}
-                                {!! Form::textarea('information', null, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
-                                'class' => 'form-control']) !!}
-                            </div>
-                        </div> --}}
                             <div class="bg-gradient-secondary text-center">
                                 <p class="h4 text-white mb-2">INSCRIVEZ-VOUS A UN PROGRAMME</p>
                             </div>
                             <div class="form-row">
-
                                 <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                     {!! Form::label('Programme :') !!}
                                     {!! Form::select('programme', $programmes, null, ['placeholder' => 'sélectionner un programme', 'class' => 'form-control', 'id' => 'programme', 'data-width' => '100%']) !!}
                                 </div>
-                                {{-- <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                {!! Form::label("localité :") !!}
-                                {!! Form::select('localite', $localites, null, ['placeholder' => '', 'class' =>
-                                'form-control', 'id' => 'localite']) !!}
-                            </div> --}}
-
                             </div>
                             <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
                                 placeholder="Mot de passe">
@@ -338,87 +314,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $(document).on('change', '.regiondepartement', function() {
-                // console.log("hmm its change");
-
-                var departement_id = $(this).val();
-                // console.log(departement_id);
-                var div = $(this).parent();
-
-                var op = " ";
-
-                $.ajax({
-                    type: 'get',
-                    url: '{!! URL::to('findNomDept') !!}',
-                    data: {
-                        'id': departement_id
-                    },
-                    success: function(departements) {
-                        //console.log('success');
-
-                        //console.log(departements);
-
-                        //console.log(departements.length);
-                        op +=
-                            '<option value="0" selected disabled>Sélectionner département</option>';
-                        for (var i = 0; i < departements.length; i++) {
-                            op += '<option value="' + departements[i].id + '">' + departements[i].nom +
-                                '</option>';
-                        }
-
-                        div.find('.nomdepartement').html(" ");
-                        div.find('.nomdepartement').append(op);
-                    },
-                    error: function() {
-
-                    }
-                });
-            });
-
-            {{-- $(document).on('change', '.nomdepartement', function() {
-                var prod_id = $(this).val();
-
-                var a = $(this).parent();
-                console.log(prod_id);
-                var op = "";
-                $.ajax({
-                    type: 'get',
-                    url: '{!! URL::to('findPrice') !!}',
-                    departements: {
-                        'id': prod_id
-                    },
-                    departementsType: 'json', //return departements will be json
-                    success: function(departements) {
-                        console.log("price");
-                        console.log(departements.price);
-
-                        // here price is coloumn name in products table departements.coln name
-
-                        a.find('.prod_price').val(departements.price);
-
-                    },
-                    error: function() {
-
-                    }
-                });
-
-
-            }); --}}
-
-        });
-    </script>
-
-
-@endpush

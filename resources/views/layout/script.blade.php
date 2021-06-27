@@ -77,6 +77,13 @@
 </script>  
   <script type="text/javascript">
   
+    $("#niveau_etude").select2({
+          placeholder: "Niveau d'étude",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
     $("#region").select2({
           placeholder: "sélectionner region",
           allowClear: true
