@@ -128,7 +128,7 @@ class IndividuellesController extends Controller
 
        $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
 
-       $status = "Attente";
+       $statut = "Attente";
 
        $telephone = $request->input('telephone');
        $telephone = str_replace(' ', '', $telephone);
@@ -151,11 +151,20 @@ class IndividuellesController extends Controller
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
         $cin = str_replace(' ', '', $cin);
-        $cin = str_replace(' ', '', $cin);            
+        $cin = str_replace(' ', '', $cin);         
+        
+        if ($request->input('sexe') == "M") {
+            $civilite = "M.";
+        }elseif ($request->input('sexe') == "F") {
+            $civilite = "Mme";
+        }else {
+            $civilite = "";
+        }
 
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
             'sexe'                      =>      $request->input('sexe'),      
+            'civilite'                  =>      $civilite,      
             'firstname'                 =>      $request->input('prenom'),
             'name'                      =>      $request->input('nom'),
             'email'                     =>      $request->input('email'),
@@ -177,16 +186,19 @@ class IndividuellesController extends Controller
         $utilisateur->save();
 
         $demandeur = new Demandeur([
-            'numero'            =>     $numero,
-            'numero_courrier'   =>     $numero,
-            'date_depot'        =>     $request->input('date_depot'),
-            'nbre_piece'        =>     $request->input('nombre_de_piece'),
-            'status'            =>     $status,
-            'telephone'         =>     $autre_tel,
-            'programmes_id'     =>     $request->input('programme'),
-            'regions_id'        =>     $region_id,
-            'diplome_id'        =>     $diplome_id,
-            'users_id'          =>     $utilisateur->id
+            'numero'                    =>     $numero,
+            'numero_courrier'           =>     $numero,
+            'date_depot'                =>     $request->input('date_depot'),
+            'nbre_piece'                =>     $request->input('nombre_de_piece'),
+            'situation_professionnelle' =>      $request->input('professionnelle'),
+            'telephone'                 =>     $autre_tel,
+            'fixe'                      =>     $fixe,
+            'statut'                    =>     $statut,
+            'programmes_id'             =>     $request->input('programme'),
+            'motivation'                =>     $request->input('motivation'),
+            'regions_id'                =>     $region_id,
+            'diplome_id'                =>     $diplome_id,
+            'users_id'                  =>     $utilisateur->id
         ]);
 
         $demandeur->save();

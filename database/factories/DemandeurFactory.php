@@ -83,7 +83,6 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
 
     return [
         'numero' => $autoIncremen_demandeur->current()."".$annee,
-        'sexe' => SnmG::getSexe(),
         'situation_professionnelle' => SnmG::getSituation(),
         'etablissement' => SnmG::getEtablissement(),
         'niveau_etude' => SnmG::getNiveaux(),

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $numero
- * @property string $sexe
  * @property string $situation_professionnelle
  * @property string $etablissement
  * @property string $niveau_etude
@@ -101,7 +100,6 @@ class Demandeur extends Eloquent
 		'uuid',
 		'numero',
 		'numero_courrier',
-		'sexe',
 		'situation_professionnelle',
 		'etablissement',
 		'niveau_etude',
