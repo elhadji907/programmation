@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'ONFP - Inscription')
 @section('content')
 <div class="container">
     <div class="justify-content-center">
@@ -40,8 +41,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row">
-                                                        
+                        <div class="form-row">                                                        
                             <div class="form-group col-md-4">
                                 <label for="date_naissance"><b>{{ __('Date de naissance') }}</b>(<span class="text-danger">*</span>)</label>
                                     <input id="date_naissance" {{ $errors->has('date_r') ? 'is-invalid' : '' }} type="date" class="form-control @error('date_naissance') is-invalid @enderror" name="date_naissance" placeholder="Votre date de naissance" value="{{ old('date_naissance') }}" autocomplete="username" autofocus>    
@@ -132,5 +132,5 @@
             </div>
         </div>
     </div>
-</div></div>
+</div>
 @endsection

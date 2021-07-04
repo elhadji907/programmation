@@ -11,6 +11,7 @@ use App\Diplome;
 use App\Module;
 use App\Programme;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\DB;
 
 class IndividuellesController extends Controller
@@ -68,13 +69,13 @@ class IndividuellesController extends Controller
     {
         $this->validate(
             $request, [
-                'civilite'            =>  'required|string|max:10',
+                'sexe'                =>  'required|string|max:10',
                 'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
                 'date_naiss'          =>  'required|date_format:Y-m-d',
                 'date_depot'          =>  'required|date_format:Y-m-d',
-                'lieu'                =>  'required|string|max:50',
+                'lieu_naissance'      =>  'required|string|max:50',
                 'telephone'           =>  'required|string|max:50',
                 'fixe'                =>  'required|string|max:50',
                 'adresse'             =>  'required|string|max:100',
@@ -88,14 +89,105 @@ class IndividuellesController extends Controller
                 'modules'             =>  'exists:modules,id',
                 'departement'         =>  'exists:departements,id',
                 'region'              =>  'exists:regions,id',
-            ],
-            [
-                'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
-            ],
-            [
-                'password.max'  =>  'Pour des raisons de sécurité, votre mot de passe ne doit pas dépasser :max caractères.'
             ]
         );
+        
+       $roles_id = Role::where('name','Individuelle')->first()->id;
+       $user_id = User::latest('id')->first()->id;
+       $username   =   strtolower($request->input('nom').$user_id);
+       
+       $departement = Departement::find($request->input('departement'));
+       $region = $departement->region->nom;
+       $region_id = $departement->region->id;
+
+       $created_by1 = Auth::user()->firstname;
+       $created_by2 = Auth::user()->name;
+       $created_by3 = Auth::user()->username;
+
+       $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
+
+       $status = "Attente";
+
+       $telephone = $request->input('telephone');
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+
+       $fixe = $request->input('fixe');
+       $fixe = str_replace(' ', '', $fixe);
+       $fixe = str_replace(' ', '', $fixe);
+       $fixe = str_replace(' ', '', $fixe);
+
+       $autre_tel = $request->input('autre_tel');
+       $autre_tel = str_replace(' ', '', $autre_tel);
+       $autre_tel = str_replace(' ', '', $autre_tel);
+       $autre_tel = str_replace(' ', '', $autre_tel);
+
+       $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
+       $modules = Module::where('id',$request->input('modules'))->first()->name;
+
+        $cin = $request->input('cin');
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);            
+        $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
+        $modules = Module::where('id',$request->input('modules'))->first()->name;
+
+       $cin = $request->input('cin');
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
+       $cin = str_replace(' ', '', $cin);
+
+        $utilisateur = new User([      
+            'civilite'                  =>      $request->input('civilite'),      
+            'sexe'                      =>      $request->input('sexe'),      
+            'firstname'                 =>      $request->input('prenom'),
+            'name'                      =>      $request->input('nom'),
+            'email'                     =>      $request->input('email'),
+            'username'                  =>      $username,
+            'telephone'                 =>      $telephone,
+            'fixe'                      =>      $fixe,
+            'situation_familiale'       =>      $request->input('familiale'),
+            'situation_professionnelle' =>      $request->input('professionnelle'),
+            'date_naissance'            =>      $request->input('date_naiss'),
+            'lieu_naissance'            =>      $request->input('lieu_naissance'),
+            'adresse'                   =>      $request->input('adresse'),
+            'password'                  =>      Hash::make($request->input('email')),
+            'roles_id'                  =>      $roles_id,
+            'created_by'                =>      $created_by,
+            'updated_by'                =>      $created_by
+
+        ]);
+        
+        $utilisateur->save();
+
+        $demandeur = new Demandeur([
+            'numero'            =>     $request->input('numero_courrier'),
+            'date_depot'        =>     $request->input('date_depot'),
+            'status'            =>     $status,
+            'telephone'         =>     $autre_tel,
+            'programmes_id'     =>     $request->input('programme'),
+            'regions_id'        =>     $regions_id,
+            'users_id'          =>     $utilisateur->id
+        ]);
+
+        $demandeur->save();
+
+        $individuelle = new Individuelle([
+            'cin'               =>     $cin,
+            'date_depot'        =>     $request->input('date_depot'),
+            'experience'        =>     $request->input('experience'),
+            'information'       =>     $request->input('information'),
+            'prerequis'         =>     $request->input('prerequis'),
+            'telephone'         =>     $autre_tel,
+            'demandeurs_id'     =>     $demandeur->id
+        ]);
+
+        $individuelle->save();
+
+        $demandeurs->modules()->sync($request->modules);
+
+        return redirect()->route('demandeurs.create')->with('success','demandeur ajouté avec succès !');
     }
 
     /**

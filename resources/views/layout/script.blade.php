@@ -55,6 +55,12 @@
           });
   </script>  
   <script type="text/javascript">
+        $("#sexe").select2({
+              placeholder: "sélectionner le sexe",
+              allowClear: true
+          });
+  </script>  
+  <script type="text/javascript">
   
         $("#projet").select2({
               placeholder: "sélectionner un projet",
