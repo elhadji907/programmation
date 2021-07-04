@@ -75,15 +75,9 @@
                       {!! $module->name !!}
                       @endforeach
                     </td>
-                    <td>{!! $individuelle->demandeur->lieux->name !!}</td>
+                    <td>{!! $individuelle->demandeur->region->nom !!}</td>
                     <td style="text-align: center;">
-                      @if ($individuelle->demandeur->status == "Retenue")
-                      <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
-                      @elseif($individuelle->demandeur->status == "Annulée")
-                      <i class="fa fa-times text-danger" title="Annulée" aria-hidden="true"></i>
-                      @else                      
-                      {!! $individuelle->demandeur->status !!}                          
-                      @endif
+                      {!! $individuelle->demandeur->statut !!}
                     </td>
                     <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('individuelles/' .$individuelle->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">

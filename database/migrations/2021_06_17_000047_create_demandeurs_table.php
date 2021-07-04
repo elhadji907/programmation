@@ -26,7 +26,6 @@ class CreateDemandeursTable extends Migration
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
             $table->string('numero_courrier', 200)->nullable();
-            $table->string('sexe', 45)->nullable();
             $table->string('situation_professionnelle', 200)->nullable();
             $table->string('etablissement', 200)->nullable();
             $table->string('niveau_etude', 200)->nullable();
