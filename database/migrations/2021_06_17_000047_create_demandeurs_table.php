@@ -25,6 +25,7 @@ class CreateDemandeursTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
+            $table->string('numero_courrier', 200)->nullable();
             $table->string('sexe', 45)->nullable();
             $table->string('situation_professionnelle', 200)->nullable();
             $table->string('etablissement', 200)->nullable();
@@ -40,17 +41,13 @@ class CreateDemandeursTable extends Migration
             $table->string('telephone', 200)->nullable();
             $table->string('fixe', 200)->nullable();
             $table->integer('nbre_piece')->nullable();
+            $table->string('statut', 45)->nullable();
+            $table->longText('motivation')->nullable();
             $table->string('items1', 200)->nullable();
             $table->string('items2', 200)->nullable();
             $table->dateTime('date_depot')->nullable();
             $table->timestamp('date1')->nullable();
             $table->timestamp('date2')->nullable();
-            $table->unsignedInteger('users_id');
-            $table->unsignedInteger('lieux_id')->nullable();
-            $table->unsignedInteger('items_id')->nullable();
-            $table->unsignedInteger('projets_id')->nullable();
-            $table->unsignedInteger('programmes_id')->nullable();
-            $table->unsignedInteger('regions_id')->nullable();
             $table->string('file1', 200)->nullable();
             $table->string('file2', 200)->nullable();
             $table->string('file3', 200)->nullable();
@@ -61,6 +58,13 @@ class CreateDemandeursTable extends Migration
             $table->string('file8', 200)->nullable();
             $table->string('file9', 200)->nullable();
             $table->string('file10', 200)->nullable();
+            $table->unsignedInteger('users_id');
+            $table->unsignedInteger('lieux_id')->nullable();
+            $table->unsignedInteger('items_id')->nullable();
+            $table->unsignedInteger('projets_id')->nullable();
+            $table->unsignedInteger('programmes_id')->nullable();
+            $table->unsignedInteger('regions_id')->nullable();
+            $table->unsignedInteger('diplomes_id')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
@@ -73,6 +77,8 @@ class CreateDemandeursTable extends Migration
             $table->index(["programmes_id"], 'fk_demandeurs_programmes1_idx');
 
             $table->index(["regions_id"], 'fk_demandeurs_regions1_idx');
+
+            $table->index(["diplomes_id"], 'fk_demandeurs_diplomes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -104,6 +110,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('regions_id', 'fk_demandeurs_regions1_idx')
                 ->references('id')->on('regions')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('diplomes_id', 'fk_demandeurs_diplomes1_idx')
+                ->references('id')->on('diplomes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

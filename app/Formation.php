@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:28:47 +0000.
+ * Date: Sun, 04 Jul 2021 13:16:51 +0000.
  */
 
 namespace App;
@@ -60,6 +60,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Programme $programme
  * @property \App\Specialite $specialite
  * @property \App\Traitement $traitement
+ * @property \Illuminate\Database\Eloquent\Collection $commens
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $details
  * @property \Illuminate\Database\Eloquent\Collection $employees
@@ -192,6 +193,11 @@ class Formation extends Eloquent
 		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiaires_has_formations', 'formations_id', 'beneficiaires_id')
 					->withPivot('deleted_at')
 					->withTimestamps();
+	}
+
+	public function commens()
+	{
+		return $this->hasMany(\App\Commen::class, 'formations_id');
 	}
 
 	public function demandeurs()

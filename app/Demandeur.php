@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 22 Jun 2021 08:53:36 +0000.
+ * Date: Sun, 04 Jul 2021 13:16:28 +0000.
  */
 
 namespace App;
@@ -30,17 +30,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $telephone
  * @property string $fixe
  * @property int $nbre_piece
+ * @property string $statut
  * @property string $items1
  * @property string $items2
  * @property \Carbon\Carbon $date_depot
  * @property \Carbon\Carbon $date1
  * @property \Carbon\Carbon $date2
- * @property int $users_id
- * @property int $lieux_id
- * @property int $items_id
- * @property int $projets_id
- * @property int $programmes_id
- * @property int $regions_id
  * @property string $file1
  * @property string $file2
  * @property string $file3
@@ -51,6 +46,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $file8
  * @property string $file9
  * @property string $file10
+ * @property int $users_id
+ * @property int $lieux_id
+ * @property int $items_id
+ * @property int $projets_id
+ * @property int $programmes_id
+ * @property int $regions_id
+ * @property int $diplomes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -62,6 +64,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Region $region
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $collectives
+ * @property \Illuminate\Database\Eloquent\Collection $commentaires
  * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
  * @property \Illuminate\Database\Eloquent\Collection $formations
@@ -84,7 +87,8 @@ class Demandeur extends Eloquent
 		'items_id' => 'int',
 		'projets_id' => 'int',
 		'programmes_id' => 'int',
-		'regions_id' => 'int'
+		'regions_id' => 'int',
+		'diplomes_id' => 'int'
 	];
 
 	protected $dates = [
@@ -96,6 +100,7 @@ class Demandeur extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'numero',
+		'numero_courrier',
 		'sexe',
 		'situation_professionnelle',
 		'etablissement',
@@ -111,17 +116,13 @@ class Demandeur extends Eloquent
 		'telephone',
 		'fixe',
 		'nbre_piece',
+		'statut',
+		'motivation',
 		'items1',
 		'items2',
 		'date_depot',
 		'date1',
 		'date2',
-		'users_id',
-		'lieux_id',
-		'items_id',
-		'projets_id',
-		'programmes_id',
-		'regions_id',
 		'file1',
 		'file2',
 		'file3',
@@ -131,8 +132,20 @@ class Demandeur extends Eloquent
 		'file7',
 		'file8',
 		'file9',
-		'file10'
+		'file10',
+		'users_id',
+		'lieux_id',
+		'items_id',
+		'projets_id',
+		'programmes_id',
+		'regions_id',
+		'diplomes_id'
 	];
+
+	public function diplome()
+	{
+		return $this->belongsTo(\App\Diplome::class, 'diplomes_id');
+	}
 
 	public function item()
 	{
@@ -167,6 +180,11 @@ class Demandeur extends Eloquent
 	public function collectives()
 	{
 		return $this->hasMany(\App\Collective::class, 'demandeurs_id');
+	}
+
+	public function commentaires()
+	{
+		return $this->hasMany(\App\Commentaire::class, 'demandeurs_id');
 	}
 
 	public function diplomes()

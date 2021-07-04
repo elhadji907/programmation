@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Formation::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
-        'code' => $faker->randomNumber(),
+        'code' => $faker->word,
         'name' => $faker->name,
         'qualifications' => $faker->word,
         'effectif_total' => $faker->word,
@@ -26,6 +26,7 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'lieu' => $faker->word,
         'convention_col' => $faker->word,
         'decret' => $faker->word,
+        'beneficiaires' => $faker->word,
         'ingenieurs_id' => function () {
             return factory(App\Ingenieur::class)->create()->id;
         },
@@ -46,9 +47,6 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         },
         'operateurs_id' => function () {
             return factory(App\Operateur::class)->create()->id;
-        },
-        'demandeurs_id' => function () {
-            return factory(App\Demandeur::class)->create()->id;
         },
         'traitements_id' => function () {
             return factory(App\Traitement::class)->create()->id;

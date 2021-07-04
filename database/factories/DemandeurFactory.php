@@ -23,11 +23,22 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'telephone' => $faker->word,
         'fixe' => $faker->word,
         'nbre_piece' => $faker->randomNumber(),
+        'statut' => $faker->word,
         'items1' => $faker->word,
         'items2' => $faker->word,
         'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
         'date2' => $faker->dateTime(),
+        'file1' => $faker->word,
+        'file2' => $faker->word,
+        'file3' => $faker->word,
+        'file4' => $faker->word,
+        'file5' => $faker->word,
+        'file6' => $faker->word,
+        'file7' => $faker->word,
+        'file8' => $faker->word,
+        'file9' => $faker->word,
+        'file10' => $faker->word,
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
         },
@@ -46,18 +57,12 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'regions_id' => function () {
             return factory(App\Region::class)->create()->id;
         },
-        'file1' => $faker->word,
-        'file2' => $faker->word,
-        'file3' => $faker->word,
-        'file4' => $faker->word,
-        'file5' => $faker->word,
-        'file6' => $faker->word,
-        'file7' => $faker->word,
-        'file8' => $faker->word,
-        'file9' => $faker->word,
-        'file10' => $faker->word,
+        'diplomes_id' => function () {
+            return factory(App\Diplome::class)->create()->id;
+        },
     ];
 }); */
+
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -71,6 +76,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
     $programmes_id=App\Programme::all()->random()->id;
     $regions_id=App\Region::all()->random()->id;
     $lieux_id=App\Lieux::all()->random()->id;
+    $diplomes_id=App\Diplome::all()->random()->id;
 
     
     $nombre = rand(1, 9);
@@ -91,6 +97,8 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         'situation' => SnmG::getSituation(),
         'telephone' => $faker->e164PhoneNumber,
         'fixe' => $faker->phoneNumber,
+        'statut' => "Attente",
+        'motivation' => $faker->paragraph(10),
         'nbre_piece' => $nombre,
         'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
@@ -109,6 +117,9 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         },
         'regions_id' => function ()  use($regions_id) {
             return $regions_id;
+        },
+        'diplomes_id' => function ()  use($diplomes_id) {
+            return $diplomes_id;
         },
     ];
 });

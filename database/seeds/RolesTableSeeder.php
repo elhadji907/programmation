@@ -41,6 +41,8 @@ class RolesTableSeeder extends Seeder
         $role28 = App\Role::firstOrCreate(["name"=>"Consultant"],["uuid"=>Str::uuid()]);
         $role29 = App\Role::firstOrCreate(["name"=>"SUIVI"],["uuid"=>Str::uuid()]);
         $role30 = App\Role::firstOrCreate(["name"=>"EVDEC"],["uuid"=>Str::uuid()]);
+        $role31 = App\Role::firstOrCreate(["name"=>"Individuelle"],["uuid"=>Str::uuid()]);
+        $role32 = App\Role::firstOrCreate(["name"=>"Collective"],["uuid"=>Str::uuid()]);
 
 
     }

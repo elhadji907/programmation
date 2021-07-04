@@ -8,10 +8,14 @@ use Yajra\Datatables\Datatables;
 use App\Departement;
 use App\Region;
 use App\Diplome;
+use App\Demandeur;
 use App\Module;
 use App\Programme;
 use App\User;
 use App\Role;
+use Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class IndividuellesController extends Controller
@@ -48,10 +52,10 @@ class IndividuellesController extends Controller
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
-        //$regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
-        //$regions = Region::all();
-        //dd($regions);      
-        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes'));
+        
+        $date_depot = Carbon::now();
+
+        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'date_depot'));
     }
 
     public function findNomDept(Request $request){
@@ -70,7 +74,7 @@ class IndividuellesController extends Controller
         $this->validate(
             $request, [
                 'sexe'                =>  'required|string|max:10',
-                'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
+                'cin'                 =>  'required|string|min:13|max:15|unique:individuelles,cin',
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
                 'date_naiss'          =>  'required|date_format:Y-m-d',
@@ -79,22 +83,40 @@ class IndividuellesController extends Controller
                 'telephone'           =>  'required|string|max:50',
                 'fixe'                =>  'required|string|max:50',
                 'adresse'             =>  'required|string|max:100',
+                'motivation'          =>  'required|string|max:1500',
                 'email'               =>  'required|email|max:255|unique:users,email',
-                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
                 'familiale'           =>  'required',
                 'professionnelle'     =>  'required',
-                'type_demande'        =>  'required',
-                'niveaux'             =>  'required',
-                'diplomes'            =>  'exists:diplomes,id',
+                'niveau_etude'        =>  'required',
+               /*  'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
+                'diplome'             =>  'exists:diplomes,id',
                 'modules'             =>  'exists:modules,id',
-                'departement'         =>  'exists:departements,id',
-                'region'              =>  'exists:regions,id',
+                'departement'         =>  'exists:departements,id', */
             ]
         );
-        
-       $roles_id = Role::where('name','Individuelle')->first()->id;
-       $user_id = User::latest('id')->first()->id;
-       $username   =   strtolower($request->input('nom').$user_id);
+
+       $roles_id            =   Role::where('name','Individuelle')->first()->id;
+       $user_id             =   User::latest('id')->first()->id;
+       $demandeurs_id       =   Demandeur::latest('id')->first()->id;
+       $username            =   strtolower($request->input('nom').$user_id);
+
+       $annee = date('y');
+       $demandeurs_id = Demandeur::latest('id')->first()->id;
+       $longueur = strlen($demandeurs_id);
+
+       if ($longueur <= 1) {
+           $numero   =   "I".strtolower($annee."0000".$demandeurs_id);
+       }elseif ($longueur >= 2 && $longueur < 3) {
+           $numero   =   "I".strtolower($annee."000".$demandeurs_id);
+       }elseif ($longueur >= 3 && $longueur < 4) {
+           $numero   =   "I".strtolower($annee."00".$demandeurs_id);
+       }elseif ($longueur >= 4 && $longueur < 5) {
+           $numero   =   "I".strtolower($annee."0".$demandeurs_id);
+       }elseif ($longueur >= 5) {
+           $numero   =   "I".strtolower($annee.$demandeurs_id);
+       }else {
+           $numero   =   "I".strtolower($annee.$demandeurs_id);
+       }
        
        $departement = Departement::find($request->input('departement'));
        $region = $departement->region->nom;
@@ -123,20 +145,13 @@ class IndividuellesController extends Controller
        $autre_tel = str_replace(' ', '', $autre_tel);
        $autre_tel = str_replace(' ', '', $autre_tel);
 
-       $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
+       $diplome_id = Diplome::where('id',$request->input('diplome'))->first()->id;
        $modules = Module::where('id',$request->input('modules'))->first()->name;
 
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
         $cin = str_replace(' ', '', $cin);
         $cin = str_replace(' ', '', $cin);            
-        $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
-        $modules = Module::where('id',$request->input('modules'))->first()->name;
-
-       $cin = $request->input('cin');
-       $cin = str_replace(' ', '', $cin);
-       $cin = str_replace(' ', '', $cin);
-       $cin = str_replace(' ', '', $cin);
 
         $utilisateur = new User([      
             'civilite'                  =>      $request->input('civilite'),      
@@ -162,12 +177,15 @@ class IndividuellesController extends Controller
         $utilisateur->save();
 
         $demandeur = new Demandeur([
-            'numero'            =>     $request->input('numero_courrier'),
+            'numero'            =>     $numero,
+            'numero_courrier'   =>     $numero,
             'date_depot'        =>     $request->input('date_depot'),
+            'nbre_piece'        =>     $request->input('nombre_de_piece'),
             'status'            =>     $status,
             'telephone'         =>     $autre_tel,
             'programmes_id'     =>     $request->input('programme'),
-            'regions_id'        =>     $regions_id,
+            'regions_id'        =>     $region_id,
+            'diplome_id'        =>     $diplome_id,
             'users_id'          =>     $utilisateur->id
         ]);
 
@@ -175,9 +193,9 @@ class IndividuellesController extends Controller
 
         $individuelle = new Individuelle([
             'cin'               =>     $cin,
-            'date_depot'        =>     $request->input('date_depot'),
             'experience'        =>     $request->input('experience'),
             'information'       =>     $request->input('information'),
+            'nbre_piece'        =>     $request->input('nombre_de_piece'),
             'prerequis'         =>     $request->input('prerequis'),
             'telephone'         =>     $autre_tel,
             'demandeurs_id'     =>     $demandeur->id
@@ -185,9 +203,9 @@ class IndividuellesController extends Controller
 
         $individuelle->save();
 
-        $demandeurs->modules()->sync($request->modules);
+        $demandeur->modules()->sync($request->modules);
 
-        return redirect()->route('demandeurs.create')->with('success','demandeur ajouté avec succès !');
+        return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
     }
 
     /**

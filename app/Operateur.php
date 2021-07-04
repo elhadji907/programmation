@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:28:15 +0000.
+ * Date: Sun, 04 Jul 2021 13:16:41 +0000.
  */
 
 namespace App;
@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\TypesOperateur $types_operateur
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $agrements
+ * @property \Illuminate\Database\Eloquent\Collection $commenteres
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
@@ -145,6 +146,11 @@ class Operateur extends Eloquent
 	public function agrements()
 	{
 		return $this->hasMany(\App\Agrement::class, 'operateurs_id');
+	}
+
+	public function commenteres()
+	{
+		return $this->hasMany(\App\Commentere::class, 'operateurs_id');
 	}
 
 	public function formations()
