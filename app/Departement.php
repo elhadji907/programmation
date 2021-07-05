@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Mon, 05 Jul 2021 14:44:14 +0000.
  */
 
 namespace App;
@@ -22,15 +22,15 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Region $region
  * @property \Illuminate\Database\Eloquent\Collection $arrondissements
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  *
  * @package App
  */
 class Departement extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
-
+	
 	protected $casts = [
 		'regions_id' => 'int'
 	];
@@ -49,5 +49,10 @@ class Departement extends Eloquent
 	public function arrondissements()
 	{
 		return $this->hasMany(\App\Arrondissement::class, 'departements_id');
+	}
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'departements_id');
 	}
 }

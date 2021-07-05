@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 04 Jul 2021 13:16:28 +0000.
+ * Date: Mon, 05 Jul 2021 14:43:30 +0000.
  */
 
 namespace App;
@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $numero
+ * @property string $numero_courrier
+ * @property string $sexe
  * @property string $situation_professionnelle
  * @property string $etablissement
  * @property string $niveau_etude
@@ -30,6 +32,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $fixe
  * @property int $nbre_piece
  * @property string $statut
+ * @property string $motivation
  * @property string $items1
  * @property string $items2
  * @property \Carbon\Carbon $date_depot
@@ -52,10 +55,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $programmes_id
  * @property int $regions_id
  * @property int $diplomes_id
+ * @property int $departements_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Departement $departement
  * @property \App\Item $item
  * @property \App\Lieux $lieux
  * @property \App\Programme $programme
@@ -87,7 +92,8 @@ class Demandeur extends Eloquent
 		'projets_id' => 'int',
 		'programmes_id' => 'int',
 		'regions_id' => 'int',
-		'diplomes_id' => 'int'
+		'diplomes_id' => 'int',
+		'departements_id' => 'int'
 	];
 
 	protected $dates = [
@@ -100,6 +106,7 @@ class Demandeur extends Eloquent
 		'uuid',
 		'numero',
 		'numero_courrier',
+		'sexe',
 		'situation_professionnelle',
 		'etablissement',
 		'niveau_etude',
@@ -137,8 +144,14 @@ class Demandeur extends Eloquent
 		'projets_id',
 		'programmes_id',
 		'regions_id',
-		'diplomes_id'
+		'diplomes_id',
+		'departements_id'
 	];
+
+	public function departement()
+	{
+		return $this->belongsTo(\App\Departement::class, 'departements_id');
+	}
 
 	public function diplome()
 	{

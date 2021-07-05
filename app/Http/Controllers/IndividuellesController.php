@@ -82,16 +82,17 @@ class IndividuellesController extends Controller
                 'lieu_naissance'      =>  'required|string|max:50',
                 'telephone'           =>  'required|string|max:50',
                 'fixe'                =>  'required|string|max:50',
+                'etablissement'       =>  'required|string|max:50',
                 'adresse'             =>  'required|string|max:100',
+                'prerequis'           =>  'required|string|max:1500',
                 'motivation'          =>  'required|string|max:1500',
                 'email'               =>  'required|email|max:255|unique:users,email',
                 'familiale'           =>  'required',
                 'professionnelle'     =>  'required',
                 'niveau_etude'        =>  'required',
-               /*  'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
-                'diplome'             =>  'exists:diplomes,id',
+                'departement'         =>  'required',
                 'modules'             =>  'exists:modules,id',
-                'departement'         =>  'exists:departements,id', */
+                'diplome'             =>  'required',
             ]
         );
 
@@ -171,6 +172,8 @@ class IndividuellesController extends Controller
             'username'                  =>      $username,
             'telephone'                 =>      $telephone,
             'fixe'                      =>      $fixe,
+            'bp'                        =>      $request->input('bp'),
+            'fax'                       =>      $request->input('fax'),
             'situation_familiale'       =>      $request->input('familiale'),
             'situation_professionnelle' =>      $request->input('professionnelle'),
             'date_naissance'            =>      $request->input('date_naiss'),
@@ -190,13 +193,16 @@ class IndividuellesController extends Controller
             'numero_courrier'           =>     $numero,
             'date_depot'                =>     $request->input('date_depot'),
             'nbre_piece'                =>     $request->input('nombre_de_piece'),
-            'situation_professionnelle' =>      $request->input('professionnelle'),
+            'situation_professionnelle' =>     $request->input('professionnelle'),
+            'niveau_etude'              =>     $request->input('niveau_etude'),
+            'etablissement'              =>     $request->input('etablissement'),
             'telephone'                 =>     $autre_tel,
             'fixe'                      =>     $fixe,
             'statut'                    =>     $statut,
             'programmes_id'             =>     $request->input('programme'),
             'motivation'                =>     $request->input('motivation'),
-            'regions_id'                =>     $region_id,
+            'reference'                 =>     $request->input('motivation'),
+            'departements_id'           =>     $request->input('departement'),
             'diplome_id'                =>     $diplome_id,
             'users_id'                  =>     $utilisateur->id
         ]);
@@ -207,7 +213,7 @@ class IndividuellesController extends Controller
             'cin'               =>     $cin,
             'experience'        =>     $request->input('experience'),
             'information'       =>     $request->input('information'),
-            'nbre_piece'        =>     $request->input('nombre_de_piece'),
+            'nbre_pieces'       =>     $request->input('nombre_de_piece'),
             'prerequis'         =>     $request->input('prerequis'),
             'telephone'         =>     $autre_tel,
             'demandeurs_id'     =>     $demandeur->id

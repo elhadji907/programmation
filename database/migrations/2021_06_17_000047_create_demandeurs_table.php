@@ -26,6 +26,7 @@ class CreateDemandeursTable extends Migration
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
             $table->string('numero_courrier', 200)->nullable();
+            $table->string('sexe', 45)->nullable();
             $table->string('situation_professionnelle', 200)->nullable();
             $table->string('etablissement', 200)->nullable();
             $table->string('niveau_etude', 200)->nullable();
@@ -64,6 +65,7 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('programmes_id')->nullable();
             $table->unsignedInteger('regions_id')->nullable();
             $table->unsignedInteger('diplomes_id')->nullable();
+            $table->unsignedInteger('departements_id')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
@@ -78,6 +80,8 @@ class CreateDemandeursTable extends Migration
             $table->index(["regions_id"], 'fk_demandeurs_regions1_idx');
 
             $table->index(["diplomes_id"], 'fk_demandeurs_diplomes1_idx');
+
+            $table->index(["departements_id"], 'fk_demandeurs_departements1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -114,6 +118,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('diplomes_id', 'fk_demandeurs_diplomes1_idx')
                 ->references('id')->on('diplomes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('departements_id', 'fk_demandeurs_departements1_idx')
+                ->references('id')->on('departements')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

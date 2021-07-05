@@ -32,6 +32,7 @@ class CreateIndividuellesTable extends Migration
             $table->longText('projet')->nullable();
             $table->longText('prerequis')->nullable();
             $table->longText('information')->nullable();
+            $table->double('note')->nullable();
             $table->string('items1', 200)->nullable();
             $table->timestamp('date1')->nullable();
             $table->unsignedInteger('demandeurs_id');

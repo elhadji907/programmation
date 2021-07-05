@@ -57,6 +57,7 @@ class Individuelle extends Eloquent
 		'projet',
 		'prerequis',
 		'information',
+		'note',
 		'items1',
 		'date1',
 		'demandeurs_id'
