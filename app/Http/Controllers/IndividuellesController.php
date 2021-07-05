@@ -46,8 +46,7 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();        
+    {      
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
@@ -55,7 +54,7 @@ class IndividuellesController extends Controller
         
         $date_depot = Carbon::now();
 
-        return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'date_depot'));
+        return view('individuelles.create',compact('departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
     }
 
     public function findNomDept(Request $request){
@@ -71,6 +70,12 @@ class IndividuellesController extends Controller
      */
     public function store(Request $request)
     {
+        
+       $telephone = $request->input('telephone');
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+       $telephone = str_replace(' ', '', $telephone);
+       
         $this->validate(
             $request, [
                 'sexe'                =>  'required|string|max:10',
@@ -80,8 +85,8 @@ class IndividuellesController extends Controller
                 'date_naiss'          =>  'required|date_format:Y-m-d',
                 'date_depot'          =>  'required|date_format:Y-m-d',
                 'lieu_naissance'      =>  'required|string|max:50',
-                'telephone'           =>  'required|string|max:50',
-                'fixe'                =>  'required|string|max:50',
+                'telephone'           =>  'required|string|min:7|max:18',
+                'fixe'                =>  'required|string|min:7|max:18',
                 'etablissement'       =>  'required|string|max:50',
                 'adresse'             =>  'required|string|max:100',
                 'prerequis'           =>  'required|string|max:1500',
@@ -93,6 +98,7 @@ class IndividuellesController extends Controller
                 'departement'         =>  'required',
                 'modules'             =>  'exists:modules,id',
                 'diplome'             =>  'required',
+                'option'              =>  'required',
             ]
         );
 
@@ -200,6 +206,7 @@ class IndividuellesController extends Controller
             'fixe'                      =>     $fixe,
             'statut'                    =>     $statut,
             'programmes_id'             =>     $request->input('programme'),
+            'type'                      =>     $request->input('option'),
             'adresse'                   =>     $request->input('adresse'),
             'motivation'                =>     $request->input('motivation'),
             'reference'                 =>     $request->input('motivation'),
@@ -248,9 +255,21 @@ class IndividuellesController extends Controller
      * @param  \App\Individuelle  $individuelle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Individuelle $individuelle)
+    public function edit($id)
     {
-        //
+        $individuelles = Individuelle::find($id);
+        $demandeurs = $individuelles->demandeur;
+        $utilisateurs = $demandeurs->user;
+
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+
+        $date_depot = Carbon::now();
+
+        return view('individuelles.update',compact('individuelles', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
+
     }
 
     /**

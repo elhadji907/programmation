@@ -135,7 +135,9 @@
     
     $("#module").select2({
           placeholder: "sélectionner module de formation",
-          allowClear: true
+          language: "fr",
+          allowClear: true,
+          maximumSelectionLength: 1
       });
   </script>
   <script type="text/javascript">
