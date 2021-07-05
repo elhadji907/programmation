@@ -75,6 +75,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
     $projet_id=App\Projet::all()->random()->id;
     $programmes_id=App\Programme::all()->random()->id;
     $regions_id=App\Region::all()->random()->id;
+    $departements_id=App\Departement::all()->random()->id;
     $lieux_id=App\Lieux::all()->random()->id;
     $diplomes_id=App\Diplome::all()->random()->id;
 
@@ -90,7 +91,6 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         'qualification' => $faker->text,
         'experience' => $faker->text,
         'deja_forme' => SnmG::getDeja(),
-        'pre_requis' => $faker->text,
         'adresse' => $faker->address,
         'type' => $faker->word,
         'situation' => SnmG::getSituation(),
@@ -116,6 +116,9 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         },
         'regions_id' => function ()  use($regions_id) {
             return $regions_id;
+        },
+        'departements_id' => function ()  use($departements_id) {
+            return $departements_id;
         },
         'diplomes_id' => function ()  use($diplomes_id) {
             return $diplomes_id;

@@ -206,7 +206,7 @@
                                 <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                     <label for="adresse">{{ __('Adresse de résidence') }}(<span class="text-danger">*</span>)</label>
                                     <textarea class="form-control  @error('adresse') is-invalid @enderror" name="adresse"
-                                        id="adresse" placeholder="Votre adresse complète">{{ old('adresse') }}</textarea>
+                                        id="adresse" rows="1" placeholder="Votre adresse complète">{{ old('adresse') }}</textarea>
                                     @error('adresse')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -287,18 +287,38 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    <label for="autres_diplomes">{{ __('Autres diplomes') }}</label>
+                                    <textarea class="form-control  @error('autres_diplomes') is-invalid @enderror"
+                                        name="autres_diplomes" id="autres_diplomes" rows="1"
+                                        placeholder="Si vous possédez d'autres diplômes">{{ old('autres_diplomes') }}</textarea>
+                                    @error('autres_diplomes')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     <label for="etablissement">{{ __('Etablissement d\'obtention') }}(<span class="text-danger">*</span>)</label>
                                     <textarea class="form-control  @error('etablissement') is-invalid @enderror"
-                                        name="etablissement" id="etablissement"
+                                        name="etablissement" id="etablissement" rows="1"
                                         placeholder="Votre etablissement complète">{{ old('etablissement') }}</textarea>
                                     @error('etablissement')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    <label for="motivation">{{ __('Pourquoi voulez-vous faire cette formation ?') }}(<span class="text-danger">*</span>)</label>
+                                    <textarea class="form-control  @error('motivation') is-invalid @enderror"
+                                        name="motivation" id="motivation" rows="1"
+                                        placeholder="Décrire en quelques lignes votre motivation à faire cette formation">{{ old('motivation') }}</textarea>
+                                    @error('motivation')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     <label for="prerequis">{{ __('Avez-vous des prerequis ?') }}(<span class="text-danger">*</span>)</label>
                                     <textarea class="form-control  @error('prerequis') is-invalid @enderror"
-                                        name="prerequis" id="prerequis"
+                                        name="prerequis" id="prerequis" rows="1"
                                         placeholder="Prérequis par rapport à la formation demandée">{{ old('prerequis') }}</textarea>
                                     @error('prerequis')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -306,24 +326,19 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <label for="motivation">{{ __('Pourquoi voulez-vous faire cette formation ?') }}(<span class="text-danger">*</span>)</label>
-                                    <textarea class="form-control  @error('motivation') is-invalid @enderror"
-                                        name="motivation" id="motivation"
-                                        placeholder="Décrire en quelques lignes votre motivation à faire cette formation">{{ old('motivation') }}</textarea>
-                                    @error('motivation')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('Qualifications :') !!}
-                                    {!! Form::textarea('qualification', null, ['placeholder' => 'Qualifications et autres diplômes', 'rows' => 3, 'class' => 'form-control']) !!}
+                                    {!! Form::textarea('qualification', null, ['placeholder' => 'Qualifications et autres diplômes', 'rows' => 1, 'class' => 'form-control']) !!}
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                     {!! Form::label('experience :') !!}
-                                    {!! Form::textarea('experience', null, ['placeholder' => 'Experience, stage, attestions, ...', 'rows' => 3, 'class' => 'form-control']) !!}
+                                    {!! Form::textarea('experience', null, ['placeholder' => 'Experience, stage, attestions, ...', 'rows' => 1, 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                    {!! Form::label('Informations :') !!}
+                                    {!! Form::textarea('information', null, ['placeholder' => 'Informations complémenaires', 'rows' => 1, 'class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="bg-gradient-secondary text-center">

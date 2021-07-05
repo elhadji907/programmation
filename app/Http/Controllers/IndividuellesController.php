@@ -195,15 +195,19 @@ class IndividuellesController extends Controller
             'nbre_piece'                =>     $request->input('nombre_de_piece'),
             'situation_professionnelle' =>     $request->input('professionnelle'),
             'niveau_etude'              =>     $request->input('niveau_etude'),
-            'etablissement'              =>     $request->input('etablissement'),
+            'etablissement'             =>     $request->input('etablissement'),
             'telephone'                 =>     $autre_tel,
             'fixe'                      =>     $fixe,
             'statut'                    =>     $statut,
             'programmes_id'             =>     $request->input('programme'),
+            'adresse'                   =>     $request->input('adresse'),
             'motivation'                =>     $request->input('motivation'),
             'reference'                 =>     $request->input('motivation'),
+            'diplome'                   =>     $request->input('autres_diplomes'),
+            'experience'                =>     $request->input('experience'),
+            'qualification'             =>     $request->input('qualification'),
             'departements_id'           =>     $request->input('departement'),
-            'diplome_id'                =>     $diplome_id,
+            'diplomes_id'                =>    $diplome_id,
             'users_id'                  =>     $utilisateur->id
         ]);
 
@@ -214,6 +218,7 @@ class IndividuellesController extends Controller
             'experience'        =>     $request->input('experience'),
             'information'       =>     $request->input('information'),
             'nbre_pieces'       =>     $request->input('nombre_de_piece'),
+            'information'       =>     $request->input('information'),
             'prerequis'         =>     $request->input('prerequis'),
             'telephone'         =>     $autre_tel,
             'demandeurs_id'     =>     $demandeur->id
@@ -268,11 +273,28 @@ class IndividuellesController extends Controller
      */
     public function destroy(Individuelle $individuelle)
     {
-        //
+        $utilisateurs   =   $individuelle->demandeur->user;
+
+        $deleted_by1 = Auth::user()->firstname;
+        $deleted_by2 = Auth::user()->name;
+        $deleted_by3 = Auth::user()->username;
+
+        $deleted_by = $deleted_by1.' '.$deleted_by2.' ('.$deleted_by3.')';
+
+        $utilisateurs->deleted_by      =      $deleted_by;
+
+        $utilisateurs->save();
+       
+        $individuelle->demandeur->user->delete();
+        $individuelle->demandeur->delete();
+        $individuelle->delete();
+        
+        $message = $individuelle->demandeur->user->firstname.' '.$individuelle->demandeur->user->name.' a été supprimé(e)';
+        return back()->with(compact('message'));
     }
     public function list(Request $request)
     {
-        $modules=Individuelle::with('demandeur.modules')->get();
+        $modules=Individuelle::with('individuelle.demandeur.modules')->get();
         return Datatables::of($modules)->make(true);
 
     }

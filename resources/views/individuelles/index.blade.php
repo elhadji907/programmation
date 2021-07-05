@@ -78,7 +78,7 @@
                                                     {!! $module->name !!}
                                                 @endforeach
                                             </td>
-                                            <td>{!! $individuelle->demandeur->region->nom !!}</td>
+                                            <td>{!! $individuelle->demandeur->departement->nom !!}</td>
                                             <td style="text-align: center;">
                                                 {!! $individuelle->demandeur->statut !!}
                                             </td>
