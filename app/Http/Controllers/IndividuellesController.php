@@ -96,7 +96,7 @@ class IndividuellesController extends Controller
             ]
         );
 
-       $roles_id            =   Role::where('name','Individuelle')->first()->id;
+       $roles_id            =   Role::where('name','Demandeur')->first()->id;
        $user_id             =   User::latest('id')->first()->id;
        $demandeurs_id       =   Demandeur::latest('id')->first()->id;
        $username            =   strtolower($request->input('nom').$user_id);
@@ -247,6 +247,8 @@ class IndividuellesController extends Controller
      */
     public function edit(Individuelle $individuelle)
     {
+        $this->authorize('update',  $individuelle);
+
         $demandeurs = $individuelle->demandeur;
         $utilisateurs = $demandeurs->user;
 
@@ -271,7 +273,9 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Individuelle $individuelle)
-    {          
+    {         
+        $this->authorize('update',  $individuelle);
+
         $demandeur = $individuelle->demandeur;
         $utilisateur = $demandeur->user;
 
@@ -415,6 +419,9 @@ class IndividuellesController extends Controller
      */
     public function destroy(Individuelle $individuelle)
     {
+        
+        $this->authorize('delete',  $individuelle->demandeur->user);
+
         $utilisateurs   =   $individuelle->demandeur->user;
 
         $deleted_by1 = Auth::user()->firstname;

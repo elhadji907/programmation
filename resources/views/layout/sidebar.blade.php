@@ -53,13 +53,12 @@
     <hr class="sidebar-divider my-0">
     @roles('Demandeur|Administrateur|Gestionnaire')
     <li class="nav-item">
-        @roles('Administrateur')
+        @roles('Administrateur|Demandeur')
         <a class="nav-link collapsed" href="{{ route('demandeurs.index') }}" data-toggle="collapse"
             data-target="#collapsePages_formation" aria-expanded="true" aria-controls="collapsePages_formation">
             <span data-feather="layers"></span>
             <span>Gestion des formations</span>
         </a>
-        @endroles
         <div id="collapsePages_formation" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -75,6 +74,7 @@
             @endguest
         </div>
     </div>
+    @endroles
 </li>
 <li class="nav-item">
     @roles('Operateur|Demandeur')

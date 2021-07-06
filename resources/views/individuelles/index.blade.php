@@ -61,6 +61,7 @@
                                 <tbody>
                                     <?php $i = 1; ?>
                                     @foreach ($individuelles as $individuelle)
+                                    @can('view', $individuelle)
                                         <tr>
                                             {{-- <td>{!! $i++ !!}</td> --}}
                                             <td>{!! $individuelle->demandeur->numero !!}</td>
@@ -70,23 +71,21 @@
                                             {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
                                             <td>{!! $individuelle->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
                                             <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td> --}}
-                                            <td>{!! str_limit($individuelle->demandeur->user->telephone, 9, '') !!}</td>
+                                            <td>{!! $individuelle->demandeur->user->telephone !!}</td>
                                             <td>
                                                 @foreach ($individuelle->demandeur->modules as $module)
-                                                    <p>{!! $module->name !!}
-                                                    </p>
+                                                    <p>{!! $module->name !!}</p>
                                                 @endforeach
                                             </td>
                                             {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
                                             <td style="text-align: center;">
                                                 {!! $individuelle->demandeur->statut !!}
                                             </td>
-                                            <td style="text-align: center;"
-                                                class="d-flex align-items-baseline align-content-center">
-                                                <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
-                                                    title="modifier">
-                                                    <i class="far fa-edit">&nbsp;</i>
-                                                </a>
+                                            <td class="d-flex align-items-baseline text-center-row">
+                                                    <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                        title="modifier">
+                                                        <i class="far fa-edit">&nbsp;</i>
+                                                    </a>
                                                 &nbsp;
                                                 <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
@@ -98,6 +97,7 @@
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>
+                                        @endcan
                                     @endforeach
                                 </tbody>
                             </table>

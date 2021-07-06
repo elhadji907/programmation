@@ -38,7 +38,7 @@
             @endcan 
         </div>
     </div>
-    <div class="col-12 mt-5  d-flex justify-content-between">
+{{--     <div class="col-12 mt-5  d-flex justify-content-between">
         <div class="mr-1">
         <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" 
             class="btn btn-secondary mt-3">Modifier demande individuelle</a>   
@@ -47,7 +47,7 @@
         <a href="{{ route('profiles.edit', ['username'  => auth::user()->username]) }}" 
             class="btn btn-secondary mt-3">Modifier demande collective</a>   
         </div>
-    </div>
+    </div> --}}
     @roles('Administrateur|Courrier')
     <div class="list-group mt-5">
         @foreach ($courriers as $courrier) 

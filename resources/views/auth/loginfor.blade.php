@@ -59,6 +59,8 @@
                       <a href="{{route('loginfor','Demandeur')}}" class="btn btn-lg btn-secondary">Demandeur</a><br />
                       <a href="{{route('loginfor','Visiteur')}}" class="btn btn-lg btn-secondary">Visiteur</a><br />
                       <a href="{{route('loginfor','Operateur')}}" class="btn btn-lg btn-secondary">Operateur</a><br />
+                      <a href="{{route('loginfor','Individuelle')}}" class="btn btn-lg btn-secondary">Individuelle</a><br />
+                      <a href="{{route('loginfor','Collective')}}" class="btn btn-lg btn-secondary">Collective</a><br />
                       <a href="{{route('loginfor','Nologin')}}" class="btn btn-lg btn-secondary">Nologin</a><br />
                   </div>
                 </div>
