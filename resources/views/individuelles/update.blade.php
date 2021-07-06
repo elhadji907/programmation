@@ -87,7 +87,7 @@
                                     <label for="email">{{ __('Addresse E-Mail') }}(<span
                                             class="text-danger">*</span>)</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" placeholder="Votre adresse e-mail" value="{{ old('email') }}"
+                                        name="email" placeholder="Votre adresse e-mail" disabled value="{{ $individuelles->demandeur->user->email ??  old('email') }}"
                                         autocomplete="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -103,7 +103,7 @@
                                             class="text-danger">*</span>)</label>
                                     <input id="telephone" type="text"
                                         class="form-control @error('telephone') is-invalid @enderror" name="telephone"
-                                        placeholder="7x xxx xx xx" value="{{ old('telephone') }}"
+                                        placeholder="7x xxx xx xx" value="{{ $individuelles->demandeur->user->telephone ?? old('telephone') }}"
                                         autocomplete="telephone" autofocus>
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -114,7 +114,7 @@
                                 <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                     <label for="fixe">{{ __('Fixe') }}(<span class="text-danger">*</span>)</label>
                                     <input id="fixe" type="text" class="form-control @error('fixe') is-invalid @enderror"
-                                        name="fixe" placeholder="3x xxx xx xx" value="{{ old('fixe') }}"
+                                        name="fixe" placeholder="3x xxx xx xx" value="{{ $individuelles->demandeur->user->fixe ?? old('fixe') }}"
                                         autocomplete="fixe" autofocus>
                                     @error('fixe')
                                         <span class="invalid-feedback" role="alert">
@@ -126,7 +126,7 @@
                                     <label for="autre_tel">{{ __('Téléphone secondaire') }}</label>
                                     <input id="autre_tel" type="text"
                                         class="form-control @error('autre_tel') is-invalid @enderror" name="autre_tel"
-                                        placeholder="7x xxx xx xx" value="{{ old('autre_tel') }}"
+                                        placeholder="7x xxx xx xx" value="{{ $individuelles->demandeur->telephone ?? old('autre_tel') }}"
                                         autocomplete="autre_tel" autofocus>
                                 </div>
                             </div>
