@@ -34,7 +34,7 @@
                                 <label for="input-name"><b>{{ __("Secteur d'activité") }}:</b></label>
                                 <select name="secteur" id="secteur" class="form-control" data-width="100%">
                                         <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
-                                        <option value="">{{ __("-----sélectionner-----") }}</option>
+                                        <option value="">{{ __("...sélectionner...") }}</option>
                                         @foreach($secteurs as $secteur)
                                             <option value="{{ $secteur->id }}">{{ $secteur->name }}</option>
                                         @endforeach

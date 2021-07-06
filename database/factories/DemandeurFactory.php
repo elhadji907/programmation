@@ -78,26 +78,25 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
     $departements_id=App\Departement::all()->random()->id;
     $lieux_id=App\Lieux::all()->random()->id;
     $diplomes_id=App\Diplome::all()->random()->id;
+    $domaine=App\Domaine::all()->random()->name;
 
     
     $nombre = rand(1, 9);
 
     return [
         'numero' => $autoIncremen_demandeur->current()."".$annee,
-        'situation_professionnelle' => SnmG::getSituation(),
         'etablissement' => SnmG::getEtablissement(),
         'niveau_etude' => SnmG::getNiveaux(),
-        'diplome' => SnmG::getDiplome(),
         'qualification' => $faker->text,
         'experience' => $faker->text,
         'deja_forme' => SnmG::getDeja(),
         'adresse' => $faker->address,
-        'type' => $faker->word,
-        'situation' => SnmG::getSituation(),
+        'option' => $domaine,
+        'autres_diplomes' => SnmG::getDiplome(),
         'telephone' => $faker->e164PhoneNumber,
         'fixe' => $faker->phoneNumber,
         'statut' => "Attente",
-        'motivation' => $faker->paragraph(10),
+        'motivation' => $faker->paragraph(3),
         'nbre_piece' => $nombre,
         'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),

@@ -416,8 +416,6 @@ class DemandeursController extends Controller
         /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
         $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
-
-        
         $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
         $modules = Module::where('id',$request->input('modules'))->first()->name;
 

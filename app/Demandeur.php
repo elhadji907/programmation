@@ -20,14 +20,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $situation_professionnelle
  * @property string $etablissement
  * @property string $niveau_etude
- * @property string $diplome
  * @property string $qualification
  * @property string $experience
  * @property string $deja_forme
  * @property string $pre_requis
  * @property string $adresse
  * @property string $type
- * @property string $situation
+ * @property string $autres_diplomes
  * @property string $telephone
  * @property string $fixe
  * @property int $nbre_piece
@@ -107,17 +106,15 @@ class Demandeur extends Eloquent
 		'numero',
 		'numero_courrier',
 		'sexe',
-		'situation_professionnelle',
 		'etablissement',
 		'niveau_etude',
-		'diplome',
 		'qualification',
 		'experience',
 		'deja_forme',
 		'pre_requis',
 		'adresse',
-		'type',
-		'situation',
+		'option',
+		'autres_diplomes',
 		'telephone',
 		'fixe',
 		'nbre_piece',

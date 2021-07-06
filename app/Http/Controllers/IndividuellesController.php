@@ -69,13 +69,7 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        
-       $telephone = $request->input('telephone');
-       $telephone = str_replace(' ', '', $telephone);
-       $telephone = str_replace(' ', '', $telephone);
-       $telephone = str_replace(' ', '', $telephone);
-       
+    {       
         $this->validate(
             $request, [
                 'sexe'                =>  'required|string|max:10',
@@ -87,7 +81,7 @@ class IndividuellesController extends Controller
                 'lieu_naissance'      =>  'required|string|max:50',
                 'telephone'           =>  'required|string|min:7|max:18',
                 'fixe'                =>  'required|string|min:7|max:18',
-                'etablissement'       =>  'required|string|max:50',
+                'etablissement'       =>  'required|string|max:100',
                 'adresse'             =>  'required|string|max:100',
                 'prerequis'           =>  'required|string|max:1500',
                 'motivation'          =>  'required|string|max:1500',
@@ -153,7 +147,7 @@ class IndividuellesController extends Controller
        $autre_tel = str_replace(' ', '', $autre_tel);
 
        $diplome_id = Diplome::where('id',$request->input('diplome'))->first()->id;
-       $modules = Module::where('id',$request->input('modules'))->first()->name;
+       //$modules = Module::where('id',$request->input('modules'))->first()->name;
 
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
@@ -168,8 +162,7 @@ class IndividuellesController extends Controller
             $civilite = "";
         }
 
-        $utilisateur = new User([      
-            'civilite'                  =>      $request->input('civilite'),      
+        $utilisateur = new User([          
             'sexe'                      =>      $request->input('sexe'),      
             'civilite'                  =>      $civilite,      
             'firstname'                 =>      $request->input('prenom'),
@@ -199,22 +192,20 @@ class IndividuellesController extends Controller
             'numero_courrier'           =>     $numero,
             'date_depot'                =>     $request->input('date_depot'),
             'nbre_piece'                =>     $request->input('nombre_de_piece'),
-            'situation_professionnelle' =>     $request->input('professionnelle'),
             'niveau_etude'              =>     $request->input('niveau_etude'),
             'etablissement'             =>     $request->input('etablissement'),
             'telephone'                 =>     $autre_tel,
             'fixe'                      =>     $fixe,
             'statut'                    =>     $statut,
             'programmes_id'             =>     $request->input('programme'),
-            'type'                      =>     $request->input('option'),
+            'option'                    =>     $request->input('option'),
             'adresse'                   =>     $request->input('adresse'),
             'motivation'                =>     $request->input('motivation'),
-            'reference'                 =>     $request->input('motivation'),
-            'diplome'                   =>     $request->input('autres_diplomes'),
+            'autres_diplomes'           =>     $request->input('autres_diplomes'),
             'experience'                =>     $request->input('experience'),
             'qualification'             =>     $request->input('qualification'),
             'departements_id'           =>     $request->input('departement'),
-            'diplomes_id'                =>    $diplome_id,
+            'diplomes_id'               =>     $diplome_id,
             'users_id'                  =>     $utilisateur->id
         ]);
 
@@ -227,13 +218,12 @@ class IndividuellesController extends Controller
             'nbre_pieces'       =>     $request->input('nombre_de_piece'),
             'information'       =>     $request->input('information'),
             'prerequis'         =>     $request->input('prerequis'),
-            'telephone'         =>     $autre_tel,
             'demandeurs_id'     =>     $demandeur->id
         ]);
 
         $individuelle->save();
 
-        $demandeur->modules()->sync($request->modules);
+        $demandeur->modules()->sync($request->input('modules'));
 
         return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
     }
@@ -255,20 +245,21 @@ class IndividuellesController extends Controller
      * @param  \App\Individuelle  $individuelle
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Individuelle $individuelle)
     {
-        $individuelles = Individuelle::find($id);
-        $demandeurs = $individuelles->demandeur;
+        $demandeurs = $individuelle->demandeur;
         $utilisateurs = $demandeurs->user;
 
+        $civilites = User::pluck('civilite','civilite');
+
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
-        $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-        $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
 
         $date_depot = Carbon::now();
 
-        return view('individuelles.update',compact('individuelles', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
+        return view('individuelles.update',compact('civilites', 'individuelle', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot', 'utilisateurs'));
 
     }
 
@@ -280,8 +271,140 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Individuelle $individuelle)
-    {
-        //
+    {          
+        $demandeur = $individuelle->demandeur;
+        $utilisateur = $demandeur->user;
+
+         $this->validate(
+        $request, [
+            'sexe'                =>  'required|string|max:10',
+            'cin'                 =>  'required|string|min:13|max:15|unique:individuelles,cin,'.$individuelle->id,
+            'prenom'              =>  'required|string|max:50',
+            'nom'                 =>  'required|string|max:50',
+            'date_naiss'          =>  'required|date_format:Y-m-d',
+            'date_depot'          =>  'required|date_format:Y-m-d',
+            'lieu_naissance'      =>  'required|string|max:50',
+            'telephone'           =>  'required|string|min:7|max:30',
+            'fixe'                =>  'required|string|min:7|max:30',
+            'etablissement'       =>  'required|string|max:100',
+            'adresse'             =>  'required|string|max:100',
+            'prerequis'           =>  'required|string|max:1500',
+            'motivation'          =>  'required|string|max:1500',
+            'email'               =>  'required|email|max:255|unique:users,email,'.$individuelle->demandeur->user->id,
+            'familiale'           =>  'required',
+            'professionnelle'     =>  'required',
+            'niveau_etude'        =>  'required',
+            'departement'         =>  'required',
+            'modules'             =>  'exists:modules,id',
+            'diplome'             =>  'required',
+            'option'              =>  'required',
+            ]
+        );
+
+        $utilisateurs   =   $individuelle->demandeur->user;
+
+        $updated_by1 = Auth::user()->firstname;
+        $updated_by2 = Auth::user()->name;
+        $updated_by3 = Auth::user()->username;
+
+        $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
+
+
+        $telephone = $request->input('telephone');
+        $telephone = str_replace(' ', '', $telephone);
+        $telephone = str_replace(' ', '', $telephone);
+        $telephone = str_replace(' ', '', $telephone);
+ 
+        $fixe = $request->input('fixe');
+        $fixe = str_replace(' ', '', $fixe);
+        $fixe = str_replace(' ', '', $fixe);
+        $fixe = str_replace(' ', '', $fixe);
+ 
+        $autre_tel = $request->input('autre_tel');
+        $autre_tel = str_replace(' ', '', $autre_tel);
+        $autre_tel = str_replace(' ', '', $autre_tel);
+        $autre_tel = str_replace(' ', '', $autre_tel);
+ 
+        $cin = $request->input('cin');
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);      
+        $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
+
+        if ($request->input('sexe') == "M") {
+            $civilite = "M.";
+        }elseif ($request->input('sexe') == "F") {
+            $civilite = "Mme";
+        }else {
+            $civilite = "";
+        }
+
+        $programme_id = Programme::where('sigle',$request->input('programme'))->first()->id;
+        $diplome_id = Diplome::where('name',$request->input('diplome'))->first()->id;
+        $departement_id = Departement::where('nom',$request->input('departement'))->first()->id;
+
+        $cin = $request->input('cin');
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);
+        $cin = str_replace(' ', '', $cin);         
+
+        $utilisateur->sexe                      =      $request->input('sexe');
+        $utilisateur->civilite                  =      $civilite;
+        $utilisateur->firstname                 =      $request->input('prenom');
+        $utilisateur->name                      =      $request->input('nom');
+        $utilisateur->email                     =      $request->input('email');
+        $utilisateur->username                  =      $request->input('username');
+        $utilisateur->telephone                 =      $telephone;
+        $utilisateur->fixe                      =      $fixe;
+        $utilisateur->bp                        =      $request->input('bp');
+        $utilisateur->fax                       =      $request->input('fax');
+        $utilisateur->situation_familiale       =      $request->input('familiale');
+        $utilisateur->situation_professionnelle =      $request->input('professionnelle');
+        $utilisateur->date_naissance            =      $request->input('date_naiss');
+        $utilisateur->lieu_naissance            =      $request->input('lieu_naissance');
+        $utilisateur->adresse                   =      $request->input('adresse');
+        $utilisateur->password                  =      Hash::make($request->input('email'));
+        $utilisateur->roles_id                  =      $utilisateurs->role->id;
+        $utilisateurs->updated_by               =      $updated_by;
+
+        $utilisateur->save();
+
+        $demandeur->numero                      =      $request->input('numero');
+        $demandeur->numero_courrier             =      $request->input('numero_courrier');
+        $demandeur->date_depot                  =      $request->input('date_depot');
+        $demandeur->nbre_piece                  =      $request->input('nombre_de_piece');
+        $demandeur->niveau_etude                =      $request->input('niveau_etude');
+        $demandeur->etablissement               =      $request->input('etablissement');
+        $demandeur->telephone                   =      $autre_tel;
+        $demandeur->fixe                        =      $fixe;
+        $demandeur->statut                      =      $request->input('statut');
+        $demandeur->option                      =      $request->input('option');
+        $demandeur->adresse                     =      $request->input('adresse');
+        $demandeur->motivation                  =      $request->input('motivation');
+        $demandeur->autres_diplomes             =      $request->input('autres_diplomes');
+        $demandeur->experience                  =      $request->input('experience');
+        $demandeur->qualification               =      $request->input('qualification');
+        $demandeur->departements_id             =      $departement_id;
+        $demandeur->programmes_id               =      $programme_id;
+        $demandeur->diplomes_id                 =      $diplome_id;
+        $demandeur->users_id                    =      $utilisateur->id;
+
+        $demandeur->save();
+
+        $individuelle->cin                      =     $cin;
+        $individuelle->experience               =     $request->input('experience');
+        $individuelle->information              =     $request->input('information');
+        $individuelle->nbre_pieces              =     $request->input('nombre_de_piece');
+        $individuelle->information              =     $request->input('information');
+        $individuelle->prerequis                =     $request->input('prerequis');
+        $individuelle->demandeurs_id            =     $demandeur->id;
+
+        $individuelle->save();
+
+        $demandeur->modules()->sync($request->input('modules'));
+        
+        return redirect()->route('individuelles.index')->with('success','demande modifiée avec succès !');
+
     }
 
     /**

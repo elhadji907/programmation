@@ -32,14 +32,13 @@
                                     <tr>
                                         <th>Numéro</th>
                                         <th>Cin</th>
-                                        <th>Civilité</th>
-                                        <th>Prenom</th>
-                                        <th>Nom</th>
-                                        <th>Date nais.</th>
-                                        <th>Lieu nais.</th>
+                                        {{-- <th>Civilité</th> --}}
+                                        <th>Prenom et Nom</th>
+                                        {{-- <th>Date nais.</th>
+                                        <th>Lieu nais.</th> --}}
                                         <th>Téléphone</th>
-                                        <th>Module</th>
-                                        <th>Localité</th>
+                                        <th style="width:30%;">Module</th>
+                                        {{-- <th>Localité</th> --}}
                                         <th>Statut</th>
                                         <th style="width:08%;">Action</th>
                                     </tr>
@@ -48,14 +47,13 @@
                                     <tr>
                                         <th>Numéro</th>
                                         <th>Cin</th>
-                                        <th>Civilité</th>
-                                        <th>Prenom</th>
-                                        <th>Nom</th>
-                                        <th>Date nais.</th>
-                                        <th>Lieu nais.</th>
+                                        {{-- <th>Civilité</th> --}}
+                                        <th>Prenom et Nom</th>
+                                        {{-- <th>Date nais.</th>
+                                        <th>Lieu nais.</th> --}}
                                         <th>Téléphone</th>
                                         <th>Module</th>
-                                        <th>Localité</th>
+                                        {{-- <th>Localité</th> --}}
                                         <th>Statut</th>
                                         <th>Action</th>
                                     </tr>
@@ -67,18 +65,19 @@
                                             {{-- <td>{!! $i++ !!}</td> --}}
                                             <td>{!! $individuelle->demandeur->numero !!}</td>
                                             <td>{!! $individuelle->cin !!}</td>
-                                            <td>{!! $individuelle->demandeur->user->civilite !!}</td>
-                                            <td>{!! $individuelle->demandeur->user->firstname !!}</td>
-                                            <td>{!! $individuelle->demandeur->user->name !!}</td>
+                                            {{-- <td>{!! $individuelle->demandeur->user->civilite !!}</td> --}}
+                                            <td>{!! $individuelle->demandeur->user->firstname !!} {{ ' ' }}{!! $individuelle->demandeur->user->name !!} </td>
+                                            {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
                                             <td>{!! $individuelle->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                                            <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td>
+                                            <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td> --}}
                                             <td>{!! str_limit($individuelle->demandeur->user->telephone, 9, '') !!}</td>
                                             <td>
                                                 @foreach ($individuelle->demandeur->modules as $module)
-                                                    {!! $module->name !!}
+                                                    <p>{!! $module->name !!}
+                                                    </p>
                                                 @endforeach
                                             </td>
-                                            <td>{!! $individuelle->demandeur->departement->nom !!}</td>
+                                            {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
                                             <td style="text-align: center;">
                                                 {!! $individuelle->demandeur->statut !!}
                                             </td>

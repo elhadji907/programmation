@@ -26,16 +26,14 @@ class CreateDemandeursTable extends Migration
             $table->char('uuid', 36);
             $table->string('numero', 200)->nullable();
             $table->string('numero_courrier', 200)->nullable();
-            $table->string('situation_professionnelle', 200)->nullable();
             $table->string('etablissement', 200)->nullable();
             $table->string('niveau_etude', 200)->nullable();
-            $table->string('diplome', 200)->nullable();
             $table->longText('qualification')->nullable();
             $table->longText('experience')->nullable();
             $table->string('deja_forme', 200)->nullable();
             $table->longText('adresse')->nullable();
-            $table->string('type', 200)->nullable();
-            $table->string('situation', 200)->nullable();
+            $table->string('option', 200)->nullable();
+            $table->string('autres_diplomes', 200)->nullable();
             $table->string('telephone', 200)->nullable();
             $table->string('fixe', 200)->nullable();
             $table->integer('nbre_piece')->nullable();
