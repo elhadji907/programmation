@@ -38,6 +38,7 @@
                                         <th>Lieu nais.</th> --}}
                                         <th>Téléphone</th>
                                         <th style="width:30%;">Module</th>
+                                        <th>Type demande</th>
                                         {{-- <th>Localité</th> --}}
                                         <th>Statut</th>
                                         <th style="width:08%;">Action</th>
@@ -53,6 +54,7 @@
                                         <th>Lieu nais.</th> --}}
                                         <th>Téléphone</th>
                                         <th>Module</th>
+                                        <th>Type demande</th>
                                         {{-- <th>Localité</th> --}}
                                         <th>Statut</th>
                                         <th>Action</th>
@@ -77,6 +79,7 @@
                                                     <p>{!! $module->name !!}</p>
                                                 @endforeach
                                             </td>
+                                            <td>{!! $individuelle->demandeur->types_demande->name !!}</td>
                                             {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
                                             <td style="text-align: center;">
                                                 {!! $individuelle->demandeur->statut !!}

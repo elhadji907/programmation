@@ -56,113 +56,130 @@
             {!! $courriers->links() !!}
         </div>
         @endroles
-        @roles('Demandeur')    
-        <div class="row justify-content-center mt-5">
+        @roles('Demandeur')
+        <div class="row mt-5">
             <div class="col-md-12">
                 @if (session('message'))
                     <div class="alert alert-success">
                         {{ session('message') }}
                     </div>
                 @endif
-
                 @if (isset($individuelles))
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-table"></i>
-                        Ma demande de formation
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            {{-- <div align="right">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-table"></i>
+                            Ma demande de formation
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                {{-- <div align="right">
                                 <a href="{{ route('individuelles.create') }}">
                                     <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br /> --}}
-                            <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-individuelles">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Numéro</th>
-                                        <th>Cin</th>
-                                        {{-- <th>Civilité</th> --}}
-                                        <th>Prenom et Nom</th>
-                                        {{-- <th>Date nais.</th>
+                                <table class="table table-bordered table-striped" width="100%" cellspacing="0"
+                                    id="table-individuelles">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Numéro</th>
+                                            <th>Cin</th>
+                                            {{-- <th>Civilité</th> --}}
+                                            <th>Prenom et Nom</th>
+                                            {{-- <th>Date nais.</th>
                                     <th>Lieu nais.</th> --}}
-                                        <th>Téléphone</th>
-                                        <th style="width:30%;">Module</th>
-                                        {{-- <th>Localité</th> --}}
-                                        <th>Statut</th>
-                                        <th style="width:08%;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tfoot class="table-dark">
-                                    <tr>
-                                        <th>Numéro</th>
-                                        <th>Cin</th>
-                                        {{-- <th>Civilité</th> --}}
-                                        <th>Prenom et Nom</th>
-                                        {{-- <th>Date nais.</th>
+                                            <th>Téléphone</th>
+                                            <th style="width:30%;">Module</th>
+                                            <th>Type demande</th>
+                                            {{-- <th>Localité</th> --}}
+                                            <th>Statut</th>
+                                            <th style="width:08%;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="table-dark">
+                                        <tr>
+                                            <th>Numéro</th>
+                                            <th>Cin</th>
+                                            {{-- <th>Civilité</th> --}}
+                                            <th>Prenom et Nom</th>
+                                            {{-- <th>Date nais.</th>
                                     <th>Lieu nais.</th> --}}
-                                        <th>Téléphone</th>
-                                        <th>Module</th>
-                                        {{-- <th>Localité</th> --}}
-                                        <th>Statut</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @foreach ($individuelles as $individuelle)
-                                        @can('view', $individuelle)
-                                            <tr>
-                                                <td>{!! $individuelle->demandeur->numero !!}</td>
-                                                <td>{!! $individuelle->cin !!}</td>
-                                                {{-- <td>{!! $individuelle->demandeur->user->civilite !!}</td> --}}
-                                                <td>{!! $individuelle->demandeur->user->firstname !!} {{ ' ' }}{!! $individuelle->demandeur->user->name !!} </td>
-                                                {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
+                                            <th>Téléphone</th>
+                                            <th>Module</th>
+                                            <th>Type demande</th>
+                                            {{-- <th>Localité</th> --}}
+                                            <th>Statut</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach ($individuelles as $individuelle)
+                                            @can('view', $individuelle)
+                                                <tr>
+                                                    <td>{!! $individuelle->demandeur->numero !!}</td>
+                                                    <td>{!! $individuelle->cin !!}</td>
+                                                    {{-- <td>{!! $individuelle->demandeur->user->civilite !!}</td> --}}
+                                                    <td>{!! $individuelle->demandeur->user->firstname !!} {{ ' ' }}{!! $individuelle->demandeur->user->name !!}
+                                                    </td>
+                                                    {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
                                         <td>{!! $individuelle->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
                                         <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td> --}}
-                                                <td>{!! $individuelle->demandeur->user->telephone !!}</td>
-                                                <td>
-                                                    @foreach ($individuelle->demandeur->modules as $module)
-                                                        <p>{!! $module->name !!}</p>
-                                                    @endforeach
-                                                </td>
-                                                {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
-                                                <td style="text-align: center;">
-                                                    {!! $individuelle->demandeur->statut !!}
-                                                </td>
-                                                <td class="d-flex align-items-baseline text-center-row">
-                                                    <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
-                                                        title="modifier">
-                                                        <i class="far fa-edit">&nbsp;</i>
-                                                    </a>
-                                                    &nbsp;
-                                                    <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
-                                                        title="voir">
-                                                        <i class="far fa-eye">&nbsp;</i>
-                                                    </a>
-                                                    &nbsp;
-                                                    {!! Form::open(['method' => 'DELETE', 'url' => 'individuelles/' . $individuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
-                                                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
-                                                    {!! Form::close() !!}
-                                                </td>
-                                            </tr>
-                                        @endcan
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                    <td>{!! $individuelle->demandeur->user->telephone !!}</td>
+                                                    <td>
+                                                        @foreach ($individuelle->demandeur->modules as $module)
+                                                            <p>{!! $module->name !!}</p>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>{!! $individuelle->demandeur->types_demande->name ?? " " !!}</td>
+                                                    {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
+                                                    <td style="text-align: center;">
+                                                        {!! $individuelle->demandeur->statut !!}
+                                                    </td>
+                                                    <td class="d-flex align-items-baseline text-center-row">
+                                                        <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                            title="modifier">
+                                                            <i class="far fa-edit">&nbsp;</i>
+                                                        </a>
+                                                        &nbsp;
+                                                        <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
+                                                            title="voir">
+                                                            <i class="far fa-eye">&nbsp;</i>
+                                                        </a>
+                                                        &nbsp;
+                                                        {!! Form::open(['method' => 'DELETE', 'url' => 'individuelles/' . $individuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
+                                                        {!! Form::close() !!}
+                                                    </td>
+                                                </tr>
+                                            @endcan
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+
                     </div>
-                   
-                </div>
                 @else
-                <div align="center">
-                    <a href="{{ route('individuelles.create') }}">
-                        <div class="btn btn-outline-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour compléter votre demande de formation</i></div>
-                    </a>
-                </div>
+                    <div lass="d-flex justify-content-between align-items-center">
+                        <small>
+                            <a href="{{ route('individuelles.create') }}">
+                                <div class="btn btn-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
+                                    compléter votre demande de formation individuelle</i></div>
+                            </a>
+                        </small>
+                        <small>
+                            <a href="{{ route('operateurs.create') }}">
+                                <div class="btn btn-info mt-3"><i class="fas fa-plus"></i>&nbsp;Devenir opérateur</i></div>
+                            </a>
+                        </small>
+                        <small>
+                            <a href="{{ route('collectives.create') }}">
+                                <div class="btn btn-success mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
+                                    compléter votre demande de formation colective</i></div>
+                            </a>
+                        </small>
+                    </div>
                 @endif
             </div>
         </div>
