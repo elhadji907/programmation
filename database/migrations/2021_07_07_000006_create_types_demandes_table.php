@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollectivesTable extends Migration
+class CreateTypesDemandesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'collectives';
+    public $tableName = 'types_demandes';
 
     /**
      * Run the migrations.
-     * @table collectives
+     * @table types_demandes
      *
      * @return void
      */
@@ -24,24 +24,10 @@ class CreateCollectivesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('cin', 200);
             $table->string('name', 200);
-            $table->string('items1', 200)->nullable();
-            $table->timestamp('date1')->nullable();
-            $table->unsignedInteger('demandeurs_id');
-            $table->string('sigle', 100)->nullable();
-            $table->string('statut', 100)->nullable();
-            $table->longText('description')->nullable();
-
-            $table->index(["demandeurs_id"], 'fk_collectives_demandeurs1_idx');
+            $table->string('categorie', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
-
-
-            $table->foreign('demandeurs_id', 'fk_collectives_demandeurs1_idx')
-                ->references('id')->on('demandeurs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

@@ -32,6 +32,7 @@ class CreateDemandeursTable extends Migration
             $table->longText('experience')->nullable();
             $table->string('deja_forme', 200)->nullable();
             $table->longText('adresse')->nullable();
+            $table->longText('pre_requis')->nullable();
             $table->string('option', 200)->nullable();
             $table->string('autres_diplomes', 200)->nullable();
             $table->string('telephone', 200)->nullable();
@@ -62,6 +63,7 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('regions_id')->nullable();
             $table->unsignedInteger('diplomes_id')->nullable();
             $table->unsignedInteger('departements_id')->nullable();
+            $table->unsignedInteger('types_demandes_id')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
@@ -78,6 +80,8 @@ class CreateDemandeursTable extends Migration
             $table->index(["diplomes_id"], 'fk_demandeurs_diplomes1_idx');
 
             $table->index(["departements_id"], 'fk_demandeurs_departements1_idx');
+
+            $table->index(["types_demandes_id"], 'fk_demandeurs_types_demandes1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -119,6 +123,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('departements_id', 'fk_demandeurs_departements1_idx')
                 ->references('id')->on('departements')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('types_demandes_id', 'fk_demandeurs_types_demandes1_idx')
+                ->references('id')->on('types_demandes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -26,9 +26,13 @@ class ProfilesController extends Controller
         // $internes = \App\Interne::get()->count();
         // $departs = \App\Depart::get()->count();
         
+        $individuelles = \App\Individuelle::all();
+
+      /*   dd($individuelles); */
+
         $courriers = Courrier::latest()->paginate(5);
 
-        return view('profiles.show', compact('user','courriers'));
+        return view('profiles.show', compact('user','courriers','individuelles'));
     }
 
 

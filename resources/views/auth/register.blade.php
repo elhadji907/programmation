@@ -12,7 +12,7 @@
                     <form class="user" method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="firstname"><b>{{ __('Prénom') }}</b>(<span class="text-danger">*</span>)</label>
                                     <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" placeholder="Votre et prenom" value="{{ old('firstname') }}" autocomplete="firstname" autofocus>
                                     @error('firstname')
@@ -21,7 +21,7 @@
                                         </span>
                                     @enderror
                             </div>                            
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="name"><b>{{ __('Nom') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Votre et nom" value="{{ old('name') }}" autocomplete="name" autofocus>
 
@@ -30,7 +30,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>                                                       
+                            </div>     
+                        </div>
+                        <div class="form-row">                                                   
                             <div class="form-group col-md-4">
                                 <label for="username"><b>{{ __('Pseudo') }}</b>(<span class="text-danger">*</span>)</label>
                                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Ex: jean21" value="{{ old('username') }}" autocomplete="username" autofocus>    
@@ -39,9 +41,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">                                                        
+                            </div>                                                       
                             <div class="form-group col-md-4">
                                 <label for="date_naissance"><b>{{ __('Date de naissance') }}</b>(<span class="text-danger">*</span>)</label>
                                     <input id="date_naissance" {{ $errors->has('date_r') ? 'is-invalid' : '' }} type="date" class="form-control @error('date_naissance') is-invalid @enderror" name="date_naissance" placeholder="Votre date de naissance" value="{{ old('date_naissance') }}" autocomplete="username" autofocus>    
@@ -61,7 +61,7 @@
                                 @enderror
                             </div>
                                                     
-                            <div class="form-group col-md-4">
+                           {{--   <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1"><b>Civilité</b></b>(<span class="text-danger">*</span>)</label>
                                 <select name="civilite" id="civilite" class="form-control {{ $errors->has('civilite') ? 'is-invalid' : '' }}">
                                         <option value="">-selectionnez-</option>
@@ -73,7 +73,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                 @enderror
-                            </div>
+                            </div>  --}}
                         </div>
 
                         <div class="form-row">

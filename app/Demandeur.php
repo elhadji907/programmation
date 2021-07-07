@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 05 Jul 2021 14:43:30 +0000.
+ * Date: Wed, 07 Jul 2021 14:04:30 +0000.
  */
 
 namespace App;
@@ -16,16 +16,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $numero
  * @property string $numero_courrier
- * @property string $sexe
- * @property string $situation_professionnelle
  * @property string $etablissement
  * @property string $niveau_etude
  * @property string $qualification
  * @property string $experience
  * @property string $deja_forme
- * @property string $pre_requis
  * @property string $adresse
- * @property string $type
+ * @property string $pre_requis
+ * @property string $option
  * @property string $autres_diplomes
  * @property string $telephone
  * @property string $fixe
@@ -55,20 +53,22 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $regions_id
  * @property int $diplomes_id
  * @property int $departements_id
+ * @property int $types_demandes_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Departement $departement
+ * @property \App\Diplome $diplome
  * @property \App\Item $item
  * @property \App\Lieux $lieux
  * @property \App\Programme $programme
  * @property \App\Projet $projet
  * @property \App\Region $region
+ * @property \App\TypesDemande $types_demande
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $commentaires
- * @property \Illuminate\Database\Eloquent\Collection $diplomes
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
@@ -92,7 +92,8 @@ class Demandeur extends Eloquent
 		'programmes_id' => 'int',
 		'regions_id' => 'int',
 		'diplomes_id' => 'int',
-		'departements_id' => 'int'
+		'departements_id' => 'int',
+		'types_demandes_id' => 'int'
 	];
 
 	protected $dates = [
@@ -105,14 +106,13 @@ class Demandeur extends Eloquent
 		'uuid',
 		'numero',
 		'numero_courrier',
-		'sexe',
 		'etablissement',
 		'niveau_etude',
 		'qualification',
 		'experience',
 		'deja_forme',
-		'pre_requis',
 		'adresse',
+		'pre_requis',
 		'option',
 		'autres_diplomes',
 		'telephone',
@@ -142,7 +142,8 @@ class Demandeur extends Eloquent
 		'programmes_id',
 		'regions_id',
 		'diplomes_id',
-		'departements_id'
+		'departements_id',
+		'types_demandes_id'
 	];
 
 	public function departement()
@@ -180,6 +181,11 @@ class Demandeur extends Eloquent
 		return $this->belongsTo(\App\Region::class, 'regions_id');
 	}
 
+	public function types_demande()
+	{
+		return $this->belongsTo(\App\TypesDemande::class, 'types_demandes_id');
+	}
+
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
@@ -193,13 +199,6 @@ class Demandeur extends Eloquent
 	public function commentaires()
 	{
 		return $this->hasMany(\App\Commentaire::class, 'demandeurs_id');
-	}
-
-	public function diplomes()
-	{
-		return $this->belongsToMany(\App\Diplome::class, 'demandeurs_has_diplomes', 'demandeurs_id', 'diplomes_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
 	}
 
 	public function disponibilites()

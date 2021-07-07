@@ -61,8 +61,15 @@ class HomeController extends Controller
         //$modules = \App\Module::with('demandeurs.modules','demandeurs.localite')->get();
         /* dd($localites); */
         /* return view('localites.detail', compact('localites','modules')); */
-        
-        return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));
+
+        if (Auth::user()->role->name === "Administrateur") {
+            return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));           
+        } else {
+            
+        $individuelles = \App\Individuelle::all();
+
+            return view('profiles.show', ['user'=>auth()->user()]);
+        }
         
     }
 }

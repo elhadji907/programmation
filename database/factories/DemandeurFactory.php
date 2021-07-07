@@ -8,22 +8,21 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
-        'sexe' => $faker->word,
-        'situation_professionnelle' => $faker->word,
+        'numero_courrier' => $faker->word,
         'etablissement' => $faker->word,
         'niveau_etude' => $faker->word,
-        'diplome' => $faker->word,
         'qualification' => $faker->text,
         'experience' => $faker->text,
         'deja_forme' => $faker->word,
-        'pre_requis' => $faker->text,
         'adresse' => $faker->text,
-        'type' => $faker->word,
-        'situation' => $faker->word,
+        'pre_requis' => $faker->text,
+        'option' => $faker->word,
+        'autres_diplomes' => $faker->word,
         'telephone' => $faker->word,
         'fixe' => $faker->word,
         'nbre_piece' => $faker->randomNumber(),
         'statut' => $faker->word,
+        'motivation' => $faker->text,
         'items1' => $faker->word,
         'items2' => $faker->word,
         'date_depot' => $faker->dateTime(),
@@ -60,9 +59,14 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'diplomes_id' => function () {
             return factory(App\Diplome::class)->create()->id;
         },
+        'departements_id' => function () {
+            return factory(App\Departement::class)->create()->id;
+        },
+        'types_demandes_id' => function () {
+            return factory(App\TypesDemande::class)->create()->id;
+        },
     ];
 }); */
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -78,6 +82,7 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
     $departements_id=App\Departement::all()->random()->id;
     $lieux_id=App\Lieux::all()->random()->id;
     $diplomes_id=App\Diplome::all()->random()->id;
+    $types_demandes_id=App\TypesDemande::all()->random()->id;
     $domaine=App\Domaine::all()->random()->name;
 
     
@@ -121,6 +126,9 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         },
         'diplomes_id' => function ()  use($diplomes_id) {
             return $diplomes_id;
+        },
+        'types_demandes_id' => function ()   use($types_demandes_id) {
+            return $types_demandes_id;
         },
     ];
 });

@@ -54,7 +54,27 @@ class IndividuellesController extends Controller
         
         $date_depot = Carbon::now();
 
+        $user = auth::user();
+        
+        $civilites = User::pluck('civilite','civilite');
+
+        /* $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique(); */
+
+        $date_depot = Carbon::now();
+
+        if (isset(auth::user()->demandeur)) {           
         return view('individuelles.create',compact('departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
+        } else {
+        $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+        $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
+        return view('individuelles.icreate',compact('civilites', 'user', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
+        }
+        
     }
 
     public function findNomDept(Request $request){
@@ -69,7 +89,9 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {
+        $user = auth::user();
+
         $this->validate(
             $request, [
                 'sexe'                =>  'required|string|max:10',
@@ -85,7 +107,7 @@ class IndividuellesController extends Controller
                 'adresse'             =>  'required|string|max:100',
                 'prerequis'           =>  'required|string|max:1500',
                 'motivation'          =>  'required|string|max:1500',
-                'email'               =>  'required|email|max:255|unique:users,email',
+                'email'               =>  'required|email|max:255|unique:users,email,'.$user->id,
                 'familiale'           =>  'required',
                 'professionnelle'     =>  'required',
                 'niveau_etude'        =>  'required',
@@ -119,9 +141,9 @@ class IndividuellesController extends Controller
            $numero   =   "I".strtolower($annee.$demandeurs_id);
        }
        
-       $departement = Departement::find($request->input('departement'));
-       $region = $departement->region->nom;
-       $region_id = $departement->region->id;
+       //$departement = Departement::find($request->input('departement'));
+      /*  $region = $departement->region->nom;
+       $region_id = $departement->region->id; */
 
        $created_by1 = Auth::user()->firstname;
        $created_by2 = Auth::user()->name;
@@ -145,10 +167,11 @@ class IndividuellesController extends Controller
        $autre_tel = str_replace(' ', '', $autre_tel);
        $autre_tel = str_replace(' ', '', $autre_tel);
        $autre_tel = str_replace(' ', '', $autre_tel);
-
-       $diplome_id = Diplome::where('id',$request->input('diplome'))->first()->id;
+       
+       $diplome_id = Diplome::where('name',$request->input('diplome'))->first()->id;
+       $programme_id = Programme::where('sigle',$request->input('programme'))->first()->id;
+       $departement_id = Departement::where('nom',$request->input('departement'))->first()->id;
        //$modules = Module::where('id',$request->input('modules'))->first()->name;
-
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
         $cin = str_replace(' ', '', $cin);
@@ -161,7 +184,7 @@ class IndividuellesController extends Controller
         }else {
             $civilite = "";
         }
-
+        if (isset(auth::user()->demandeur)) {
         $utilisateur = new User([          
             'sexe'                      =>      $request->input('sexe'),      
             'civilite'                  =>      $civilite,      
@@ -184,8 +207,38 @@ class IndividuellesController extends Controller
             'updated_by'                =>      $created_by
 
         ]);
-        
+    
         $utilisateur->save();
+
+        } else {
+            
+            $updated_by1 = Auth::user()->firstname;
+            $updated_by2 = Auth::user()->name;
+            $updated_by3 = Auth::user()->username;
+
+            $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
+            
+            $user->sexe                      =      $request->input('sexe');
+            $user->civilite                  =      $civilite;
+            $user->firstname                 =      $request->input('prenom');
+            $user->name                      =      $request->input('nom');
+            $user->email                     =      $request->input('email');
+            $user->username                  =      $request->input('username');
+            $user->telephone                 =      $telephone;
+            $user->fixe                      =      $fixe;
+            $user->bp                        =      $request->input('bp');
+            $user->fax                       =      $request->input('fax');
+            $user->situation_familiale       =      $request->input('familiale');
+            $user->situation_professionnelle =      $request->input('professionnelle');
+            $user->date_naissance            =      $request->input('date_naiss');
+            $user->lieu_naissance            =      $request->input('lieu_naissance');
+            $user->adresse                   =      $request->input('adresse');
+            $user->password                  =      Hash::make($request->input('email'));
+            $user->roles_id                  =      $user->role->id;
+            $user->updated_by                =      $updated_by;
+    
+            $user->save();
+        }
 
         $demandeur = new Demandeur([
             'numero'                    =>     $numero,
@@ -197,16 +250,16 @@ class IndividuellesController extends Controller
             'telephone'                 =>     $autre_tel,
             'fixe'                      =>     $fixe,
             'statut'                    =>     $statut,
-            'programmes_id'             =>     $request->input('programme'),
+            'programmes_id'             =>     $programme_id,
             'option'                    =>     $request->input('option'),
             'adresse'                   =>     $request->input('adresse'),
             'motivation'                =>     $request->input('motivation'),
             'autres_diplomes'           =>     $request->input('autres_diplomes'),
             'experience'                =>     $request->input('experience'),
             'qualification'             =>     $request->input('qualification'),
-            'departements_id'           =>     $request->input('departement'),
+            'departements_id'           =>     $departement_id,
             'diplomes_id'               =>     $diplome_id,
-            'users_id'                  =>     $utilisateur->id
+            'users_id'                  =>     $user->id
         ]);
 
         $demandeur->save();
@@ -225,7 +278,12 @@ class IndividuellesController extends Controller
 
         $demandeur->modules()->sync($request->input('modules'));
 
-        return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
+        if (Auth::user()->role->name === "Administrateur") {
+            return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
+        } else {
+            return redirect()->route('profiles.show', ['user'=>auth()->user()]);
+        }
+        
     }
 
     /**
@@ -406,8 +464,15 @@ class IndividuellesController extends Controller
         $individuelle->save();
 
         $demandeur->modules()->sync($request->input('modules'));
+
+        $demandeur->modules()->sync($request->input('modules'));
+
+        if (Auth::user()->role->name === "Administrateur") {
+            return redirect()->route('individuelles.index')->with('success','demande modifiée avec succès !');
+        } else {
+            return redirect()->route('profiles.show', ['user'=>auth()->user()]);
+        }
         
-        return redirect()->route('individuelles.index')->with('success','demande modifiée avec succès !');
 
     }
 
