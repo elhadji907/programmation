@@ -27,15 +27,15 @@ class ProfilesController extends Controller
         // $internes = \App\Interne::get()->count();
         // $departs = \App\Depart::get()->count();
         
-        $individuelles = \App\Individuelle::all();
+        $demandeurs = \App\Demandeur::all();
 
         $user_connect  =  auth::user()->demandeur;
 
-        /* dd($user_connect); */
+       /*  dd($demandeurs); */
 
         $courriers = Courrier::latest()->paginate(5);
 
-        return view('profiles.show', compact('user','courriers','individuelles','user_connect'));
+        return view('profiles.show', compact('user','courriers','demandeurs','user_connect'));
     }
 
 

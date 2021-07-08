@@ -11,6 +11,7 @@ use App\Diplome;
 use App\Demandeur;
 use App\Module;
 use App\Programme;
+use App\TypesDemande;
 use App\User;
 use App\Role;
 use Auth;
@@ -190,7 +191,9 @@ class IndividuellesController extends Controller
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
         $cin = str_replace(' ', '', $cin);
-        $cin = str_replace(' ', '', $cin);         
+        $cin = str_replace(' ', '', $cin);     
+
+        $types_demandes_id = TypesDemande::where('name','Individuelle')->first()->id;    
         
         if ($request->input('sexe') == "M") {
             $civilite = "M.";
@@ -273,6 +276,7 @@ class IndividuellesController extends Controller
             'experience'                =>     $request->input('experience'),
             'qualification'             =>     $request->input('qualification'),
             'departements_id'           =>     $departement_id,
+            'types_demandes_id'         =>     $types_demandes_id,
             'diplomes_id'               =>     $diplome_id,
             'users_id'                  =>     $user->id
         ]);
@@ -358,7 +362,7 @@ class IndividuellesController extends Controller
          $this->validate(
         $request, [
             'sexe'                =>  'required|string|max:10',
-            'cin'                 =>  'required|string|min:13|max:15|unique:individuelles,cin,'.$individuelle->id,
+            'cin'                 =>  "required|string|min:13|max:15|unique:individuelles,cin,{$individuelle->id},id,deleted_at,NULL",
             'prenom'              =>  'required|string|max:50',
             'nom'                 =>  'required|string|max:50',
             'date_naiss'          =>  'required|date_format:Y-m-d',
@@ -422,6 +426,7 @@ class IndividuellesController extends Controller
         $programme_id = Programme::where('sigle',$request->input('programme'))->first()->id;
         $diplome_id = Diplome::where('name',$request->input('diplome'))->first()->id;
         $departement_id = Departement::where('nom',$request->input('departement'))->first()->id;
+        $types_demandes_id = TypesDemande::where('name','Individuelle')->first()->id;    
 
         $cin = $request->input('cin');
         $cin = str_replace(' ', '', $cin);
@@ -466,6 +471,7 @@ class IndividuellesController extends Controller
         $demandeur->qualification               =      $request->input('qualification');
         $demandeur->departements_id             =      $departement_id;
         $demandeur->programmes_id               =      $programme_id;
+        $demandeur->types_demandes_id           =      $types_demandes_id;
         $demandeur->diplomes_id                 =      $diplome_id;
         $demandeur->users_id                    =      $utilisateur->id;
 

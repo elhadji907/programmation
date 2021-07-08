@@ -65,22 +65,22 @@
                         {{ session('message') }}
                     </div>
                 @endif
-                @if (isset($individuelles))
+                @if (isset($demandeurs))
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Ma demande de formation
+                            Mon dossier de demande de formation
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 {{-- <div align="right">
-                                <a href="{{ route('individuelles.create') }}">
+                                <a href="{{ route('demandeurs.create') }}">
                                     <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br /> --}}
-                                <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                    id="table-individuelles">
+                                <table border="1" height="100" class="table table-bordered table-striped" width="100%" cellspacing="0"
+                                    id="table-demandeurs">
                                     <thead class="table-dark">
                                         <tr>
                                             <th>Numéro</th>
@@ -94,63 +94,50 @@
                                             <th>Type demande</th>
                                             {{-- <th>Localité</th> --}}
                                             <th>Statut</th>
-                                            <th style="width:08%;">Action</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="table-dark">
-                                        <tr>
-                                            <th>Numéro</th>
-                                            <th>Cin</th>
-                                            {{-- <th>Civilité</th> --}}
-                                            <th>Prenom et Nom</th>
-                                            {{-- <th>Date nais.</th>
-                                    <th>Lieu nais.</th> --}}
-                                            <th>Téléphone</th>
-                                            <th>Module</th>
-                                            <th>Type demande</th>
-                                            {{-- <th>Localité</th> --}}
-                                            <th>Statut</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tfoot>
+                                       
                                     </tfoot>
                                     <tbody>
                                         <?php $i = 1; ?>
-                                        @foreach ($individuelles as $individuelle)
-                                            @can('view', $individuelle)
-                                                <tr>
-                                                    <td>{!! $individuelle->demandeur->numero !!}</td>
-                                                    <td>{!! $individuelle->cin !!}</td>
-                                                    {{-- <td>{!! $individuelle->demandeur->user->civilite !!}</td> --}}
-                                                    <td>{!! $individuelle->demandeur->user->firstname !!} {{ ' ' }}{!! $individuelle->demandeur->user->name !!}
+                                        @foreach ($demandeurs as $demandeur)
+                                            @can('view', $demandeur)
+                                                <tr valign="bottom">
+                                                    <td>{!! $demandeur->numero !!}</td>
+                                                    <td>{!! $demandeur->cin !!}</td>
+                                                    {{-- <td>{!! $demandeur->user->civilite !!}</td> --}}
+                                                    <td>{!! $demandeur->user->firstname !!} {{ ' ' }}{!! $demandeur->user->name !!}
                                                     </td>
-                                                    {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
-                                        <td>{!! $individuelle->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                                        <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td> --}}
-                                                    <td>{!! $individuelle->demandeur->user->telephone !!}</td>
+                                                    {{-- <td>{!! $demandeur->user->name !!}</td>
+                                        <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
+                                        <td>{!! $demandeur->user->lieu_naissance !!}</td> --}}
+                                                    <td>{!! $demandeur->user->telephone !!}</td>
                                                     <td>
-                                                        @foreach ($individuelle->demandeur->modules as $module)
+                                                        @foreach ($demandeur->modules as $module)
                                                             <p>{!! $module->name !!}</p>
                                                         @endforeach
                                                     </td>
-                                                    <td>{!! $individuelle->demandeur->types_demande->name ?? " " !!}</td>
-                                                    {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
+                                                    <td>{!! $demandeur->types_demande->name ?? " " !!}</td>
+                                                    {{-- <td>{!! $demandeur->departement->nom !!}</td> --}}
                                                     <td style="text-align: center;">
-                                                        {!! $individuelle->demandeur->statut !!}
+                                                        {!! $demandeur->statut !!}
                                                     </td>
-                                                    <td class="d-flex align-items-baseline text-center-row">
-                                                        <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                    <td>
+                                                       {{--   <a href="{!! url('demandeurs/' . $demandeur->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                             title="modifier">
                                                             <i class="far fa-edit">&nbsp;</i>
                                                         </a>
-                                                        &nbsp;
-                                                        <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
+                                                        &nbsp;  --}}
+                                                        <a href="{!! url('demandeurs/' . $demandeur->id) !!}" class='btn btn-primary btn-sm'
                                                             title="voir">
                                                             <i class="far fa-eye">&nbsp;</i>
                                                         </a>
-                                                        &nbsp;
-                                                        {!! Form::open(['method' => 'DELETE', 'url' => 'individuelles/' . $individuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                        {{--  &nbsp;
+                                                        {!! Form::open(['method' => 'DELETE', 'url' => 'demandeurs/' . $demandeur->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
-                                                        {!! Form::close() !!}
+                                                        {!! Form::close() !!}  --}}
                                                     </td>
                                                 </tr>
                                             @endcan
@@ -164,9 +151,9 @@
                 @else
                     <div lass="d-flex justify-content-between align-items-center">
                         <small>
-                            <a href="{{ route('individuelles.create') }}">
+                            <a href="{{ route('demandeurs.create') }}">
                                 <div class="btn btn-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
-                                    compléter votre demande de formation individuelle</i></div>
+                                    compléter votre demande de formation demandeur</i></div>
                             </a>
                         </small>
                         <small>
