@@ -149,7 +149,7 @@
 
                     </div>
                 @else
-                    <div lass="d-flex justify-content-between align-items-center">
+                  {{--    <div lass="d-flex justify-content-between align-items-center">
                         <small>
                             <a href="{{ route('demandeurs.create') }}">
                                 <div class="btn btn-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
@@ -167,7 +167,7 @@
                                     compléter votre demande de formation colective</i></div>
                             </a>
                         </small>
-                    </div>
+                    </div>  --}}
                 @endif
             </div>
         </div>

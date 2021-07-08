@@ -27,81 +27,66 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>N°</th>
-                              <th>Num Cour.</th>
-                              <th>Cin</th>
                               <th>Civilité</th>
-                              <th>Prenom</th>
-                              <th>Nom</th>
+                              <th>Prenom & Nom</th>
                               <th>Date nais.</th>
                               <th>Lieu nais.</th>
                               <th>Téléphone</th>
                               <th>Module</th>
                               <th>Localité</th>
-                              <th>Note</th>
                               <th>Statut</th>
-                              <th style="width:08%;">Action</th>
+                              <th></th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
-                              <th>N°</th>
-                              <th>Num Cour.</th>
-                              <th>Cin</th>
                               <th>Civilité</th>
-                              <th>Prenom</th>
-                              <th>Nom</th>
+                              <th>Prenom & Nom</th>
                               <th>Date nais.</th>
                               <th>Lieu nais.</th>
                               <th>Téléphone</th>
                               <th>Module</th>
                               <th>Localité</th>
-                              <th>Note</th>
                               <th>Statut</th>
-                              <th>Action</th>
+                              <th></th>
                               </tr>
                             </tfoot>
                           <tbody>
                             <?php $i = 1 ?>
                   @foreach ($demandeurs as $demandeur)
                   <tr> 
-                    <td>{!! $i++ !!}</td>
-                    <td>{!! $demandeur->numero !!}</td>
-                    <td>{!! $demandeur->user->cin !!}</td>
                     <td>{!! $demandeur->user->civilite !!}</td>
-                    <td>{!! $demandeur->user->firstname !!}</td>
-                    <td>{!! $demandeur->user->name !!}</td>
+                    <td>{!! ucwords($demandeur->user->firstname)."&nbsp;&nbsp;".mb_strtoupper($demandeur->user->name, 'UTF-8') !!}</td>
                     <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                    <td>{!! $demandeur->user->lieu_naissance !!}</td>
-                    <td>{!! str_limit($demandeur->user->telephone, 9, '') !!}</td>
+                    <td>{!! mb_strtoupper($demandeur->user->lieu_naissance, 'UTF-8') !!}</td>
+                    <td>{!! $demandeur->user->telephone !!}</td>
                     <td>
                       @foreach ($demandeur->modules as $module)
                       {!! $module->name !!}
                       @endforeach
                     </td>
-                    <td>{!! $demandeur->lieux->name !!}</td>
-                    <td>{!! $demandeur->note !!}</td>
+                    <td>{!! $demandeur->departement->nom ?? " " !!}</td>
                     <td style="text-align: center;">
-                      @if ($demandeur->status == "Retenue")
+                      @if ($demandeur->statut == "Retenue")
                       <i class="fa fa-check text-success" title="Retenue" aria-hidden="true"></i>
-                      @elseif($demandeur->status == "Annulée")
+                      @elseif($demandeur->statut == "Annulée")
                       <i class="fa fa-times text-danger" title="Annulée" aria-hidden="true"></i>
                       @else                      
-                      {!! $demandeur->status !!}                          
+                      {!! $demandeur->statut !!}                          
                       @endif
                     </td>
-                    <td style="text-align: center;" class="d-flex align-items-baseline align-content-center">
-                        <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
+                    <td>
+                       {{--   <a href="{!! url('demandeurs/' .$demandeur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
-                        &nbsp;
+                        &nbsp;  --}}
                         <a href="{!! url('demandeurs/' .$demandeur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
-                        &nbsp;
+                       {{--   &nbsp;
                         {!! Form::open(['method'=>'DELETE', 'url'=>'demandeurs/' .$demandeur->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title'=>"supprimer"] ) !!}
-                        {!! Form::close() !!}
+                        {!! Form::close() !!}  --}}
                     </td>
                   </tr>
                   @endforeach

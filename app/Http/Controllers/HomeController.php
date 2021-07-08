@@ -66,13 +66,14 @@ class HomeController extends Controller
             return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));           
         } else {
             
-        $individuelles = \App\Individuelle::all();
+        $demandeurs = \App\Demandeur::all();
+
         $user = auth()->user();
+
         $user_connect  =  auth::user()->demandeur;
 
-        $individuelles = \App\Individuelle::all();
 
-        return view('profiles.show', compact('user','courriers','user_connect','individuelles'));
+        return view('profiles.show', compact('user','courriers','user_connect','demandeurs'));
 
         }
         
