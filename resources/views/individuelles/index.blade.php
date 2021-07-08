@@ -85,18 +85,22 @@
                                                 {!! $individuelle->demandeur->statut !!}
                                             </td>
                                             <td class="d-flex align-items-baseline text-center-row">
+                                                @can('update', $individuelle)
                                                     <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                         title="modifier">
                                                         <i class="far fa-edit">&nbsp;</i>
                                                     </a>
+                                                    @endcan
                                                 &nbsp;
                                                 <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
+                                                @can('delete', $individuelle)
                                                 {!! Form::open(['method' => 'DELETE', 'url' => 'individuelles/' . $individuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
+                                                @endcan
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>

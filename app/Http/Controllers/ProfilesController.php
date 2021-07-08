@@ -5,6 +5,7 @@ use App\User;
 use App\Courrier;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Auth;
 
 class ProfilesController extends Controller
 {
@@ -28,11 +29,13 @@ class ProfilesController extends Controller
         
         $individuelles = \App\Individuelle::all();
 
-      /*   dd($individuelles); */
+        $user_connect  =  auth::user()->demandeur;
+
+        /* dd($user_connect); */
 
         $courriers = Courrier::latest()->paginate(5);
 
-        return view('profiles.show', compact('user','courriers','individuelles'));
+        return view('profiles.show', compact('user','courriers','individuelles','user_connect'));
     }
 
 

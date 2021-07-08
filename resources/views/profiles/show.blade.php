@@ -56,7 +56,8 @@
             {!! $courriers->links() !!}
         </div>
         @endroles
-        @roles('Demandeur')
+        @roles('Demandeur')        
+        @if (isset($user_connect))
         <div class="row mt-5">
             <div class="col-md-12">
                 @if (session('message'))
@@ -183,6 +184,8 @@
                 @endif
             </div>
         </div>
+        @else
+        @endif
         @endroles
     </div>
 @endsection

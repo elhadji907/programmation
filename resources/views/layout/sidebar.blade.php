@@ -51,9 +51,9 @@
     </h6>
     @endroles
     <hr class="sidebar-divider my-0">
-    @roles('Demandeur|Administrateur|Gestionnaire')
+    @roles('Administrateur|Gestionnaire')
     <li class="nav-item">
-        @roles('Administrateur|Demandeur')
+        @roles('Administrateur')
         <a class="nav-link collapsed" href="{{ route('demandeurs.index') }}" data-toggle="collapse"
             data-target="#collapsePages_formation" aria-expanded="true" aria-controls="collapsePages_formation">
             <span data-feather="layers"></span>
@@ -77,7 +77,23 @@
     @endroles
 </li>
 <li class="nav-item">
-    @roles('Operateur|Demandeur')
+    @roles('Demandeur')
+    <a class="nav-link" href="{{ route('individuelles.create') }}">
+        <span data-feather="users"></span>
+        <span>Demande individuelle</span>
+    </a>
+    @endroles
+</li>
+<li class="nav-item">
+    @roles('Demandeur')
+    <a class="nav-link" href="{{ route('collectives.index') }}">
+        <span data-feather="users"></span>
+        <span>Demande collective</span>
+    </a>
+    @endroles
+</li>
+<li class="nav-item">
+    @roles('Demandeur')
     <a class="nav-link" href="{{ route('operateurs.index') }}">
         <span data-feather="users"></span>
         <span>Devenir opérateur</span>

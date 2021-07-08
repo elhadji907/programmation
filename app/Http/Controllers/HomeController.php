@@ -67,8 +67,13 @@ class HomeController extends Controller
         } else {
             
         $individuelles = \App\Individuelle::all();
+        $user = auth()->user();
+        $user_connect  =  auth::user()->demandeur;
 
-            return view('profiles.show', ['user'=>auth()->user()]);
+        $individuelles = \App\Individuelle::all();
+
+        return view('profiles.show', compact('user','courriers','user_connect','individuelles'));
+
         }
         
     }

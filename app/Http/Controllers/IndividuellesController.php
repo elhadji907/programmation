@@ -65,13 +65,28 @@ class IndividuellesController extends Controller
 
         $date_depot = Carbon::now();
 
-        if (isset(auth::user()->demandeur)) {           
-        return view('individuelles.create',compact('departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
-        } else {
+        if (isset(auth::user()->demandeur)) {
+        $demandeurs = auth::user()->demandeur;
+        $individuelles = $demandeurs->individuelles;
+        
+        foreach ($individuelles as $individuelle) {
+        }        
+        $utilisateurs = $demandeurs->user;
+        $civilites = User::pluck('civilite','civilite');
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
+
+        $date_depot = Carbon::now();
+
+        return view('individuelles.update',compact('civilites', 'individuelle', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot', 'utilisateurs'));
+
+        } else {
+            $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+            $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
+            $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
+            $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
         return view('individuelles.icreate',compact('civilites', 'user', 'departements', 'diplomes', 'modules', 'programmes', 'date_depot'));
         }
         
@@ -95,7 +110,7 @@ class IndividuellesController extends Controller
         $this->validate(
             $request, [
                 'sexe'                =>  'required|string|max:10',
-                'cin'                 =>  'required|string|min:13|max:15|unique:individuelles,cin',
+                'cin'                 =>  'required|string|min:13|max:15|unique:individuelles,cin,NULL,id,deleted_at,NULL',
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
                 'date_naiss'          =>  'required|date_format:Y-m-d',
@@ -278,10 +293,13 @@ class IndividuellesController extends Controller
 
         $demandeur->modules()->sync($request->input('modules'));
 
+        
+        $user_connect  =  auth::user()->demandeur;
+
         if (Auth::user()->role->name === "Administrateur") {
             return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
         } else {
-            return redirect()->route('profiles.show', ['user'=>auth()->user()]);
+            return redirect()->route('profiles.show', compact('user_connect'));
         }
         
     }
@@ -485,7 +503,7 @@ class IndividuellesController extends Controller
     public function destroy(Individuelle $individuelle)
     {
         
-        $this->authorize('delete',  $individuelle->demandeur->user);
+        $this->authorize('delete',  $individuelle->demandeur);
 
         $utilisateurs   =   $individuelle->demandeur->user;
 
@@ -499,9 +517,15 @@ class IndividuellesController extends Controller
 
         $utilisateurs->save();
        
-        $individuelle->demandeur->user->delete();
-        $individuelle->demandeur->delete();
+        if (auth::user()->role->name === "Administrateur") {
+            $individuelle->demandeur->user->delete();
+            $individuelle->demandeur->delete();
+        } else {
+            $individuelle->demandeur->delete();
+        }
+        
         $individuelle->delete();
+
         
         $message = $individuelle->demandeur->user->firstname.' '.$individuelle->demandeur->user->name.' a été supprimé(e)';
         return back()->with(compact('message'));

@@ -48,8 +48,9 @@
             {{-- <!-- End of Sidebar --> --}}
 
             {{-- <!-- Content Wrapper --> --}}
-            <div id="content-wrapper" class="d-flex flex-column"
-                style="background-image: url('{{ asset('images/pattern.png') }}');">
+            <div id="content-wrapper" class="d-flex flex-column">
+               {{--   <div id="content-wrapper" class="d-flex flex-column"
+                style="background-image: url('{{ asset('images/pattern.png') }}');">  --}}
 
                 @include('layout.navbar')
 
