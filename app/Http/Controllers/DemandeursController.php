@@ -9,8 +9,7 @@ use App\Objet;
 use App\User;
 use App\Courrier;
 use App\Departement;
-use App\Nivaux;
-use App\Typedemande;
+use App\Typesdemande;
 use App\Programme;
 use Auth;
 use App\Module;
@@ -127,7 +126,6 @@ class DemandeursController extends Controller
         $roles = Role::get();
         /* $civilites = User::select('civilite')->distinct()->get(); */
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        //$niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         
         //$objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         
@@ -236,7 +234,7 @@ class DemandeursController extends Controller
             'projet'            =>     $request->input('projet'),
             'information'       =>     $request->input('information'),
             'users_id'          =>     $utilisateur->id,
-            'typedemandes_id'   =>     $request->input('type_demande'),
+            'typesdemandes_id'  =>     $request->input('type_demande'),
             'objets_id'         =>     $objets_id,
             'status'            =>     $status,
             'localites_id'      =>     $request->input('localite'),
@@ -246,9 +244,6 @@ class DemandeursController extends Controller
         $demandeurs->save();
 
         $demandeurs->modules()->sync($request->modules);
-        $demandeurs->nivauxes()->sync($request->niveaux);
-        $demandeurs->diplomes()->sync($request->diplomes);
-        $demandeurs->departements()->sync($request->departements);
 
         return redirect()->route('demandeurs.create')->with('success','demandeur ajouté avec succès !');
     }
@@ -259,28 +254,32 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Demandeur $demandeur)
     {
-        if (Auth::user()->role->name == "Administrateur") {        
-        $demandeurs = Demandeur::find($id);
+        $typesdemande = $demandeur->types_demande->name;
+        $individuelles = $demandeur->individuelles;
+        $collectives = $demandeur->collectives;
 
-        $utilisateurs = $demandeurs->user;
+       /*  if (Auth::user()->role->name == "Administrateur") { */
+
+        $utilisateurs = $demandeur->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
-        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $types_demandes = Typesdemande::distinct('name')->get()->pluck('name','name')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
-        return view('demandeurs.show', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
-        'civilites', 'objets'));
-        } else {
-            return view('layout.404');
+
+        if ($typesdemande === "Individuelle") {
+            return view('individuelles.show', compact('individuelles', 'departements','niveaux', 'modules',
+            'types_demandes', 'programmes','diplomes','utilisateurs', 'roles', 'id', 'civilites'));
+        }elseif ($typesdemande === "Collective") {
+            return view('collectives.show', compact('collectives', 'departements','niveaux', 'modules',
+            'types_demandes', 'programmes','diplomes','utilisateurs', 'roles', 'id', 'civilites'));
+        }else {
+            return back();
         }
     }
 
@@ -302,11 +301,9 @@ class DemandeursController extends Controller
         $civilites = User::pluck('civilite','civilite');
         $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $types_demandes = Typesdemande::distinct('name')->get()->pluck('name','name')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
         return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
@@ -382,7 +379,7 @@ class DemandeursController extends Controller
         
         $objets_id = Objet::where('name','Demande de formation')->first()->id;
 
-        $types_demandes_id = Typedemande::where('name',$request->input('type_demande'))->first()->id;
+        $types_demandes_id = Typesdemande::where('name',$request->input('type_demande'))->first()->id;
         /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
         $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
@@ -402,7 +399,7 @@ class DemandeursController extends Controller
         $demandeur->projet            =     $request->input('projet');
         $demandeur->status            =     $request->input('status');
         $demandeur->users_id          =     $utilisateurs->id;
-        $demandeur->typedemandes_id   =     $types_demandes_id;
+        $demandeur->typesdemandes_id  =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
         $demandeur->localites_id      =     $localites_id;
         $demandeur->programmes_id     =    $programmes_id;
@@ -410,9 +407,6 @@ class DemandeursController extends Controller
         $demandeur->save();
 
         $demandeur->modules()->sync($request->input('modules'));
-        $demandeur->nivauxes()->sync($request->input('niveaux'));
-        $demandeur->diplomes()->sync($request->input('diplomes'));
-        $demandeur->departements()->sync($request->input('departements'));
 
 
         return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');

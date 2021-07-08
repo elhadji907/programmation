@@ -1,245 +1,125 @@
 @extends('layout.default')
-@section('title', 'ONFP - détails demandeurs')
+@section('title', 'ONFP - Fiche demande')
+
+{{--  @section('extra-js')
+    <script>
+        function toggleReplayComment(id)
+        {
+            let element = document.getElementById('replayComment-' +id);
+            element.classList.toggle('d-none');
+        }
+    </script>
+@endsection  --}}
+
 @section('content')
-    <div class="content">
-        <div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="container">
             <div class="container-fluid">
-                @if (session()->has('success'))
-                    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-                @endif
-                <div class="row pt-0"></div>
                 <div class="card">
-                    <div class="card-header card-header-primary text-center">
-                        <h3 class="card-title">Détails demandeurs</h3>
-                    </div>
+                    @foreach ($individuelles as $individuelle)  
                     <div class="card-body">
-                        <div class="bg-gradient-secondary text-center">
-                            <p class="h4 text-white mb-2 mt-0">IDENTIFICATION</p>
+                        <h1 class="h4 h-100 text-uppercase mb-4"><b><u>Type de demande</u> : {!! $individuelle->demandeur->types_demande->name !!}
+                            </b></h1>
+                            {!! ' ' !!} N° du dossier : <span class="font-italic">{{ $individuelle->demandeur->numero ?? 'numéro de dossier introuvable' }}</span>
+                        <p>{{ $individuelle->demandeur->message }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            {{--  @can('update', $individuelle->demandeur)  --}}     
+                            <a href="{!! url('individuelles/' .$individuelle->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
+                                <i class="far fa-edit">&nbsp;Modifier</i>
+                            </a>
+                           {{--   @endcan   --}}
+                            <a href="{!! url('courriers/' .$individuelle->demandeur->id. '/edit') !!}" title="voir les d&eacute;tails du courrier" class="btn btn-outline-primary">
+                                <i class="far fa-eye">&nbsp;D&eacute;tails</i>
+                            </a>
+                            {{--  <a href="{!! url('courriers/' .$individuelle->demandeur->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
+                                <i class="far fa-edit">&nbsp;Supprimer</i>
+                            </a>  --}}
+                            @can('delete', $individuelle)     
+                            {!! Form::open(['method'=>'DELETE', 'url'=>'individuelles/' .$individuelle->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                            {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
+                            {!! Form::close() !!}
+                            @endcan 
                         </div>
-                        {!! Form::open(['url' => '', 'method' => 'PATCH', 'files' => true]) !!}
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('CIN') !!}
-                                {!! Form::text('cin', $demandeurs->cin, ['placeholder' => 'Votre numéro national d\'identité', 'class'
-                                => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Prénom') !!}
-                                {!! Form::text('prenom', $utilisateurs->firstname, ['placeholder' => 'Votre prénom', 'class' => 'form-control','disabled' => 'disabled'])
-                                !!}
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                {!! Form::label('NOM') !!}
-                                {!! Form::text('nom', $utilisateurs->name, ['placeholder' => 'Votre nom', 'class' => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-
-                           {{--   <div class="form-group col-md-4">
-                                {!! Form::label('NOM') !!}  --}}
-                                {!! Form::hidden('username', $utilisateurs->username, ['placeholder' => 'Votre nom', 'class' => 'form-control','disabled' => 'disabled']) !!}
-                           {{--   </div>  --}}
-                           {{--   <div class="form-group col-md-4">
-                                {!! Form::label('NOM') !!}  --}}
-                                {!! Form::hidden('matricule', $utilisateurs->matricule, ['placeholder' => 'Votre nom', 'class' => 'form-control','disabled' => 'disabled']) !!}
-                           {{--   </div>  --}}
-
+                        <div class="d-flex justify-content-between align-items-center mt-5">
+                            <small>Déposée depuis le {!! Carbon\Carbon::parse($individuelle->demandeur->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                            <span class="badge badge-primary">{!! $individuelle->demandeur->user->firstname !!}&nbsp;{!! $individuelle->demandeur->user->name !!}</span>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Civilité', null, ['class' => 'control-label']) !!}
-                                {!! Form::select('civilite', $civilites, $utilisateurs->civilite, ['placeholder' => 'sélectionnez', 'class'
-                                => 'form-control','disabled' => 'disabled', 'id' => 'civilites']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Date naissance', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_naiss', $utilisateurs->date_naissance->format('Y-m-d'), ['placeholder' => 'La date de naissance', 'class' =>
-                                'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Lieu naissance') !!}
-                                {!! Form::text('lieu', $utilisateurs->lieu_naissance, ['placeholder' => 'Votre lieu de naissance', 'class' =>
-                                'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                        </div>
+                    </div>                    
+                    @endforeach
+                </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('E-mail') !!}
-                                {!! Form::email('email', $utilisateurs->email, ['placeholder' => 'Votre adresse e-mail', 'class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'email']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Téléphone') !!}
-                                {!! Form::text('telephone', $utilisateurs->telephone, ['placeholder' => 'Numero de telephone', 'class' =>
-                                'form-control','disabled' => 'disabled']) !!}
-                            </div>
+                <hr>
 
-                            
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Département') !!}
-                                {!! Form::select('departements[]', $departements, $utilisateurs->demandeur->departements, ['class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'departement']) !!}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Situation familiale') !!}
-                                {!! Form::select('familiale', ['Marié' => 'Marié', 'Célibataire' => 'Célibataire'], $utilisateurs->situation_familiale,
-                                ['placeholder' => 'Votre situation familiale', 'class' => 'form-control','disabled' => 'disabled', 'id' =>
-                                'familiale']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Situation professionnelle') !!}
-                                {!! Form::select('professionnelle', ['Employé' => 'Employé', 'Recherche emploi' =>
-                                'Recherche emploi'], $utilisateurs->situation_professionnelle, ['placeholder' => 'Votre situation professionnelle', 'class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'professionnelle']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Adresse') !!}
-                                {!! Form::textarea('adresse', $utilisateurs->adresse, ['placeholder' => 'Votre adresse', 'rows' => 1, 'class'
-                                => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Enregistrée par:') !!}
-                                {!! Form::text('cin', $utilisateurs->created_by.'  le  '.$utilisateurs->created_at->format('d/m/Y').' à '.$utilisateurs->created_at->format('H:m:s'), ['placeholder' => '', 'class'
-                                => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Modifiée par :') !!}
-                                {!! Form::text('prenom', $utilisateurs->updated_by.' le '.$utilisateurs->updated_at->format('d/m/Y').' à '.$utilisateurs->updated_at->format('H:m:s'), ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled'])
-                                !!}
-                            </div>
-                        </div>
-                        <div class="bg-gradient-secondary text-center">
-                            <p class="h4 text-white mb-2">DEMANDE</p>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Numéro courrier') !!}
-                                {!! Form::text('numero_courrier', $demandeurs->numero_courrier, ['placeholder' => 'Le numéro du courrier', 'class'
-                                => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Date dépot', null, ['class' => 'control-label']) !!}
-                                {!! Form::date('date_depot', $demandeurs->date_depot->format('Y-m-d'), ['placeholder' => 'La date de dépot', 'class' =>
-                                'form-control','disabled' => 'disabled']) !!}
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                {!! Form::label('localité') !!}
-                                {!! Form::select('localite', $localites, $demandeurs->localite->name, ['placeholder' => '', 'class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'localite']) !!}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Objet') !!}
-                                {!! Form::select('objet', $objets, $demandeurs->objet->name, ['placeholder' => '', 'class' => 'form-control','disabled' => 'disabled',
-                                'id' => 'objet']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Type demande') !!}
-                                {!! Form::select('type_demande', $types_demandes, $demandeurs->typedemande->name, ['placeholder' =>
-                                '--sélectionnez--', 'class' => 'form-control','disabled' => 'disabled', 'id' => 'type_demande']) !!}
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Programme') !!}
-                                {!! Form::select('programme', $programmes, $demandeurs->programme->sigle, ['class' => 'form-control','disabled' => 'disabled', 'id' => 'programme']) !!}
-                            </div>
-                            <input type="hidden" name="password" class="form-control" id="exampleInputPassword1"
-                                placeholder="Mot de passe">
-                            {!! Form::hidden('password', null, ['placeholder' => 'Votre mot de passe', 'class' =>
-                            'form-control','disabled' => 'disabled']) !!}
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="form-group col-md-4">
-                                {!! Form::label("Niveau d'etude") !!}
-                                {!! Form::select('niveaux[]', $niveaux, $demandeurs->nivauxes, ['placeholder' => '', 'class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'niveau']) !!}
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                {!! Form::label('Diplômes') !!}
-                                {!! Form::select('diplomes[]', $diplomes, $demandeurs->diplomes, ['placeholder' => 'diplome', 'class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'diplome']) !!}
-                            </div>
-                            <div class="form-group col-md-4">
-                                {!! Form::label('module') !!}
-                                {!! Form::select('modules[]', $modules, $demandeurs->modules, ['placeholder' => '','class' =>
-                                'form-control','disabled' => 'disabled', 'id' => 'module']) !!}
-                            </div>
-                        </div>                        
-                   {{--       <div class="form-row">
-                            <div class="form-group col-md-12">
-                                {!! Form::label('Projet') !!}
-                                {!! Form::textarea('projet', $demandeurs->projet, ['placeholder' => 'Décrire en quelques lignes votre projet professionnel...', 'rows' => 4,
-                                'class' => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Expérience') !!}
-                                {!! Form::textarea('experience', $demandeurs->experience, ['placeholder' => 'Votre expérience', 'rows' => 3,
-                                'class' => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                            <div class="form-group col-md-6">
-                                {!! Form::label('Information') !!}
-                                {!! Form::textarea('information', $demandeurs->information, ['placeholder' => 'Informations complémentaires', 'rows' => 3,
-                                'class' => 'form-control','disabled' => 'disabled']) !!}
-                            </div>
-                        </div>  --}}
-                        {{--  {!! Form::submit('Modifier', ['class' => 'btn btn-outline-primary pull-right']) !!}  --}}
-                        {!! Form::close() !!}
-                        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Verifier les donn&eacute;es saisies
-                                            svp</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            @push('scripts')
-                                                <script type="text/javascript">
-                                                    $(document).ready(function() {
-                                                        $("#error-modal").modal({
-                                                            'show': true,
-                                                        })
-                                                    });
-
-                                                </script>
-
-                                            @endpush
-                                        @endif
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+               {{--   <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Commentaires</h5>
+                            @forelse ($individuelle->demandeur->comments as $comment)
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    {!! $comment->content !!}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <small>Posté le {!! Carbon\Carbon::parse($comment->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                                        <span class="badge badge-primary">{!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!}</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            //Réponse aux commentaires 
+                            @foreach ($comment->comments as $replayComment)
+                            <div class="card mt-2 ml-5">
+                                <div class="card-body">
+                                    {!! $replayComment->content !!}
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <small>Posté le {!! Carbon\Carbon::parse($replayComment->created_at)->format('d/m/Y à H:i:s') !!}</small>
+                                        <span class="badge badge-primary">{!! $replayComment->user->firstname !!}&nbsp;{!! $replayComment->user->name !!}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
 
+                            @auth
+                            <button class="btn btn-info btn-sm mt-2" id="commentReplyId" onclick="toggleReplayComment({{ $comment->id }})">
+                                Répondre
+                            </button>
+                            <form method="POST" action="{{ route('comments.storeReply', $comment) }}" class="ml-5 d-none" id="replayComment-{{ $comment->id }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="replayComment"><b>Ma réponse</b></label>
+                                    <textarea class="form-control @error('replayComment') is-invalid @enderror"  name="replayComment" id="replayComment" rows="3" placeholder="Répondre à ce commentaire"></textarea>
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('replayComment'))
+                                        @foreach ($errors->get('replayComment') as $message)
+                                        <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                        @endif
+                                </small>
+                                </div>
+                                <button class="btn btn-primary btn-sm mb-2">
+                                    Répondre à ce commentaire
+                                </button>
+                            </form>                                
+                            @endauth
+                            //fin réponse aux commentaires  
+                            @empty
+
+                            <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
+                                
+                            @endforelse
+                            <form method="POST" action="{{ route('comments.store', $individuelle->demandeur->id) }}" class="mt-3">
+                                @csrf                                                         
+                                 <div class="form-group">
+                                     <label for="commentaire"><b>Votre commentaire</b></label>                                   
+                                     <textarea class="form-control @error('commentaire') is-invalid @enderror" name="commentaire" id="commentaire" rows="5" placeholder="Ecrire votre commentaire"></textarea>                                     
+                                     <small id="emailHelp" class="form-text text-muted">
+                                             @if ($errors->has('commentaire'))
+                                             @foreach ($errors->get('commentaire') as $message)
+                                             <p class="text-danger">{{ $message }}</p>
+                                             @endforeach
+                                             @endif
+                                     </small>
+                                 </div>
+                                <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Poster</button>
+                            </form>
                     </div>
-                </div>
+                </div>  --}}
             </div>
         </div>
-    </div>
 @endsection
