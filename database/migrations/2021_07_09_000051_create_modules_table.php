@@ -29,10 +29,13 @@ class CreateModulesTable extends Migration
             $table->unsignedInteger('domaines_id')->nullable();
             $table->unsignedInteger('specialites_id')->nullable();
             $table->string('qualification', 200)->nullable();
+            $table->unsignedInteger('statuts_id')->nullable();
 
             $table->index(["domaines_id"], 'fk_modules_domaines1_idx');
 
             $table->index(["specialites_id"], 'fk_modules_specialites1_idx');
+
+            $table->index(["statuts_id"], 'fk_modules_statuts1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -44,6 +47,11 @@ class CreateModulesTable extends Migration
 
             $table->foreign('specialites_id', 'fk_modules_specialites1_idx')
                 ->references('id')->on('specialites')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('statuts_id', 'fk_modules_statuts1_idx')
+                ->references('id')->on('statuts')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

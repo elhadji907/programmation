@@ -1,243 +1,240 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des demandeurs')
+@section('title', 'ONFP - Fiche Courier individuelle')
 @section('content')
-        <div class="container-fluid">
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif        
-          <div class="row">
-            <div class="col-xl-3 col-md-3 mb-0">
-              <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href="{!!  route('demandeurs.create')  !!}">
+
+    <style>
+        .invoice-box {
+            max-width: 1500px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            imputation: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+    </style>
+    <?php $i = 1; ?>
+    @foreach ($individuelles as $individuelle)
+        <div class="invoice-box justify-content-center">
+            <div class="card">
+                <div class="card card-header text-center bg-gradient-success">
+                    <h1 class="h4 text-white mb-0">{!! $individuelle->demandeur->types_demande->name !!}</h1>
+                </div>
                 <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Dakar') }}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                       {!! $dakar !!} / {!! $total !!}
-                        </div>
+                    <table method="POST" cellpadding="0" cellspacing="0">
+                        <tr class="top">
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td class="title">
+                                            {{-- <img src="" style="width:100%; max-width:300px;"> --}}
+                                            <img style="width:50%; max-width:100px;"
+                                                src="{{ asset('images/image_onfp.jpg') }}">
+                                        </td>
+                                        <td>
+                                            Numéro #:
+                                            {!! $individuelle->demandeur->numero !!}<br>
+                                            Date dépot: {!! Carbon\Carbon::parse($individuelle->demandeur->date_depot)->format('d/m/Y') !!}<br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="information">
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h3>{{ __('INFORMATIONS PERSONNELLES') }}</h3>
+                                            <b>CIN:</b> {{ $individuelle->cin }}<br>
+                                            <b>Prénom:</b> {{ $individuelle->demandeur->user->firstname }}&nbsp;&nbsp;
+                                            <b>Nom :</b>{{ $individuelle->demandeur->user->name }}<br>
+                                            <b>Date et lieu de naissance:</b>
+                                            {{ $individuelle->demandeur->user->date_naissance->format('d/m/Y') }}&nbsp;à&nbsp;
+                                            {{ $individuelle->demandeur->user->lieu_naissance }}<br>
+                                            <b>E-mail:</b> {{ $individuelle->demandeur->user->email }}&nbsp;&nbsp;
+                                            <b>Tel:</b> {{ $individuelle->demandeur->user->telephone }}&nbsp;&nbsp;
+                                            <b>Fixe:</b> {{ $individuelle->demandeur->user->fixe }}<br>
+                                            <b>Fax:</b> {{ $individuelle->demandeur->user->fax }}&nbsp;&nbsp;
+                                            <b>BP:</b> {{ $individuelle->demandeur->user->bp }}<br>
+                                            <b>Adresse:</b> {{ $individuelle->demandeur->user->adresse }}<br>
+                                        </td>
+
+                                        <td>
+                                            {{-- <h3>{{ __('GESTIONNAIRE') }}</h3>
+                                <b>Nom:</b> {{ $individuelle->demandeur->user->firstname }}&nbsp;&nbsp;{{ $individuelle->demandeur->user->name }}<br>
+                                <b>Tel:</b> {{ $individuelle->demandeur->user->telephone }} --}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="heading">
+                            <td>
+                                {{ __('MODULES') }}
+                            </td>
+
+                            <td>
+                                {{ __('STATUT') }}
+                            </td>
+                        </tr>
+
+                        <tr class="details">
+                            <td>
+                                @foreach ($individuelle->demandeur->modules as $module)
+                                    <p><small>{!! $i++ !!}</small>)
+                                        {!! $module->name ?? 'aucun module demandé' !!}</small></p>
+                                @endforeach
+                            </td>
+                            <td>
+                                {{-- @if ($individuelle->demandeur->file !== '')
+                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($individuelle->demandeur->getFile()) }}">
+                            <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
+                        </a>                                            
+                    @else
+                        Aucun fichier joint
+                    @endif --}}
+                            </td>
+                        </tr>
+                        <tr class="heading">
+                            <td>
+                                MESSAGE
+                            </td>
+                            <td>
+
+                            </td>
+
+                        </tr>
+
+                        <tr class="item">
+
+                            <td colspan="2">
+                                {{-- {{ $individuelle->demandeur->message }} --}}
+                            </td>
+                        </tr>
+                        <tr class="heading">
+                            <td>
+                                IMPUTATION
+                            </td>
+
+                            <td>
+                                RESPONSABLE
+                            </td>
+                        </tr>
+
+                        <tr class="item">
+                            <td>
+                                {{-- @foreach ($individuelle->demandeur->imputations as $imputation)
+                      {!! $imputation->destinataire !!}<br>
+                    @endforeach --}}
+                            </td>
+
+                            <td>
+                                {{-- @foreach ($individuelle->demandeur->imputations as $imputation)
+                    {!! $imputation->sigle !!}<br>
+                    @endforeach --}}
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="d-flex justify-content-between align-items-center mt-5">
+                        @can('update', $individuelle)
+                            <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                                <i class="far fa-edit">&nbsp;Modifier</i>
+                            </a>
+                        @endcan
+                        <a href="{!! route('demandeurs.show', $individuelle->demandeur->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                            <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
+                        </a>
                     </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
-                  
-                  </div>
+
                 </div>
-              </a>
-              </div>
             </div>
-            <div class="col-xl-3 col-md-3 mb-0">
-              <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Ziguinchor') }}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $ziguinchor !!} / {!! $total !!}</div>
-                    </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
-                  </div>
-                </div>
-              </a>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-3 mb-0">
-              <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Saint-Louis') }}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $saintlouis !!} / {!! $total !!}</div>
-                    </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
-                  </div>
-                </div>
-              </a>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-3 mb-0">
-              <div class="card border-left-primary shadow h-75 py-2">
-                <a class="nav-link" href=" ">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ ('Kaolack') }}</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"> {!! $kaolack !!} / {!! $total !!}</div>
-                    </div>
-                   {{--   <div class="col-auto">
-                      <span data-feather="mail"></span>
-                    </div>  --}}
-                  </div>
-                </div>
-              </a>
-              </div>
-            </div>
-            <div class="col-md-12">
-                @if (session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
-                @endif
-              
-              <div class="card"> 
-                  <div class="card-header">
-                      <i class="fas fa-table"></i>
-                      Liste des demandeurs
-                  </div>              
-                <div class="card-body">
-                      <div class="table-responsive">
-                          <div align="right">
-                            <a href="{{route('demandeurs.create')}}"><div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div></a>
-                          </div>
-                          <br />
-                        <table class="table{-sm|-md|-lg|-xl} table-bordered table-striped" width="100%" cellspacing="0" id="table-demandeurs">
-                          <thead class="table-dark">
-                            <tr>
-                              <th>Cin</th>
-                              <th>Civilité</th>
-                              <th>Prenom</th>
-                              <th>Nom</th>
-                              <th>Module</th>
-                              {{--  <th>Provenance</th>  --}}
-                              <th>Téléphone</th>
-                              <th>Statut</th>
-                              <th style="width:13%;">Action</th>
-                            </tr>
-                          </thead>
-                          <tfoot class="table-dark">
-                              <tr>
-                              <th>Cin</th>
-                              <th>Civilité</th>
-                              <th>Prenom</th>
-                              <th>Nom</th>
-                              <th>Module</th>
-                              {{--  <th>Provenance</th>  --}}
-                              <th>Téléphone</th>
-                              <th>Statut</th>
-                              <th>Action</th>
-                              </tr>
-                            </tfoot>
-                          <tbody>
-                           
-                          </tbody>
-                      </table>                        
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <div class="modal fade" id="modal_delete_demandeur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="POST" action="" id="form-delete-demandeur">
-          @csrf
-          @method('DELETE')
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de bien vouloir supprimer cet admin ?</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                cliquez sur close pour annuler
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger"><i class="fas fa-times">&nbsp;Delete</i></button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      @endsection
-
-      @push('scripts')
-      <script type="text/javascript">
-      $(document).ready(function () {
-          $('#table-demandeurs').DataTable( { 
-            "processing": true,
-            "serverSide": true,
-            "ajax": "{{route('demandeurs.list')}}",
-            columns: [
-                    { data: 'cin', name: 'cin' },
-                    { data: 'user.civilite', name: 'user.civilite' },
-                    { data: 'user.firstname', name: 'user.firstname' },
-                    { data: 'user.name', name: 'user.name' },
-                    { data: 'user.demandeur.modules[].name', name: 'user.demandeur.modules[].name' },
-                    //{ data: 'user.demandeur.localite.name', name: 'user.demandeur.localite.name' },
-                    { data: 'user.telephone', name: 'user.telephone' },
-                    { data: 'user.demandeur.status', name: 'user.demandeur.status' },
-                    { data: null ,orderable: false, searchable: false}
-
-                ],
-                "columnDefs": [
-                        {
-                        "data": null,
-                        "render": function (data, type, row) {
-                        url_e =  "{!! route('demandeurs.edit',':id')!!}".replace(':id', data.id);
-                        url_s =  "{!! route('demandeurs.show',':id')!!}".replace(':id', data.id);
-                        url_d =  "{!! route('demandeurs.destroy',':id')!!}".replace(':id', data.id);
-                        return '<a href='+url_e+'  class=" btn btn-primary edit btn-sm" title="Modifier"><i class="far fa-edit"></i></a>'+
-                        '<a href='+url_s+'  class=" btn btn-secondary show btn-sm ml-1" title="voir"><i class="far fa-eye"></i></a>'+
-                        '<div class="btn btn-danger delete btn_delete_demandeur btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
-                        },
-                        "targets": 7
-                        },
-                ],
-
-                dom: 'lBfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print',
-                ],
-
-                "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Tout"] ],
-                language: {
-                  "sProcessing":     "Traitement en cours...",
-                  "sSearch":         "Rechercher&nbsp;:",
-                  "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-                  "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                  "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                  "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                  "sInfoPostFix":    "",
-                  "sLoadingRecords": "Chargement en cours...",
-                  "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                  "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-                  "oPaginate": {
-                      "sFirst":      "Premier",
-                      "sPrevious":   "Pr&eacute;c&eacute;dent",
-                      "sNext":       "Suivant",
-                      "sLast":       "Dernier"
-                  },
-                  "oAria": {
-                      "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-                      "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                  },
-                  "select": {
-                          "rows": {
-                              _: "%d lignes séléctionnées",
-                              0: "Aucune ligne séléctionnée",
-                              1: "1 ligne séléctionnée"
-                          } 
-                  }
-                },
-                order:[[0,'desc'], [0, 'asc']]              
-          });
-
-          
-        $('#table-demandeurs').off('click', '.btn_delete_demandeur').on('click', '.btn_delete_demandeur',
-        function() { 
-          var href=$(this).data('href');
-          $('#form-delete-demandeur').attr('action', href);
-          $('#modal_delete_demandeur').modal();
-        });
-      });
-      
-  </script> 
-  @endpush
+    @endforeach
+@endsection

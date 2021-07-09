@@ -289,26 +289,37 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Demandeur $demandeur)
     {          
         /* $this->authorize('update',  $demandeur); */
 
-        $demandeurs = Demandeur::find($id);
+        $typesdemande = $demandeur->types_demande->name;
+        $individuelles = $demandeur->individuelles;
+        $collectives = $demandeur->collectives;
 
-        $utilisateurs = $demandeurs->user;
+        $utilisateurs = $demandeur->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
-        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $types_demandes = Typesdemande::distinct('name')->get()->pluck('name','name')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
-        return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
-        'civilites', 'objets'));
+        if ($typesdemande == 'Individuelle') {            
+            return view('individuelles.details', compact('individuelles','demandeur'));
+        
+            } elseif($typesdemande == 'Collective') {   
+            return view('collectives.details', compact('collectives','demandeur'));
+        
+            }else {
+                return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
+                'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
+                'civilites', 'objets'));
+            }
+
+ 
     }
 
     /**

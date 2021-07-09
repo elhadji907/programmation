@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 04 Jul 2021 13:16:51 +0000.
+ * Date: Fri, 09 Jul 2021 17:22:12 +0000.
  */
 
 namespace App;
@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $niveauxs_id
  * @property int $specialites_id
  * @property int $courriers_id
+ * @property int $statuts_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -59,6 +60,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Operateur $operateur
  * @property \App\Programme $programme
  * @property \App\Specialite $specialite
+ * @property \App\Statut $statut
  * @property \App\Traitement $traitement
  * @property \Illuminate\Database\Eloquent\Collection $commens
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
@@ -89,7 +91,8 @@ class Formation extends Eloquent
 		'traitements_id' => 'int',
 		'niveauxs_id' => 'int',
 		'specialites_id' => 'int',
-		'courriers_id' => 'int'
+		'courriers_id' => 'int',
+		'statuts_id' => 'int'
 	];
 
 	protected $dates = [
@@ -130,7 +133,8 @@ class Formation extends Eloquent
 		'traitements_id',
 		'niveauxs_id',
 		'specialites_id',
-		'courriers_id'
+		'courriers_id',
+		'statuts_id'
 	];
 
 	public function agent()
@@ -181,6 +185,11 @@ class Formation extends Eloquent
 	public function specialite()
 	{
 		return $this->belongsTo(\App\Specialite::class, 'specialites_id');
+	}
+
+	public function statut()
+	{
+		return $this->belongsTo(\App\Statut::class, 'statuts_id');
 	}
 
 	public function traitement()

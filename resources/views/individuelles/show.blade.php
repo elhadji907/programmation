@@ -45,7 +45,7 @@
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
                             {{-- @endcan --}}
-                            <a href="{!! url('courriers/' . $individuelle->demandeur->id . '/edit') !!}" title="voir les d&eacute;tails du courrier"
+                            <a href="{!! url('demandeurs/' . $individuelle->demandeur->id . '/edit') !!}" title="voir les d&eacute;tails du courrier"
                                 class="btn btn-outline-primary">
                                 <i class="far fa-eye">&nbsp;D&eacute;tails</i>
                             </a>
