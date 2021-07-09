@@ -57,12 +57,7 @@ class HomeController extends Controller
             'backgroundColor'=>["#3e95cd", "#8e5ea2", "#3cba9f", '#ff3838'],
         ]);
         
-        //$localites = \App\Localite::with('demandeurs.localite')->get();
-        //$modules = \App\Module::with('demandeurs.modules','demandeurs.localite')->get();
-        /* dd($localites); */
-        /* return view('localites.detail', compact('localites','modules')); */
-
-        if (Auth::user()->role->name === "Administrateur") {
+        if (Auth::user()->role->name === "Administrateur" OR Auth::user()->role->name === "Gestionnaire") {
             return view('courriers.index', compact('courriers','courrier', 'recues', 'internes', 'departs','chart'));           
         } else {
             

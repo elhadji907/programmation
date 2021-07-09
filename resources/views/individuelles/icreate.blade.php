@@ -308,6 +308,27 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <label for="etablissement">{{ __('Etablissement d\'obtention') }}(<span
+                                        class="text-danger">*</span>)</label>
+                                <textarea class="form-control  @error('etablissement') is-invalid @enderror"
+                                    name="etablissement" id="etablissement" rows="1"
+                                    placeholder="Votre etablissement complète">{{ old('etablissement') }}</textarea>
+                                @error('etablissement')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <label for="autres_diplomes">{{ __('Autres diplomes') }}</label>
+                                <textarea class="form-control  @error('autres_diplomes') is-invalid @enderror"
+                                    name="autres_diplomes" id="autres_diplomes" rows="1"
+                                    placeholder="Si vous possédez d'autres diplômes">{{ old('autres_diplomes') }}</textarea>
+                                @error('autres_diplomes')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('module :') !!}(<span class="text-danger">*</span>)
                                 {!! Form::select('modules[]', $modules, null, ['multiple' => 'multiple', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'module']) !!}
@@ -318,27 +339,6 @@
                                         @endforeach
                                     @endif
                                 </small>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                <label for="autres_diplomes">{{ __('Autres diplomes') }}</label>
-                                <textarea class="form-control  @error('autres_diplomes') is-invalid @enderror"
-                                    name="autres_diplomes" id="autres_diplomes" rows="2"
-                                    placeholder="Si vous possédez d'autres diplômes">{{ old('autres_diplomes') }}</textarea>
-                                @error('autres_diplomes')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                <label for="etablissement">{{ __('Etablissement d\'obtention') }}(<span
-                                        class="text-danger">*</span>)</label>
-                                <textarea class="form-control  @error('etablissement') is-invalid @enderror"
-                                    name="etablissement" id="etablissement" rows="2"
-                                    placeholder="Votre etablissement complète">{{ old('etablissement') }}</textarea>
-                                @error('etablissement')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
@@ -381,6 +381,7 @@
                                 {!! Form::textarea('information', null, ['placeholder' => 'Informations complémenaires', 'rows' => 1, 'class' => 'form-control']) !!}
                             </div>
                         </div>
+                        @roles('Administrateur|Gestionnaire')
                         <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Statut :') !!}(<span class="text-danger">*</span>)
@@ -394,6 +395,7 @@
                                 </small>
                             </div>
                         </div>
+                        @endroles
                         <div class="bg-gradient-secondary text-center">
                             <p class="h4 text-white mb-2">INSCRIVEZ-VOUS A UN PROGRAMME</p>
                         </div>

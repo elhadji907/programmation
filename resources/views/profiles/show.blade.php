@@ -56,100 +56,99 @@
             {!! $courriers->links() !!}
         </div>
         @endroles
-        @roles('Demandeur')        
+        @roles('Demandeur')
         @if (isset($user_connect))
-        <div class="row mt-5">
-            <div class="col-md-12">
-                @if (session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
-                    </div>
-                @endif
-                @if (isset($demandeurs))
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-table"></i>
-                            Mon dossier de demande de formation
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                    @endif
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                {{-- <div align="right">
+                    @endif
+                    @if (isset($demandeurs))
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-table"></i>
+                                Mon dossier de demande de formation
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    {{-- <div align="right">
                                 <a href="{{ route('demandeurs.create') }}">
                                     <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br /> --}}
-                                <table border="1" height="100" class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                    id="table-demandeurs">
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th>Numéro</th>
-                                            <th>Cin</th>
-                                            {{-- <th>Civilité</th> --}}
-                                            <th>Prenom et Nom</th>
-                                            {{-- <th>Date nais.</th>
+                                    <table border="1" height="100" class="table table-bordered table-striped" width="100%"
+                                        cellspacing="0" id="table-demandeurs">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Numéro</th>
+                                                {{-- <th>Civilité</th> --}}
+                                                <th>Prenom et Nom</th>
+                                                {{-- <th>Date nais.</th>
                                     <th>Lieu nais.</th> --}}
-                                            <th>Téléphone</th>
-                                            <th style="width:30%;">Module</th>
-                                            <th>Type demande</th>
-                                            {{-- <th>Localité</th> --}}
-                                            <th>Statut</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                       
-                                    </tfoot>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($demandeurs as $demandeur)
-                                            @can('view', $demandeur)
-                                                <tr valign="bottom">
-                                                    <td>{!! $demandeur->numero !!}</td>
-                                                    <td>{!! $demandeur->cin !!}</td>
-                                                    {{-- <td>{!! $demandeur->user->civilite !!}</td> --}}
-                                                    <td>{!! $demandeur->user->firstname !!} {{ ' ' }}{!! $demandeur->user->name !!}
-                                                    </td>
-                                                    {{-- <td>{!! $demandeur->user->name !!}</td>
-                                        <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                                        <td>{!! $demandeur->user->lieu_naissance !!}</td> --}}
-                                                    <td>{!! $demandeur->user->telephone !!}</td>
-                                                    <td>
-                                                        @foreach ($demandeur->modules as $module)
-                                                            <p>{!! $module->name !!}</p>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>{!! $demandeur->types_demande->name ?? " " !!}</td>
-                                                    {{-- <td>{!! $demandeur->departement->nom !!}</td> --}}
-                                                    <td style="text-align: center;">
-                                                        {!! $demandeur->statut !!}
-                                                    </td>
-                                                    <td>
-                                                       {{--   <a href="{!! url('demandeurs/' . $demandeur->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                <th>Téléphone</th>
+                                                <th style="width:30%;">Module</th>
+                                                <th>Type demande</th>
+                                                {{-- <th>Localité</th> --}}
+                                                <th>Statut</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+
+                                        </tfoot>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($demandeurs as $demandeur)
+                                                @can('view', $demandeur)
+                                                    <tr valign="bottom">
+                                                        <td>{!! $demandeur->numero !!}</td>
+                                                        <td>{!! $demandeur->user->firstname !!} {{ ' ' }}{!! $demandeur->user->name !!}
+                                                        </td>
+                                                        <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
+                                                        <td>{!! $demandeur->user->lieu_naissance !!}</td> --}}
+                                                        <td>{!! $demandeur->user->telephone !!}</td>
+                                                        <td>
+                                                            @foreach ($demandeur->modules as $module)
+                                                                <p>{!! $module->name !!}</p>
+                                                            @endforeach
+                                                        </td>
+                                                        <td>{!! $demandeur->types_demande->name ?? ' ' !!}</td>
+                                                        {{-- <td>{!! $demandeur->departement->nom !!}</td> --}}
+                                                        <td style="text-align: center;">
+                                                            {!! $demandeur->statut !!}
+                                                        </td>
+                                                        <td>
+                                                            {{-- <a href="{!! url('demandeurs/' . $demandeur->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                             title="modifier">
                                                             <i class="far fa-edit">&nbsp;</i>
                                                         </a>
-                                                        &nbsp;  --}}
-                                                        <a href="{!! url('demandeurs/' . $demandeur->id) !!}" class='btn btn-primary btn-sm'
-                                                            title="voir">
-                                                            <i class="far fa-eye">&nbsp;</i>
-                                                        </a>
-                                                        {{--  &nbsp;
+                                                        &nbsp; --}}
+                                                            <a href="{!! url('demandeurs/' . $demandeur->id) !!}" class='btn btn-primary btn-sm'
+                                                                title="voir">
+                                                                <i class="far fa-eye">&nbsp;</i>
+                                                            </a>
+                                                            {{-- &nbsp;
                                                         {!! Form::open(['method' => 'DELETE', 'url' => 'demandeurs/' . $demandeur->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
-                                                        {!! Form::close() !!}  --}}
-                                                    </td>
-                                                </tr>
-                                            @endcan
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                        {!! Form::close() !!} --}}
+                                                        </td>
+                                                    </tr>
+                                                @endcan
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                @else
-                  {{--    <div lass="d-flex justify-content-between align-items-center">
+                        </div>
+                    @else
+                        {{-- <div lass="d-flex justify-content-between align-items-center">
                         <small>
                             <a href="{{ route('demandeurs.create') }}">
                                 <div class="btn btn-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
@@ -167,10 +166,10 @@
                                     compléter votre demande de formation colective</i></div>
                             </a>
                         </small>
-                    </div>  --}}
-                @endif
+                    </div> --}}
+                    @endif
+                </div>
             </div>
-        </div>
         @else
         @endif
         @endroles

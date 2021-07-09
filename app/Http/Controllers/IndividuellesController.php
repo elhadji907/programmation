@@ -300,7 +300,7 @@ class IndividuellesController extends Controller
         
         $user_connect  =  auth::user()->demandeur;
 
-        if (Auth::user()->role->name === "Administrateur") {
+        if (Auth::user()->role->name === "Administrateur" OR Auth::user()->role->name === "Gestionnaire") {
             return redirect()->route('individuelles.index')->with('success','demandeur ajouté avec succès !');
         } else {
             return redirect()->route('profiles.show', compact('user_connect'));
@@ -327,7 +327,10 @@ class IndividuellesController extends Controller
      */
     public function edit(Individuelle $individuelle)
     {
-        $this->authorize('update',  $individuelle);
+        if (auth::user()->role->name == "Administrateur" OR auth::user()->role->name == "Gestionnaire") {
+        }else {            
+            $this->authorize('update',  $individuelle);
+        }
 
         $demandeurs = $individuelle->demandeur;
         $utilisateurs = $demandeurs->user;
@@ -353,9 +356,12 @@ class IndividuellesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Individuelle $individuelle)
-    {         
-        $this->authorize('update',  $individuelle);
-
+    {
+        if (auth::user()->role->name == "Administrateur" OR auth::user()->role->name == "Gestionnaire") {
+        }else {            
+            $this->authorize('update',  $individuelle);
+        }
+        
         $demandeur = $individuelle->demandeur;
         $utilisateur = $demandeur->user;
 
@@ -462,7 +468,9 @@ class IndividuellesController extends Controller
         $demandeur->etablissement               =      $request->input('etablissement');
         $demandeur->telephone                   =      $autre_tel;
         $demandeur->fixe                        =      $fixe;
+        if (auth::user()->role->name == "Administrateur" OR auth::user()->role->name == "Gestionnaire") {
         $demandeur->statut                      =      $request->input('statut');
+        }
         $demandeur->option                      =      $request->input('option');
         $demandeur->adresse                     =      $request->input('adresse');
         $demandeur->motivation                  =      $request->input('motivation');
@@ -490,11 +498,12 @@ class IndividuellesController extends Controller
         $demandeur->modules()->sync($request->input('modules'));
 
         $demandeur->modules()->sync($request->input('modules'));
+        
 
-        if (Auth::user()->role->name === "Administrateur") {
+        if (Auth::user()->role->name === "Administrateur" OR Auth::user()->role->name === "Gestionnaire") {
             return redirect()->route('individuelles.index')->with('success','demande modifiée avec succès !');
         } else {
-            return redirect()->route('profiles.show', ['user'=>auth()->user()]);
+            return redirect()->route('profiles.show', ['user'=>auth()->user()])->with('success','votre demande modifiée avec succès !');
         }
         
 
