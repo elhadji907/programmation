@@ -89,7 +89,7 @@
                                                         <i class="far fa-edit">&nbsp;</i>
                                                     </a>
                                                 &nbsp;
-                                                <a href="{!! url('individuelles/' . $individuelle->id) !!}" class='btn btn-primary btn-sm'
+                                                <a href="{!! url('demandeurs/' . $individuelle->demandeur->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
