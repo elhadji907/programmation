@@ -1,7 +1,7 @@
 @extends('layout.default')
 @section('title', 'ONFP - Fiche demande')
 
-{{--  @section('extra-js')
+    {{-- @section('extra-js')
     <script>
         function toggleReplayComment(id)
         {
@@ -9,47 +9,66 @@
             element.classList.toggle('d-none');
         }
     </script>
-@endsection  --}}
+@endsection --}}
 
 @section('content')
-        <div class="container">
-            <div class="container-fluid">
-                <div class="card">
-                    @foreach ($individuelles as $individuelle)  
+    <div class="container">
+        <div class="container-fluid">
+            <div class="card">
+                <?php $i = 1; ?>
+                @foreach ($individuelles as $individuelle)
                     <div class="card-body">
                         <h1 class="h4 h-100 text-uppercase mb-4"><b><u>Type de demande</u> : {!! $individuelle->demandeur->types_demande->name !!}
                             </b></h1>
-                            {!! ' ' !!} N° du dossier : <span class="font-italic">{{ $individuelle->demandeur->numero ?? 'numéro de dossier introuvable' }}</span>
-                        <p>{{ $individuelle->demandeur->message }}</p>
+                        <h4>
+                            <u>N° du dossier</u> : <span
+                                class="font-italic">{{ $individuelle->demandeur->numero ?? 'numéro de dossier introuvable' }}</span>
+                        </h4>
+                        <h4>
+                            <u>Modules demandés </u>:
+                            @foreach ($individuelle->demandeur->modules as $module)
+                                <small><u>module</u> {!! $i++ !!} </small>:<small class="font-italic">
+                                    {!! $module->name ?? 'aucun module demandé' !!}</small>
+                            @endforeach
+                        </h4>
+                        <h4>
+                            @if (isset($individuelle->demandeur->programme->sigle))                                
+                            <u>Programmes </u>:
+                            {!! ucwords(strtolower($individuelle->demandeur->programme->sigle)) ?? 'aucun module demandé' !!}</small>
+                            @else
+                                
+                            @endif
+                        </h4>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            {{--  @can('update', $individuelle->demandeur)  --}}     
-                            <a href="{!! url('individuelles/' .$individuelle->id. '/edit') !!}" title="modifier" class="btn btn-outline-warning">
+                            {{-- @can('update', $individuelle->demandeur) --}}
+                            <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
-                           {{--   @endcan   --}}
-                            <a href="{!! url('courriers/' .$individuelle->demandeur->id. '/edit') !!}" title="voir les d&eacute;tails du courrier" class="btn btn-outline-primary">
+                            {{-- @endcan --}}
+                            <a href="{!! url('courriers/' . $individuelle->demandeur->id . '/edit') !!}" title="voir les d&eacute;tails du courrier"
+                                class="btn btn-outline-primary">
                                 <i class="far fa-eye">&nbsp;D&eacute;tails</i>
                             </a>
-                            {{--  <a href="{!! url('courriers/' .$individuelle->demandeur->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
+                            {{-- <a href="{!! url('courriers/' .$individuelle->demandeur->id. '/edit') !!}" title="supprimer" class="btn btn-outline-danger">
                                 <i class="far fa-edit">&nbsp;Supprimer</i>
-                            </a>  --}}
-                            @can('delete', $individuelle)     
-                            {!! Form::open(['method'=>'DELETE', 'url'=>'individuelles/' .$individuelle->id, 'id'=>'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
-                            {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title'=>"supprimer"] ) !!}
-                            {!! Form::close() !!}
-                            @endcan 
+                            </a> --}}
+                            @can('delete', $individuelle)
+                                {!! Form::open(['method' => 'DELETE', 'url' => 'individuelles/' . $individuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                {!! Form::button('<i class="fa fa-trash">&nbsp;Supprimer</i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger', 'title' => 'supprimer']) !!}
+                                {!! Form::close() !!}
+                            @endcan
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-5">
                             <small>Déposée depuis le {!! Carbon\Carbon::parse($individuelle->demandeur->created_at)->format('d/m/Y à H:i:s') !!}</small>
                             <span class="badge badge-primary">{!! $individuelle->demandeur->user->firstname !!}&nbsp;{!! $individuelle->demandeur->user->name !!}</span>
                         </div>
-                    </div>                    
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
+            </div>
 
-                <hr>
+            <hr>
 
-               {{--   <div class="card">
+            {{-- <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center">Commentaires</h5>
                             @forelse ($individuelle->demandeur->comments as $comment)
@@ -119,7 +138,7 @@
                                 <button type="submit" class="btn btn-primary"><i class="far fa-paper-plane"></i>&nbsp;Poster</button>
                             </form>
                     </div>
-                </div>  --}}
-            </div>
+                </div> --}}
         </div>
+    </div>
 @endsection

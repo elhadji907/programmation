@@ -517,8 +517,11 @@ class IndividuellesController extends Controller
      */
     public function destroy(Individuelle $individuelle)
     {
-        
-        $this->authorize('delete',  $individuelle->demandeur);
+        if (auth::user()->role->name === "Administrateur") {
+
+        }else {
+            $this->authorize('delete',  $individuelle);
+        }
 
         $utilisateurs   =   $individuelle->demandeur->user;
 
