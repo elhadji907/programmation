@@ -115,9 +115,9 @@
                                                 src="{{ asset('images/image_onfp.jpg') }}">
                                         </td>
                                         <td>
-                                            Numéro #:
+                                            <b>Numéro dossier </b>#:
                                             {!! $individuelle->demandeur->numero !!}<br>
-                                            Date dépot: {!! Carbon\Carbon::parse($individuelle->demandeur->date_depot)->format('d/m/Y') !!}<br>
+                                            <b>Date dépot </b>: {!! Carbon\Carbon::parse($individuelle->demandeur->date_depot)->format('d/m/Y') !!}<br>
                                         </td>
                                     </tr>
                                 </table>
@@ -136,7 +136,7 @@
                                             <b>Date et lieu de naissance:</b>
                                             {{ $individuelle->demandeur->user->date_naissance->format('d/m/Y') }}&nbsp;à&nbsp;
                                             {{ $individuelle->demandeur->user->lieu_naissance }}<br>
-                                            <b>E-mail:</b> {{ $individuelle->demandeur->user->email }}&nbsp;&nbsp;
+                                            <b>E-mail:</b> <span style="color: blue">{{ $individuelle->demandeur->user->email }}</span>&nbsp;&nbsp;
                                             <b>Tel:</b> {{ $individuelle->demandeur->user->telephone }}&nbsp;&nbsp;
                                             <b>Fixe:</b> {{ $individuelle->demandeur->user->fixe }}<br>
                                             <b>Fax:</b> {{ $individuelle->demandeur->user->fax }}&nbsp;&nbsp;

@@ -25,7 +25,7 @@ class CreateStatutsTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
-            $table->bigInteger('niveau')->nullable();
+            $table->string('niveau')->nullable();
             $table->string('details', 200)->nullable();
             $table->dateTime('date1')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('date2')->nullable();

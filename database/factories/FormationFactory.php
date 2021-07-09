@@ -60,5 +60,8 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
         },
+        'statuts_id' => function () {
+            return factory(App\Statut::class)->create()->id;
+        },
     ];
 });

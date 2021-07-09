@@ -15,5 +15,9 @@ $factory->define(App\Module::class, function (Faker $faker) {
         'specialites_id' => function () {
             return factory(App\Specialite::class)->create()->id;
         },
+        'qualification' => $faker->word,
+        'statuts_id' => function () {
+            return factory(App\Statut::class)->create()->id;
+        },
     ];
 });
