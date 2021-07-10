@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FadsTableSeeder::class);
         $this->call(ImputationsTableSeeder::class);
         $this->call(FonctionsTableSeeder::class);
-        $this->call(SecteursTableSeeder::class);
-        $this->call(DomainesTableSeeder::class);
+        //$this->call(SecteursTableSeeder::class);
+        //$this->call(DomainesTableSeeder::class);
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartementsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);

@@ -26,6 +26,7 @@ class CreateModulesTable extends Migration
             $table->char('uuid', 36);
             $table->string('name', 200)->nullable();
             $table->string('sigle', 45)->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedInteger('domaines_id')->nullable();
             $table->unsignedInteger('specialites_id')->nullable();
             $table->string('qualification', 200)->nullable();

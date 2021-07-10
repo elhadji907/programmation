@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
+use App\Helpers\SnNameGenerator as SnmG;
 
 class ModulesTableSeeder extends Seeder
 {
@@ -11,18 +14,32 @@ class ModulesTableSeeder extends Seeder
      */
     public function run()
     {
-         $module1 =  App\Module::firstOrCreate(["name"=>"Accueil"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
-         $module2 =  App\Module::firstOrCreate(["name"=>"Assistanat de direction"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
-         $module3 =  App\Module::firstOrCreate(["name"=>"Gestion administrative"],["domaines_id"=>"1"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module4 =  App\Module::firstOrCreate(["name"=>"Secrétariat"],["domaines_id"=>"1"],["qualifications_id"=>"1"],["uuid"=>Str::uuid()]);
-
-         $module5 =  App\Module::firstOrCreate(["name"=>"Laveur"],["domaines_id"=>"34"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module6 =  App\Module::firstOrCreate(["name"=>"Graisseur"],["domaines_id"=>"34"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module7 =  App\Module::firstOrCreate(["name"=>"Pompiste"],["domaines_id"=>"33"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module8 =  App\Module::firstOrCreate(["name"=>"Rayonniste"],["domaines_id"=>"9"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module9 =  App\Module::firstOrCreate(["name"=>"Caissier"],["domaines_id"=>"9"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module10 =  App\Module::firstOrCreate(["name"=>"Chef de boutique"],["domaines_id"=>"9"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-         $module11 =  App\Module::firstOrCreate(["name"=>"Manager de station"],["domaines_id"=>"9"],["qualifications_id"=>"2"],["uuid"=>Str::uuid()]);
-
+        //
+        $faker=\Faker\Factory::create();
+        $secteurs_json=Storage::get("secteurs.min.json");
+        $secteurs=json_decode($secteurs_json);
+    
+        foreach((array)$secteurs->secteur as $secteur){
+            //echo "=============secteur=========".$secteur->name."==========".PHP_EOL;
+            $secteur_=App\Secteur::firstOrCreate(["name"=>$secteur->name]);
+            foreach((array)$secteur->domaine as $domaine){
+                $domaine_=App\Domaine::firstOrNew(["name"=>$domaine->name]);
+                $secteur_->domaines()->save($domaine_);
+               // echo "---domaine----".$domaine->name." id: ".$domaine->attributes->id.PHP_EOL;
+                foreach((array)$domaine->module as $module){
+                    if(App\Module::count()<150){
+                    $module_=App\Module::firstOrNew(["name"=>$module->name]);
+                    $domaine_->modules()->save($module_);
+                    echo "-----module----".$module->name." id: ".$module->attributes->id.PHP_EOL;
+                    
+                }
+                //arréter l'execution du script après 5 tours
+                else{
+                    break 3;
+                }
+                
+            }
+        }
+        }
     }
 }
