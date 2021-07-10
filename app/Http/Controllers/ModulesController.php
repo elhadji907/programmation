@@ -18,9 +18,9 @@ class ModulesController extends Controller
      */
     public function index()
     {
-        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        $modules = Module::get();
 
-       /*  dd($modules); */
+        /* dd($modules); */
 
         return view('modules.index', compact('modules'));
     }
