@@ -38,6 +38,7 @@ class Domaine extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'name',
+		'description',
 		'secteurs_id'
 	];
 

@@ -50,6 +50,7 @@ class Module extends Eloquent
 		'uuid',
 		'name',
 		'sigle',
+		'description',
 		'domaines_id',
 		'specialites_id',
 		'qualification',

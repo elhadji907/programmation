@@ -25,6 +25,7 @@ class CreateSecteursTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('name', 200);
+            $table->longText('description')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

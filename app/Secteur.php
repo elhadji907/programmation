@@ -31,7 +31,8 @@ class Secteur extends Eloquent
 
 	protected $fillable = [
 		'uuid',
-		'name'
+		'name',
+		'description'
 	];
 
 	public function domaines()

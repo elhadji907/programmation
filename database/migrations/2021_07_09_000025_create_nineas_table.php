@@ -25,6 +25,7 @@ class CreateNineasTable extends Migration
             $table->increments('id');
             $table->char('uuid', 36);
             $table->string('numero', 200);
+            $table->MEDIUMTEXT('name')->nullable();
             $table->dateTime('date')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();

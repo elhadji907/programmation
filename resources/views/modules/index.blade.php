@@ -27,21 +27,17 @@
               <table class="table table-bordered table-striped" id="table-modules" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>N°</th>
                      <th>{!! __("module") !!}</th>
                      <th>{!! __("Domaine") !!}</th>
                      <th>{!! __("Secteur") !!}</th>
-                     <th>{!! __("Effectif") !!}</th>
                     <th  style="width:10%;">Action</th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                     <tr>
-                      <th>N°</th>
                        <th>{!! __("module") !!}</th>
                        <th>{!! __("Domaine") !!}</th>
                        <th>{!! __("Secteur") !!}</th>
-                       <th>{!! __("Effectif") !!}</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -49,11 +45,9 @@
                   <?php $i = 1 ?>
                   @foreach ($modules as $module)
                   <tr> 
-                    <td>{!! $i++ !!}</td>
                     <td>{!! $module->name !!}</td>
                     <td>{!! $module->domaine->name !!}</td>
                     <td>{!! $module->domaine->secteur->name !!}</td>
-                    <td></td>
                     <td class="d-flex align-items-baseline align-content-center">
                         <a href="{!! url('modules/' .$module->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
@@ -92,7 +86,7 @@
                     [10, 25, 50, 100, "Tout"]
                 ],
                 "order": [
-                    [1, 'asc']
+                    [0, 'asc']
                 ],
                 language: {
                     "sProcessing": "Traitement en cours...",

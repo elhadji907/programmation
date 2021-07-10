@@ -160,7 +160,7 @@
                             </td>
 
                             <td>
-                                {{ __('STATUT') }}
+                                {{ __('FORMATIONS') }}
                             </td>
                         </tr>
 

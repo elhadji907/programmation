@@ -60,9 +60,7 @@ class ModulesController extends Controller
             'domaines_id'    =>      $domaine_id
 
         ]);
-
-
-        
+       
         $domaine->save();
         return redirect()->route('modules.index')->with('success','enregistrement effectué avec succès !');
     }

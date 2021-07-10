@@ -51,6 +51,7 @@ Route::group([
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
+        Route::get('/nineas/list', 'NineasController@list')->name('nineas.list');
 
         //fonction pour pdcej
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
@@ -87,6 +88,7 @@ Route::group([
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
         Route::resource('/administrateurs', 'AdministrateursController');
+        Route::resource('/nineas', 'NineasController');
         Route::resource('/users', 'UsersController');
         Route::resource('/employees', 'EmployeesController');
         Route::resource('/gestionnaires', 'GestionnairesController');
