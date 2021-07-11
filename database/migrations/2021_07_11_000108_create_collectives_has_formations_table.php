@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDemandeursHasFormationsTable extends Migration
+class CreateCollectivesHasFormationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'demandeurs_has_formations';
+    public $tableName = 'collectives_has_formations';
 
     /**
      * Run the migrations.
-     * @table demandeurs_has_formations
+     * @table collectives_has_formations
      *
      * @return void
      */
@@ -23,22 +23,22 @@ class CreateDemandeursHasFormationsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('demandeurs_id');
+            $table->unsignedInteger('collectives_id');
             $table->unsignedInteger('formations_id');
 
-            $table->index(["formations_id"], 'fk_demandeurs_has_formations_formations1_idx');
+            $table->index(["formations_id"], 'fk_collectives_has_formations_formations1_idx');
 
-            $table->index(["demandeurs_id"], 'fk_demandeurs_has_formations_demandeurs1_idx');
+            $table->index(["collectives_id"], 'fk_collectives_has_formations_collectives1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('demandeurs_id', 'fk_demandeurs_has_formations_demandeurs1_idx')
-                ->references('id')->on('demandeurs')
+            $table->foreign('collectives_id', 'fk_collectives_has_formations_collectives1_idx')
+                ->references('id')->on('collectives')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('formations_id', 'fk_demandeurs_has_formations_formations1_idx')
+            $table->foreign('formations_id', 'fk_collectives_has_formations_formations1_idx')
                 ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');

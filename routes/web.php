@@ -29,6 +29,7 @@ Route::group([
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
+        Route::get('/formations/list', 'FormationsController@list')->name('formations.list');
         Route::get('/users/list', 'UsersController@list')->name('users.list');
         Route::get('/employees/list', 'EmployeesController@list')->name('employees.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
@@ -88,6 +89,7 @@ Route::group([
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
         Route::resource('/administrateurs', 'AdministrateursController');
+        Route::resource('/formations', 'FormationsController');
         Route::resource('/nineas', 'NineasController');
         Route::resource('/users', 'UsersController');
         Route::resource('/employees', 'EmployeesController');

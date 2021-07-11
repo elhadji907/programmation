@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 21 Jun 2021 19:21:54 +0000.
+ * Date: Sun, 11 Jul 2021 11:31:55 +0000.
  */
 
 namespace App;
@@ -27,12 +27,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Demandeur $demandeur
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $membres
  *
  * @package App
  */
 class Collective extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -59,6 +61,13 @@ class Collective extends Eloquent
 	public function demandeur()
 	{
 		return $this->belongsTo(\App\Demandeur::class, 'demandeurs_id');
+	}
+
+	public function formations()
+	{
+		return $this->belongsToMany(\App\Formation::class, 'collectives_has_formations', 'collectives_id', 'formations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function membres()

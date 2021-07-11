@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNineasTable extends Migration
+class CreateTypesFormationsTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'nineas';
+    public $tableName = 'types_formations';
 
     /**
      * Run the migrations.
-     * @table nineas
+     * @table types_formations
      *
      * @return void
      */
@@ -24,9 +24,8 @@ class CreateNineasTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->string('numero', 200);
-            $table->MEDIUMTEXT('name')->nullable();
-            $table->dateTime('date')->nullable();
+            $table->string('name', 200);
+            $table->string('categorie', 200)->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

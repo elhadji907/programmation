@@ -4,10 +4,10 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Secteur::class, function (Faker $faker) {
+$factory->define(App\TypesFormation::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
-        'description' => $faker->text,
+        'categorie' => $faker->word,
     ];
 });

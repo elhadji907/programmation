@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:29:23 +0000.
+ * Date: Sun, 11 Jul 2021 11:32:07 +0000.
  */
 
 namespace App;
@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $projet
  * @property string $prerequis
  * @property string $information
+ * @property float $note
  * @property string $items1
  * @property \Carbon\Carbon $date1
  * @property int $demandeurs_id
@@ -30,16 +31,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Demandeur $demandeur
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  *
  * @package App
  */
 class Individuelle extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'nbre_pieces' => 'int',
+		'note' => 'float',
 		'demandeurs_id' => 'int'
 	];
 
@@ -66,5 +70,12 @@ class Individuelle extends Eloquent
 	public function demandeur()
 	{
 		return $this->belongsTo(\App\Demandeur::class, 'demandeurs_id');
+	}
+
+	public function formations()
+	{
+		return $this->belongsToMany(\App\Formation::class, 'individuelles_has_formations', 'individuelles_id', 'formations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 }

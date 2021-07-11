@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 09 Jul 2021 17:22:12 +0000.
+ * Date: Sun, 11 Jul 2021 14:05:58 +0000.
  */
 
 namespace App;
@@ -24,7 +24,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $adresse
  * @property int $prevue_h
  * @property int $prevue_f
- * @property string $type
  * @property string $titre
  * @property string $attestation
  * @property int $forme_h
@@ -35,7 +34,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $decret
  * @property string $beneficiaires
  * @property int $ingenieurs_id
- * @property int $factures_id
  * @property int $agents_id
  * @property int $detfs_id
  * @property int $conventions_id
@@ -46,12 +44,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $specialites_id
  * @property int $courriers_id
  * @property int $statuts_id
+ * @property int $types_formations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Agent $agent
- * @property \App\Facture $facture
  * @property \App\Convention $convention
  * @property \App\Courrier $courrier
  * @property \App\Detf $detf
@@ -62,11 +60,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Specialite $specialite
  * @property \App\Statut $statut
  * @property \App\Traitement $traitement
+ * @property \App\TypesFormation $types_formation
+ * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $commens
- * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $details
  * @property \Illuminate\Database\Eloquent\Collection $employees
+ * @property \Illuminate\Database\Eloquent\Collection $factures
+ * @property \Illuminate\Database\Eloquent\Collection $formations_collectives
  * @property \Illuminate\Database\Eloquent\Collection $evaluations
+ * @property \Illuminate\Database\Eloquent\Collection $formations_individuelles
+ * @property \Illuminate\Database\Eloquent\Collection $individuelles
  *
  * @package App
  */
@@ -82,7 +85,6 @@ class Formation extends Eloquent
 		'forme_f' => 'int',
 		'total' => 'int',
 		'ingenieurs_id' => 'int',
-		'factures_id' => 'int',
 		'agents_id' => 'int',
 		'detfs_id' => 'int',
 		'conventions_id' => 'int',
@@ -92,7 +94,8 @@ class Formation extends Eloquent
 		'niveauxs_id' => 'int',
 		'specialites_id' => 'int',
 		'courriers_id' => 'int',
-		'statuts_id' => 'int'
+		'statuts_id' => 'int',
+		'types_formations_id' => 'int'
 	];
 
 	protected $dates = [
@@ -113,7 +116,6 @@ class Formation extends Eloquent
 		'adresse',
 		'prevue_h',
 		'prevue_f',
-		'type',
 		'titre',
 		'attestation',
 		'forme_h',
@@ -124,7 +126,6 @@ class Formation extends Eloquent
 		'decret',
 		'beneficiaires',
 		'ingenieurs_id',
-		'factures_id',
 		'agents_id',
 		'detfs_id',
 		'conventions_id',
@@ -134,17 +135,13 @@ class Formation extends Eloquent
 		'niveauxs_id',
 		'specialites_id',
 		'courriers_id',
-		'statuts_id'
+		'statuts_id',
+		'types_formations_id'
 	];
 
 	public function agent()
 	{
 		return $this->belongsTo(\App\Agent::class, 'agents_id');
-	}
-
-	public function facture()
-	{
-		return $this->belongsTo(\App\Facture::class, 'factures_id');
 	}
 
 	public function convention()
@@ -197,6 +194,11 @@ class Formation extends Eloquent
 		return $this->belongsTo(\App\Traitement::class, 'traitements_id');
 	}
 
+	public function types_formation()
+	{
+		return $this->belongsTo(\App\TypesFormation::class, 'types_formations_id');
+	}
+
 	public function beneficiaires()
 	{
 		return $this->belongsToMany(\App\Beneficiaire::class, 'beneficiaires_has_formations', 'formations_id', 'beneficiaires_id')
@@ -204,16 +206,16 @@ class Formation extends Eloquent
 					->withTimestamps();
 	}
 
+	public function collectives()
+	{
+		return $this->belongsToMany(\App\Collective::class, 'collectives_has_formations', 'formations_id', 'collectives_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
 	public function commens()
 	{
 		return $this->hasMany(\App\Commen::class, 'formations_id');
-	}
-
-	public function demandeurs()
-	{
-		return $this->belongsToMany(\App\Demandeur::class, 'demandeurs_has_formations', 'formations_id', 'demandeurs_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
 	}
 
 	public function details()
@@ -228,9 +230,31 @@ class Formation extends Eloquent
 					->withTimestamps();
 	}
 
+	public function factures()
+	{
+		return $this->hasMany(\App\Facture::class, 'formations_id');
+	}
+
+	public function formations_collectives()
+	{
+		return $this->hasMany(\App\FormationsCollective::class, 'formations_id');
+	}
+
 	public function evaluations()
 	{
 		return $this->belongsToMany(\App\Evaluation::class, 'formations_has_evaluations', 'formations_id', 'evaluations_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function formations_individuelles()
+	{
+		return $this->hasMany(\App\FormationsIndividuelle::class, 'formations_id');
+	}
+
+	public function individuelles()
+	{
+		return $this->belongsToMany(\App\Individuelle::class, 'individuelles_has_formations', 'formations_id', 'individuelles_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

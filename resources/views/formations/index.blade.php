@@ -1,73 +1,77 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des modules')
+@section('title', 'ONFP - Liste des formations')
 @section('content')
     <div class="container-fluid">
+        @if (session()->has('success'))
+            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @elseif (session('message'))
+                @if (session('message'))
                     <div class="alert alert-success">
                         {{ session('message') }}
                     </div>
                 @endif
+
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Liste des modules
+                        Liste des formations
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div align="right">
-                                <a href="{!! url('modules/create') !!}">
-                                    <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</div>
+                                <a href="{{ route('formations.create') }}">
+                                    <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br />
-                            <table class="table table-bordered table-striped" id="table-modules" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-striped" width="100%" cellspacing="0"
+                                id="table-formations">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th></th>
-                                        <th>{!! __('module') !!}</th>
-                                        <th>{!! __('Domaine') !!}</th>
-                                        <th>{!! __('Secteur') !!}</th>
-                                        <th style="width:10%;">Action</th>
+                                        <th>Code</th>
+                                        <th>Bénéficiares</th>
+                                        <th>Module</th>
+                                        <th>Type demande</th>
+                                        <th>Statut</th>
+                                        <th>Lieu</th>
+                                        <th style="width:08%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th></th>
-                                        <th>{!! __('module') !!}</th>
-                                        <th>{!! __('Domaine') !!}</th>
-                                        <th>{!! __('Secteur') !!}</th>
+                                        <th>Numéro</th>
+                                        <th>Bénéficiares</th>
+                                        <th>Module</th>
+                                        <th>Type demande</th>
+                                        <th>Statut</th>
+                                        <th>Lieu</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($modules as $module)
+                                    @foreach ($formations as $formation)
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" name="selected_values[]" value="{{ $module->id }}">
-                                            </td>
-                                            <td>{!! $module->name !!}</td>
-                                            <td>{!! $module->domaine->name !!}</td>
-                                            <td>{!! $module->domaine->secteur->name !!}</td>
-                                            <td class="d-flex align-items-baseline align-content-center">
-                                                <a href="{!! url('modules/' . $module->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                            <td>{!! $formation->code !!}</td>
+                                            <td>{!! $formation->beneficiaires !!}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{!! $formation->adresse !!}</td>
+                                            <td class="d-flex align-items-baseline text-center-row">
+                                                <a href="{!! url('formations/' . $formation->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                <a href="{!! url('modules/' . $module->id) !!}" class='btn btn-primary btn-sm'
+                                                <a href="{!! url('demandeurs/' . $formation->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'modules/' . $module->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                {!! Form::open(['method' => 'DELETE', 'url' => 'formations/' . $formation->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
                                                 {!! Form::close() !!}
                                             </td>
@@ -86,7 +90,7 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-modules').DataTable({
+            $('#table-formations').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print',

@@ -34,7 +34,6 @@ class CreateFormationsTable extends Migration
             $table->string('adresse', 200)->nullable();
             $table->integer('prevue_h')->nullable();
             $table->integer('prevue_f')->nullable();
-            $table->string('type', 200)->nullable();
             $table->string('titre', 200)->nullable();
             $table->string('attestation', 200)->nullable();
             $table->integer('forme_h')->nullable();
@@ -45,7 +44,6 @@ class CreateFormationsTable extends Migration
             $table->string('decret', 200)->nullable();
             $table->string('beneficiaires', 200)->nullable();
             $table->unsignedInteger('ingenieurs_id')->nullable();
-            $table->unsignedInteger('factures_id')->nullable();
             $table->unsignedInteger('agents_id')->nullable();
             $table->unsignedInteger('detfs_id')->nullable();
             $table->unsignedInteger('conventions_id')->nullable();
@@ -56,8 +54,7 @@ class CreateFormationsTable extends Migration
             $table->unsignedInteger('specialites_id')->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
             $table->unsignedInteger('statuts_id')->nullable();
-
-            $table->index(["factures_id"], 'fk_consommations_factures1_idx');
+            $table->unsignedInteger('types_formations_id')->nullable();
 
             $table->index(["agents_id"], 'fk_consommations_agents1_idx');
 
@@ -80,14 +77,11 @@ class CreateFormationsTable extends Migration
             $table->index(["courriers_id"], 'fk_formations_courriers1_idx');
 
             $table->index(["statuts_id"], 'fk_formations_statuts1_idx');
+
+            $table->index(["types_formations_id"], 'fk_formations_types_formations1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
-            $table->foreign('factures_id', 'fk_consommations_factures1_idx')
-                ->references('id')->on('factures')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('agents_id', 'fk_consommations_agents1_idx')
                 ->references('id')->on('agents')
@@ -141,6 +135,11 @@ class CreateFormationsTable extends Migration
 
             $table->foreign('statuts_id', 'fk_formations_statuts1_idx')
                 ->references('id')->on('statuts')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('types_formations_id', 'fk_formations_types_formations1_idx')
+                ->references('id')->on('types_formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

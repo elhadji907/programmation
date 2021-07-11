@@ -217,7 +217,7 @@
     </li>
     <li class="nav-item">
         @roles('Administrateur|Gestionnaire')
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('formations.index') }}">
             <span data-feather="layers"></span>
             <span>Gestion formations</span>
         </a>

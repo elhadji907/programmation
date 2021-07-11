@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 07 Jul 2021 14:04:30 +0000.
+ * Date: Sun, 11 Jul 2021 11:32:23 +0000.
  */
 
 namespace App;
@@ -70,7 +70,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $commentaires
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
- * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $individuelles
  * @property \Illuminate\Database\Eloquent\Collection $pieces
@@ -80,6 +79,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Demandeur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -204,13 +204,6 @@ class Demandeur extends Eloquent
 	public function disponibilites()
 	{
 		return $this->belongsToMany(\App\Disponibilite::class, 'demandeurs_has_disponibilites', 'demandeurs_id', 'disponibilites_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
-	}
-
-	public function formations()
-	{
-		return $this->belongsToMany(\App\Formation::class, 'demandeurs_has_formations', 'demandeurs_id', 'formations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

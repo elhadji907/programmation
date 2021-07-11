@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 11:32:33 +0000.
+ * Date: Sun, 11 Jul 2021 13:51:03 +0000.
  */
 
 namespace App;
@@ -10,34 +10,33 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Secteur
+ * Class TypesFormation
  * 
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property string $description
+ * @property string $categorie
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $domaines
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  *
  * @package App
  */
-class Secteur extends Eloquent
+class TypesFormation extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $fillable = [
 		'uuid',
 		'name',
-		'description'
+		'categorie'
 	];
 
-	public function domaines()
+	public function formations()
 	{
-		return $this->hasMany(\App\Domaine::class, 'secteurs_id');
+		return $this->hasMany(\App\Formation::class, 'types_formations_id');
 	}
 }

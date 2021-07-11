@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+/* use Faker\Generator as Faker;
 
 $factory->define(App\Formation::class, function (Faker $faker) {
     return [
@@ -17,7 +17,6 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'adresse' => $faker->word,
         'prevue_h' => $faker->randomNumber(),
         'prevue_f' => $faker->randomNumber(),
-        'type' => $faker->word,
         'titre' => $faker->word,
         'attestation' => $faker->word,
         'forme_h' => $faker->randomNumber(),
@@ -29,9 +28,6 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'beneficiaires' => $faker->word,
         'ingenieurs_id' => function () {
             return factory(App\Ingenieur::class)->create()->id;
-        },
-        'factures_id' => function () {
-            return factory(App\Facture::class)->create()->id;
         },
         'agents_id' => function () {
             return factory(App\Agent::class)->create()->id;
@@ -63,5 +59,109 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'statuts_id' => function () {
             return factory(App\Statut::class)->create()->id;
         },
+        'types_formations_id' => function () {
+            return factory(App\TypesFormation::class)->create()->id;
+        },
     ];
+}); */
+
+
+use App\Helpers\SnNameGenerator as SnmG;
+use Illuminate\Support\Str;
+
+$autoIncremente_code = autoIncremente_code();
+
+$factory->define(App\Formation::class, function (Faker\Generator $faker) use ($autoIncremente_code) {
+    $autoIncremente_code->next();
+    $annee = date('y');
+    $role_id=App\Role::where('name','Demandeur')->first()->id;
+    $projet_id=App\Projet::all()->random()->id;
+
+    return [
+        'code' => 'FP'."".$annee.$autoIncremente_code->current(),
+        'name' => $faker->company,
+        'qualifications' => $faker->word,
+        'effectif_total' => $faker->word,
+        'date_pv' => $faker->dateTime(),
+        'date_debut' => $faker->dateTime(),
+        'date_fin' => $faker->dateTime(),
+        'adresse' => $faker->address,
+        'prevue_h' => $faker->randomNumber(),
+        'prevue_f' => $faker->randomNumber(),
+        'titre' => $faker->word,
+        'attestation' => $faker->word,
+        'forme_h' => $faker->randomNumber(),
+        'forme_f' => $faker->randomNumber(),
+        'total' => $faker->randomNumber(),
+        'lieu' => $faker->word,
+        'convention_col' => $faker->word,
+        'decret' => $faker->word,
+        'beneficiaires' => $faker->company,
+        /* 'ingenieurs_id' => function () {
+            return factory(App\Ingenieur::class)->create()->id;
+        },
+        'agents_id' => function () {
+            return factory(App\Agent::class)->create()->id;
+        },
+        'detfs_id' => function () {
+            return factory(App\Detf::class)->create()->id;
+        },
+        'conventions_id' => function () {
+            return factory(App\Convention::class)->create()->id;
+        },
+        'programmes_id' => function () {
+            return factory(App\Programme::class)->create()->id;
+        },
+        'operateurs_id' => function () {
+            return factory(App\Operateur::class)->create()->id;
+        },
+        'traitements_id' => function () {
+            return factory(App\Traitement::class)->create()->id;
+        },
+        'niveauxs_id' => function () {
+            return factory(App\Niveaux::class)->create()->id;
+        },
+        'specialites_id' => function () {
+            return factory(App\Specialite::class)->create()->id;
+        },
+        'courriers_id' => function () {
+            return factory(App\Courrier::class)->create()->id;
+        },
+        'statuts_id' => function () {
+            return factory(App\Statut::class)->create()->id;
+        },
+        'types_formations_id' => function () {
+            return factory(App\TypesFormation::class)->create()->id;
+        }, */
+    ];
+
 });
+
+    function autoIncremente_code()
+{
+    for ($i = 0; $i < 10000000; $i++) {
+        $longueur = strlen($i);
+        if ($longueur <= "1") {
+            $i="0000".$i;
+            yield $i;
+        } elseif ($longueur >= 2 && $longueur < 3) {
+            $i="000".$i;
+            yield $i;
+        }elseif ($longueur >= 3 && $longueur < 4) {
+            $i="00".$i;
+            yield $i;
+        }elseif ($longueur >= 4 && $longueur < 5) {
+            $i="00".$i;
+            yield $i;
+        }elseif ($longueur >= 5 && $longueur < 6) {
+            $i="00".$i;
+            yield $i;
+        }elseif ($longueur >= 6 && $longueur < 7) {
+            $i="0".$i;
+            yield $i;
+        }
+        else {
+            yield $i;
+        }
+    }
+}
