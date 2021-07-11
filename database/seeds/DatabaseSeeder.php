@@ -51,7 +51,8 @@ class DatabaseSeeder extends Seeder
         $this->call(StatutsTableSeeder::class);
         $this->call(TypesdemandesTableSeeder::class);
         $this->call(TypesFormationsTableSeeder::class);
-        $this->call(IndividuellesTableSeeder::class);
+        $this->call(TypesFormationsTableSeeder::class);
+        $this->call(IngenieursTableSeeder::class);
         //$this->call(NineasTableSeeder::class);
         $this->call(CollectivesTableSeeder::class);
         //$this->call(FormationsTableSeeder::class);

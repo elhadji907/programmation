@@ -17,8 +17,13 @@ class FormationsController extends Controller
         $formations = Formation::all();
 
         /* dd($formations); */
+        
+        $formationindividuelles = \App\FormationsIndividuelle::get()->count();
+        $formationcollectives = \App\FormationsCollective::get()->count();
 
-        return view('formations.index', compact('formations'));
+        $all_formations = Formation::get()->count();
+
+        return view('formations.index', compact('formations','formationindividuelles','formationcollectives','all_formations'));
     }
 
     /**
@@ -51,13 +56,13 @@ class FormationsController extends Controller
     public function show(Formation $formation)
     {
         $type_formation = $formation->types_formation->name;
-        $formations_individuelles = $formation->formations_individuelles;
-        $formations_collectives = $formation->formations_collectives;
+        $findividuelles = $formation->formations_individuelles;
+        $fcollectives = $formation->formations_collectives;
 
         if ($type_formation == "Individuelle") {
-            return view('formationindividuelles.details', compact('formation','formations_individuelles'));
+            return view('formationindividuelles.details', compact('formation','findividuelles'));
         } elseif ($type_formation == "Collective") {
-            return view('formationcollectives.details', compact('formation','formations_collectives'));
+            return view('formationcollectives.details', compact('formation','fcollectives'));
         } else {
             return view('formations.show', compact('formation'));
         }

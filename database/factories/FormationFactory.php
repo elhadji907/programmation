@@ -79,6 +79,7 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
 
     $types_formations_id=App\TypesFormation::all()->random()->id;
     $departements_id=App\Departement::all()->random()->id;
+    $ingenieurs_id=App\Ingenieur::all()->random()->id;
 
     return [
         'code' => 'FP'."".$annee.$autoIncremente_code->current(),
@@ -100,10 +101,10 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
         'convention_col' => $faker->word,
         'decret' => $faker->word,
         'beneficiaires' => $faker->company,
-        /* 'ingenieurs_id' => function () {
-            return factory(App\Ingenieur::class)->create()->id;
+        'ingenieurs_id' => function () use($ingenieurs_id) {
+            return $ingenieurs_id;
         },
-        'agents_id' => function () {
+        /*'agents_id' => function () {
             return factory(App\Agent::class)->create()->id;
         },
         'detfs_id' => function () {

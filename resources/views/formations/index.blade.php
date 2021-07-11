@@ -6,6 +6,83 @@
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
         <div class="row justify-content-center">
+            
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <a class="nav-link" href="{{ route('formations.index') }}" target="_blank" >
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{ ('Formations (Toutes)') }}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $all_formations }}</div>
+                  </div>
+                  <div class="col-auto">
+                    <span data-feather="mail"></span>
+                  </div>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div> 
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <a class="nav-link" href="{{ route('formations.index') }}" target="_blank">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {{ 'Formations (ANNUELS)' }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $all_formations }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <span data-feather="mail"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <a class="nav-link" href="{{ route('formationindividuelles.index') }}" target="_blank">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        {{ 'Formations (Individuelles)' }}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $formationindividuelles }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <span data-feather="mail"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                 <a class="nav-link" href="{{ route('formationcollectives.index') }}" target="_blank">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{ ('Formations (Collectives)') }}</div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{  $formationcollectives }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <span data-feather="mail"></span>
+                      </div>
+                    </div>
+                </div>
+               </a>
+            </div>
+        </div>
             <div class="col-md-12">
                 @if (session('message'))
                     <div class="alert alert-success">
@@ -30,40 +107,35 @@
                                 id="table-formations">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>N°</th>
                                         <th>Code</th>
                                         <th>Bénéficiares</th>
-                                        <th>Formation</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
                                         <th style="width:15%;">Période</th>
-                                        <th style="width:08%;">Action</th>
+                                        <th>Formation</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th>N°</th>
                                         <th>Code</th>
                                         <th>Bénéficiares</th>
-                                        <th>Formation</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
                                         <th>Période</th>
-                                        <th>Action</th>
+                                        <th>Formation</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php $i = 1; ?>
                                     @foreach ($formations as $formation)
                                         <tr>
-                                            <td>{!! $i++ !!}</td>
                                             <td>{!! $formation->code !!}</td>
                                             <td>{!! $formation->beneficiaires !!}</td>
-                                            <td>{!! $formation->types_formation->name !!}</td>
                                             <td>{!! $formation->departement->nom ?? ' ' !!}</td>
                                             <td>{!! $formation->adresse ?? ' ' !!}</td>
                                             <td>{!! $formation->date_debut->format('d/m/Y') !!}&nbsp;au&nbsp;{!! $formation->date_fin->format('d/m/Y') !!}</td>
-                                            <td class="d-flex align-items-baseline text-center-row">
+                                            <td>{!! $formation->types_formation->name !!}</td>
+                                            {{-- <td class="d-flex align-items-baseline text-center-row">
                                                 <a href="{!! url('formations/' . $formation->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit">&nbsp;</i>
@@ -77,7 +149,7 @@
                                                 {!! Form::open(['method' => 'DELETE', 'url' => 'formations/' . $formation->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
                                                 {!! Form::close() !!}
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -103,7 +175,7 @@
                     [10, 25, 50, 100, "Tout"]
                 ],
                 "order": [
-                    [0, 'asc']
+                    [1, 'asc']
                 ],
                 language: {
                     "sProcessing": "Traitement en cours...",

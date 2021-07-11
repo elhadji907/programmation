@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche formations_individuelle')
+@section('title', 'ONFP - Fiche formation individuelle')
 @section('content')
 
     <style>
@@ -97,11 +97,11 @@
 
     </style>
     <?php $i = 1; ?>
-    @foreach ($formations_individuelles as $formations_individuelle)
+    @foreach ($findividuelles as $findividuelle)
         <div class="invoice-box justify-content-center">
             <div class="card">
                 <div class="card card-header text-center bg-gradient-success">
-                    <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $formations_individuelle->formation->types_formation->name !!}</h1>
+                    <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $findividuelle->formation->types_formation->name !!}</h1>
                 </div>
                 <div class="card-body">
                     <table method="POST" cellpadding="0" cellspacing="0">
@@ -116,9 +116,9 @@
                                         </td>
                                         <td>
                                             <b>Numéro dossier </b>#:
-                                            {!! $formations_individuelle->code !!}<br>
-                                            <b>Date début </b>: {!! Carbon\Carbon::parse($formations_individuelle->formation->date_debut)->format('d/m/Y') !!}<br>
-                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($formations_individuelle->formation->date_fin)->format('d/m/Y') !!}<br>
+                                            {!! $findividuelle->code !!}<br>
+                                            <b>Date début </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
+                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
                                         </td>
                                     </tr>
                                 </table>
@@ -135,6 +135,7 @@
 
                                         <td>
                                             <h3>{{ __('INGÉNIEURS') }}</h3>
+                                            {{ $findividuelle->formation->ingenieur->name }}
                                         </td>
                                     </tr>
                                 </table>
@@ -196,12 +197,10 @@
                         </tr>
                     </table>
                     <div class="d-flex justify-content-between align-items-center mt-5">
-                        @can('update', $formations_individuelle)
-                            <a href="{!! url('formations_individuelles/' . $formations_individuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                            <a href="{!! url('formationindividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
-                        @endcan
-                        <a href="{!! route('formations.show', $formations_individuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                        <a href="{!! route('formations.show', $findividuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                             <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
                         </a>
                     </div>
