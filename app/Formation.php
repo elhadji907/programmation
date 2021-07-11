@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 14:05:58 +0000.
+ * Date: Sun, 11 Jul 2021 14:58:46 +0000.
  */
 
 namespace App;
@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $courriers_id
  * @property int $statuts_id
  * @property int $types_formations_id
+ * @property int $departements_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -52,6 +53,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Agent $agent
  * @property \App\Convention $convention
  * @property \App\Courrier $courrier
+ * @property \App\Departement $departement
  * @property \App\Detf $detf
  * @property \App\Ingenieur $ingenieur
  * @property \App\Niveaux $niveaux
@@ -95,7 +97,8 @@ class Formation extends Eloquent
 		'specialites_id' => 'int',
 		'courriers_id' => 'int',
 		'statuts_id' => 'int',
-		'types_formations_id' => 'int'
+		'types_formations_id' => 'int',
+		'departements_id' => 'int'
 	];
 
 	protected $dates = [
@@ -136,7 +139,8 @@ class Formation extends Eloquent
 		'specialites_id',
 		'courriers_id',
 		'statuts_id',
-		'types_formations_id'
+		'types_formations_id',
+		'departements_id'
 	];
 
 	public function agent()
@@ -152,6 +156,11 @@ class Formation extends Eloquent
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function departement()
+	{
+		return $this->belongsTo(\App\Departement::class, 'departements_id');
 	}
 
 	public function detf()

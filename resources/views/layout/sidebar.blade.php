@@ -54,11 +54,11 @@
     <li class="nav-item">
         @roles('Administrateur|Gestionnaire')
         <a class="nav-link collapsed" href="{{ route('demandeurs.index') }}" data-toggle="collapse"
-            data-target="#collapsePages_formation" aria-expanded="true" aria-controls="collapsePages_formation">
+            data-target="#collapsePages_demande" aria-expanded="true" aria-controls="collapsePages_demande">
             <span data-feather="layers"></span>
-            <span>Gestion des formations</span>
+            <span>Gestion des demandes</span>
         </a>
-        <div id="collapsePages_formation" class="collapse" aria-labelledby="headingPages"
+        <div id="collapsePages_demande" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('demandeurs.index') }}">
@@ -68,6 +68,30 @@
                     <span>individuelles</span>
                 </a>
                 <a class="collapse-item" href="{{ route('collectives.index') }}">
+                    <span>collectives</span>
+                </a>
+            </div>
+        </div>
+        @endroles
+    </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+        @roles('Administrateur|Gestionnaire')
+        <a class="nav-link collapsed" href="{{ route('formations.index') }}" data-toggle="collapse"
+            data-target="#collapsePages_formation" aria-expanded="true" aria-controls="collapsePages_formation">
+            <span data-feather="layers"></span>
+            <span>Gestion des formations</span>
+        </a>
+        <div id="collapsePages_formation" class="collapse" aria-labelledby="headingPages"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('formations.index') }}">
+                    <span>Toutes</span>
+                </a>
+                <a class="collapse-item" href="{{ route('formationindividuelles.index') }}">
+                    <span>individuelles</span>
+                </a>
+                <a class="collapse-item" href="{{ route('formationcollectives.index') }}">
                     <span>collectives</span>
                 </a>
             </div>
@@ -212,14 +236,6 @@
         <a class="nav-link" href="{{ route('demandeurs.index') }}">
             <span data-feather="layers"></span>
             <span>Lister demandes</span>
-        </a>
-        @endroles
-    </li>
-    <li class="nav-item">
-        @roles('Administrateur|Gestionnaire')
-        <a class="nav-link" href="{{ route('formations.index') }}">
-            <span data-feather="layers"></span>
-            <span>Gestion formations</span>
         </a>
         @endroles
     </li>

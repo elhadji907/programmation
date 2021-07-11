@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\FormationsCollective;
+use Illuminate\Http\Request;
+
+class FormationcollectivesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $formationcollectives = FormationsCollective::all();
+
+       /*  dd($formationcollectives); */
+
+        return view('formationcollectives.index', compact('formationcollectives'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\FormationsCollective  $formationsCollective
+     * @return \Illuminate\Http\Response
+     */
+    public function show(FormationsCollective $formationsCollective)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\FormationsCollective  $formationsCollective
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(FormationsCollective $formationsCollective)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\FormationsCollective  $formationsCollective
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, FormationsCollective $formationsCollective)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\FormationsCollective  $formationsCollective
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(FormationsCollective $formationsCollective)
+    {
+        //
+    }
+}

@@ -62,9 +62,11 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'types_formations_id' => function () {
             return factory(App\TypesFormation::class)->create()->id;
         },
+        'departements_id' => function () {
+            return factory(App\Departement::class)->create()->id;
+        },
     ];
 }); */
-
 
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
@@ -74,8 +76,9 @@ $autoIncremente_code = autoIncremente_code();
 $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($autoIncremente_code) {
     $autoIncremente_code->next();
     $annee = date('y');
-    $role_id=App\Role::where('name','Demandeur')->first()->id;
-    $projet_id=App\Projet::all()->random()->id;
+
+    $types_formations_id=App\TypesFormation::all()->random()->id;
+    $departements_id=App\Departement::all()->random()->id;
 
     return [
         'code' => 'FP'."".$annee.$autoIncremente_code->current(),
@@ -83,8 +86,8 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
         'qualifications' => $faker->word,
         'effectif_total' => $faker->word,
         'date_pv' => $faker->dateTime(),
-        'date_debut' => $faker->dateTime(),
-        'date_fin' => $faker->dateTime(),
+        'date_debut' => $faker->dateTimeBetween('-3 week', '+1 week'),
+        'date_fin' => $faker->dateTimeBetween('-1 week', '+5 week'),
         'adresse' => $faker->address,
         'prevue_h' => $faker->randomNumber(),
         'prevue_f' => $faker->randomNumber(),
@@ -129,10 +132,13 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
         },
         'statuts_id' => function () {
             return factory(App\Statut::class)->create()->id;
+        },*/
+        'types_formations_id' => function ()  use($types_formations_id) {
+            return $types_formations_id;
+        }, 
+        'departements_id' => function () use($departements_id) {
+            return $departements_id;
         },
-        'types_formations_id' => function () {
-            return factory(App\TypesFormation::class)->create()->id;
-        }, */
     ];
 
 });
