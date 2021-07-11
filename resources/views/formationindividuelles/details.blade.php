@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche Courier individuelle')
+@section('title', 'ONFP - Fiche formations_individuelle')
 @section('content')
 
     <style>
@@ -97,11 +97,11 @@
 
     </style>
     <?php $i = 1; ?>
-    @foreach ($individuelles as $individuelle)
+    @foreach ($formations_individuelles as $formations_individuelle)
         <div class="invoice-box justify-content-center">
             <div class="card">
                 <div class="card card-header text-center bg-gradient-success">
-                    <h1 class="h4 text-white mb-0">{!! $individuelle->demandeur->types_demande->name !!}</h1>
+                    <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $formations_individuelle->formation->types_formation->name !!}</h1>
                 </div>
                 <div class="card-body">
                     <table method="POST" cellpadding="0" cellspacing="0">
@@ -116,38 +116,25 @@
                                         </td>
                                         <td>
                                             <b>Numéro dossier </b>#:
-                                            {!! $individuelle->demandeur->numero !!}<br>
-                                            <b>Date dépot </b>: {!! Carbon\Carbon::parse($individuelle->demandeur->date_depot)->format('d/m/Y') !!}<br>
+                                            {!! $formations_individuelle->code !!}<br>
+                                            <b>Date début </b>: {!! Carbon\Carbon::parse($formations_individuelle->formation->date_debut)->format('d/m/Y') !!}<br>
+                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($formations_individuelle->formation->date_fin)->format('d/m/Y') !!}<br>
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
-
                         <tr class="information">
                             <td colspan="2">
                                 <table>
                                     <tr>
                                         <td>
-                                            <h3>{{ __('INFORMATIONS PERSONNELLES') }}</h3>
-                                            <b>CIN:</b> {{ $individuelle->cin }}<br>
-                                            <b>Prénom:</b> {{ $individuelle->demandeur->user->firstname }}&nbsp;&nbsp;
-                                            <b>Nom :</b>{{ $individuelle->demandeur->user->name }}<br>
-                                            <b>Date et lieu de naissance:</b>
-                                            {{ $individuelle->demandeur->user->date_naissance->format('d/m/Y') }}&nbsp;à&nbsp;
-                                            {{ $individuelle->demandeur->user->lieu_naissance }}<br>
-                                            <b>E-mail:</b> <span style="color: blue">{{ $individuelle->demandeur->user->email }}</span>&nbsp;&nbsp;
-                                            <b>Tel:</b> {{ $individuelle->demandeur->user->telephone }}&nbsp;&nbsp;
-                                            <b>Fixe:</b> {{ $individuelle->demandeur->user->fixe }}<br>
-                                            <b>Fax:</b> {{ $individuelle->demandeur->user->fax }}&nbsp;&nbsp;
-                                            <b>BP:</b> {{ $individuelle->demandeur->user->bp }}<br>
-                                            <b>Adresse:</b> {{ $individuelle->demandeur->user->adresse }}<br>
+                                            <h3>{{ __('INFORMATIONS') }}</h3>
+
                                         </td>
 
                                         <td>
-                                            {{-- <h3>{{ __('GESTIONNAIRE') }}</h3>
-                                <b>Nom:</b> {{ $individuelle->demandeur->user->firstname }}&nbsp;&nbsp;{{ $individuelle->demandeur->user->name }}<br>
-                                <b>Tel:</b> {{ $individuelle->demandeur->user->telephone }} --}}
+                                            <h3>{{ __('INGÉNIEURS') }}</h3>
                                         </td>
                                     </tr>
                                 </table>
@@ -166,19 +153,10 @@
 
                         <tr class="details">
                             <td>
-                                @foreach ($individuelle->demandeur->modules as $module)
-                                    <p><small>{!! $i++ !!}</small>)
-                                        {!! $module->name ?? 'aucun module demandé' !!}</small></p>
-                                @endforeach
+
                             </td>
                             <td>
-                                {{-- @if ($individuelle->demandeur->file !== '')
-                        <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint" target="_blank" href="{{ asset($individuelle->demandeur->getFile()) }}">
-                            <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
-                        </a>                                            
-                    @else
-                        Aucun fichier joint
-                    @endif --}}
+
                             </td>
                         </tr>
                         <tr class="heading">
@@ -194,7 +172,7 @@
                         <tr class="item">
 
                             <td colspan="2">
-                                {{-- {{ $individuelle->demandeur->message }} --}}
+
                             </td>
                         </tr>
                         <tr class="heading">
@@ -209,26 +187,21 @@
 
                         <tr class="item">
                             <td>
-                                {{-- @foreach ($individuelle->demandeur->imputations as $imputation)
-                      {!! $imputation->destinataire !!}<br>
-                    @endforeach --}}
+
                             </td>
 
                             <td>
-                                {{-- @foreach ($individuelle->demandeur->imputations as $imputation)
-                    {!! $imputation->sigle !!}<br>
-                    @endforeach --}}
+
                             </td>
                         </tr>
                     </table>
-
                     <div class="d-flex justify-content-between align-items-center mt-5">
-                        @can('update', $individuelle)
-                            <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                        @can('update', $formations_individuelle)
+                            <a href="{!! url('formations_individuelles/' . $formations_individuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
                         @endcan
-                        <a href="{!! route('demandeurs.show', $individuelle->demandeur->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                        <a href="{!! route('formations.show', $formations_individuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                             <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
                         </a>
                     </div>

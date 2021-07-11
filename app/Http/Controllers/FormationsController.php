@@ -50,7 +50,17 @@ class FormationsController extends Controller
      */
     public function show(Formation $formation)
     {
-        //
+        $type_formation = $formation->types_formation->name;
+        $formations_individuelles = $formation->formations_individuelles;
+        $formations_collectives = $formation->formations_collectives;
+
+        if ($type_formation == "Individuelle") {
+            return view('formationindividuelles.details', compact('formation','formations_individuelles'));
+        } elseif ($type_formation == "Collective") {
+            return view('formationcollectives.details', compact('formation','formations_collectives'));
+        } else {
+            return view('formations.show', compact('formation'));
+        }
     }
 
     /**
