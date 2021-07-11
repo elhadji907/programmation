@@ -14,7 +14,9 @@ class IngenieursController extends Controller
      */
     public function index()
     {
-        //
+        $ingenieurs = Ingenieur::all();
+
+        return view('ingenieurs.index', compact('ingenieurs'));
     }
 
     /**

@@ -225,6 +225,14 @@
     </li>
     <li class="nav-item">
         @roles('Administrateur|Gestionnaire')
+        <a class="nav-link" href="{{ route('ingenieurs.index') }}">
+            <span data-feather="users"></span>
+            <span>Ingénieurs</span>
+        </a>
+        @endroles
+    </li>
+    <li class="nav-item">
+        @roles('Administrateur|Gestionnaire')
         <a class="nav-link" href="{{ route('demandeurs.create') }}">
             <span data-feather="layers"></span>
             <span>Gestion demandes</span>

@@ -55,6 +55,7 @@ Route::group([
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
         Route::get('/nineas/list', 'NineasController@list')->name('nineas.list');
+        Route::get('/ingenieurs/list', 'IngenieursController@list')->name('ingenieurs.list');
 
         //fonction pour pdcej
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
@@ -131,6 +132,7 @@ Route::group([
         Route::resource('/operateurs', 'OperateursController');
         Route::resource('/programmes', 'ProgrammesController');
         Route::resource('/localites', 'LocalitesController');
+        Route::resource('/ingenieurs', 'IngenieursController');
 
     }         
 );
