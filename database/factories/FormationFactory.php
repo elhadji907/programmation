@@ -80,22 +80,32 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
     $departements_id=App\Departement::all()->random()->id;
     $ingenieurs_id=App\Ingenieur::all()->random()->id;
 
+    $prevue_h = $faker->numberBetween(5,9);
+    $prevue_f = $faker->numberBetween(5,1);
+
+    $effectif_total = $prevue_h + $prevue_f;
+
+    $forme_h = $faker->numberBetween(5,9);
+    $forme_f = $faker->numberBetween(5,9);
+
+    $total = $forme_h + $forme_f;
+
     return [
         'code' => 'FP'."".$annee.$autoIncremente_code->current(),
         'name' => $faker->company,
         'qualifications' => $faker->word,
-        'effectif_total' => $faker->word,
+        'effectif_total' => $effectif_total,
         'date_pv' => $faker->dateTime(),
         'date_debut' => $faker->dateTimeBetween('-3 week', '+1 week'),
         'date_fin' => $faker->dateTimeBetween('-1 week', '+5 week'),
         'adresse' => $faker->address,
-        'prevue_h' => $faker->randomNumber(),
-        'prevue_f' => $faker->randomNumber(),
+        'prevue_h' => $prevue_h,
+        'prevue_f' => $prevue_f,
         'titre' => $faker->word,
         'attestation' => $faker->word,
-        'forme_h' => $faker->randomNumber(),
-        'forme_f' => $faker->randomNumber(),
-        'total' => $faker->randomNumber(),
+        'forme_h' => $forme_h,
+        'forme_f' => $forme_f,
+        'total' => $total,
         'lieu' => $faker->word,
         'convention_col' => $faker->word,
         'decret' => $faker->word,

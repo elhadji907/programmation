@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Ingenieur;
+use App\Formation;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class IngenieursController extends Controller
 {
@@ -83,5 +85,11 @@ class IngenieursController extends Controller
     public function destroy(Ingenieur $ingenieur)
     {
         //
+    }
+
+    public function list(Request $request)
+    {
+        $ingenieurs=Ingenieur::withCount('formations')->get();
+        return Datatables::of($ingenieurs)->make(true);
     }
 }

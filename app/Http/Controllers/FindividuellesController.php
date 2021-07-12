@@ -27,9 +27,13 @@ class FindividuellesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
+       $ingenieur_id=$request->input('ingenieur');
+       $ingenieur=\App\Ingenieur::find($ingenieur_id);
+
+        return view('findividuelles.create', compact('ingenieur'));
     }
 
     /**

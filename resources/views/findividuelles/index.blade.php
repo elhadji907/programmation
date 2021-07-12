@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div align="right">
-                                <a href="{{ route('findividuelles.create') }}">
+                                <a href="{{ route('findividuelles.selectingenieurs') }}">
                                     <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>

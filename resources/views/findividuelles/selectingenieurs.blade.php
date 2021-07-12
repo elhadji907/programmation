@@ -1,12 +1,12 @@
 @extends('layout.default')
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Selection du directeur ou du chef de service
+                        {{ __("Sélection de l'ingénieur") }}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -14,28 +14,22 @@
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-employees" style="height: 100px;">
+                                id="table-ingenieurs" style="height: 100px;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Matricule</th>
-                                        <th>Prenom</th>
-                                        <th>Nom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Fonction</th>
+                                        <th>{!! __('Matricule') !!}</th>
+                                        <th>{!! __('Ingenieur') !!}</th>
+                                        <th style="width:20%;">{!! __('Nbre de formations') !!}</th>
                                         <th style="width:2%;">Choisir</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Matricule</th>
-                                        <th>Prenom</th>
-                                        <th>Nom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                        <th>Fonction</th>
+                                        <th>{!! __('Matricule') !!}</th>
+                                        <th>{!! __('Ingenieur') !!}</th>
+                                        <th>{!! __('Nbre de formations') !!}</th>
                                         <th>Choisir</th>
                                     </tr>
                                 </tfoot>
@@ -53,37 +47,25 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-employees').DataTable({
+            $('#table-ingenieurs').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('employees.list') }}",
+                "ajax": "{{ route('ingenieurs.list') }}",
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
                     {
-                        data: 'user.employee.matricule',
-                        name: 'user.employee.matricule'
+                        data: 'matricule',
+                        name: 'matricule'
                     },
                     {
-                        data: 'user.firstname',
-                        name: 'user.firstname'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'user.name',
-                        name: 'user.name'
-                    },
-                    {
-                        data: 'user.email',
-                        name: 'user.email'
-                    },
-                    {
-                        data: 'user.telephone',
-                        name: 'user.telephone'
-                    },
-                    {
-                        data: 'user.employee.fonction.sigle',
-                        name: 'user.employee.fonction.sigle'
+                        data: 'formations_count',
+                        name: 'formations_count'
                     },
                     {
                         data: null,
@@ -95,11 +77,11 @@
                 "columnDefs": [{
                         "data": null,
                         "render": function(data, type, row) {
-                            url_e = "{!! route('directions.create', 'employee=:id') !!}".replace(':id', data.id);
+                            url_e = "{!! route('findividuelles.create', 'ingenieur=:id') !!}".replace(':id', data.id);
                             return '<a href=' + url_e +
                                 '  class="btn btn-outline-primary" ><i class="fa fa-check" aria-hidden="true"></i>';
                         },
-                        "targets": 7
+                        "targets": 4
                     },
 
                 ],
@@ -146,6 +128,5 @@
             });
 
         });
-
     </script>
 @endpush
