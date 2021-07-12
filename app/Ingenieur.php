@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $uuid
+ * @property string $matricule
  * @property string $name
- * @property string $sigle
  * @property string $telephone
  * @property string $email
  * @property string $specialite
@@ -42,8 +42,8 @@ class Ingenieur extends Eloquent
 
 	protected $fillable = [
 		'uuid',
+		'matricule',
 		'name',
-		'sigle',
 		'telephone',
 		'email',
 		'specialite',

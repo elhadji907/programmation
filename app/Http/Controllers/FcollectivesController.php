@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\FormationsIndividuelle;
+use App\Fcollective;
 use Illuminate\Http\Request;
 
-class FormationindividuellesController extends Controller
+class FcollectivesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,11 @@ class FormationindividuellesController extends Controller
      */
     public function index()
     {
-        $formationindividuelles = FormationsIndividuelle::all();
+        $fcollectives = Fcollective::all();
 
-       /*  dd($formationindividuelles); */
+       /*  dd($fcollectives); */
 
-        return view('formationindividuelles.index', compact('formationindividuelles'));
+        return view('fcollectives.index', compact('fcollectives'));
     }
 
     /**
@@ -45,10 +45,10 @@ class FormationindividuellesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\FormationsIndividuelle  $formationsIndividuelle
+     * @param  \App\Fcollective  $fcollective
      * @return \Illuminate\Http\Response
      */
-    public function show(FormationsIndividuelle $formationsIndividuelle)
+    public function show(Fcollective $fcollective)
     {
         //
     }
@@ -56,10 +56,10 @@ class FormationindividuellesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\FormationsIndividuelle  $formationsIndividuelle
+     * @param  \App\Fcollective  $fcollective
      * @return \Illuminate\Http\Response
      */
-    public function edit(FormationsIndividuelle $formationsIndividuelle)
+    public function edit(Fcollective $fcollective)
     {
         //
     }
@@ -68,10 +68,10 @@ class FormationindividuellesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FormationsIndividuelle  $formationsIndividuelle
+     * @param  \App\Fcollective  $fcollective
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FormationsIndividuelle $formationsIndividuelle)
+    public function update(Request $request, Fcollective $fcollective)
     {
         //
     }
@@ -79,10 +79,10 @@ class FormationindividuellesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\FormationsIndividuelle  $formationsIndividuelle
+     * @param  \App\Fcollective  $fcollective
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormationsIndividuelle $formationsIndividuelle)
+    public function destroy(Fcollective $fcollective)
     {
         //
     }

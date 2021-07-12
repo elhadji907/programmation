@@ -18,12 +18,12 @@ class FormationsController extends Controller
 
         /* dd($formations); */
         
-        $formationindividuelles = \App\FormationsIndividuelle::get()->count();
-        $formationcollectives = \App\FormationsCollective::get()->count();
+        $findividuelles = \App\Findividuelle::get()->count();
+        $fcollectives = \App\Fcollective::get()->count();
 
         $all_formations = Formation::get()->count();
 
-        return view('formations.index', compact('formations','formationindividuelles','formationcollectives','all_formations'));
+        return view('formations.index', compact('formations','findividuelles','fcollectives','all_formations'));
     }
 
     /**
@@ -56,13 +56,13 @@ class FormationsController extends Controller
     public function show(Formation $formation)
     {
         $type_formation = $formation->types_formation->name;
-        $findividuelles = $formation->formations_individuelles;
-        $fcollectives = $formation->formations_collectives;
+        $findividuelles = $formation->findividuelles;
+        $fcollectives = $formation->fcollectives;
 
         if ($type_formation == "Individuelle") {
-            return view('formationindividuelles.details', compact('formation','findividuelles'));
+            return view('findividuelles.details', compact('formation','findividuelles'));
         } elseif ($type_formation == "Collective") {
-            return view('formationcollectives.details', compact('formation','fcollectives'));
+            return view('fcollectives.details', compact('formation','fcollectives'));
         } else {
             return view('formations.show', compact('formation'));
         }
@@ -99,6 +99,22 @@ class FormationsController extends Controller
      */
     public function destroy(Formation $formation)
     {
-        //
+        $type_formation = $formation->types_formation->name;
+        $findividuelles = $formation->formations_individuelles;
+        $fcollectives = $formation->formations_collectives;
+
+        if ($type_formation == "Individuelle") {
+            $findividuelles->delete();
+        } elseif ($type_formation == "Collective") {
+            $fcollectives->delete();
+        } else {
+            $formation->delete();
+        }
+
+        $formation->delete();
+
+        $message = $type_formation.' a été supprimé(e)';
+        return back()->with(compact('message'));
+
     }
 }

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 14:58:46 +0000.
+ * Date: Mon, 12 Jul 2021 14:27:51 +0000.
  */
 
 namespace App;
@@ -68,9 +68,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $details
  * @property \Illuminate\Database\Eloquent\Collection $employees
  * @property \Illuminate\Database\Eloquent\Collection $factures
- * @property \Illuminate\Database\Eloquent\Collection $formations_collectives
+ * @property \Illuminate\Database\Eloquent\Collection $fcollectives
+ * @property \Illuminate\Database\Eloquent\Collection $findividuelles
  * @property \Illuminate\Database\Eloquent\Collection $evaluations
- * @property \Illuminate\Database\Eloquent\Collection $formations_individuelles
  * @property \Illuminate\Database\Eloquent\Collection $individuelles
  *
  * @package App
@@ -244,9 +244,14 @@ class Formation extends Eloquent
 		return $this->hasMany(\App\Facture::class, 'formations_id');
 	}
 
-	public function formations_collectives()
+	public function fcollectives()
 	{
-		return $this->hasMany(\App\FormationsCollective::class, 'formations_id');
+		return $this->hasMany(\App\Fcollective::class, 'formations_id');
+	}
+
+	public function findividuelles()
+	{
+		return $this->hasMany(\App\Findividuelle::class, 'formations_id');
 	}
 
 	public function evaluations()
@@ -254,11 +259,6 @@ class Formation extends Eloquent
 		return $this->belongsToMany(\App\Evaluation::class, 'formations_has_evaluations', 'formations_id', 'evaluations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
-	}
-
-	public function formations_individuelles()
-	{
-		return $this->hasMany(\App\FormationsIndividuelle::class, 'formations_id');
 	}
 
 	public function individuelles()

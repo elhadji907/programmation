@@ -51,13 +51,13 @@ class DatabaseSeeder extends Seeder
         $this->call(StatutsTableSeeder::class);
         $this->call(TypesdemandesTableSeeder::class);
         $this->call(TypesFormationsTableSeeder::class);
-        $this->call(TypesFormationsTableSeeder::class);
         $this->call(IngenieursTableSeeder::class);
         //$this->call(NineasTableSeeder::class);
+        $this->call(IndividuellesTableSeeder::class);
         $this->call(CollectivesTableSeeder::class);
+        $this->call(FcollectivesTableSeeder::class);
+        $this->call(FindividuellesTableSeeder::class);
         //$this->call(FormationsTableSeeder::class);
-        $this->call(FormationsIndividuellesTableSeeder::class);
-        $this->call(FormationsCollectivesTableSeeder::class);
         //$this->call(DemandeursmodulesTableSeeder::class);
         //$this->call(BeneficiairesTableSeeder::class);
         //$this->call(QualificationsTableSeeder::class);

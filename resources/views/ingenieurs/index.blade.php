@@ -5,8 +5,8 @@
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif 
-          <div class="row">
-            <div class="col-md-12">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -14,7 +14,7 @@
                 @endif
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>&nbsp;ingenieurs</h6>
+                    <h6 class="m-0 font-weiht-bold text-info"><i class="fas fa-table"></i>&nbsp;Ingenieurs</h6>
                 </div>               
                 <div class="card-body">
                       <div class="table-responsive">
@@ -26,16 +26,18 @@
                           <thead class="table-dark">
                             <tr>
                               <th>N°</th>
+                              <th>{!! __("Matricule") !!}</th>
                               <th>{!! __("Ingenieur") !!}</th>
-                              <th>{!! __("Sigle") !!}</th>
+                              <th  style="width:20%;">{!! __("Nbre de formations") !!}</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>N°</th>
+                                <th>{!! __("Matricule") !!}</th>
                                 <th>{!! __("Ingenieur") !!}</th>
-                                <th>{!! __("Sigle") !!}</th>
+                                <th>{!! __("Nbre de formations") !!}</th>
                                 <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
@@ -44,8 +46,15 @@
                             @foreach ($ingenieurs as $ingenieur)
                             <tr>
                                <td class="align-middle">{!! $i++ !!}</td> 
+                               <td class="align-middle">{!! $ingenieur->matricule !!}</td> 
                               <td class="align-middle">{!! $ingenieur->name !!}</td>   
-                              <td class="align-middle">{!! $ingenieur->sigle !!}</td>         
+                              <td class="align-middle">
+                                @foreach ($ingenieur->formations as $formation)
+                                @if($loop->last)
+                                {!! $loop->count !!}
+                                @endif
+                                @endforeach
+                              </td>   
                               <td class="d-flex align-items-center justify-content-center">
                                   <a href="{!! url('ingenieurs/' .$ingenieur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                                     <i class="far fa-edit"></i>

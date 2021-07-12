@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Liste des formations individuelles')
+@section('title', 'ONFP - Liste des formations collectives')
 @section('content')
     <div class="container-fluid">
         @if (session()->has('success'))
@@ -16,27 +16,27 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-table"></i>
-                        Liste des formations individuelles
+                        Liste des formations collectives
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div align="right">
-                                <a href="{{ route('formationindividuelles.create') }}">
+                                <a href="{{ route('fcollectives.create') }}">
                                     <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i></div>
                                 </a>
                             </div>
                             <br />
                             <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-formationindividuelles">
+                                id="table-formationcollectives">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>N°</th>
                                         <th>Code</th>
                                         <th>Bénéficiares</th>
-                                        <th>Formation</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
                                         <th style="width:15%;">Période</th>
+                                        <th>Ingénieur</th>
                                         <th style="width:08%;">Action</th>
                                     </tr>
                                 </thead>
@@ -45,36 +45,37 @@
                                         <th>N°</th>
                                         <th>Code</th>
                                         <th>Bénéficiares</th>
-                                        <th>Formation</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
                                         <th>Période</th>
+                                        <th>Ingénieur</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php $i = 1; ?>
-                                    @foreach ($formationindividuelles as $formationindividuelle)
+                                    @foreach ($fcollectives as $fcollective)
                                         <tr>
                                             <td>{!! $i++ !!}</td>
-                                            <td>{!! $formationindividuelle->code !!}</td>
-                                            <td>{!! $formationindividuelle->formation->beneficiaires !!}</td>
-                                            <td>{!! $formationindividuelle->formation->types_formation->name !!}</td>
-                                            <td>{!! $formationindividuelle->formation->departement->nom ?? ' ' !!}</td>
-                                            <td>{!! $formationindividuelle->formation->adresse ?? ' ' !!}</td>
-                                            <td>{!! $formationindividuelle->formation->date_debut->format('d/m/Y') !!}&nbsp;au&nbsp;{!! $formationindividuelle->formation->date_fin->format('d/m/Y') !!}</td>
+                                            <td>{!! $fcollective->code !!}</td>
+                                            <td>{!! $fcollective->formation->beneficiaires !!}</td>
+                                            <td>{!! $fcollective->formation->departement->nom ?? ' ' !!}</td>
+                                            <td>{!! $fcollective->formation->adresse ?? ' ' !!}</td>
+                                            <td>{!! $fcollective->formation->date_debut->format('d/m/Y') !!}&nbsp;au&nbsp;
+                                                {!! $fcollective->formation->date_fin->format('d/m/Y') !!}</td>                                         
+                                            <td>{!! $fcollective->formation->ingenieur->name ?? ' ' !!}</td>
                                             <td class="d-flex align-items-baseline text-center-row">
-                                                <a href="{!! url('formationindividuelles/' . $formationindividuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
+                                                <a href="{!! url('fcollectives/' . $fcollective->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">
                                                     <i class="far fa-edit">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                <a href="{!! url('formations/' . $formationindividuelle->formation->id) !!}" class='btn btn-primary btn-sm'
+                                                <a href="{!! url('formations/' . $fcollective->formation->id) !!}" class='btn btn-primary btn-sm'
                                                     title="voir">
                                                     <i class="far fa-eye">&nbsp;</i>
                                                 </a>
                                                 &nbsp;
-                                                {!! Form::open(['method' => 'DELETE', 'url' => 'formationindividuelles/' . $formationindividuelle->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
+                                                {!! Form::open(['method' => 'DELETE', 'url' => 'fcollective/' . $fcollective->id, 'id' => 'deleteForm', 'onsubmit' => 'return ConfirmDelete()']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'title' => 'supprimer']) !!}
                                                 {!! Form::close() !!}
                                             </td>
@@ -93,7 +94,7 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#table-formationindividuelles').DataTable({
+            $('#table-formationcollectives').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print',

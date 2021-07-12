@@ -4,7 +4,7 @@
 
 /* use Faker\Generator as Faker;
 
-$factory->define(App\FormationsIndividuelle::class, function (Faker $faker) {
+$factory->define(App\Findividuelle::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'code' => $faker->word,
@@ -14,14 +14,12 @@ $factory->define(App\FormationsIndividuelle::class, function (Faker $faker) {
         },
     ];
 }); */
-
-
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
 $autoIncremente_code_ind = autoIncremente_code_ind();
 
-$factory->define(App\FormationsIndividuelle::class, function (Faker\Generator $faker) use ($autoIncremente_code_ind) {
+$factory->define(App\Findividuelle::class, function (Faker\Generator $faker) use ($autoIncremente_code_ind) {
     $autoIncremente_code_ind->next();
     $annee = date('y');
     

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 13:50:31 +0000.
+ * Date: Mon, 12 Jul 2021 14:28:34 +0000.
  */
 
 namespace App;
@@ -10,7 +10,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class FormationsIndividuelle
+ * Class Findividuelle
  * 
  * @property int $id
  * @property string $uuid
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  *
  * @package App
  */
-class FormationsIndividuelle extends Eloquent
+class Findividuelle extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;

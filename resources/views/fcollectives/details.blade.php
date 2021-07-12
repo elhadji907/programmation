@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'ONFP - Fiche formation individuelle')
+@section('title', 'ONFP - Fiche formation collective')
 @section('content')
 
     <style>
@@ -97,11 +97,11 @@
 
     </style>
     <?php $i = 1; ?>
-    @foreach ($findividuelles as $findividuelle)
+    @foreach ($fcollectives as $fcollective)
         <div class="invoice-box justify-content-center">
             <div class="card">
                 <div class="card card-header text-center bg-gradient-success">
-                    <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $findividuelle->formation->types_formation->name !!}</h1>
+                    <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $fcollective->formation->types_formation->name !!}</h1>
                 </div>
                 <div class="card-body">
                     <table method="POST" cellpadding="0" cellspacing="0">
@@ -116,9 +116,9 @@
                                         </td>
                                         <td>
                                             <b>Numéro dossier </b>#:
-                                            {!! $findividuelle->code !!}<br>
-                                            <b>Date début </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
-                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
+                                            {!! $fcollective->code !!}<br>
+                                            <b>Date début </b>: {!! Carbon\Carbon::parse($fcollective->formation->date_debut)->format('d/m/Y') !!}<br>
+                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($fcollective->formation->date_fin)->format('d/m/Y') !!}<br>
                                         </td>
                                     </tr>
                                 </table>
@@ -135,7 +135,7 @@
 
                                         <td>
                                             <h3>{{ __('INGÉNIEURS') }}</h3>
-                                            {{ $findividuelle->formation->ingenieur->name }}
+                                            {{ $fcollective->formation->ingenieur->name }}
                                         </td>
                                     </tr>
                                 </table>
@@ -197,10 +197,10 @@
                         </tr>
                     </table>
                     <div class="d-flex justify-content-between align-items-center mt-5">
-                            <a href="{!! url('formationindividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                            <a href="{!! url('fcollectives/' . $fcollective->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
                                 <i class="far fa-edit">&nbsp;Modifier</i>
                             </a>
-                        <a href="{!! route('formations.show', $findividuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
+                        <a href="{!! route('formations.show', $fcollective->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                             <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
                         </a>
                     </div>

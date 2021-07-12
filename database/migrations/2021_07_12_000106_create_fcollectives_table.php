@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormationsIndividuellesTable extends Migration
+class CreateFcollectivesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'formations_individuelles';
+    public $tableName = 'fcollectives';
 
     /**
      * Run the migrations.
-     * @table formations_individuelles
+     * @table fcollectives
      *
      * @return void
      */
@@ -28,12 +28,12 @@ class CreateFormationsIndividuellesTable extends Migration
             $table->string('categorie', 200)->nullable();
             $table->unsignedInteger('formations_id');
 
-            $table->index(["formations_id"], 'fk_formations_individuelles_formations1_idx');
+            $table->index(["formations_id"], 'fk_formations_collectives_formations1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('formations_id', 'fk_formations_individuelles_formations1_idx')
+            $table->foreign('formations_id', 'fk_formations_collectives_formations1_idx')
                 ->references('id')->on('formations')
                 ->onDelete('no action')
                 ->onUpdate('no action');

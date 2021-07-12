@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class FormationsIndividuellesTableSeeder extends Seeder
+class FindividuellesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class FormationsIndividuellesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\FormationsIndividuelle::class,31)->create();
+        factory(App\Fcollective::class,31)->create();
     }
 }

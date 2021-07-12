@@ -77,7 +77,7 @@
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
         @roles('Administrateur|Gestionnaire')
-        <a class="nav-link collapsed" href="{{ route('formations.index') }}" data-toggle="collapse"
+        <a class="nav-link collapsed" href="" data-toggle="collapse"
             data-target="#collapsePages_formation" aria-expanded="true" aria-controls="collapsePages_formation">
             <span data-feather="layers"></span>
             <span>Gestion des formations</span>
@@ -88,10 +88,10 @@
                 <a class="collapse-item" href="{{ route('formations.index') }}">
                     <span>Toutes</span>
                 </a>
-                <a class="collapse-item" href="{{ route('formationindividuelles.index') }}">
+                <a class="collapse-item" href="{{ route('findividuelles.index') }}">
                     <span>individuelles</span>
                 </a>
-                <a class="collapse-item" href="{{ route('formationcollectives.index') }}">
+                <a class="collapse-item" href="{{ route('fcollectives.index') }}">
                     <span>collectives</span>
                 </a>
             </div>

@@ -30,7 +30,9 @@ class IndividuellesController extends Controller
     {
         $individuelles = Individuelle::all();
 
+        
         //dd($individuelles);
+        
         $countries = DB::table('regions')->pluck("nom","id");
 
         return view('individuelles.index', compact('individuelles', 'countries'));
@@ -58,11 +60,6 @@ class IndividuellesController extends Controller
         $user = auth::user();
         
         $civilites = User::pluck('civilite','civilite');
-
-        /* $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
-        $diplomes = Diplome::distinct('name')->get()->pluck('name','name')->unique();
-        $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique(); */
 
         $date_depot = Carbon::now();
 
@@ -327,6 +324,7 @@ class IndividuellesController extends Controller
      */
     public function edit(Individuelle $individuelle)
     {
+
         if (auth::user()->role->name == "Administrateur" OR auth::user()->role->name == "Gestionnaire") {
         }else {            
             $this->authorize('update',  $individuelle);
@@ -550,7 +548,7 @@ class IndividuellesController extends Controller
     }
     public function list(Request $request)
     {
-        $modules=Individuelle::with('individuelle.demandeur.modules')->get();
+        $modules=Individuelle::with('demandeur.modules')->get();
         return Datatables::of($modules)->make(true);
 
     }
