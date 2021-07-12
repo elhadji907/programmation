@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Findividuelle;
+use App\Ingenieur;
 use Illuminate\Http\Request;
 
 class FindividuellesController extends Controller
@@ -61,7 +62,13 @@ class FindividuellesController extends Controller
      */
     public function edit(Findividuelle $findividuelle)
     {
-        dd($findividuelle);
+        $name_ingenieur = $findividuelle->formation->ingenieur->name;
+
+        $list_ingenieurs = Ingenieur::distinct('name')->get()->pluck('name','name')->unique();
+
+        $ingenieurs = Ingenieur::all();
+
+        return view('findividuelles.update',compact('findividuelle', 'ingenieurs','list_ingenieurs','name_ingenieur'));
     }
 
     /**
@@ -73,7 +80,7 @@ class FindividuellesController extends Controller
      */
     public function update(Request $request, Findividuelle $findividuelle)
     {
-        //
+        dd($findividuelle);
     }
 
     /**

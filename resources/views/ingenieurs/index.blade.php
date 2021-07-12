@@ -60,7 +60,7 @@
                                     <i class="far fa-edit"></i>
                                   </a>
                                   &nbsp
-                                   <a href="{!! url('courriers/' .$ingenieur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                                   <a href="{!! url('ingenieurs/' .$ingenieur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
                                     <i class="far fa-eye">&nbsp;</i>
                                   </a>
                                   &nbsp;

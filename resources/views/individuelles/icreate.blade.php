@@ -10,16 +10,15 @@
                 <div class="row pt-0"></div>
                 <div class="card">
                     <div class="card-header bg-gradient-info text-center">
-                        <h1 class="h4 text-white mb-0"><span data-feather="info"></span>Modification demande
-                            individuelle</h1>
+                        <h1 class="h4 text-white mb-0"><span data-feather="info"></span>compléter ma demande individuelle</h1>
                     </div>
                     <div class="card-body">
                         NB : Les champs(<span class="text-danger">*</span>)sont obligatoires
+                        <form method="POST" action="{{ url('individuelles') }}">
+                        @csrf
                         <div class="bg-gradient-secondary text-center">
                             <p class="h4 text-white mb-2 mt-0">IDENTIFICATION</p>
                         </div>
-                        <form method="POST" action="{{ url('individuelles') }}">
-                        @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 <label for="cin">{{ __('CIN') }}(<span class="text-danger">*</span>)</label>
