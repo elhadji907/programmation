@@ -98,6 +98,27 @@
         </div>
         @endroles
     </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+        @roles('Administrateur|Gestionnaire')
+        <a class="nav-link collapsed" href="" data-toggle="collapse"
+            data-target="#collapsePages_localite" aria-expanded="true" aria-controls="collapsePages_localite">
+            <span data-feather="layers"></span>
+            <span>Localités</span>
+        </a>
+        <div id="collapsePages_localite" class="collapse" aria-labelledby="headingPages"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('regions.index') }}">
+                    <span>Régions</span>
+                </a>
+                <a class="collapse-item" href="{{ route('departements.index') }}">
+                    <span>Départements</span>
+                </a>
+            </div>
+        </div>
+        @endroles
+    </li>
     <li class="nav-item">
         @roles('Demandeur')
         <a class="nav-link" href="{{ route('individuelles.create') }}">

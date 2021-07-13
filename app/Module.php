@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 11:32:52 +0000.
+ * Date: Tue, 13 Jul 2021 10:42:44 +0000.
  */
 
 namespace App;
@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Statut $statut
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
+ * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $programmes
@@ -38,7 +39,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Module extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -84,6 +84,13 @@ class Module extends Eloquent
 	public function evaluateurs()
 	{
 		return $this->belongsToMany(\App\Evaluateur::class, 'evaluateurs_has_modules', 'modules_id', 'evaluateurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function departements()
+	{
+		return $this->belongsToMany(\App\Departement::class, 'modules_has_departements', 'modules_id', 'departements_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Region;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class RegionsController extends Controller
 {
@@ -14,7 +15,7 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('regions.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class RegionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('regions.create');
     }
 
     /**
@@ -35,7 +36,19 @@ class RegionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+               
+                'nom' =>  'required|string|max:50|unique:regions,nom,NULL,id,deleted_at,NULL',
+            ]
+        );
+        $region = new region([      
+            'nom'           =>      $request->input('nom'),
+
+        ]);
+        
+        $region->save();
+        return redirect()->route('regions.index')->with('success','enregistrement effectué avec succès !');
     }
 
     /**
@@ -57,7 +70,9 @@ class RegionsController extends Controller
      */
     public function edit(Region $region)
     {
-        //
+        $id = $region->id;
+
+        return view('regions.update', compact('region','id'));
     }
 
     /**
@@ -69,7 +84,15 @@ class RegionsController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'nom' =>  'required|string|unique:regions,nom,'.$region->id
+            ]); 
+
+        $region->nom  =   $request->input('nom');
+        $region->save();
+        return redirect()->route('regions.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**
@@ -80,6 +103,21 @@ class RegionsController extends Controller
      */
     public function destroy(Region $region)
     {
-        //
+        
+        if (isset($region->departements) AND $region->departements != "") {
+            dd($region->departements);
+        } else {
+            dd('ne pas supprimer');
+        }
+
+        $region->delete();
+        $message = $region->nom.' a été supprimé(e)';
+        return redirect()->route('regions.index')->with(compact('message'));
+    }
+
+    public function list(Request $request)
+    {
+        $regions=Region::withCount('departements')->with('departements.demandeurs')->withCount('demandeurs')->with('departements.modules')->get();
+        return Datatables::of($regions)->make(true);
     }
 }

@@ -34,6 +34,7 @@
                                         <th>{!! __('module') !!}</th>
                                         <th>{!! __('Domaine') !!}</th>
                                         <th>{!! __('Secteur') !!}</th>
+                                        <th>{!! __('Effectif') !!}</th>
                                         <th style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
@@ -43,6 +44,7 @@
                                         <th>{!! __('module') !!}</th>
                                         <th>{!! __('Domaine') !!}</th>
                                         <th>{!! __('Secteur') !!}</th>
+                                        <th>{!! __('Effectif') !!}</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -51,11 +53,19 @@
                                     @foreach ($modules as $module)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="selected_values[]" value="{{ $module->id }}">
+                                                {{ $i++ }}
+                                                {{--  <input type="checkbox" name="selected_values[]" value="{{ $module->id }}">  --}}
                                             </td>
                                             <td>{!! $module->name !!}</td>
                                             <td>{!! $module->domaine->name !!}</td>
                                             <td>{!! $module->domaine->secteur->name !!}</td>
+                                            <td>
+                                                @foreach ($module->demandeurs as $demandeur)
+                                                    @if ($loop->last)
+                                                        {!! $loop->count !!}
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                             <td class="d-flex align-items-baseline align-content-center">
                                                 <a href="{!! url('modules/' . $module->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                     title="modifier">

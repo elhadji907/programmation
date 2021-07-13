@@ -83,6 +83,8 @@ Route::group([
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
         Route::get('/internes/list', 'InternesController@list')->name('internes.list');
+        Route::get('/departements/list', 'DepartementsController@list')->name('departements.list');
+        Route::get('/regions/list', 'RegionsController@list')->name('regions.list');
 
         Route::get('postes/create', 'PostesController@create')->name('postes.create');
         Route::post('postes', 'PostesController@store')->name('postes.store');
@@ -134,6 +136,8 @@ Route::group([
         Route::resource('/programmes', 'ProgrammesController');
         Route::resource('/localites', 'LocalitesController');
         Route::resource('/ingenieurs', 'IngenieursController');
+        Route::resource('/departements', 'DepartementsController');
+        Route::resource('/regions', 'RegionsController');
 
     }         
 );

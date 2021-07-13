@@ -137,7 +137,10 @@ class ModulesController extends Controller
 
     public function list(Request $request)
     {
-        $modules=Module::with('domaine.secteur','demandeurs')->get();
+        /* $modules=Module::withCount('demandeurs')->with(['demandeurs.individuelles', 'demandeurs.collectives'])->get(); */
+
+        $modules=Module::withCount('demandeurs')->withCount(['departements'])->get();
+
         return Datatables::of($modules)->make(true);
     }
 }
