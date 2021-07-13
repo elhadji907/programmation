@@ -2,11 +2,11 @@
 @section('title', 'ONFP - Liste des ingenieurs')
 @section('content')
         <div class="container-fluid">
-            @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-            @endif 
           <div class="row justify-content-center">
             <div class="col-md-8">
+              @if (session()->has('success'))
+                  <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+              @endif 
                 @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
@@ -28,7 +28,9 @@
                               <th>N°</th>
                               <th>{!! __("Matricule") !!}</th>
                               <th>{!! __("Ingenieur") !!}</th>
-                              <th  style="width:20%;">{!! __("Nbre de formations") !!}</th>
+                              <th>{!! __("Email") !!}</th>
+                              <th>{!! __("Téléphone") !!}</th>
+                              <th  style="width:10%;">{!! __("Formations") !!}</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
@@ -37,7 +39,9 @@
                                 <th>N°</th>
                                 <th>{!! __("Matricule") !!}</th>
                                 <th>{!! __("Ingenieur") !!}</th>
-                                <th>{!! __("Nbre de formations") !!}</th>
+                                <th>{!! __("Email") !!}</th>
+                                <th>{!! __("Téléphone") !!}</th>
+                                <th>{!! __("Formations") !!}</th>
                                 <th style="width:10%;">Action</th>
                               </tr>
                             </tfoot>
@@ -47,7 +51,9 @@
                             <tr>
                                <td class="align-middle">{!! $i++ !!}</td> 
                                <td class="align-middle">{!! $ingenieur->matricule !!}</td> 
-                              <td class="align-middle">{!! $ingenieur->name !!}</td>   
+                              <td class="align-middle">{!! $ingenieur->name !!}</td>
+                              <td class="align-middle">{!! $ingenieur->email !!}</td>
+                              <td class="align-middle">{!! $ingenieur->telephone !!}</td>
                               <td class="align-middle">
                                 @foreach ($ingenieur->formations as $formation)
                                 @if($loop->last)

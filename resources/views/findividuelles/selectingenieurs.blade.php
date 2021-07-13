@@ -17,10 +17,12 @@
                                 id="table-ingenieurs" style="height: 100px;">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>{!! __('Matricule') !!}</th>
+                                        <th style="width:5%;">ID</th>
+                                        <th style="width:10%;">{!! __('Matricule') !!}</th>
                                         <th>{!! __('Ingenieur') !!}</th>
-                                        <th style="width:20%;">{!! __('Nbre de formations') !!}</th>
+                                        <th>{!! __('Email') !!}</th>
+                                        <th>{!! __('Téléphone') !!}</th>
+                                        <th style="width:10%;">{!! __('Formations') !!}</th>
                                         <th style="width:2%;">Choisir</th>
                                     </tr>
                                 </thead>
@@ -29,7 +31,9 @@
                                         <th>ID</th>
                                         <th>{!! __('Matricule') !!}</th>
                                         <th>{!! __('Ingenieur') !!}</th>
-                                        <th>{!! __('Nbre de formations') !!}</th>
+                                        <th>{!! __('Email') !!}</th>
+                                        <th>{!! __('Téléphone') !!}</th>
+                                        <th>{!! __('Formations') !!}</th>
                                         <th>Choisir</th>
                                     </tr>
                                 </tfoot>
@@ -64,6 +68,14 @@
                         name: 'name'
                     },
                     {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'telephone',
+                        name: 'telephone'
+                    },
+                    {
                         data: 'formations_count',
                         name: 'formations_count'
                     },
@@ -81,7 +93,7 @@
                             return '<a href=' + url_e +
                                 '  class="btn btn-outline-primary" ><i class="fa fa-check" aria-hidden="true"></i>';
                         },
-                        "targets": 4
+                        "targets": 6
                     },
 
                 ],

@@ -1,8 +1,8 @@
 @extends('layout.default')
-@section('title', 'ONFP - Enregistrement projets')
+@section('title', 'ONFP - Enregistrement ingenieurs')
 @section('content')
     <div class="content">
-        <div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="container col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
             <div class="container-fluid">
                 @if (session()->has('success'))
                     <div class="alert alert-success" role="alert">{{ session('success') }}</div>
@@ -14,11 +14,23 @@
                         <p class="card-category">{{ "Secteur d'activité" }}</p>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ url('projets') }}">
-                            @csrf
+                        <form method="POST" action="{{ url('ingenieurs') }}">
+                            @csrf    
                             <div class="form-row">
+                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                    <label for="input-name"><b>{{ __('Matricule') }}:</b></label>
+                                    <input type="text" name="matricule" class="form-control" id="input-matricule"
+                                        placeholder="nom complète" value="{{ old('matricule') }}">
+                                    <small id="emailHelp" class="form-text text-muted">
+                                        @if ($errors->has('matricule'))
+                                            @foreach ($errors->get('matricule') as $message)
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @endforeach
+                                        @endif
+                                    </small>
+                                </div>
                                 <div class="form-group col-md-8 col-lg-8 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Nom du projet') }}:</b></label>
+                                    <label for="input-name"><b>{{ __('Nom') }}:</b></label>
                                     <input type="text" name="name" class="form-control" id="input-name"
                                         placeholder="nom complète" value="{{ old('name') }}">
                                     <small id="emailHelp" class="form-text text-muted">
@@ -29,51 +41,27 @@
                                         @endif
                                     </small>
                                 </div>
-                                <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Sigle') }}:</b></label>
-                                    <input type="text" name="sigle" class="form-control" id="input-sigle"
-                                        placeholder="nom complète" value="{{ old('sigle') }}">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('sigle'))
-                                            @foreach ($errors->get('sigle') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
-                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Date début :', null, ['class' => 'control-label']) !!}
-                                    {!! Form::date('debut', null, ['placeholder' => 'La date de démarrage', 'class' => 'form-control']) !!}
+                                    <label for="input-name"><b>{{ __('Email') }}:</b></label>
+                                    <input type="text" name="email" class="form-control" id="input-email"
+                                        placeholder="nom complète" value="{{ old('email') }}">
                                     <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('debut'))
-                                            @foreach ($errors->get('debut') as $message)
+                                        @if ($errors->has('email'))
+                                            @foreach ($errors->get('email') as $message)
                                                 <p class="text-danger">{{ $message }}</p>
                                             @endforeach
                                         @endif
                                     </small>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                    {!! Form::label('Date fin :', null, ['class' => 'control-label']) !!}
-                                    {!! Form::date('fin', null, ['placeholder' => 'La date de cloture', 'class' => 'form-control']) !!}
+                                    <label for="input-name"><b>{{ __('Téléphone') }}:</b></label>
+                                    <input type="text" name="telephone" class="form-control" id="input-telephone"
+                                        placeholder="nom complète" value="{{ old('telephone') }}">
                                     <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('fin'))
-                                            @foreach ($errors->get('fin') as $message)
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @endforeach
-                                        @endif
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <label for="input-name"><b>{{ __('Budjet') }}:</b></label>
-                                    <input type="text" name="budjet" class="form-control" id="input-budjet"
-                                        placeholder="Bdjet" value="{{ old('budjet') }}">
-                                    <small id="emailHelp" class="form-text text-muted">
-                                        @if ($errors->has('budjet'))
-                                            @foreach ($errors->get('budjet') as $message)
+                                        @if ($errors->has('telephone'))
+                                            @foreach ($errors->get('telephone') as $message)
                                                 <p class="text-danger">{{ $message }}</p>
                                             @endforeach
                                         @endif
