@@ -64,6 +64,7 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('diplomes_id')->nullable();
             $table->unsignedInteger('departements_id')->nullable();
             $table->unsignedInteger('types_demandes_id')->nullable();
+            $table->unsignedInteger('courriers_id')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 
@@ -82,6 +83,8 @@ class CreateDemandeursTable extends Migration
             $table->index(["departements_id"], 'fk_demandeurs_departements1_idx');
 
             $table->index(["types_demandes_id"], 'fk_demandeurs_types_demandes1_idx');
+
+            $table->index(["courriers_id"], 'fk_demandeurs_courriers1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
@@ -128,6 +131,11 @@ class CreateDemandeursTable extends Migration
 
             $table->foreign('types_demandes_id', 'fk_demandeurs_types_demandes1_idx')
                 ->references('id')->on('types_demandes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('courriers_id', 'fk_demandeurs_courriers1_idx')
+                ->references('id')->on('courriers')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

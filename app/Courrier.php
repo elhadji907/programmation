@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 21 Jun 2021 16:05:58 +0000.
+ * Date: Tue, 13 Jul 2021 21:56:57 +0000.
  */
 
 namespace App;
@@ -65,6 +65,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $bordereaus
  * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \Illuminate\Database\Eloquent\Collection $imputations
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $departs
  * @property \Illuminate\Database\Eloquent\Collection $directions
  * @property \Illuminate\Database\Eloquent\Collection $employees
@@ -154,6 +155,7 @@ class Courrier extends Eloquent
 		'traitementcourriers_id'
 	];
 
+
 	public function getFile(){
 		$filePath = $this->file ?? 'recues/default.jpg';
 		return "/storage/" . $filePath;
@@ -204,6 +206,11 @@ class Courrier extends Eloquent
 		return $this->belongsToMany(\App\Imputation::class, 'courriers_has_imputations', 'courriers_id', 'imputations_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
+	}
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'courriers_id');
 	}
 
 	public function departs()

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Jul 2021 11:32:23 +0000.
+ * Date: Tue, 13 Jul 2021 21:56:50 +0000.
  */
 
 namespace App;
@@ -54,10 +54,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $diplomes_id
  * @property int $departements_id
  * @property int $types_demandes_id
+ * @property int $courriers_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Courrier $courrier
  * @property \App\Departement $departement
  * @property \App\Diplome $diplome
  * @property \App\Item $item
@@ -78,8 +80,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @package App
  */
 class Demandeur extends Eloquent
-{
-	
+{	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -93,7 +94,8 @@ class Demandeur extends Eloquent
 		'regions_id' => 'int',
 		'diplomes_id' => 'int',
 		'departements_id' => 'int',
-		'types_demandes_id' => 'int'
+		'types_demandes_id' => 'int',
+		'courriers_id' => 'int'
 	];
 
 	protected $dates = [
@@ -143,8 +145,14 @@ class Demandeur extends Eloquent
 		'regions_id',
 		'diplomes_id',
 		'departements_id',
-		'types_demandes_id'
+		'types_demandes_id',
+		'courriers_id'
 	];
+
+	public function courrier()
+	{
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
 
 	public function departement()
 	{

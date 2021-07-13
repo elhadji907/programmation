@@ -24,10 +24,9 @@ class CreateCommentairesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->longText('content')->nullable();
+            $table->longText('content');
             $table->integer('commentable_id')->nullable();
             $table->longText('commentable_type')->nullable();
-            $table->timestamp('cread_at')->nullable();
             $table->unsignedInteger('users_id');
             $table->unsignedInteger('demandeurs_id');
 

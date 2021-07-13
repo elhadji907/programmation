@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Findividuelle;
 use App\Ingenieur;
+use App\Module;
+use App\Departement;
+use Carbon\Carbon;
+use App\Programme;
 use Illuminate\Http\Request;
 
 class FindividuellesController extends Controller
@@ -32,8 +36,15 @@ class FindividuellesController extends Controller
         
        $ingenieur_id=$request->input('ingenieur');
        $ingenieur=\App\Ingenieur::find($ingenieur_id);
+       
+       $modules = Module::distinct('name')->get()->pluck('name','id')->unique();       
+       $programmes = Programme::distinct('name')->get()->pluck('sigle','id')->unique();
+       $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
+       
+       $date_debut = Carbon::now();
+       $date_fin = Carbon::now()->addMonth();
 
-        return view('findividuelles.create', compact('ingenieur'));
+        return view('findividuelles.create', compact('ingenieur','modules','departements','date_debut','date_fin','programmes'));
     }
 
     /**

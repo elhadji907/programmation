@@ -1,115 +1,132 @@
 @extends('layout.default')
 @section('title', 'ONFP - Enregistrement formation individuelle')
 @section('content')
-    <div class="container">
+    <div class="container col-12 col-md-12 col-lg-8 col-xl-12">
         <div class="container-fluid">
             @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">{{ session('success') }}</div>
             @endif
-            <div class="row pt-5"></div>
+            <div class="row pt-1"></div>
             <div class="card">
                 <div class="card-header card-header-primary text-center">
                     <h3 class="card-title">Enregistrement</h3>
                     <p class="card-category">formation individuelle</p>
                 </div>
                 <div class="card-body">
-                    <div class="row pt-5 pl-5">
+                    <div class="row pt-5 pl-1">
                         <h4>
-                            <b>Ingénieur : </b>
+                            <b>Ingénieur choisi : </b>
                             {{ $ingenieur->name ?? 'Non disponible' }}<br />
-                            <b>Matricule : </b> {{$ingenieur->matricule ?? 'Aucune matricule attribuée' }}
+                            <b>Matricule : </b> {{ $ingenieur->matricule ?? 'Aucune matricule attribuée' }}
                         </h4>
                     </div>
-                    <div class="row pt-5"></div>
-                    <form method="POST" action="{{ url('directions') }}">
+                    <div class="row pt-2"></div>
+                    <form method="POST" action="{{ url('findividuelles') }}">
                         @csrf
-                        <input type="hidden" name="employee" value="{{ $ingenieur->id }}" class="form-control"
-                            name="inputName" id="inputName" placeholder="">
-
                         <div class="form-row">
-                            <div class="form-group col-md-8">
-                                <label for="input-direction"><b>Nom Direction:</b></label>
-                                <input type="text" name="direction" class="form-control" id="direction"
-                                    placeholder="Entrer nom direction" value="{{ old('direction') }}">
+                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                <label for="beneficiaire">{{ __('Bénéficiaires') }}(<span
+                                        class="text-danger">*</span>)</label>
+                                <textarea autofocus class="form-control  @error('beneficiaire') is-invalid @enderror"
+                                    name="beneficiaire" id="beneficiaire" rows="1"
+                                    placeholder="Ex : Jeune de la région de dakar">{{ old('beneficiaire') }}</textarea>
+                                @error('beneficiaire')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                {!! Form::label('Département :') !!}(<span class="text-danger">*</span>)
+                                {!! Form::select('departement', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('direction'))
-                                        @foreach ($errors->get('direction') as $message)
+                                    @if ($errors->has('departement'))
+                                        @foreach ($errors->get('departement') as $message)
                                             <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                     @endif
                                 </small>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="input-sigle"><b>sigle:</b></label>
-                                <input type="text" name="sigle" class="form-control" id="sigle" placeholder="Entrer sigle"
-                                    value="{{ old('sigle') }}">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                {!! Form::label('Convention :') !!}(<span class="text-danger">*</span>)
+                                {!! Form::select('convention', $departements, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'convention', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('sigle'))
-                                        @foreach ($errors->get('sigle') as $message)
+                                    @if ($errors->has('convention'))
+                                        @foreach ($errors->get('convention') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                {!! Form::label('Programme :') !!}
+                                {!! Form::select('programme', $programmes, null, ['placeholder' => '', 'class' => 'form-control', 'id' => 'programme', 'data-width' => '100%']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('programme'))
+                                        @foreach ($errors->get('programme') as $message)
                                             <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                     @endif
                                 </small>
                             </div>
                         </div>
-
-                     {{--     <div class="form-row">
-                            <div class="form-group col-md-12">
-                                {!! Form::label('Type direction :') !!}<span class="text-danger"> <b>*</b> </span>
-                                {!! Form::select('type_direction', $types_directions, null, ['placeholder' => '', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'type_direction']) !!}
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                <label for="adresse">{{ __('Adresse exacte') }}(<span
+                                        class="text-danger">*</span>)</label>
+                                <textarea class="form-control  @error('adresse') is-invalid @enderror" name="adresse"
+                                    id="adresse" rows="1"
+                                    placeholder="Votre adresse complète">{{ old('adresse') }}</textarea>
+                                @error('adresse')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                {!! Form::label('module :') !!}(<span class="text-danger">*</span>)
+                                {!! Form::select('modules[]', $modules, null, ['multiple' => 'multiple', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'module']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
-                                    @if ($errors->has('type_direction'))
-                                        @foreach ($errors->get('type_direction') as $message)
+                                    @if ($errors->has('modules'))
+                                        @foreach ($errors->get('modules') as $message)
                                             <p class="text-danger">{{ $message }}</p>
                                         @endforeach
                                     @endif
                                 </small>
                             </div>
-                        </div>  --}}
+                        </div>
+                        <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <label for="date_debut">{{ __('Date démarrage') }}(<span
+                                    class="text-danger">*</span>)</label>
+                            <input id="date_debut" {{ $errors->has('date_debut') ? 'is-invalid' : '' }} type="date"
+                                class="form-control @error('date_debut') is-invalid @enderror" name="date_debut"
+                                placeholder="Votre date de debutance" value="{{ old('date_debut') }}"
+                                autocomplete="username">
+                            @error('date_debut')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <label for="date_naiss">{{ __('Date fin') }}(<span
+                                    class="text-danger">*</span>)</label>
+                            <input id="date_fin" {{ $errors->has('date_fin') ? 'is-invalid' : '' }} type="date"
+                                class="form-control @error('date_fin') is-invalid @enderror" name="date_fin"
+                                placeholder="Votre date de finance" value="{{ old('date_fin') }}"
+                                autocomplete="username">
+                            @error('date_fin')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div>
+                        </div>
 
                         <button type="submit" class="btn btn-primary"><i
                                 class="far fa-paper-plane"></i>&nbsp;Enregistrer</button>
                     </form>
-                    <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Verifier les donn&eacute;es saisies svp
-                                    </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @push('scripts')
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $("#error-modal").modal({
-                                                        'show': true,
-                                                    })
-                                                });
-
-                                            </script>
-
-                                        @endpush
-                                    @endif
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
