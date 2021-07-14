@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 12 Jul 2021 14:27:51 +0000.
+ * Date: Wed, 14 Jul 2021 10:58:34 +0000.
  */
 
 namespace App;
@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $statuts_id
  * @property int $types_formations_id
  * @property int $departements_id
+ * @property int $modules_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -56,6 +57,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Departement $departement
  * @property \App\Detf $detf
  * @property \App\Ingenieur $ingenieur
+ * @property \App\Module $module
  * @property \App\Niveaux $niveaux
  * @property \App\Operateur $operateur
  * @property \App\Programme $programme
@@ -98,7 +100,8 @@ class Formation extends Eloquent
 		'courriers_id' => 'int',
 		'statuts_id' => 'int',
 		'types_formations_id' => 'int',
-		'departements_id' => 'int'
+		'departements_id' => 'int',
+		'modules_id' => 'int'
 	];
 
 	protected $dates = [
@@ -140,7 +143,8 @@ class Formation extends Eloquent
 		'courriers_id',
 		'statuts_id',
 		'types_formations_id',
-		'departements_id'
+		'departements_id',
+		'modules_id'
 	];
 
 	public function agent()
@@ -171,6 +175,11 @@ class Formation extends Eloquent
 	public function ingenieur()
 	{
 		return $this->belongsTo(\App\Ingenieur::class, 'ingenieurs_id');
+	}
+
+	public function module()
+	{
+		return $this->belongsTo(\App\Module::class, 'modules_id');
 	}
 
 	public function niveaux()

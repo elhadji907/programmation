@@ -50,6 +50,12 @@
             font-weight: bold;
         }
 
+        .invoice-box table thead.heading {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
         .invoice-box table tr.details td {
             padding-bottom: 20px;
         }
@@ -104,102 +110,105 @@
                     <h1 class="h4 text-white mb-0">Formation&nbsp;{!! $findividuelle->formation->types_formation->name !!}</h1>
                 </div>
                 <div class="card-body">
-                    <table method="POST" cellpadding="0" cellspacing="0">
-                        <tr class="top">
-                            <td colspan="2">
-                                <table>
+                    <div class="table-responsive">
+                        <table method="POST" cellpadding="0" cellspacing="0">
+                            <tr class="top">
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td class="title">
+                                                {{-- <img src="" style="width:100%; max-width:300px;"> --}}
+                                                <img style="width:50%; max-width:100px;"
+                                                    src="{{ asset('images/image_onfp.jpg') }}">
+                                            </td>
+                                            <td>
+                                                <b>Numéro dossier </b>#:
+                                                {!! $findividuelle->code !!}<br>
+                                                <b>Date début </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
+                                                <b>Date fin </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="information">
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h3>{{ __('INFORMATIONS') }}</h3>
+
+                                            </td>
+
+                                            <td>
+                                                <h3>{{ __('INGÉNIEURS') }}</h3>
+                                                {{ $findividuelle->formation->ingenieur->name }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="heading">
+                                <td>
+                                    {{ __('MODULE') }}
+                                </td>
+
+                                <td>
+                                    {{ __('Effectif') }}
+                                </td>
+                            </tr>
+
+                            <tr class="details">
+                                <td>
+                                    {{ $findividuelle->formation->module->name }}
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr class="details" align="right">
+                                <td colspan="2">
+                                    <a href="{{ route('findividuelles.selectdindividuelles',['$id_dept' => $findividuelle->formation->departement->nom, '$id_module' => $findividuelle->formation->module]) }}">
+                                        <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                            <br />
+                            <table class="table table-bordered table-striped" width="100%" cellspacing="0"
+                                id="table-individuelles">
+                                <thead class="heading">
                                     <tr>
-                                        <td class="title">
-                                            {{-- <img src="" style="width:100%; max-width:300px;"> --}}
-                                            <img style="width:50%; max-width:100px;"
-                                                src="{{ asset('images/image_onfp.jpg') }}">
-                                        </td>
-                                        <td>
-                                            <b>Numéro dossier </b>#:
-                                            {!! $findividuelle->code !!}<br>
-                                            <b>Date début </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
-                                            <b>Date fin </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
-                                        </td>
+                                        <th>Cin</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Téléphone</th>
+                                        <th>Statut</th>
+                                        <th style="width:08%;">Action</th>
                                     </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr class="information">
-                            <td colspan="2">
-                                <table>
+                                </thead>
+                                <tfoot class="heading">
                                     <tr>
-                                        <td>
-                                            <h3>{{ __('INFORMATIONS') }}</h3>
-
-                                        </td>
-
-                                        <td>
-                                            <h3>{{ __('INGÉNIEURS') }}</h3>
-                                            {{ $findividuelle->formation->ingenieur->name }}
-                                        </td>
+                                        <th>Cin</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Téléphone</th>
+                                        <th>Statut</th>
+                                        <th>Action</th>
                                     </tr>
-                                </table>
-                            </td>
-                        </tr>
+                                </tfoot>
+                                <tbody>
 
-                        <tr class="heading">
-                            <td>
-                                {{ __('MODULES') }}
-                            </td>
 
-                            <td>
-                                {{ __('FORMATIONS') }}
-                            </td>
-                        </tr>
+                                </tbody>
+                            </table>
 
-                        <tr class="details">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                        <tr class="heading">
-                            <td>
-                                MESSAGE
-                            </td>
-                            <td>
-
-                            </td>
-
-                        </tr>
-
-                        <tr class="item">
-
-                            <td colspan="2">
-
-                            </td>
-                        </tr>
-                        <tr class="heading">
-                            <td>
-                                IMPUTATION
-                            </td>
-
-                            <td>
-                                RESPONSABLE
-                            </td>
-                        </tr>
-
-                        <tr class="item">
-                            <td>
-
-                            </td>
-
-                            <td>
-
-                            </td>
-                        </tr>
-                    </table>
+                        </table>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center mt-5">
-                            <a href="{!! url('findividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
-                                <i class="far fa-edit">&nbsp;Modifier</i>
-                            </a>
+                        <a href="{!! url('findividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                            <i class="far fa-edit">&nbsp;Modifier</i>
+                        </a>
                         <a href="{!! route('formations.show', $findividuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
                             <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
                         </a>

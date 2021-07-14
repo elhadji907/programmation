@@ -152,32 +152,6 @@
                                 </table>
                             </td>
                         </tr>
-
-                        {{-- <tr class="heading">
-                            <td>
-                                {{ __('OBJET') }}
-                            </td>
-
-                            <td>
-                                {{ __('FICHIER') }}
-                            </td>
-                        </tr>
-
-                        <tr class="details">
-                            <td>
-                                {{ $facturesdaf->courrier->objet }}
-                            </td>
-                            <td>
-                                @if ($facturesdaf->courrier->file !== '')
-                                    <a class="btn btn-outline-secondary mt-0" title="télécharger le fichier joint"
-                                        target="_blank" href="{{ asset($facturesdaf->courrier->getFile()) }}">
-                                        <i class="fas fa-download">&nbsp;cliquez ici pour télécharger</i>
-                                    </a>
-                                @else
-                                    Aucun fichier joint
-                                @endif
-                            </td>
-                        </tr> --}}
                         <tr class="heading">
                             <td>
                                 Designation

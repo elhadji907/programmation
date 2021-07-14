@@ -32,15 +32,13 @@
                                     <tr>
                                         <th>Numéro</th>
                                         <th>Cin</th>
-                                        {{-- <th>Civilité</th> --}}
-                                        <th>Prenom et Nom</th>
-                                        {{-- <th>Date nais.</th>
-                                        <th>Lieu nais.</th> --}}
+                                        <th>Civilité</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Date nais.</th>
+                                        <th>Lieu nais.</th>
                                         <th>Téléphone</th>
-                                        <th style="width:30%;">Module</th>
-                                        <th>Type demande</th>
-                                        {{-- <th>Localité</th> --}}
-                                        <th>Statut</th>
+                                        <th>Localité</th>
                                         <th style="width:08%;">Action</th>
                                     </tr>
                                 </thead>
@@ -48,15 +46,13 @@
                                     <tr>
                                         <th>Numéro</th>
                                         <th>Cin</th>
-                                        {{-- <th>Civilité</th> --}}
-                                        <th>Prenom et Nom</th>
-                                        {{-- <th>Date nais.</th>
-                                        <th>Lieu nais.</th> --}}
+                                        <th>Civilité</th>
+                                        <th>Prenom</th>
+                                        <th>Nom</th>
+                                        <th>Date nais.</th>
+                                        <th>Lieu nais.</th>
                                         <th>Téléphone</th>
-                                        <th>Module</th>
-                                        <th>Type demande</th>
-                                        {{-- <th>Localité</th> --}}
-                                        <th>Statut</th>
+                                        <th>Localité</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -64,25 +60,15 @@
                                     <?php $i = 1; ?>
                                     @foreach ($individuelles as $individuelle)
                                         <tr>
-                                            {{-- <td>{!! $i++ !!}</td> --}}
                                             <td>{!! $individuelle->demandeur->numero !!}</td>
                                             <td>{!! $individuelle->cin !!}</td>
-                                            {{-- <td>{!! $individuelle->demandeur->user->civilite !!}</td> --}}
-                                            <td>{!! $individuelle->demandeur->user->firstname !!} {{ ' ' }}{!! $individuelle->demandeur->user->name !!} </td>
-                                            {{-- <td>{!! $individuelle->demandeur->user->name !!}</td>
+                                            <td>{!! $individuelle->demandeur->user->civilite !!}</td>
+                                            <td>{!! $individuelle->demandeur->user->firstname !!} </td>
+                                            <td>{!! $individuelle->demandeur->user->name !!} </td>
                                             <td>{!! $individuelle->demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                                            <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td> --}}
+                                            <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td>
                                             <td>{!! $individuelle->demandeur->user->telephone !!}</td>
-                                            <td>
-                                                @foreach ($individuelle->demandeur->modules as $module)
-                                                    <p>{!! $module->name !!}</p>
-                                                @endforeach
-                                            </td>
-                                            <td>{!! $individuelle->demandeur->types_demande->name !!}</td>
-                                            {{-- <td>{!! $individuelle->demandeur->departement->nom !!}</td> --}}
-                                            <td style="text-align: center;">
-                                                {!! $individuelle->demandeur->statut !!}
-                                            </td>
+                                            <td>{!! $individuelle->demandeur->departement->nom !!}</td>                                           
                                             <td class="d-flex align-items-baseline text-center-row">
                                                     <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                         title="modifier">

@@ -26,6 +26,14 @@ class FindividuellesController extends Controller
         return view('findividuelles.index', compact('findividuelles'));
     }
 
+    public function selectdindividuelles($id_dept, $id_module)
+    {
+        $departement = Departement::find($id_dept);
+        $module = Module::find($id_module);
+                
+        return view('findividuelles.selectdindividuelles', compact('departement','module'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

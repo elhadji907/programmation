@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 13 Jul 2021 10:42:44 +0000.
+ * Date: Wed, 14 Jul 2021 10:58:27 +0000.
  */
 
 namespace App;
@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \App\Statut $statut
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
@@ -86,6 +87,11 @@ class Module extends Eloquent
 		return $this->belongsToMany(\App\Evaluateur::class, 'evaluateurs_has_modules', 'modules_id', 'evaluateurs_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
+	}
+
+	public function formations()
+	{
+		return $this->hasMany(\App\Formation::class, 'modules_id');
 	}
 
 	public function departements()

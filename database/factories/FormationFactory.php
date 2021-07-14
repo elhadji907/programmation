@@ -65,8 +65,12 @@ $factory->define(App\Formation::class, function (Faker $faker) {
         'departements_id' => function () {
             return factory(App\Departement::class)->create()->id;
         },
+        'modules_id' => function () {
+            return factory(App\Module::class)->create()->id;
+        },
     ];
 }); */
+
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 
@@ -79,6 +83,7 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
     $types_formations_id=App\TypesFormation::all()->random()->id;
     $departements_id=App\Departement::all()->random()->id;
     $ingenieurs_id=App\Ingenieur::all()->random()->id;
+    $modules_id=App\Module::all()->random()->id;
 
     $prevue_h = $faker->numberBetween(5,9);
     $prevue_f = $faker->numberBetween(5,1);
@@ -112,42 +117,15 @@ $factory->define(App\Formation::class, function (Faker\Generator $faker) use ($a
         'beneficiaires' => $faker->company,
         'ingenieurs_id' => function () use($ingenieurs_id) {
             return $ingenieurs_id;
-        },
-        /*'agents_id' => function () {
-            return factory(App\Agent::class)->create()->id;
-        },
-        'detfs_id' => function () {
-            return factory(App\Detf::class)->create()->id;
-        },
-        'conventions_id' => function () {
-            return factory(App\Convention::class)->create()->id;
-        },
-        'programmes_id' => function () {
-            return factory(App\Programme::class)->create()->id;
-        },
-        'operateurs_id' => function () {
-            return factory(App\Operateur::class)->create()->id;
-        },
-        'traitements_id' => function () {
-            return factory(App\Traitement::class)->create()->id;
-        },
-        'niveauxs_id' => function () {
-            return factory(App\Niveaux::class)->create()->id;
-        },
-        'specialites_id' => function () {
-            return factory(App\Specialite::class)->create()->id;
-        },
-        'courriers_id' => function () {
-            return factory(App\Courrier::class)->create()->id;
-        },
-        'statuts_id' => function () {
-            return factory(App\Statut::class)->create()->id;
-        },*/
+        },       
         'types_formations_id' => function ()  use($types_formations_id) {
             return $types_formations_id;
         }, 
         'departements_id' => function () use($departements_id) {
             return $departements_id;
+        },
+        'modules_id' => function () use($modules_id) {
+            return $modules_id;
         },
     ];
 

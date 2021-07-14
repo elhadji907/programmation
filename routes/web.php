@@ -69,6 +69,12 @@ Route::group([
         Route::get('/lister_abs/{localitesliste}/{nom_module}', 'LocalitesController@lister_abs')->name('localites.lister_abs');
         Route::get('/lister_term/{localitesliste}/{nom_module}', 'LocalitesController@lister_term')->name('localites.lister_term');
 
+
+        
+        Route::get('/lister/{localitesliste}/{nom_module}', 'LocalitesController@lister')->name('localites.lister');
+
+        Route::get('/selectdindividuelles/{id_dept}/{id_module}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
+
         Route::get('/courriers/list', 'CourriersController@list')->name('courriers.list');
         Route::get('/factures/list', 'FacturesController@list')->name('factures.list');
         Route::get('/facturesdafs/list', 'FacturesdafsController@list')->name('facturesdafs.list');

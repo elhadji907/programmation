@@ -30,8 +30,8 @@
                                 id="table-findividuelles">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>N°</th>
                                         <th>Code</th>
+                                        <th>Module</th>
                                         <th>Bénéficiares</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
@@ -42,8 +42,8 @@
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th>N°</th>
                                         <th>Code</th>
+                                        <th>Module</th>
                                         <th>Bénéficiares</th>
                                         <th>Localité</th>
                                         <th>Adresse</th>
@@ -56,8 +56,8 @@
                                     <?php $i = 1; ?>
                                     @foreach ($findividuelles as $findividuelle)
                                         <tr>
-                                            <td>{!! $i++ !!}</td>
                                             <td>{!! $findividuelle->code !!}</td>
+                                            <td>{!! $findividuelle->formation->module->name !!}</td>
                                             <td>{!! $findividuelle->formation->beneficiaires !!}</td>
                                             <td>{!! $findividuelle->formation->departement->nom ?? ' ' !!}</td>
                                             <td>{!! $findividuelle->formation->adresse ?? ' ' !!}</td>
