@@ -30,7 +30,7 @@
                                 id="table-individuelles">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Numéro</th>
+                                        <th>N°</th>
                                         <th>Cin</th>
                                         <th>Civilité</th>
                                         <th>Prenom</th>
@@ -38,13 +38,14 @@
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Téléphone</th>
-                                        <th>Localité</th>
+                                        <th>Département</th>
+                                        <th>Région</th>
                                         <th style="width:08%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="table-dark">
                                     <tr>
-                                        <th>Numéro</th>
+                                        <th>N°</th>
                                         <th>Cin</th>
                                         <th>Civilité</th>
                                         <th>Prenom</th>
@@ -52,7 +53,8 @@
                                         <th>Date nais.</th>
                                         <th>Lieu nais.</th>
                                         <th>Téléphone</th>
-                                        <th>Localité</th>
+                                        <th>Département</th>
+                                        <th>Région</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -69,6 +71,7 @@
                                             <td>{!! $individuelle->demandeur->user->lieu_naissance !!}</td>
                                             <td>{!! $individuelle->demandeur->user->telephone !!}</td>
                                             <td>{!! $individuelle->demandeur->departement->nom !!}</td>                                           
+                                            <td>{!! $individuelle->demandeur->departement->region->nom !!}</td>                                           
                                             <td class="d-flex align-items-baseline text-center-row">
                                                     <a href="{!! url('individuelles/' . $individuelle->id . '/edit') !!}" class='btn btn-success btn-sm'
                                                         title="modifier">

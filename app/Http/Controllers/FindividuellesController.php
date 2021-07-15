@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Findividuelle;
+use App\Individuelle;
 use App\Ingenieur;
 use App\Module;
 use App\Departement;
@@ -28,10 +29,20 @@ class FindividuellesController extends Controller
 
     public function selectdindividuelles($id_dept, $id_module)
     {
-        $departement = Departement::find($id_dept);
-        $module = Module::find($id_module);
+        $departements = Departement::find($id_dept);
+        $modules = Module::find($id_module);
+        $nom_module = $modules->name;
+        $nom_departement = $departements->nom;
+        $nom_region = $departements->region->nom;
+
+
+        $individuelles = Individuelle::all()->load(['demandeur'])->where('demandeur.departement.region.nom','==',$nom_region);
                 
-        return view('findividuelles.selectdindividuelles', compact('departement','module'));
+        return view('findividuelles.selectdindividuelles', compact('individuelles','departements','modules','nom_module','nom_departement','nom_region'));
+    }
+
+    public function adddindividuelles(){
+        
     }
 
     /**
@@ -101,9 +112,13 @@ class FindividuellesController extends Controller
      * @param  \App\Findividuelle  $findividuelle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Findividuelle $findividuelle)
+    public function update(Request $request, $id)
     {
-        dd($findividuelle);
+        $individuelles = Individuelle::find($id);
+
+        dd($individuelles);
+
+        dd($findividuelle->demandeur);
     }
 
     /**
@@ -115,5 +130,14 @@ class FindividuellesController extends Controller
     public function destroy(Findividuelle $findividuelle)
     {
         //
+    }
+
+    
+    public function list(Request $request)
+    {
+        $individuelles=Individuelle::with('individuelles.demandeur')->get();
+        dd($individuelles);
+        return Datatables::of($individuelles)->make(true);
+
     }
 }

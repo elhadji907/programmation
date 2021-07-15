@@ -168,7 +168,7 @@
                             </tr>
                             <tr class="details" align="right">
                                 <td colspan="2">
-                                    <a href="{{ route('findividuelles.selectdindividuelles',['$id_dept' => $findividuelle->formation->departement->nom, '$id_module' => $findividuelle->formation->module]) }}">
+                                    <a href="{{ route('findividuelles.selectdindividuelles',['$id_dept' => $findividuelle->formation->departement, '$id_module' => $findividuelle->formation->module]) }}">
                                         <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i>
                                         </div>
                                     </a>
