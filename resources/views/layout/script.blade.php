@@ -144,7 +144,7 @@
           placeholder: "sélectionner module de formation",
           language: "fr",
           allowClear: true,
-          maximumSelectionLength: 1
+          maximumSelectionLength: 2
       });
   </script>
   <script type="text/javascript">

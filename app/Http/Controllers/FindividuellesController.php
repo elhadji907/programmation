@@ -51,8 +51,17 @@ class FindividuellesController extends Controller
         
         $message = $individuelle->demandeur->user->firstname.' '.$individuelle->demandeur->user->name.' a été ajouté';
         return back()->with(compact('message'));
-        
+    }
 
+    public function deleteindividuelles($id_ind, $id_form)
+    {
+        $individuelle = Individuelle::find($id_ind);
+        $formation = Formation::find($id_form);
+        //dd($individuelle);
+        $individuelle->formations()->detach($formation);
+        
+        $message = $individuelle->demandeur->user->firstname.' '.$individuelle->demandeur->user->name.' a été enlevé';
+        return back()->with(compact('message'));
     }
 
     /**

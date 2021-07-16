@@ -59,12 +59,14 @@ class FormationsController extends Controller
         $findividuelles = $formation->findividuelles;
         $fcollectives = $formation->fcollectives;
 
+        $id_form = $formation->id;
+        
         if ($type_formation == "Individuelle") {
-            return view('findividuelles.details', compact('formation','findividuelles'));
+            return view('findividuelles.details', compact('formation','findividuelles','id_form'));
         } elseif ($type_formation == "Collective") {
-            return view('fcollectives.details', compact('formation','fcollectives'));
+            return view('fcollectives.details', compact('formation','fcollectives','id_form'));
         } else {
-            return view('formations.show', compact('formation'));
+            return view('formations.show', compact('formation','id_form'));
         }
     }
 

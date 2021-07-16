@@ -89,6 +89,7 @@ Route::group([
         Route::get('/selectdindividuelles/{id_dept}/{id_module}/{id_form}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
         
         Route::get('adddindividuelles/{id_ind}/{id_form}', 'FindividuellesController@adddindividuelles')->name('adddindividuelles');
+        Route::get('deleteindividuelles/{id_ind}/{id_form}', 'FindividuellesController@deleteindividuelles')->name('deleteindividuelles');
 
         Route::get('postes/create', 'PostesController@create')->name('postes.create');
         Route::post('postes', 'PostesController@store')->name('postes.store');

@@ -110,8 +110,8 @@
                                                         <td>{!! $demandeur->numero !!}</td>
                                                         <td>{!! $demandeur->user->firstname !!} {{ ' ' }}{!! $demandeur->user->name !!}
                                                         </td>
-                                                        <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
-                                                        <td>{!! $demandeur->user->lieu_naissance !!}</td> --}}
+                                                       {{--   <td>{!! $demandeur->user->date_naissance->format('d/m/Y') !!}</td>
+                                                        <td>{!! $demandeur->user->lieu_naissance !!}</td>  --}}
                                                         <td>{!! $demandeur->user->telephone !!}</td>
                                                         <td>
                                                             @foreach ($demandeur->modules as $module)
@@ -148,7 +148,7 @@
 
                         </div>
                     @else
-                        {{-- <div lass="d-flex justify-content-between align-items-center">
+                        <div lass="d-flex justify-content-between align-items-center">
                         <small>
                             <a href="{{ route('demandeurs.create') }}">
                                 <div class="btn btn-primary mt-3"><i class="fas fa-plus"></i>&nbsp;Cliquez ici pour
@@ -166,7 +166,7 @@
                                     compléter votre demande de formation colective</i></div>
                             </a>
                         </small>
-                    </div> --}}
+                    </div>
                     @endif
                 </div>
             </div>

@@ -26,16 +26,16 @@
                         <table class="table table-bordered table-striped" width="100%" cellspacing="0" id="table-secteurs">
                           <thead class="table-dark">
                             <tr>
-                              <th>ID</th>
+                              <th width="30px">ID</th>
                                <th>{!! __("Secteur d'activité") !!}</th>
-                              <th style="width:20%;">Action</th>
+                              <th width="80px">Action</th>
                             </tr>
                           </thead>
                           <tfoot class="table-dark">
                               <tr>
                                 <th>ID</th>
                                  <th>{!! __("Secteur d'activité") !!}</th>
-                                <th style="width:20%;">Action</th>
+                                <th>Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
