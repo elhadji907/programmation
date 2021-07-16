@@ -17,7 +17,7 @@
                         <h4>
                             <b>Ingénieur choisi : </b>
                             {{ $ingenieur->name ?? 'Non disponible' }}<br />
-                            <b>Matricule : </b> {{ $ingenieur->matricule ?? 'Aucune matricule attribuée' }}
+                            <b>Matricule : </b> {{ $ingenieur->matricule ?? 'Aucun matricule attribué' }}
                         </h4>
                     </div>
                     <div class="row pt-2"></div>

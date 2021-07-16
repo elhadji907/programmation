@@ -30,6 +30,10 @@
             text-align: right;
         }
 
+        .invoice-box table tr td p:nth-child(1) {
+            text-align: center;
+        }
+
         .invoice-box table tr.top table td {
             padding-bottom: 20px;
         }
@@ -122,10 +126,10 @@
                                                     src="{{ asset('images/image_onfp.jpg') }}">
                                             </td>
                                             <td>
-                                                <b>Numéro dossier </b>#:
+                                                <b>CODE </b>#:
                                                 {!! $findividuelle->code !!}<br>
-                                                <b>Date début </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
-                                                <b>Date fin </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
+                                                <b>DÉBUT </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_debut)->format('d/m/Y') !!}<br>
+                                                <b>FIN </b>: {!! Carbon\Carbon::parse($findividuelle->formation->date_fin)->format('d/m/Y') !!}<br>
                                             </td>
                                         </tr>
                                     </table>
@@ -166,30 +170,37 @@
 
                                 </td>
                             </tr>
-                            <tr class="details" align="right">
-                                <td colspan="2">
-                                    <a href="{{ route('findividuelles.selectdindividuelles',['$id_dept' => $findividuelle->formation->departement, '$id_module' => $findividuelle->formation->module]) }}">
+                            <tr class="details">
+                                <td>
+                                    <a href="{!! url('findividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
+                                        <i class="far fa-edit">&nbsp;Modifier</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a
+                                        href="{{ route('findividuelles.selectdindividuelles', ['$id_dept' => $findividuelle->formation->departement, '$id_module' => $findividuelle->formation->module, 'id_form' => $findividuelle->formation->id]) }}">
                                         <div class="btn btn-success  btn-sm"><i class="fas fa-plus"></i>&nbsp;Ajouter</i>
                                         </div>
                                     </a>
                                 </td>
                             </tr>
                             <br />
-                            <table class="table table-bordered table-striped" width="100%" cellspacing="0"
-                                id="table-individuelles">
+                            <table class="table table-bordered" width="100%" cellspacing="0" id="table-individuelles">
                                 <thead class="heading">
                                     <tr>
-                                        <th>Cin</th>
+                                        <th width="150px">Cin</th>
+                                        <th width="50px">Civilité</th>
                                         <th>Prenom</th>
                                         <th>Nom</th>
-                                        <th>Téléphone</th>
-                                        <th>Statut</th>
+                                        <th width="150px">Téléphone</th>
+                                        <th width="50px">Statut</th>
                                         <th style="width:08%;">Action</th>
                                     </tr>
                                 </thead>
-                                <tfoot class="heading">
+                                <tfoot>
                                     <tr>
                                         <th>Cin</th>
+                                        <th>Civilité</th>
                                         <th>Prenom</th>
                                         <th>Nom</th>
                                         <th>Téléphone</th>
@@ -197,23 +208,26 @@
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
-
-
+                                <tbody class="details">
+                                    <?php $i = 1; ?>
+                                    @foreach ($findividuelle->formation->individuelles as $individuelle)
+                                        <tr>
+                                            <td>{{ $individuelle->cin }}</td>
+                                            <td>
+                                                <p>{{ $individuelle->demandeur->user->civilite }}</p>
+                                            </td>
+                                            <td>{{ $individuelle->demandeur->user->firstname }}</td>
+                                            <td>{{ $individuelle->demandeur->user->name }}</td>
+                                            <td>{{ $individuelle->demandeur->user->telephone }}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-5">
-                        <a href="{!! url('findividuelles/' . $findividuelle->id . '/edit') !!}" title="modifier" class="btn btn-outline-warning mt-0">
-                            <i class="far fa-edit">&nbsp;Modifier</i>
-                        </a>
-                        <a href="{!! route('formations.show', $findividuelle->formation->id) !!}" title="modifier" class="btn btn-outline-primary mt-0">
-                            <i class="far fa-eye">&nbsp;M&eacute;ssage</i>
-                        </a>
-                    </div>
-
                 </div>
             </div>
         </div>

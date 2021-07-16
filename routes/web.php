@@ -86,11 +86,9 @@ Route::group([
         Route::get('/departements/list', 'DepartementsController@list')->name('departements.list');
         Route::get('/regions/list', 'RegionsController@list')->name('regions.list');
 
-        Route::get('/selectdindividuelles/{id_dept}/{id_module}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
-        Route::post('/adddindividuelles', 'FindividuellesController@adddindividuelles')->name('findividuelles.adddindividuelles');
+        Route::get('/selectdindividuelles/{id_dept}/{id_module}/{id_form}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
         
-        Route::get('selectdindividuelles/{id}', 'FindividuellesController@update');
-        Route::get('selectdindividuellesUpdateAll', 'FindividuellesController@updateAll');
+        Route::get('adddindividuelles/{id_ind}/{id_form}', 'FindividuellesController@adddindividuelles')->name('adddindividuelles');
 
         Route::get('postes/create', 'PostesController@create')->name('postes.create');
         Route::post('postes', 'PostesController@store')->name('postes.store');
