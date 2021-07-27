@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 14 Jul 2021 10:58:27 +0000.
+ * Date: Mon, 26 Jul 2021 12:38:02 +0000.
  */
 
 namespace App;
@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
  * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $agrements
  * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
@@ -92,6 +93,13 @@ class Module extends Eloquent
 	public function formations()
 	{
 		return $this->hasMany(\App\Formation::class, 'modules_id');
+	}
+
+	public function agrements()
+	{
+		return $this->belongsToMany(\App\Agrement::class, 'modules_has_agrements', 'modules_id', 'agrements_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function departements()

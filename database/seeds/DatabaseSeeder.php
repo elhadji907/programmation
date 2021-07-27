@@ -52,11 +52,13 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesdemandesTableSeeder::class);
         $this->call(TypesFormationsTableSeeder::class);
         $this->call(IngenieursTableSeeder::class);
-        //$this->call(NineasTableSeeder::class);
+        $this->call(NineasTableSeeder::class);
         $this->call(IndividuellesTableSeeder::class);
         $this->call(CollectivesTableSeeder::class);
         $this->call(FcollectivesTableSeeder::class);
         $this->call(FindividuellesTableSeeder::class);
+        $this->call(TypesOperateursTableSeeder::class);
+        $this->call(OperateursTableSeeder::class);
         //$this->call(FormationsTableSeeder::class);
         //$this->call(DemandeursmodulesTableSeeder::class);
         //$this->call(BeneficiairesTableSeeder::class);
@@ -69,7 +71,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(CategoriesTableSeeder::class);
         //$this->call(PersonnelsTableSeeder::class);
         //$this->call(StructuresTableSeeder::class);
-        //$this->call(OperateursTableSeeder::class);
         //$this->call(RegionsTableSeeder::class);
         //$this->call(DepartementsTableSeeder::class);
         

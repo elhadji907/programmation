@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 13 Jul 2021 10:46:29 +0000.
+ * Date: Mon, 26 Jul 2021 12:39:24 +0000.
  */
 
 namespace App;
@@ -10,38 +10,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class ModulesHasDepartement
+ * Class ModulesHasAgrement
  * 
  * @property int $id
  * @property int $modules_id
- * @property int $departements_id
+ * @property int $agrements_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Departement $departement
+ * @property \App\Agrement $agrement
  * @property \App\Module $module
  *
  * @package App
  */
-class ModulesHasDepartement extends Eloquent
+class ModulesHasAgrement extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'modules_id' => 'int',
-		'departements_id' => 'int'
+		'agrements_id' => 'int'
 	];
 
 	protected $fillable = [
 		'modules_id',
-		'departements_id'
+		'agrements_id'
 	];
 
-	public function departement()
+	public function agrement()
 	{
-		return $this->belongsTo(\App\Departement::class, 'departements_id');
+		return $this->belongsTo(\App\Agrement::class, 'agrements_id');
 	}
 
 	public function module()

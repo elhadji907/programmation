@@ -131,7 +131,7 @@ class NineasTableSeeder extends Seeder
         App\Ninea::firstOrCreate(["numero"=>"4900032"],["name"=>"ADJA OUMY GUEYE NEGOCE SUARL"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"2584036"],["name"=>"ADL INTERNATIONAL SUARL"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"5803988"],["name"=>"ADNTECH -SUARL"],["uuid"=>Str::uuid()]);
-        App\Ninea::firstOrCreate(["numero"=>"6055885"],["name"=>"ADRIEN COLY"],["uuid"=>Str::uuid()]);
+        /* App\Ninea::firstOrCreate(["numero"=>"6055885"],["name"=>"ADRIEN COLY"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"5240297"],["name"=>"ADT FACILITY MANAGEMENT"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"5907061"],["name"=>"ADVANCE TRADING- SARL 142 R UFG 02"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"2700880"],["name"=>"ADVANCED FINANCE ET INVESTMENT GROUP- SA"],["uuid"=>Str::uuid()]);
@@ -13371,6 +13371,6 @@ class NineasTableSeeder extends Seeder
         App\Ninea::firstOrCreate(["numero"=>"5809655"],["name"=>"ZICO TRANSIT - SARL"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"2990267"],["name"=>"ZIK FM BG3-202"],["uuid"=>Str::uuid()]);
         App\Ninea::firstOrCreate(["numero"=>"2839449"],["name"=>"ZTE CORPORATION"],["uuid"=>Str::uuid()]);
-        App\Ninea::firstOrCreate(["numero"=>"5233739"],["name"=>"ZUULU FINANCIAL SERVICES - SUARL"],["uuid"=>Str::uuid()]);
+        App\Ninea::firstOrCreate(["numero"=>"5233739"],["name"=>"ZUULU FINANCIAL SERVICES - SUARL"],["uuid"=>Str::uuid()]); */
     }
 }

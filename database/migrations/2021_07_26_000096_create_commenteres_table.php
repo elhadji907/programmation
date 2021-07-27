@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommensTable extends Migration
+class CreateCommenteresTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'commens';
+    public $tableName = 'commenteres';
 
     /**
      * Run the migrations.
-     * @table commens
+     * @table commenteres
      *
      * @return void
      */
@@ -24,26 +24,27 @@ class CreateCommensTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('uuid', 36);
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->integer('commentable_id')->nullable();
             $table->longText('commentable_type')->nullable();
+            $table->timestamp('cread_at')->nullable();
             $table->unsignedInteger('users_id');
-            $table->unsignedInteger('formations_id');
+            $table->unsignedInteger('operateurs_id');
 
-            $table->index(["users_id"], 'fk_commens_users1_idx');
+            $table->index(["users_id"], 'fk_commenteres_users1_idx');
 
-            $table->index(["formations_id"], 'fk_commens_formations1_idx');
+            $table->index(["operateurs_id"], 'fk_commenteres_operateurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_commens_users1_idx')
+            $table->foreign('users_id', 'fk_commenteres_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('formations_id', 'fk_commens_formations1_idx')
-                ->references('id')->on('formations')
+            $table->foreign('operateurs_id', 'fk_commenteres_operateurs1_idx')
+                ->references('id')->on('operateurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

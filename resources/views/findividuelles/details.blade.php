@@ -214,7 +214,7 @@
                                         <th>Lieu nais.</th>
                                         <th>Téléphone</th>
                                         <th>Statut</th>
-                                        <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody class="details">
@@ -235,7 +235,7 @@
                                             <td>
                                                 <a href="{{ route('deleteindividuelles', ['$id_ind' => $individuelle->id, '$id_form' => $id_form]) }}"
                                                     title="Enlever" class="btn btn-outline-danger btn-sm mt-0">
-                                                    <i class="fas fa-trash-alt"></i>
+                                                    <i class="fas fa-trash-alt">&nbsp;Enlever</i>
                                                 </a>
                                             </td>
                                         </tr>

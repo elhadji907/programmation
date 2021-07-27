@@ -37,17 +37,20 @@ class CreateOperateursTable extends Migration
             $table->string('email1', 200)->nullable();
             $table->string('email2', 200)->nullable();
             $table->string('adresse', 200)->nullable();
-            $table->unsignedInteger('communes_id')->nullable();
+            $table->string('nom_responsable', 200)->nullable();
+            $table->string('prenom_responsable', 200)->nullable();
+            $table->string('cin_responsable', 200)->nullable();
+            $table->string('qualification', 200)->nullable();
+            $table->string('telephone_responsable', 45)->nullable();
+            $table->string('email_responsable', 45)->nullable();
             $table->unsignedInteger('users_id')->nullable();
             $table->unsignedInteger('rccms_id')->nullable();
             $table->unsignedInteger('nineas_id')->nullable();
             $table->unsignedInteger('types_operateurs_id')->nullable();
             $table->unsignedInteger('quitus_id')->nullable();
-            $table->unsignedInteger('responsables_id')->nullable();
             $table->unsignedInteger('specialites_id')->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
-
-            $table->index(["communes_id"], 'fk_operateurs_communes1_idx');
+            $table->unsignedInteger('departements_id')->nullable();
 
             $table->index(["users_id"], 'fk_operateurs_users1_idx');
 
@@ -59,19 +62,14 @@ class CreateOperateursTable extends Migration
 
             $table->index(["quitus_id"], 'fk_operateurs_quitus1_idx');
 
-            $table->index(["responsables_id"], 'fk_operateurs_responsables1_idx');
-
             $table->index(["specialites_id"], 'fk_operateurs_specialites1_idx');
 
             $table->index(["courriers_id"], 'fk_operateurs_courriers1_idx');
+
+            $table->index(["departements_id"], 'fk_operateurs_departements1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
-
-            $table->foreign('communes_id', 'fk_operateurs_communes1_idx')
-                ->references('id')->on('communes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('users_id', 'fk_operateurs_users1_idx')
                 ->references('id')->on('users')
@@ -98,11 +96,6 @@ class CreateOperateursTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('responsables_id', 'fk_operateurs_responsables1_idx')
-                ->references('id')->on('responsables')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
             $table->foreign('specialites_id', 'fk_operateurs_specialites1_idx')
                 ->references('id')->on('specialites')
                 ->onDelete('no action')
@@ -110,6 +103,11 @@ class CreateOperateursTable extends Migration
 
             $table->foreign('courriers_id', 'fk_operateurs_courriers1_idx')
                 ->references('id')->on('courriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('departements_id', 'fk_operateurs_departements1_idx')
+                ->references('id')->on('departements')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

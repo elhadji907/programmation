@@ -29,6 +29,7 @@ class Administrateur extends Eloquent
 	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
+	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
 		'users_id' => 'int'

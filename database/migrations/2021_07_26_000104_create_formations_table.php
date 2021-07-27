@@ -153,11 +153,11 @@ class CreateFormationsTable extends Migration
                 ->references('id')->on('departements')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-                
+
             $table->foreign('modules_id', 'fk_formations_modules1_idx')
-            ->references('id')->on('modules')
-            ->onDelete('no action')
-            ->onUpdate('no action');
+                ->references('id')->on('modules')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

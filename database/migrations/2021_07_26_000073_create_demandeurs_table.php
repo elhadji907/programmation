@@ -65,6 +65,7 @@ class CreateDemandeursTable extends Migration
             $table->unsignedInteger('departements_id')->nullable();
             $table->unsignedInteger('types_demandes_id')->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
+            $table->longText('motif')->nullable();
 
             $table->index(["users_id"], 'fk_demandeurs_users1_idx');
 

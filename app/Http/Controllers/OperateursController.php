@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Operateur;
 use App\Role;
 use App\User;
-use App\Structure;
 use App\Typedemande;
 use App\Module;
 use Auth;
@@ -49,7 +48,6 @@ class OperateursController extends Controller
     public function create()
     {
         $roles = Role::get();    
-        $structures = Structure::distinct('name')->get()->pluck('name','id')->unique();
 
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
                 
@@ -57,7 +55,7 @@ class OperateursController extends Controller
         
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
 
-        return view('operateurs.create',compact('roles', 'civilites','structures','types_demandes','modules'));
+        return view('operateurs.create',compact('roles', 'civilites','types_demandes','modules'));
     }
 
     /**
@@ -199,7 +197,6 @@ class OperateursController extends Controller
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
-        $structures = Structure::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
 
         return view('operateurs.update', compact('operateurs', 'modules','utilisateurs', 'roles', 'id','civilites', 'structures'));
@@ -216,40 +213,28 @@ class OperateursController extends Controller
     public function update(Request $request, Operateur $operateur)
     {
         $this->validate(
-            $request, [
-                
-                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier,'.$operateur->user->id,
+            $request, [                
+                'numero_agrement'     =>  "required|string|unique:operateurs,numero_agrement,{$operateur->id},id,deleted_at,NULL",
                 'date_depot'          =>  'required|date_format:Y-m-d',
-
                 'name'                =>  'required|string|max:255|unique:users,name',
                 'sigle'               =>  'required|string|max:50',
-                'ninea'               =>  'required|string|max:255|unique:operateurs,ninea,'.$operateur->id,
+                'ninea'               =>  "required|string|max:255|unique:operateurs,ninea,{$operateur->id},id,deleted_at,NULL",
                 'registre'            =>  'required|string|max:50',
-                'quitus'              =>  'required|string|max:255|unique:operateurs,quitus,'.$operateur->id,
-                'email_s'             =>  'required|email|max:255|unique:users,email,'.$operateur->id,
+                'quitus'              =>  "required|string|max:255|unique:operateurs,quitus,{$operateur->id},id,deleted_at,NULL",
+                'email_s'             =>  "required|email|max:255|unique:users,email,{$operateur->id},id,deleted_at,NULL",
                 'telephone_s'         =>  'required|string|max:50',
                 'adresse_s'           =>  'required|string',
-
-                /* 'cin'                 =>  'required|string|min:12|max:18|unique:operateurs,cin', */
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
-                'email'               =>  'required|email|max:255|unique:users,email,'.$operateur->user->id,
+                'email'               =>  "required|email|max:255|unique:users,email,{$operateur->id},id,deleted_at,NULL",
                 'telephone'           =>  'required|string|max:50',
-                'statut'              =>  'required|string|max:100',
-                
+                'statut'              =>  'required|string|max:100',                
                 'modules'             =>  'exists:modules,id',
                 'departements'        =>  'exists:departements,id',
-            ],
-            [
-                'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
-            ],
-            [
-                'password.max'  =>  'Pour des raisons de sécurité, votre mot de passe ne doit pas dépasser :max caractères.'
             ]
         );
 
         $utilisateurs   =   $operateur->user;
-
         $updated_by1 = Auth::user()->firstname;
         $updated_by2 = Auth::user()->name;
         $updated_by3 = Auth::user()->username;

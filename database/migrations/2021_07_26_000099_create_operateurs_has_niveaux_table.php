@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommenteresTable extends Migration
+class CreateOperateursHasNiveauxTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'commenteres';
+    public $tableName = 'operateurs_has_niveaux';
 
     /**
      * Run the migrations.
-     * @table commenteres
+     * @table operateurs_has_niveaux
      *
      * @return void
      */
@@ -23,27 +23,23 @@ class CreateCommenteresTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->char('uuid', 36);
-            $table->longText('content');
-            $table->integer('commentable_id')->nullable();
-            $table->longText('commentable_type')->nullable();
-            $table->unsignedInteger('users_id');
             $table->unsignedInteger('operateurs_id');
+            $table->unsignedInteger('niveaux_id');
 
-            $table->index(["users_id"], 'fk_commenteres_users1_idx');
+            $table->index(["niveaux_id"], 'fk_operateurs_has_niveaux_niveaux1_idx');
 
-            $table->index(["operateurs_id"], 'fk_commenteres_operateurs1_idx');
+            $table->index(["operateurs_id"], 'fk_operateurs_has_niveaux_operateurs1_idx');
             $table->softDeletes();
             $table->nullableTimestamps();
 
 
-            $table->foreign('users_id', 'fk_commenteres_users1_idx')
-                ->references('id')->on('users')
+            $table->foreign('operateurs_id', 'fk_operateurs_has_niveaux_operateurs1_idx')
+                ->references('id')->on('operateurs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('operateurs_id', 'fk_commenteres_operateurs1_idx')
-                ->references('id')->on('operateurs')
+            $table->foreign('niveaux_id', 'fk_operateurs_has_niveaux_niveaux1_idx')
+                ->references('id')->on('niveauxs')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
