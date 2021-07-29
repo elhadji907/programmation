@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 26 Jul 2021 12:38:09 +0000.
+ * Date: Thu, 29 Jul 2021 10:40:59 +0000.
  */
 
 namespace App;
@@ -54,6 +54,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Agrement extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -119,11 +120,6 @@ class Agrement extends Eloquent
 	public function operateur()
 	{
 		return $this->belongsTo(\App\Operateur::class, 'operateurs_id');
-	}
-
-	public function quitus()
-	{
-		return $this->belongsTo(\App\Quitus::class);
 	}
 
 	public function rccm()

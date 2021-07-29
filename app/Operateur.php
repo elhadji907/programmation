@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 26 Jul 2021 12:38:58 +0000.
+ * Date: Thu, 29 Jul 2021 10:41:07 +0000.
  */
 
 namespace App;
@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $ninea
  * @property string $rccm
  * @property string $quitus
+ * @property \Carbon\Carbon $debut_quitus
+ * @property \Carbon\Carbon $fin_quitus
  * @property string $telephone1
  * @property string $telephone2
  * @property string $fixe
@@ -32,11 +34,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $cin_responsable
  * @property string $telephone_responsable
  * @property string $email_responsable
+ * @property string $qualification
  * @property int $users_id
  * @property int $rccms_id
  * @property int $nineas_id
  * @property int $types_operateurs_id
- * @property int $quitus_id
  * @property int $specialites_id
  * @property int $courriers_id
  * @property int $departements_id
@@ -54,12 +56,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
+ * @property \Illuminate\Database\Eloquent\Collection $regions
  * @property \Illuminate\Database\Eloquent\Collection $traitements
  *
  * @package App
  */
 class Operateur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -68,10 +72,14 @@ class Operateur extends Eloquent
 		'rccms_id' => 'int',
 		'nineas_id' => 'int',
 		'types_operateurs_id' => 'int',
-		'quitus_id' => 'int',
 		'specialites_id' => 'int',
 		'courriers_id' => 'int',
 		'departements_id' => 'int'
+	];
+
+	protected $dates = [
+		'debut_quitus',
+		'fin_quitus'
 	];
 
 	protected $fillable = [
@@ -83,6 +91,8 @@ class Operateur extends Eloquent
 		'ninea',
 		'rccm',
 		'quitus',
+		'debut_quitus',
+		'fin_quitus',
 		'telephone1',
 		'telephone2',
 		'fixe',
@@ -90,16 +100,16 @@ class Operateur extends Eloquent
 		'email2',
 		'adresse',
 		'nom_responsable',
-		'qualification',
 		'prenom_responsable',
 		'cin_responsable',
 		'telephone_responsable',
 		'email_responsable',
+		'fonction_responsable',
+		'qualification',
 		'users_id',
 		'rccms_id',
 		'nineas_id',
 		'types_operateurs_id',
-		'quitus_id',
 		'specialites_id',
 		'courriers_id',
 		'departements_id'
@@ -118,11 +128,6 @@ class Operateur extends Eloquent
 	public function ninea()
 	{
 		return $this->belongsTo(\App\Ninea::class, 'nineas_id');
-	}
-
-	public function quitus()
-	{
-		return $this->belongsTo(\App\Quitus::class);
 	}
 
 	public function rccm()
@@ -170,6 +175,13 @@ class Operateur extends Eloquent
 	public function niveauxes()
 	{
 		return $this->belongsToMany(\App\Niveaux::class, 'operateurs_has_niveaux', 'operateurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function regions()
+	{
+		return $this->belongsToMany(\App\Region::class, 'operateurs_has_regions', 'operateurs_id', 'regions_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

@@ -31,6 +31,8 @@ class CreateOperateursTable extends Migration
             $table->string('ninea', 200)->nullable();
             $table->string('rccm', 200)->nullable();
             $table->string('quitus', 200)->nullable();
+            $table->dateTime('debut_quitus')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('fin_quitus')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->string('telephone1', 200)->nullable();
             $table->string('telephone2', 200)->nullable();
             $table->string('fixe', 200)->nullable();
@@ -40,14 +42,14 @@ class CreateOperateursTable extends Migration
             $table->string('nom_responsable', 200)->nullable();
             $table->string('prenom_responsable', 200)->nullable();
             $table->string('cin_responsable', 200)->nullable();
-            $table->string('qualification', 200)->nullable();
             $table->string('telephone_responsable', 45)->nullable();
             $table->string('email_responsable', 45)->nullable();
+            $table->string('fonction_responsable', 200)->nullable();
+            $table->longText('qualification')->nullable();
             $table->unsignedInteger('users_id')->nullable();
             $table->unsignedInteger('rccms_id')->nullable();
             $table->unsignedInteger('nineas_id')->nullable();
             $table->unsignedInteger('types_operateurs_id')->nullable();
-            $table->unsignedInteger('quitus_id')->nullable();
             $table->unsignedInteger('specialites_id')->nullable();
             $table->unsignedInteger('courriers_id')->nullable();
             $table->unsignedInteger('departements_id')->nullable();
@@ -59,8 +61,6 @@ class CreateOperateursTable extends Migration
             $table->index(["nineas_id"], 'fk_operateurs_nineas1_idx');
 
             $table->index(["types_operateurs_id"], 'fk_operateurs_types_operateurs1_idx');
-
-            $table->index(["quitus_id"], 'fk_operateurs_quitus1_idx');
 
             $table->index(["specialites_id"], 'fk_operateurs_specialites1_idx');
 
@@ -88,11 +88,6 @@ class CreateOperateursTable extends Migration
 
             $table->foreign('types_operateurs_id', 'fk_operateurs_types_operateurs1_idx')
                 ->references('id')->on('types_operateurs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('quitus_id', 'fk_operateurs_quitus1_idx')
-                ->references('id')->on('quitus')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

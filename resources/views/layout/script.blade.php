@@ -148,6 +148,15 @@
       });
   </script>
   <script type="text/javascript">
+    
+    $("#regions_op").select2({
+          placeholder: "sélectionner régions d'intervention",
+          language: "fr",
+          allowClear: true,
+          maximumSelectionLength: 14
+      });
+  </script>
+  <script type="text/javascript">
   
   $("#secteur").select2({
         placeholder: "selectione un secteur",
@@ -155,9 +164,14 @@
     });
 </script>
   <script type="text/javascript">
-  
   $("#domaine").select2({
         placeholder: "sélectionner un domaine",
+        allowClear: true
+    });
+</script>
+  <script type="text/javascript">
+  $("#type_structure").select2({
+        placeholder: "sélectionner type de structure",
         allowClear: true
     });
 </script>

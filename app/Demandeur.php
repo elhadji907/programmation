@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 13 Jul 2021 21:56:50 +0000.
+ * Date: Thu, 29 Jul 2021 10:41:55 +0000.
  */
 
 namespace App;
@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $departements_id
  * @property int $types_demandes_id
  * @property int $courriers_id
+ * @property string $motif
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -72,15 +73,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $collectives
  * @property \Illuminate\Database\Eloquent\Collection $commentaires
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
+ * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $individuelles
+ * @property \Illuminate\Database\Eloquent\Collection $pcharges
  * @property \Illuminate\Database\Eloquent\Collection $pieces
  * @property \Illuminate\Database\Eloquent\Collection $titres
  *
  * @package App
  */
 class Demandeur extends Eloquent
-{	
+{
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -146,7 +150,8 @@ class Demandeur extends Eloquent
 		'diplomes_id',
 		'departements_id',
 		'types_demandes_id',
-		'courriers_id'
+		'courriers_id',
+		'motif'
 	];
 
 	public function courrier()
@@ -216,6 +221,12 @@ class Demandeur extends Eloquent
 					->withTimestamps();
 	}
 
+	public function formations()
+	{
+		return $this->belongsToMany(\App\Formation::class, 'demandeurs_has_formations', 'demandeurs_id', 'formations_id')
+					->withPivot('id', 'update_at', 'deleted_at');
+	}
+
 	public function modules()
 	{
 		return $this->belongsToMany(\App\Module::class, 'demandeurs_has_modules', 'demandeurs_id', 'modules_id')
@@ -226,6 +237,11 @@ class Demandeur extends Eloquent
 	public function individuelles()
 	{
 		return $this->hasMany(\App\Individuelle::class, 'demandeurs_id');
+	}
+
+	public function pcharges()
+	{
+		return $this->hasMany(\App\Pcharge::class, 'demandeurs_id');
 	}
 
 	public function pieces()

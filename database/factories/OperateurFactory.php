@@ -14,6 +14,8 @@ $factory->define(App\Operateur::class, function (Faker $faker) {
         'ninea' => $faker->word,
         'rccm' => $faker->word,
         'quitus' => $faker->word,
+        'debut_quitus' => $faker->dateTime(),
+        'fin_quitus' => $faker->dateTime(),
         'telephone1' => $faker->word,
         'telephone2' => $faker->word,
         'fixe' => $faker->word,
@@ -21,11 +23,12 @@ $factory->define(App\Operateur::class, function (Faker $faker) {
         'email2' => $faker->word,
         'adresse' => $faker->word,
         'nom_responsable' => $faker->word,
-        'qualification' => $faker->word,
         'prenom_responsable' => $faker->word,
         'cin_responsable' => $faker->word,
         'telephone_responsable' => $faker->word,
         'email_responsable' => $faker->word,
+        'fonction_responsable' => $faker->word,
+        'qualification' => $faker->text,
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
         },
@@ -37,9 +40,6 @@ $factory->define(App\Operateur::class, function (Faker $faker) {
         },
         'types_operateurs_id' => function () {
             return factory(App\TypesOperateur::class)->create()->id;
-        },
-        'quitus_id' => function () {
-            return factory(App\Quitus::class)->create()->id;
         },
         'specialites_id' => function () {
             return factory(App\Specialite::class)->create()->id;
@@ -65,6 +65,7 @@ $factory->define(App\Operateur::class, function (Faker\Generator $faker) use ($a
     $role_id=App\Role::where('name','Operateur')->first()->id;
     $nineas_id=App\Ninea::all()->random()->id;
     $types_operateurs_id=App\TypesOperateur::all()->random()->id;
+    $types_operateurs_name=App\TypesOperateur::all()->random()->name;
     $departements_id=App\Departement::all()->random()->id;
     $types_courrier_id=App\TypesCourrier::where('name','Operateur')->first()->id;
 
@@ -84,10 +85,12 @@ $factory->define(App\Operateur::class, function (Faker\Generator $faker) use ($a
         'numero_agrement' => $autoIncremente_op->current().".".$an."/ONFP/DG/DEC/".$annee,
         'name' => $faker->name,
         'sigle' => "",
-        'type_structure' => $faker->word,
-        'ninea' => $faker->word,
-        'rccm' => $faker->word,
-        'quitus' => $faker->word,
+        'type_structure' => $types_operateurs_name,
+        'ninea' => $faker->numberBetween($min = 100000, $max = 900000),
+        'rccm' => $faker->numberBetween($min = 10000, $max = 90000),
+        'quitus' => $faker->numberBetween($min = 1000, $max = 9000),
+        'debut_quitus' => $faker->dateTime(),
+        'fin_quitus' => $faker->dateTime(),
         'telephone1' => $faker->e164PhoneNumber,
         'telephone2' => $faker->e164PhoneNumber,
         'fixe' => $faker->word,
@@ -100,6 +103,7 @@ $factory->define(App\Operateur::class, function (Faker\Generator $faker) use ($a
         'cin_responsable' => $cin,
         'telephone_responsable' => $faker->e164PhoneNumber,
         'email_responsable' => $faker->safeEmail,
+        'fonction_responsable' => $faker->word,
         'users_id' => function () use($role_id) {
              return factory(App\User::class)->create(["roles_id"=>$role_id])->id;
         },

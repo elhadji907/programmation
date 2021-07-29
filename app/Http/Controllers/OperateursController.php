@@ -7,6 +7,8 @@ use App\Role;
 use App\User;
 use App\Typedemande;
 use App\Module;
+use App\Departement;
+use App\Region;
 use Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -190,16 +192,17 @@ class OperateursController extends Controller
      * @param  \App\Operateur  $operateur
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Operateur $operateur)
     {
-        $operateurs = Operateur::find($id);
-        $utilisateurs = $operateurs->user;
+        $utilisateurs = $operateur->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
+        $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
+        $regions = Region::distinct('nom')->get()->pluck('nom','nom')->unique();
 
-        return view('operateurs.update', compact('operateurs', 'modules','utilisateurs', 'roles', 'id','civilites', 'structures'));
+        return view('operateurs.update', compact('operateur', 'modules','utilisateurs', 'roles', 'civilites', 'structures','departements','regions'));
 
     }
 
@@ -215,26 +218,24 @@ class OperateursController extends Controller
         $this->validate(
             $request, [                
                 'numero_agrement'     =>  "required|string|unique:operateurs,numero_agrement,{$operateur->id},id,deleted_at,NULL",
-                'date_depot'          =>  'required|date_format:Y-m-d',
-                'name'                =>  'required|string|max:255|unique:users,name',
-                'sigle'               =>  'required|string|max:50',
+                'email1'              =>  "required|email|unique:operateurs,email1,{$operateur->id},id,deleted_at,NULL",
+                'operateur'           =>  "required|string|max:255|unique:operateurs,name,{$operateur->id},id,deleted_at,NULL",
+                'sigle'               =>  "required|string|max:50|unique:operateurs,sigle,{$operateur->id},id,deleted_at,NULL",
                 'ninea'               =>  "required|string|max:255|unique:operateurs,ninea,{$operateur->id},id,deleted_at,NULL",
-                'registre'            =>  'required|string|max:50',
+                'registre'            =>  "required|string|max:50|unique:operateurs,rccm,{$operateur->id},id,deleted_at,NULL",
                 'quitus'              =>  "required|string|max:255|unique:operateurs,quitus,{$operateur->id},id,deleted_at,NULL",
-                'email_s'             =>  "required|email|max:255|unique:users,email,{$operateur->id},id,deleted_at,NULL",
-                'telephone_s'         =>  'required|string|max:50',
-                'adresse_s'           =>  'required|string',
+                'telephone1'          =>  'required|string|max:15',
+                'adresse'             =>  'required|string',
                 'prenom'              =>  'required|string|max:50',
                 'nom'                 =>  'required|string|max:50',
-                'email'               =>  "required|email|max:255|unique:users,email,{$operateur->id},id,deleted_at,NULL",
-                'telephone'           =>  'required|string|max:50',
-                'statut'              =>  'required|string|max:100',                
-                'modules'             =>  'exists:modules,id',
-                'departements'        =>  'exists:departements,id',
+                'email'               =>  "required|email|max:255|unique:users,email,{$operateur->user->id},id,deleted_at,NULL",
+                'telephone'           =>  'required|string|max:15',
             ]
         );
 
-        $utilisateurs   =   $operateur->user;
+        //dd($operateur);
+
+        $utilisateur   =   $operateur->user;
         $updated_by1 = Auth::user()->firstname;
         $updated_by2 = Auth::user()->name;
         $updated_by3 = Auth::user()->username;
@@ -247,21 +248,24 @@ class OperateursController extends Controller
         $telephone_s = str_replace(' ', '', $telephone_s);
         $telephone_s = str_replace(' ', '', $telephone_s);
 
-       /*  dd($utilisateurs); */
+        $utilisateur->cin               =      $request->input('cin');
+        $utilisateur->email             =      $request->input('email');
+        $utilisateur->firstanme         =      $request->input('prenom');
+        $utilisateur->name              =      $request->input('nom');
+        $utilisateur->telephone         =      $request->input('telephone');
+        $utilisateur->telephone         =      $request->input('telephone_s');
+        $utilisateur->telephone         =      $request->input('telephone_s');
 
-        $utilisateurs->numero            =      $request->input('numero_courrier');
-        $utilisateurs->date_debut        =      $request->input('date_depot');
-        $utilisateurs->name              =      $request->input('name');
-        $utilisateurs->sigle             =      $request->input('sigle');
-        $utilisateurs->ninea             =      $request->input('ninea');
-        $utilisateurs->registre          =      $request->input('registre');
-        $utilisateurs->quitus            =      $request->input('quitus');
-        $utilisateurs->email             =      $request->input('email_s');
-        $utilisateurs->telephone         =      $request->input('telephone_s');
-        $utilisateurs->adresse           =      $request->input('adresse_s');
-        $utilisateurs->structures_id     =      $request->input('structure');
-        $utilisateurs->users_id          =      $utilisateur->id;
-        $utilisateurs->status            =      $request->input('statut');
+
+        $utilisateur->sigle             =      $request->input('sigle');
+        $utilisateur->ninea             =      $request->input('ninea');
+        $utilisateur->registre          =      $request->input('registre');
+        $utilisateur->quitus            =      $request->input('quitus');
+        $utilisateur->email             =      $request->input('email_s');
+        $utilisateur->telephone         =      $request->input('telephone_s');
+        $utilisateur->adresse           =      $request->input('adresse_s');
+        $utilisateur->structures_id     =      $request->input('structure');
+        $utilisateur->users_id          =      $utilisateur->id;
 
     }
 

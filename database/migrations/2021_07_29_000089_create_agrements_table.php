@@ -54,8 +54,6 @@ class CreateAgrementsTable extends Migration
 
             $table->index(["operateurs_id"], 'fk_agrements_operateurs1_idx');
 
-            $table->index(["quitus_id"], 'fk_agrements_quitus1_idx');
-
             $table->index(["rccms_id"], 'fk_agrements_rccms1_idx');
 
             $table->index(["nineas_id"], 'fk_agrements_nineas1_idx');
@@ -74,11 +72,6 @@ class CreateAgrementsTable extends Migration
 
             $table->foreign('operateurs_id', 'fk_agrements_operateurs1_idx')
                 ->references('id')->on('operateurs')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('quitus_id', 'fk_agrements_quitus1_idx')
-                ->references('id')->on('quitus')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
