@@ -80,7 +80,7 @@ class OperateursController extends Controller
                 'registre'            =>  'required|string|max:50',
                 'quitus'              =>  'required|string|max:255|unique:operateurs,quitus',
                 'email_s'             =>  'required|email|max:255|unique:operateurs,email',
-                'telephone_s'         =>  'required|string|max:50',
+                'telephone'         =>  'required|string|max:50',
                 'adresse_s'           =>  'required|string',
 
                 /* 'cin'                 =>  'required|string|min:12|max:18|unique:operateurs,cin', */
@@ -142,10 +142,10 @@ class OperateursController extends Controller
     $utilisateur->save();
 
     
-    $telephone_s = $request->input('telephone_s');
-    $telephone_s = str_replace(' ', '', $telephone_s);
-    $telephone_s = str_replace(' ', '', $telephone_s);
-    $telephone_s = str_replace(' ', '', $telephone_s);
+    $telephone = $request->input('telephone');
+    $telephone = str_replace(' ', '', $telephone);
+    $telephone = str_replace(' ', '', $telephone);
+    $telephone = str_replace(' ', '', $telephone);
 
     $operateurs = new Operateur([
         /* 'cin'               =>     $cin, */
@@ -157,7 +157,7 @@ class OperateursController extends Controller
         'registre'          =>      $request->input('registre'),
         'quitus'            =>      $request->input('quitus'),
         'email'             =>      $request->input('email_s'),
-        'telephone'         =>      $request->input('telephone_s'),
+        'telephone'         =>      $request->input('telephone'),
         'adresse'           =>      $request->input('adresse_s'),
         'structures_id'     =>      $request->input('structure'),
         'users_id'          =>      $utilisateur->id,
@@ -200,7 +200,7 @@ class OperateursController extends Controller
         $civilites = User::pluck('civilite','civilite');
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
-        $regions = Region::distinct('nom')->get()->pluck('nom','nom')->unique();
+        $regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
 
         return view('operateurs.update', compact('operateur', 'modules','utilisateurs', 'roles', 'civilites', 'structures','departements','regions'));
 
@@ -241,31 +241,60 @@ class OperateursController extends Controller
         $updated_by3 = Auth::user()->username;
 
         $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
+        $departement_id = Departement::where('nom',$request->input('departement'))->first()->id;
 
         
-        $telephone_s = $request->input('telephone_s');
-        $telephone_s = str_replace(' ', '', $telephone_s);
-        $telephone_s = str_replace(' ', '', $telephone_s);
-        $telephone_s = str_replace(' ', '', $telephone_s);
+        $telephone = $request->input('telephone');
+        $telephone = str_replace(' ', '', $telephone);
+        $telephone = str_replace(' ', '', $telephone);
+        $telephone = str_replace(' ', '', $telephone);
 
-        $utilisateur->cin               =      $request->input('cin');
-        $utilisateur->email             =      $request->input('email');
-        $utilisateur->firstanme         =      $request->input('prenom');
-        $utilisateur->name              =      $request->input('nom');
-        $utilisateur->telephone         =      $request->input('telephone');
-        $utilisateur->telephone         =      $request->input('telephone_s');
-        $utilisateur->telephone         =      $request->input('telephone_s');
+        if ($request->input('sexe') == "M") {
+            $civilite = "M.";
+        }elseif ($request->input('sexe') == "F") {
+            $civilite = "Mme";
+        }else {
+            $civilite = "";
+        }
 
+        $utilisateur->sexe                  =      $request->input('sexe');
+        $utilisateur->civilite              =      $civilite;
+        $utilisateur->firstname             =      $request->input('prenom');
+        $utilisateur->name                  =      $request->input('nom');
+        $utilisateur->email                 =      $request->input('email');
+        $utilisateur->telephone             =      $request->input('telephone');
+        $utilisateur->adresse               =      $request->input('adresse');
+        $utilisateur->updated_by            =      $updated_by;
 
-        $utilisateur->sigle             =      $request->input('sigle');
-        $utilisateur->ninea             =      $request->input('ninea');
-        $utilisateur->registre          =      $request->input('registre');
-        $utilisateur->quitus            =      $request->input('quitus');
-        $utilisateur->email             =      $request->input('email_s');
-        $utilisateur->telephone         =      $request->input('telephone_s');
-        $utilisateur->adresse           =      $request->input('adresse_s');
-        $utilisateur->structures_id     =      $request->input('structure');
-        $utilisateur->users_id          =      $utilisateur->id;
+        $utilisateur->save();
+
+        $operateur->name                    =      $request->input('operateur');
+        $operateur->sigle                   =      $request->input('sigle');
+        $operateur->numero_agrement         =      $request->input('numero_agrement');
+        $operateur->ninea                   =      $request->input('ninea');
+        $operateur->rccm                    =      $request->input('registre');
+        $operateur->quitus                  =      $request->input('quitus');
+        $operateur->email1                  =      $request->input('email1');
+        $operateur->email2                  =      $request->input('email2');
+        $operateur->telephone1              =      $request->input('telephone1');
+        $operateur->telephone2              =      $request->input('telephone2');
+        $operateur->adresse                 =      $request->input('adresse');
+
+        $operateur->nom_responsable         =      $request->input('nom');
+        $operateur->prenom_responsable      =      $request->input('prenom');
+        $operateur->cin_responsable         =      $request->input('cin');
+        $operateur->telephone_responsable   =      $request->input('telephone');
+        $operateur->email_responsable       =      $request->input('email');
+        $operateur->fonction_responsable    =      $request->input('fonction_responsable');
+        $operateur->departements_id         =      $departement_id;
+        $operateur->type_structure          =      $request->input('type_structure');
+        $operateur->users_id                =      $utilisateur->id;
+
+        $operateur->save();
+
+        $operateur->regions()->sync($request->input('regions'));
+
+        return redirect()->route('operateurs.index')->with('success','operateur modifiée avec succès !');
 
     }
 

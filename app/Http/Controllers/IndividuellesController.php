@@ -493,10 +493,7 @@ class IndividuellesController extends Controller
 
         $individuelle->save();
 
-        $demandeur->modules()->sync($request->input('modules'));
-
-        $demandeur->modules()->sync($request->input('modules'));
-        
+        $demandeur->modules()->sync($request->input('modules'));        
 
         if (Auth::user()->role->name === "Administrateur" OR Auth::user()->role->name === "Gestionnaire") {
             return redirect()->route('individuelles.index')->with('success','demande modifiée avec succès !');

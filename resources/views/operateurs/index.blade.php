@@ -27,26 +27,24 @@
               <table class="table table-bordered table-striped" id="operateurTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                   {{--   <th>Id</th>  --}}
                     <th width="220">Numéro agrément</th>
                     <th width="500px">Opérateur</th>
                     <th width="100px">Sigle</th>
                     <th>E-mail</th>
                     <th>Téléphone</th>
                     <th width="50px">Type</th>
-                    <th width="100px">Action</th>
+                    <th width="100px"></th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                   {{--   <th>Id</th>  --}}
                     <th>Numéro agrément</th>
                     <th>Opérateur</th>
                     <th>Sigle</th>
                     <th>E-mail</th>
                     <th>Téléphone</th>
                     <th>Type</th>
-                    <th>Action</th>
+                    <th></th>
                   </tr>
                 </tfoot>
                 <tbody>
@@ -58,9 +56,9 @@
                     <td>{!! $operateur->numero_agrement !!}</td>
                     <td>{!! $operateur->name !!}</td>
                     <td>{!! $operateur->sigle !!}</td>    
-                    <td>{!! $operateur->user->email !!}</td>        
-                    <td>{!! $operateur->user->telephone !!}</td>
-                    <td>{!! $operateur->types_operateur->name !!}</td>        
+                    <td>{!! $operateur->email1 !!}</td>        
+                    <td>{!! $operateur->telephone1 !!}</td>
+                    <td>{!! $operateur->type_structure !!}</td>        
                     <td class="d-flex align-items-baseline align-content-center">
                       {{--  @can('update', $operateur)  --}}
                         <a href="{!! url('operateurs/' .$operateur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">

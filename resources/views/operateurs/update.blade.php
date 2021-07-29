@@ -60,13 +60,10 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                <label for="email1">{{ __('E-mail') }}(<span
-                                        class="text-danger">*</span>)</label>
-                                <input id="email1" type="text"
-                                    class="form-control @error('email1') is-invalid @enderror"
+                                <label for="email1">{{ __('E-mail') }}(<span class="text-danger">*</span>)</label>
+                                <input id="email1" type="text" class="form-control @error('email1') is-invalid @enderror"
                                     name="email1" placeholder="adresse e-mail"
-                                    value="{{ $operateur->email1 ?? old('email1') }}"
-                                    autocomplete="email1">
+                                    value="{{ $operateur->email1 ?? old('email1') }}" autocomplete="email1">
                                 @error('email1')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
@@ -77,8 +74,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('type structure :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
-                                {!! Form::select('type_structure', ['Publique' => 'Publique', 'Privé' => 'Privé'],  $operateur->type_structure, 
-                                ['placeholder' => 'sélectionner type structure', 'class' => 'form-control', 'id' => 'type_structure', 'data-width' => '100%']) !!}
+                                {!! Form::select('type_structure', ['Publique' => 'Publique', 'Privé' => 'Privé'], $operateur->type_structure, ['placeholder' => 'sélectionner type structure', 'class' => 'form-control', 'id' => 'type_structure', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('type_structure'))
                                         @foreach ($errors->get('type_structure') as $message)
@@ -89,8 +85,7 @@
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Département :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
-                                {!! Form::select('departement', $departements, $operateur->departement->nom, 
-                                ['placeholder' => 'sélectionner régions de résidence', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
+                                {!! Form::select('departement', $departements, $operateur->departement->nom, ['placeholder' => 'sélectionner régions de résidence', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('departement'))
                                         @foreach ($errors->get('departement') as $message)
@@ -102,10 +97,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                <label for="adresse">{{ __('Adresse complète') }}(<span class="text-danger">*</span>)</label>
-                                <textarea id="adresse" rows="2"
-                                    class="form-control @error('adresse') is-invalid @enderror" name="adresse"
-                                    placeholder="Opérateur" autocomplete="adresse"
+                                <label for="adresse">{{ __('Adresse complète') }}(<span
+                                        class="text-danger">*</span>)</label>
+                                <textarea id="adresse" rows="2" class="form-control @error('adresse') is-invalid @enderror"
+                                    name="adresse" placeholder="Opérateur" autocomplete="adresse"
                                     autofocus>{{ $operateur->adresse ?? old('adresse') }}</textarea>
                                 @error('adresse')
                                     <span class="invalid-feedback" role="alert">
@@ -117,7 +112,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 {!! Form::label('Régions d\'intervention :') !!}(<span class="text-danger">*</span>)
-                                {!! Form::select('regions[]', $regions, null, ['multiple'=>'multiple', 'data-width' => '100%', 'class'=>'form-control', 'id'=>'regions_op']) !!} 
+                                {!! Form::select('regions[]', $regions, null, ['multiple' => 'multiple', 'data-width' => '100%', 'class' => 'form-control', 'id' => 'regions_op']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('region'))
                                         @foreach ($errors->get('region') as $message)
@@ -165,9 +160,9 @@
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 <label for="debut_quitus">{{ __('Date délivrance') }}(<span
                                         class="text-danger">*</span>)</label>
-                                <input id="debut_quitus" {{ $errors->has('debut_quitus') ? 'is-invalid' : '' }} type="date"
-                                    class="form-control @error('debut_quitus') is-invalid @enderror" name="debut_quitus"
-                                    placeholder="Votre date de naissance"
+                                <input id="debut_quitus" {{ $errors->has('debut_quitus') ? 'is-invalid' : '' }}
+                                    type="date" class="form-control @error('debut_quitus') is-invalid @enderror"
+                                    name="debut_quitus" placeholder="Votre date de naissance"
                                     value="{{ $operateur->debut_quitus->format('Y-m-d') ?? old('debut_quitus') }}"
                                     autocomplete="username" autofocus>
                                 @error('debut_quitus')
@@ -177,8 +172,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                                <label for="fin_quitus">{{ __('Date fin') }}(<span
-                                        class="text-danger">*</span>)</label>
+                                <label for="fin_quitus">{{ __('Date fin') }}(<span class="text-danger">*</span>)</label>
                                 <input id="fin_quitus" {{ $errors->has('fin_quitus') ? 'is-invalid' : '' }} type="date"
                                     class="form-control @error('fin_quitus') is-invalid @enderror" name="fin_quitus"
                                     placeholder="Votre date de naissance"
@@ -243,4 +237,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section('javascripts')
+    <script type="text/javascript">
+        $('#regions_op').select2().val({!! json_encode($operateur->regions()->allRelatedIds()) !!}).trigger('change');
+    </script>
 @endsection
