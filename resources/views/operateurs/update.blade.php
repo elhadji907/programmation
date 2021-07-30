@@ -100,7 +100,7 @@
                                 <label for="adresse">{{ __('Adresse complète') }}(<span
                                         class="text-danger">*</span>)</label>
                                 <textarea id="adresse" rows="2" class="form-control @error('adresse') is-invalid @enderror"
-                                    name="adresse" placeholder="Opérateur" autocomplete="adresse"
+                                    name="adresse" placeholder="adresse de la structure" autocomplete="adresse"
                                     autofocus>{{ $operateur->adresse ?? old('adresse') }}</textarea>
                                 @error('adresse')
                                     <span class="invalid-feedback" role="alert">
@@ -140,6 +140,32 @@
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Téléphone secondaire:') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('telephone2', $operateur->telephone2, ['placeholder' => 'Numero de telephone secondaire de la structure', 'class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <label for="bp">{{ __('Boite postale') }}</label>
+                                <input id="bp" type="text" class="form-control @error('bp') is-invalid @enderror" name="bp"
+                                    placeholder="Votre adresse postale"
+                                    value="{{ $operateur->user->bp ?? old('bp') }}" autocomplete="bp"
+                                    autofocus>
+                                @error('bp')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                <label for="fax">{{ __('Téléphone fax') }}</label>
+                                <input id="fax" type="text" class="form-control @error('fax') is-invalid @enderror"
+                                    name="fax" placeholder="Votre numero de fax"
+                                    value="{{ $operateur->user->fax ?? old('fax') }}" autocomplete="fax"
+                                    autofocus>
+                                @error('fax')
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
@@ -204,11 +230,11 @@
                                 {!! Form::label('Prénom :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('prenom', $utilisateurs->firstname, ['placeholder' => 'Votre prénom', 'class' => 'form-control']) !!}
                             </div>
-                            <div class="form-group col-md-2 col-lg-2 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
                                 {!! Form::label('Nom :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('nom', $utilisateurs->name, ['placeholder' => 'Votre nom', 'class' => 'form-control']) !!}
                             </div>
-                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-3 col-lg-3 col-xs-12 col-sm-12">
                                 {!! Form::label('CIN :') !!}<span class="text-danger"> <b>*</b> </span>
                                 {!! Form::text('cin', $operateur->cin_responsable, ['placeholder' => 'numéro de CIN', 'class' => 'form-control']) !!}
                             </div>
