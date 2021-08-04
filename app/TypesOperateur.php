@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:23 +0000.
+ * Date: Wed, 04 Aug 2021 14:56:08 +0000.
  */
 
 namespace App;
@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class TypesOperateur extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 

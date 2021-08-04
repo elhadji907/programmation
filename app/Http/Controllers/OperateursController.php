@@ -8,6 +8,7 @@ use App\User;
 use App\Typedemande;
 use App\Module;
 use App\Departement;
+use App\TypesOperateur;
 use App\Region;
 use Auth;
 use PDF;
@@ -71,10 +72,12 @@ class OperateursController extends Controller
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
 
         $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
+        
+        $types_operateurs = TypesOperateur::distinct('name')->get()->pluck('name','name')->unique();
 
         $regions = Region::distinct('nom')->get()->pluck('nom','nom')->unique();
 
-        return view('operateurs.create',compact('roles', 'civilites', 'modules', 'departements', 'regions'));
+        return view('operateurs.create',compact('roles', 'civilites', 'modules', 'departements', 'regions','types_operateurs'));
     }
 
     /**
@@ -104,6 +107,7 @@ class OperateursController extends Controller
                 'departement'               =>       'required',
                 'regions'                   =>       'required',
                 'type_structure'            =>       'required',
+                'type_operateur'            =>       'required',
                 'sexe'                      =>       'required',
                 'cin'                       =>       'required',
                 'fonction_responsable'      =>       'required',
@@ -113,6 +117,8 @@ class OperateursController extends Controller
                 'fin_quitus'                =>       'required|date',
             ]
         );
+
+        /* dd($user); */
 
         $roles_id = Role::where('name','Operateur')->first()->id;        
         $user_id = User::latest('id')->first()->id;
@@ -166,28 +172,39 @@ class OperateursController extends Controller
     $telephone = str_replace(' ', '', $telephone);
     $telephone = str_replace(' ', '', $telephone);
 
+    
+    $departements_id = Departement::where('nom',$request->input('departement'))->first()->id;    
+    $types_operateurs_id = TypesOperateur::where('name',$request->input('type_operateur'))->first()->id;    
+
     $operateurs = new Operateur([
         'cin_responsable'               =>      $request->input('cin'),
-        'numero'                        =>      $request->input('numero_courrier'),
+        'numero_agrement'               =>      $request->input('numero_agrement'),
         'date_debut'                    =>      $request->input('date_depot'),
         'name'                          =>      $request->input('operateur'),
+        'type_structure'                =>      $request->input('type_structure'),
         'sigle'                         =>      $request->input('sigle'),
+        'fixe'                          =>      $request->input('fixe_op'),
         'ninea'                         =>      $request->input('ninea'),
-        'registre'                      =>      $request->input('registre'),
+        'rccm'                          =>      $request->input('registre'),
         'quitus'                        =>      $request->input('quitus'),
         'email1'                        =>      $request->input('email1'),
         'email2'                        =>      $request->input('email2'),
         'telephone1'                    =>      $request->input('telephone1'),
         'telephone2'                    =>      $request->input('telephone2'),
         'adresse'                       =>      $request->input('adresse'),
-        'structures_id'                 =>      $request->input('structure'),
+        'fonction_responsable'          =>      $request->input('fonction_responsable'),        
+        'prenom_responsable'            =>      $request->input('prenom'),
+        'nom_responsable'               =>      $request->input('nom'),
+        'email_responsable'             =>      $request->input('email'),        
+        'telephone_responsable'         =>      $request->input('email'), 
+        'types_operateurs_id'           =>      $types_operateurs_id,
+        'departements_id'               =>      $departements_id,
         'users_id'                      =>      $utilisateur->id,
     ]);
 
     $operateurs->save();
 
-    
-    $operateurs->modules()->sync($request->modules);
+    $operateur->regions()->sync($request->input('regions'));
 
     return redirect()->route('operateurs.index')->with('success','opérateur ajouté avec succès !');
 
@@ -218,9 +235,10 @@ class OperateursController extends Controller
         $civilites = User::pluck('civilite','civilite');
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','nom')->unique();
+        $types_operateurs = TypesOperateur::distinct('name')->get()->pluck('name','name')->unique();
         $regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
 
-        return view('operateurs.update', compact('operateur', 'modules','utilisateurs', 'roles', 'civilites', 'structures','departements','regions'));
+        return view('operateurs.update', compact('operateur', 'modules','utilisateurs', 'roles', 'civilites', 'structures','departements','regions','types_operateurs'));
 
     }
 
@@ -260,6 +278,7 @@ class OperateursController extends Controller
 
         $updated_by = $updated_by1.' '.$updated_by2.' ('.$updated_by3.')';
         $departement_id = Departement::where('nom',$request->input('departement'))->first()->id;
+        $types_operateurs_id = TypesOperateur::where('name',$request->input('type_operateur'))->first()->id;  
 
         
         $telephone = $request->input('telephone');
@@ -307,6 +326,7 @@ class OperateursController extends Controller
         $operateur->email_responsable       =      $request->input('email');
         $operateur->fonction_responsable    =      $request->input('fonction_responsable');
         $operateur->departements_id         =      $departement_id;
+        $operateur->types_operateurs_id     =      $types_operateurs_id;
         $operateur->type_structure          =      $request->input('type_structure');
         $operateur->users_id                =      $utilisateur->id;
 
@@ -326,10 +346,37 @@ class OperateursController extends Controller
      */
     public function destroy(Operateur $operateur)
     {
+      /*   if (auth::user()->role->name === "Administrateur") {
+
+        }else {
+            $this->authorize('delete',  $operateur);
+        } */
+
+        $utilisateurs   =   $operateur->user;
+
+        $deleted_by1 = Auth::user()->firstname;
+        $deleted_by2 = Auth::user()->name;
+        $deleted_by3 = Auth::user()->username;
+
+        $deleted_by = $deleted_by1.' '.$deleted_by2.' ('.$deleted_by3.')';
+
+        $utilisateurs->deleted_by      =      $deleted_by;
+
+        $utilisateurs->save();
+       
+        if (auth::user()->role->name === "Administrateur") {
+            $operateur->user->delete();
+            $operateur->delete();
+        } else {
+            $operateur->delete();
+        }
         
         $operateur->delete();
-        $message = "L'opérateur ".$operateur->name.' a été supprimé avec succès';
-        return redirect()->route('operateurs.index')->with(compact('message'));
+
+        
+        $message = $operateur->user->firstname.' '.$operateur->user->name.' a été supprimé(e)';
+        return back()->with(compact('message'));
+
     }
 
     public function list(Request $request)

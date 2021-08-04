@@ -252,6 +252,14 @@
   </script>
   <script type="text/javascript">
     
+    $("#type_operateur").select2({
+          placeholder: "sélectionner type operateur",
+          allowClear: true
+      });
+  </script>
+
+  <script type="text/javascript">
+    
     $("#statut").select2({
           placeholder: "sélectionner",
           allowClear: true

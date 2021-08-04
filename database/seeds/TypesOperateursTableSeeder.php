@@ -11,7 +11,10 @@ class TypesOperateursTableSeeder extends Seeder
      */
     public function run()
     {
-        $type1=App\TypesOperateur::firstOrCreate(["name"=>"Privé"],["uuid"=>Str::uuid()]);
-        $type2=App\TypesOperateur::firstOrCreate(["name"=>"Publique"],["uuid"=>Str::uuid()]);
+        $type1=App\TypesOperateur::firstOrCreate(["name"=>"GIE"],["uuid"=>Str::uuid()]);
+        $type2=App\TypesOperateur::firstOrCreate(["name"=>"Association"],["uuid"=>Str::uuid()]);
+        $type2=App\TypesOperateur::firstOrCreate(["name"=>"Entreprise"],["uuid"=>Str::uuid()]);
+        $type2=App\TypesOperateur::firstOrCreate(["name"=>"Institution publique"],["uuid"=>Str::uuid()]);
+        $type2=App\TypesOperateur::firstOrCreate(["name"=>"Autres"],["uuid"=>Str::uuid()]);
     }
 }

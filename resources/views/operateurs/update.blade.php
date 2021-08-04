@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('type structure :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
                                 {!! Form::select('type_structure', ['Publique' => 'Publique', 'Privé' => 'Privé'], $operateur->type_structure, ['placeholder' => 'sélectionner type structure', 'class' => 'form-control', 'id' => 'type_structure', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
@@ -83,7 +83,18 @@
                                     @endif
                                 </small>
                             </div>
-                            <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
+                                {!! Form::label('type operateur :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
+                                {!! Form::select('type_operateur', $types_operateurs, $operateur->types_operateur->name, ['placeholder' => '', 'class' => 'form-control', 'id' => 'type_operateur', 'data-width' => '100%']) !!}
+                                <small id="emailHelp" class="form-text text-muted">
+                                    @if ($errors->has('type_operateur'))
+                                        @foreach ($errors->get('type_operateur') as $message)
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @endforeach
+                                    @endif
+                                </small>
+                            </div>
+                            <div class="form-group col-md-4 col-lg-4 col-xs-12 col-sm-12">
                                 {!! Form::label('Département :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
                                 {!! Form::select('departement', $departements, $operateur->departement->nom ?? "", ['placeholder' => 'sélectionner régions de résidence', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
