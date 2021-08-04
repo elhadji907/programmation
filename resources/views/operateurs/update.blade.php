@@ -85,7 +85,7 @@
                             </div>
                             <div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
                                 {!! Form::label('Département :', null, ['class' => 'control-label']) !!}(<span class="text-danger">*</span>)
-                                {!! Form::select('departement', $departements, $operateur->departement->nom, ['placeholder' => 'sélectionner régions de résidence', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
+                                {!! Form::select('departement', $departements, $operateur->departement->nom ?? "", ['placeholder' => 'sélectionner régions de résidence', 'class' => 'form-control', 'id' => 'departement', 'data-width' => '100%']) !!}
                                 <small id="emailHelp" class="form-text text-muted">
                                     @if ($errors->has('departement'))
                                         @foreach ($errors->get('departement') as $message)

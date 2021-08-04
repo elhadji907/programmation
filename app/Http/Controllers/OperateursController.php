@@ -10,6 +10,7 @@ use App\Module;
 use App\Departement;
 use App\Region;
 use Auth;
+use PDF;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Date;
@@ -41,6 +42,20 @@ class OperateursController extends Controller
 
        return view('operateurs.index', compact('operateurs'));
     }
+
+    // Generate PDF
+    public function createPDF() {
+        // retreive all records from db
+        $data = Operateur::all();
+  
+        // share data to view
+        view()->share('operateur',$data);
+        $pdf = PDF::loadView('operateurs/pdf_view', $data);
+  
+        // download PDF file with download method
+        //dd($pdf);
+        return $pdf->download('pdf_file.pdf');
+      }
 
     /**
      * Show the form for creating a new resource.
@@ -152,10 +167,10 @@ class OperateursController extends Controller
     $telephone = str_replace(' ', '', $telephone);
 
     $operateurs = new Operateur([
-        'cin_responsable'               =>      $cin,
+        'cin_responsable'               =>      $request->input('cin'),
         'numero'                        =>      $request->input('numero_courrier'),
         'date_debut'                    =>      $request->input('date_depot'),
-        'name'                          =>      $request->input('name'),
+        'name'                          =>      $request->input('operateur'),
         'sigle'                         =>      $request->input('sigle'),
         'ninea'                         =>      $request->input('ninea'),
         'registre'                      =>      $request->input('registre'),
@@ -168,8 +183,6 @@ class OperateursController extends Controller
         'structures_id'                 =>      $request->input('structure'),
         'users_id'                      =>      $utilisateur->id,
     ]);
-
-    /* dd($operateurs); */
 
     $operateurs->save();
 

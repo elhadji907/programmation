@@ -85,6 +85,7 @@ Route::group([
         Route::get('/internes/list', 'InternesController@list')->name('internes.list');
         Route::get('/departements/list', 'DepartementsController@list')->name('departements.list');
         Route::get('/regions/list', 'RegionsController@list')->name('regions.list');
+        Route::get('/operateur/pdf','OperateursController@createPDF');
 
         Route::get('/selectdindividuelles/{id_dept}/{id_module}/{id_form}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
         

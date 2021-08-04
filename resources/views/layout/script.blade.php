@@ -293,6 +293,6 @@
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <script>
         feather.replace()
-    </script>    
+    </script>
 @stack('scripts')
 @yield('javascripts')

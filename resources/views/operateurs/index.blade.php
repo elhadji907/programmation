@@ -132,5 +132,3 @@
     
   </script>
   @endpush
-  
-  
