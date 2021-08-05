@@ -23,5 +23,6 @@ class TypesCourriersTableSeeder extends Seeder
         $type9=App\TypesCourrier::firstOrCreate(["name"=>"Etats"],["categorie"=>"etats"],["uuid"=>Str::uuid()]);
         $type10=App\TypesCourrier::firstOrCreate(["name"=>"Etats previs"],["categorie"=>"previs"],["uuid"=>Str::uuid()]);
         $type11=App\TypesCourrier::firstOrCreate(["name"=>"FADS"],["categorie"=>"fads"],["uuid"=>Str::uuid()]);
+        $type11=App\TypesCourrier::firstOrCreate(["name"=>"Operateur"],["categorie"=>"Operateur"],["uuid"=>Str::uuid()]);
     }
 }

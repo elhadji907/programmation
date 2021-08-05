@@ -19,5 +19,6 @@ class DiplomesTableSeeder extends Seeder
         $diplomes=App\Diplome::firstOrCreate(["name"=>"Licence 3"],["sigle"=> "L3" ],["uuid"=>Str::uuid()]);
         $diplomes=App\Diplome::firstOrCreate(["name"=>"Master 1"],["sigle"=> "M1" ],["uuid"=>Str::uuid()]);
         $diplomes=App\Diplome::firstOrCreate(["name"=>"Master 2"],["sigle"=> "M2" ],["uuid"=>Str::uuid()]);
+        $diplomes=App\Diplome::firstOrCreate(["name"=>"Autre"],["sigle"=> "autre" ],["uuid"=>Str::uuid()]);
      }
 }

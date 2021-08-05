@@ -8,5 +8,6 @@ $factory->define(App\Secteur::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'name' => $faker->name,
+        'description' => $faker->text,
     ];
 });

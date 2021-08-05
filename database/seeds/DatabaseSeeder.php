@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FadsTableSeeder::class);
         $this->call(ImputationsTableSeeder::class);
         $this->call(FonctionsTableSeeder::class);
-        $this->call(SecteursTableSeeder::class);
-        $this->call(DomainesTableSeeder::class);
+        //$this->call(SecteursTableSeeder::class);
+        //$this->call(DomainesTableSeeder::class);
         $this->call(RegionsTableSeeder::class);
         $this->call(DepartementsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
@@ -48,9 +48,19 @@ class DatabaseSeeder extends Seeder
         $this->call(DepensesTableSeeder::class);
         $this->call(LieuxsTableSeeder::class);
         $this->call(ModulesTableSeeder::class);
-        //$this->call(DemandeursTableSeeder::class);
+        $this->call(StatutsTableSeeder::class);
+        $this->call(TypesdemandesTableSeeder::class);
+        $this->call(TypesFormationsTableSeeder::class);
+        $this->call(IngenieursTableSeeder::class);
+        $this->call(NineasTableSeeder::class);
         $this->call(IndividuellesTableSeeder::class);
         $this->call(CollectivesTableSeeder::class);
+        $this->call(FcollectivesTableSeeder::class);
+        $this->call(FindividuellesTableSeeder::class);
+        $this->call(TypesOperateursTableSeeder::class);
+        $this->call(OperateursTableSeeder::class);
+        //$this->call(FormationsTableSeeder::class);
+        //$this->call(DemandeursmodulesTableSeeder::class);
         //$this->call(BeneficiairesTableSeeder::class);
         //$this->call(QualificationsTableSeeder::class);
         //$this->call(ModulesTableSeeder::class);
@@ -61,7 +71,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(CategoriesTableSeeder::class);
         //$this->call(PersonnelsTableSeeder::class);
         //$this->call(StructuresTableSeeder::class);
-        //$this->call(OperateursTableSeeder::class);
         //$this->call(RegionsTableSeeder::class);
         //$this->call(DepartementsTableSeeder::class);
         

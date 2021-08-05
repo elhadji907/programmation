@@ -25,17 +25,22 @@ Route::group([
     { 
         Route::get('/villages.selectvillage', function() { return view('villages.selectvillage'); })->name('villages.selectvillage');
         Route::get('/directions.selectemployees', function() { return view('directions.selectemployees'); })->name('directions.selectemployees');
+        Route::get('/findividuelles.selectingenieurs', function() { return view('findividuelles.selectingenieurs'); })->name('findividuelles.selectingenieurs');
         Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
         Route::get('/profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
         Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.update');
         Route::get('/administrateurs/list', 'AdministrateursController@list')->name('administrateurs.list');
+        Route::get('/formations/list', 'FormationsController@list')->name('formations.list');
+        Route::get('/users/list', 'UsersController@list')->name('users.list');
         Route::get('/employees/list', 'EmployeesController@list')->name('employees.list');
         Route::get('/gestionnaires/list', 'GestionnairesController@list')->name('gestionnaires.list');
         Route::get('/directions/list', 'DirectionsController@list')->name('directions.list');
         Route::get('/services/list', 'ServicesController@list')->name('services.list');
         Route::get('/demandeurs/list', 'DemandeursController@list')->name('demandeurs.list');
         Route::get('/individuelles/list', 'IndividuellesController@list')->name('individuelles.list');
+        Route::get('/findividuelles/list', 'FindividuellesController@list')->name('findividuelles.list');
         Route::get('/collectives/list', 'CollectivesController@list')->name('collectives.list');
+        Route::get('/fcollectives/list', 'FcollectivesController@list')->name('fcollectives.list');
         Route::get('/beneficiaires/list', 'BeneficiairesController@list')->name('beneficiaires.list');
         Route::get('/domaines/list', 'DomainesController@list')->name('domaines.list');
         Route::get('/diplomes/list', 'DiplomesController@list')->name('diplomes.list');
@@ -50,6 +55,8 @@ Route::group([
         Route::get('/operateurs/list', 'OperateursController@list')->name('operateurs.list');
         Route::get('/programmes/list', 'ProgrammesController@list')->name('programmes.list');
         Route::get('/localites/list', 'LocalitesController@list')->name('localites.list');
+        Route::get('/nineas/list', 'NineasController@list')->name('nineas.list');
+        Route::get('/ingenieurs/list', 'IngenieursController@list')->name('ingenieurs.list');
 
         //fonction pour pdcej
         Route::get('/pdcej', 'LocalitesController@pdcej')->name('localites.pdcej');
@@ -76,6 +83,14 @@ Route::group([
         Route::get('/recues/list', 'RecuesController@list')->name('recues.list');
         Route::get('/departs/list', 'DepartsController@list')->name('departs.list');
         Route::get('/internes/list', 'InternesController@list')->name('internes.list');
+        Route::get('/departements/list', 'DepartementsController@list')->name('departements.list');
+        Route::get('/regions/list', 'RegionsController@list')->name('regions.list');
+        Route::get('/operateur/pdf','OperateursController@createPDF');
+
+        Route::get('/selectdindividuelles/{id_dept}/{id_module}/{id_form}', 'FindividuellesController@selectdindividuelles')->name('findividuelles.selectdindividuelles');
+        
+        Route::get('adddindividuelles/{id_ind}/{id_form}', 'FindividuellesController@adddindividuelles')->name('adddindividuelles');
+        Route::get('deleteindividuelles/{id_ind}/{id_form}', 'FindividuellesController@deleteindividuelles')->name('deleteindividuelles');
 
         Route::get('postes/create', 'PostesController@create')->name('postes.create');
         Route::post('postes', 'PostesController@store')->name('postes.store');
@@ -86,6 +101,9 @@ Route::group([
         Route::post('commentReply/{comment}', 'CommentsController@storeCommentReply')->name('comments.storeReply');
 
         Route::resource('/administrateurs', 'AdministrateursController');
+        Route::resource('/formations', 'FormationsController');
+        Route::resource('/nineas', 'NineasController');
+        Route::resource('/users', 'UsersController');
         Route::resource('/employees', 'EmployeesController');
         Route::resource('/gestionnaires', 'GestionnairesController');
         Route::resource('/courriers', 'CourriersController');
@@ -106,7 +124,9 @@ Route::group([
         Route::resource('/services', 'ServicesController');
         Route::resource('/demandeurs', 'DemandeursController');
         Route::resource('/individuelles', 'IndividuellesController');
+        Route::resource('/findividuelles', 'FindividuellesController');
         Route::resource('/collectives', 'CollectivesController');
+        Route::resource('/fcollectives', 'FcollectivesController');
         Route::resource('/beneficiaires', 'BeneficiairesController');
         Route::resource('/domaines', 'DomainesController');
         Route::resource('/diplomes', 'DiplomesController');
@@ -121,9 +141,14 @@ Route::group([
         Route::resource('/operateurs', 'OperateursController');
         Route::resource('/programmes', 'ProgrammesController');
         Route::resource('/localites', 'LocalitesController');
+        Route::resource('/ingenieurs', 'IngenieursController');
+        Route::resource('/departements', 'DepartementsController');
+        Route::resource('/regions', 'RegionsController');
 
     }         
 );
+
+
 
 //gestion des roles par niveau d'autorisation
 

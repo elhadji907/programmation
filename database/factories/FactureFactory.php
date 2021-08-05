@@ -14,5 +14,8 @@ $factory->define(App\Facture::class, function (Faker $faker) {
         'montant2' => $faker->randomFloat(),
         'autre_montant' => $faker->randomFloat(),
         'total' => $faker->randomFloat(),
+        'formations_id' => function () {
+            return factory(App\Formation::class)->create()->id;
+        },
     ];
 });
