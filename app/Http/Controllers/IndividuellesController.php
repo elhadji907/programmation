@@ -11,7 +11,7 @@ use App\Diplome;
 use App\Module;
 use App\Programme;
 use App\User;
-
+use Illuminate\Support\Facades\DB;
 
 class IndividuellesController extends Controller
 {
@@ -25,8 +25,16 @@ class IndividuellesController extends Controller
         $individuelles = Individuelle::all();
 
         //dd($individuelles);
+        $countries = DB::table('regions')->pluck("nom","id");
 
-        return view('individuelles.index', compact('individuelles'));
+        return view('individuelles.index', compact('individuelles', 'countries'));
+    }
+    
+    public function getStates($id) {
+        $states = DB::table("departements")->where("regions_id",$id)->pluck("nom","id");
+
+        return json_encode($states);
+
     }
 
     /**
@@ -42,9 +50,10 @@ class IndividuellesController extends Controller
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
         $regions = Region::distinct('nom')->get()->pluck('nom','id')->unique();
-      
+        //dd($regions);      
         return view('individuelles.create',compact('departements', 'diplomes', 'civilites', 'modules', 'programmes', 'regions'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +63,36 @@ class IndividuellesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+                'civilite'            =>  'required|string|max:10',
+                'cin'                 =>  'required|string|min:12|max:18|unique:demandeurs,cin',
+                'prenom'              =>  'required|string|max:50',
+                'nom'                 =>  'required|string|max:50',
+                'date_naiss'          =>  'required|date_format:Y-m-d',
+                'date_depot'          =>  'required|date_format:Y-m-d',
+                'lieu'                =>  'required|string|max:50',
+                'telephone'           =>  'required|string|max:50',
+                'fixe'                =>  'required|string|max:50',
+                'adresse'             =>  'required|string|max:100',
+                'email'               =>  'required|email|max:255|unique:users,email',
+                'numero_courrier'     =>  'required|string|unique:demandeurs,numero_courrier',
+                'familiale'           =>  'required',
+                'professionnelle'     =>  'required',
+                'type_demande'        =>  'required',
+                'niveaux'             =>  'required',
+                'diplomes'            =>  'exists:diplomes,id',
+                'modules'             =>  'exists:modules,id',
+                'departement'         =>  'exists:departements,id',
+                'region'              =>  'exists:regions,id',
+            ],
+            [
+                'password.min'  =>  'Pour des raisons de sécurité, votre mot de passe doit faire au moins :min caractères.'
+            ],
+            [
+                'password.max'  =>  'Pour des raisons de sécurité, votre mot de passe ne doit pas dépasser :max caractères.'
+            ]
+        );
     }
 
     /**
