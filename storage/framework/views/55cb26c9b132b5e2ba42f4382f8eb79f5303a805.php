@@ -1,1 +1,0 @@
-<?php echo $localites; ?><?php /**PATH /var/www/html/programmation/resources/views/localites/selectmodule.blade.php ENDPATH**/ ?>

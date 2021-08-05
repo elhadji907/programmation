@@ -1,1 +1,0 @@
-<?php /**PATH /var/www/html/programmation/resources/views/demandeurs/index3.blade.php ENDPATH**/ ?>
