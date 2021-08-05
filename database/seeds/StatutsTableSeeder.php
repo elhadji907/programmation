@@ -19,6 +19,9 @@ class StatutsTableSeeder extends Seeder
         $statut6=App\Statut::firstOrCreate(["name"=>"Diplôme en signature"],["niveau"=>"DG"],["uuid"=>Str::uuid()]);
         $statut7=App\Statut::firstOrCreate(["name"=>"Diplôme disponible"],["niveau"=>"DEC"],["uuid"=>Str::uuid()]);
         $statut8=App\Statut::firstOrCreate(["name"=>"Diplôme retiré"],["niveau"=>"DEC"],["uuid"=>Str::uuid()]);
+<<<<<<< HEAD
         
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
     }
 }

@@ -31,10 +31,13 @@ class CreateOperateursTable extends Migration
             $table->string('ninea', 200)->nullable();
             $table->string('rccm', 200)->nullable();
             $table->string('quitus', 200)->nullable();
+<<<<<<< HEAD:database/migrations/2021_07_29_000072_create_operateurs_table.php
             $table->dateTime('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('date_debut')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('date_fin')->nullable();
             $table->dateTime('date_renew')->nullable();
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555:database/migrations/2021_07_29_000072_create_operateurs_table.php
             $table->dateTime('debut_quitus')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('fin_quitus')->nullable()->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->string('telephone1', 200)->nullable();

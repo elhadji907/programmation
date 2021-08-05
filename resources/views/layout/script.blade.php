@@ -146,8 +146,13 @@
           maximumSelectionLength: 2
       });
   </script>
+<<<<<<< HEAD
 
   <script type="text/javascript">    
+=======
+  <script type="text/javascript">
+    
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
     $("#regions_op").select2({
           placeholder: "sélectionner régions d'intervention",
           language: "fr",

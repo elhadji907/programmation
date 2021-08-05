@@ -14,10 +14,13 @@ $factory->define(App\Operateur::class, function (Faker $faker) {
         'ninea' => $faker->word,
         'rccm' => $faker->word,
         'quitus' => $faker->word,
+<<<<<<< HEAD
         'date' => $faker->dateTime(),
         'date_debut' => $faker->dateTime(),
         'date_fin' => $faker->dateTime(),
         'date_renew' => $faker->dateTime(),
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
         'debut_quitus' => $faker->dateTime(),
         'fin_quitus' => $faker->dateTime(),
         'telephone1' => $faker->word,
@@ -56,7 +59,10 @@ $factory->define(App\Operateur::class, function (Faker $faker) {
         },
     ];
 }); */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
 use App\Helpers\SnNameGenerator as SnmG;
 use Illuminate\Support\Str;
 $autoIncremente_op = autoIncremente_op();
@@ -94,10 +100,13 @@ $factory->define(App\Operateur::class, function (Faker\Generator $faker) use ($a
         'ninea' => $faker->numberBetween($min = 100000, $max = 900000),
         'rccm' => $faker->numberBetween($min = 10000, $max = 90000),
         'quitus' => $faker->numberBetween($min = 1000, $max = 9000),
+<<<<<<< HEAD
         'date' => $faker->dateTime(),
         'date_debut' => $faker->dateTime(),
         'date_fin' => $faker->dateTime(),
         'date_renew' => $faker->dateTime(),
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
         'debut_quitus' => $faker->dateTime(),
         'fin_quitus' => $faker->dateTime(),
         'telephone1' => $faker->e164PhoneNumber,

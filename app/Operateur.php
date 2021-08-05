@@ -2,7 +2,11 @@
 
 /**
  * Created by Reliese Model.
+<<<<<<< HEAD
  * Date: Thu, 05 Aug 2021 20:55:03 +0000.
+=======
+ * Date: Thu, 29 Jul 2021 10:41:07 +0000.
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
  */
 
 namespace App;
@@ -21,10 +25,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $ninea
  * @property string $rccm
  * @property string $quitus
+<<<<<<< HEAD
  * @property \Carbon\Carbon $date
  * @property \Carbon\Carbon $date_debut
  * @property \Carbon\Carbon $date_fin
  * @property \Carbon\Carbon $date_renew
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
  * @property \Carbon\Carbon $debut_quitus
  * @property \Carbon\Carbon $fin_quitus
  * @property string $telephone1
@@ -38,7 +45,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $cin_responsable
  * @property string $telephone_responsable
  * @property string $email_responsable
+<<<<<<< HEAD
  * @property string $fonction_responsable
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
  * @property string $qualification
  * @property int $users_id
  * @property int $rccms_id
@@ -68,6 +78,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Operateur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -82,10 +93,13 @@ class Operateur extends Eloquent
 	];
 
 	protected $dates = [
+<<<<<<< HEAD
 		'date',
 		'date_debut',
 		'date_fin',
 		'date_renew',
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
 		'debut_quitus',
 		'fin_quitus'
 	];
@@ -99,10 +113,13 @@ class Operateur extends Eloquent
 		'ninea',
 		'rccm',
 		'quitus',
+<<<<<<< HEAD
 		'date',
 		'date_debut',
 		'date_fin',
 		'date_renew',
+=======
+>>>>>>> 3cb40d346f7af160a2c3ec9fda13f1a64ec23555
 		'debut_quitus',
 		'fin_quitus',
 		'telephone1',

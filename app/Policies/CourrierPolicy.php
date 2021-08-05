@@ -30,7 +30,7 @@ class CourrierPolicy
      */
     public function view(User $user, Courrier $courrier)
     {
-        //
+        return $user->id == $courrier->user->id;
     }
 
     /**
