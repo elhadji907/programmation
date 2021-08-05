@@ -27,52 +27,45 @@
               <table class="table table-bordered table-striped" id="operateurTable" width="100%" cellspacing="0">
                 <thead class="table-dark">
                   <tr>
-                    <th>Id</th>
-                    <th>Numéro agrément</th>
-                    <th>Nom de la structure</th>
-                    <th>Sigle</th>
-                    {{--  <th>Adresse e-mail</th>  --}}
+                    <th width="220">Numéro agrément</th>
+                    <th width="500px">Opérateur</th>
+                    <th width="100px">Sigle</th>
+                    <th>E-mail</th>
                     <th>Téléphone</th>
-                    <th>Type de structure</th>
-                    <th style="width:70px;">Action</th>
+                    <th width="50px">Type</th>
+                    <th width="100px"></th>
                   </tr>
                 </thead>
                 <tfoot class="table-dark">
                   <tr>
-                    <th>Id</th>
                     <th>Numéro agrément</th>
-                    <th>Nom de la structure</th>
+                    <th>Opérateur</th>
                     <th>Sigle</th>
-                    {{--  <th>Adresse e-mail</th>  --}}
+                    <th>E-mail</th>
                     <th>Téléphone</th>
-                    <th>Type de structure</th>
-                    <th>Action</th>
+                    <th>Type</th>
+                    <th></th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  @if (count($operateurs)==0)                            
-                  <tr>
-                    <td class="text-center" colspan="2"></td>
-                  </tr>
-                  @else 
                   <?php $i = 1 ?>
                   @foreach ($operateurs as $operateur)
 
                   <tr>
-                    <td>{!! $i++ !!}</td>
-                    <td>{!! $operateur->numero !!}</td>
+                    {{--  <td>{!! $i++ !!}</td>  --}}
+                    <td>{!! $operateur->numero_agrement !!}</td>
                     <td>{!! $operateur->name !!}</td>
-                    <td>{!! $operateur->user->sigle !!}</td>             
-                   {{--   <td>{!! $operateur->user->email !!}</td>   --}}            
-                    <td>{!! $operateur->user->telephone !!}</td>
-                    <td>{!! $operateur->structure->name !!}</td>        
+                    <td>{!! $operateur->sigle !!}</td>    
+                    <td>{!! $operateur->email1 !!}</td>        
+                    <td>{!! $operateur->telephone1 !!}</td>
+                    <td>{!! $operateur->type_structure !!}</td>        
                     <td class="d-flex align-items-baseline align-content-center">
                       {{--  @can('update', $operateur)  --}}
                         <a href="{!! url('operateurs/' .$operateur->id. '/edit') !!}" class= 'btn btn-success btn-sm' title="modifier">
                           <i class="far fa-edit">&nbsp;</i>
                         </a>
                         {{--  @endcan   --}}
-                        &nbsp; <a href="{!! url('operateurs/' .$operateur->id) !!}" class= 'btn btn-primary btn-sm' title="voir">
+                        &nbsp; <a href="{!! url('operateurs/' .$operateur->id) !!}" class= 'btn btn-primary btn-sm' title="voir" target="_blank">
                           <i class="far fa-eye">&nbsp;</i>
                         </a>
                         &nbsp;
@@ -83,8 +76,7 @@
                         {{--  @endcan   --}}
                     </td>
                   </tr>
-                  @endforeach                        
-                  @endif
+                  @endforeach    
                 </tbody>                
               </table>
             </div>
@@ -140,5 +132,3 @@
     
   </script>
   @endpush
-  
-  

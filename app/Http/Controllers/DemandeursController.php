@@ -9,8 +9,7 @@ use App\Objet;
 use App\User;
 use App\Courrier;
 use App\Departement;
-use App\Nivaux;
-use App\Typedemande;
+use App\Typesdemande;
 use App\Programme;
 use Auth;
 use App\Module;
@@ -127,7 +126,6 @@ class DemandeursController extends Controller
         $roles = Role::get();
         /* $civilites = User::select('civilite')->distinct()->get(); */
         $civilites = User::distinct('civilite')->get()->pluck('civilite','civilite')->unique();
-        //$niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         
         //$objets = Objet::distinct('name')->get()->pluck('name','id')->unique();
         
@@ -192,8 +190,6 @@ class DemandeursController extends Controller
 
        $created_by = $created_by1.' '.$created_by2.' ('.$created_by3.')';
 
-       $status = "Attente";
-
        $telephone = $request->input('telephone');
        $telephone = str_replace(' ', '', $telephone);
        $telephone = str_replace(' ', '', $telephone);
@@ -225,33 +221,6 @@ class DemandeursController extends Controller
         $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
         $modules = Module::where('id',$request->input('modules'))->first()->name;
 
-        if ($modules == "Laveur" OR $modules == "Graisseur" OR $modules == "Pompiste" OR $modules == "Rayonniste") {
-            if ($diplomes == "Licence 1" OR $diplomes == "Licence 2" OR $diplomes == "Licence 3" OR $diplomes == "Master 1" OR $diplomes == "Master 2") {
-                $note = "2";
-            } elseif($diplomes == "BAC") {
-                $note = "5";
-            }elseif($diplomes == "BFEM") {
-                $note = "10";
-            }else{
-                $note = "0";
-            }
-                       
-        } elseif($modules == "Chef de boutique" OR $modules == "Manager de station" OR $modules == "Caissier") {
-
-            if ($diplomes == "Licence 1") {
-                $note = "2";
-            } elseif($diplomes == "Licence 2") {
-                $note = "5";
-            }elseif($diplomes == "Licence 3") {
-                $note = "10";
-            } elseif($diplomes == "Master 1" OR $diplomes == "Master 2") {
-                $note = "10";
-            }else{
-                $note = "0";
-            }
-            
-        }
-
        $cin = $request->input('cin');
        $cin = str_replace(' ', '', $cin);
        $cin = str_replace(' ', '', $cin);
@@ -265,10 +234,9 @@ class DemandeursController extends Controller
             'projet'            =>     $request->input('projet'),
             'information'       =>     $request->input('information'),
             'users_id'          =>     $utilisateur->id,
-            'typedemandes_id'   =>     $request->input('type_demande'),
+            'typesdemandes_id'  =>     $request->input('type_demande'),
             'objets_id'         =>     $objets_id,
             'status'            =>     $status,
-            'note'              =>     $note,
             'localites_id'      =>     $request->input('localite'),
             'programmes_id'     =>     $request->input('programme')
         ]);
@@ -276,9 +244,6 @@ class DemandeursController extends Controller
         $demandeurs->save();
 
         $demandeurs->modules()->sync($request->modules);
-        $demandeurs->nivauxes()->sync($request->niveaux);
-        $demandeurs->diplomes()->sync($request->diplomes);
-        $demandeurs->departements()->sync($request->departements);
 
         return redirect()->route('demandeurs.create')->with('success','demandeur ajouté avec succès !');
     }
@@ -289,28 +254,32 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Demandeur $demandeur)
     {
-        if (Auth::user()->role->name == "Administrateur") {        
-        $demandeurs = Demandeur::find($id);
+        $typesdemande = $demandeur->types_demande->name;
+        $individuelles = $demandeur->individuelles;
+        $collectives = $demandeur->collectives;
 
-        $utilisateurs = $demandeurs->user;
+       /*  if (Auth::user()->role->name == "Administrateur") { */
+
+        $utilisateurs = $demandeur->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
-        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $types_demandes = Typesdemande::distinct('name')->get()->pluck('name','name')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
-        return view('demandeurs.show', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
-        'civilites', 'objets'));
-        } else {
-            return view('layout.404');
+
+        if ($typesdemande === "Individuelle") {
+            return view('individuelles.show', compact('individuelles', 'departements','niveaux', 'modules',
+            'types_demandes', 'programmes','diplomes','utilisateurs', 'roles', 'id', 'civilites'));
+        }elseif ($typesdemande === "Collective") {
+            return view('collectives.show', compact('collectives', 'departements','niveaux', 'modules',
+            'types_demandes', 'programmes','diplomes','utilisateurs', 'roles', 'id', 'civilites'));
+        }else {
+            return back();
         }
     }
 
@@ -320,28 +289,37 @@ class DemandeursController extends Controller
      * @param  \App\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Demandeur $demandeur)
     {          
         /* $this->authorize('update',  $demandeur); */
 
-        $demandeurs = Demandeur::find($id);
+        $typesdemande = $demandeur->types_demande->name;
+        $individuelles = $demandeur->individuelles;
+        $collectives = $demandeur->collectives;
 
-        $utilisateurs = $demandeurs->user;
+        $utilisateurs = $demandeur->user;
 
         $roles = Role::get();
         $civilites = User::pluck('civilite','civilite');
-        $objets = Objet::distinct('name')->get()->pluck('name','name')->unique();
         $modules = Module::distinct('name')->get()->pluck('name','id')->unique();
-        $localites = Localite::distinct('name')->get()->pluck('name','name')->unique();
         $diplomes = Diplome::distinct('name')->get()->pluck('name','id')->unique();
-        $types_demandes = Typedemande::distinct('name')->get()->pluck('name','name')->unique();
+        $types_demandes = Typesdemande::distinct('name')->get()->pluck('name','name')->unique();
         $programmes = Programme::distinct('sigle')->get()->pluck('sigle','sigle')->unique();
-        $niveaux = Nivaux::distinct('name')->get()->pluck('name','id')->unique();
         $departements = Departement::distinct('nom')->get()->pluck('nom','id')->unique();
 
-        return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
-        'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
-        'civilites', 'objets'));
+        if ($typesdemande == 'Individuelle') {            
+            return view('individuelles.details', compact('individuelles','demandeur'));
+        
+            } elseif($typesdemande == 'Collective') {   
+            return view('collectives.details', compact('collectives','demandeur'));
+        
+            }else {
+                return view('demandeurs.update', compact('demandeurs', 'departements','niveaux', 'modules',
+                'types_demandes', 'programmes','localites','diplomes','utilisateurs', 'roles', 'id',
+                'civilites', 'objets'));
+            }
+
+ 
     }
 
     /**
@@ -412,41 +390,12 @@ class DemandeursController extends Controller
         
         $objets_id = Objet::where('name','Demande de formation')->first()->id;
 
-        $types_demandes_id = Typedemande::where('name',$request->input('type_demande'))->first()->id;
+        $types_demandes_id = Typesdemande::where('name',$request->input('type_demande'))->first()->id;
         /* $objets_id = Objet::where('name',$request->input('objet'))->first()->id; */
         $localites_id = Localite::where('name',$request->input('localite'))->first()->id;
         $programmes_id = Programme::where('sigle',$request->input('programme'))->first()->id;
-
-        
         $diplomes = Diplome::where('id',$request->input('diplomes'))->first()->name;
         $modules = Module::where('id',$request->input('modules'))->first()->name;
-
-        if ($modules == "Laveur" OR $modules == "Graisseur" OR $modules == "Pompiste" OR $modules == "Rayonniste") {
-            if ($diplomes == "Licence 1" OR $diplomes == "Licence 2" OR $diplomes == "Licence 3" OR $diplomes == "Master 1" OR $diplomes == "Master 2") {
-                $note = "2";
-            } elseif($diplomes == "BAC") {
-                $note = "5";
-            }elseif($diplomes == "BFEM") {
-                $note = "10";
-            }else{
-                $note = "0";
-            }
-                       
-        } elseif($modules == "Chef de boutique" OR $modules == "Manager de station" OR $modules == "Caissier") {
-
-            if ($diplomes == "Licence 1") {
-                $note = "2";
-            } elseif($diplomes == "Licence 2") {
-                $note = "5";
-            }elseif($diplomes == "Licence 3") {
-                $note = "10";
-            } elseif($diplomes == "Master 1" OR $diplomes == "Master 2") {
-                $note = "10";
-            }else{
-                $note = "0";
-            }
-            
-        }
         
        $cin = $request->input('cin');
        $cin = str_replace(' ', '', $cin);
@@ -461,18 +410,14 @@ class DemandeursController extends Controller
         $demandeur->projet            =     $request->input('projet');
         $demandeur->status            =     $request->input('status');
         $demandeur->users_id          =     $utilisateurs->id;
-        $demandeur->typedemandes_id   =     $types_demandes_id;
+        $demandeur->typesdemandes_id  =     $types_demandes_id;
         $demandeur->objets_id         =     $objets_id;
-        $demandeur->note              =     $note;
         $demandeur->localites_id      =     $localites_id;
         $demandeur->programmes_id     =    $programmes_id;
 
         $demandeur->save();
 
         $demandeur->modules()->sync($request->input('modules'));
-        $demandeur->nivauxes()->sync($request->input('niveaux'));
-        $demandeur->diplomes()->sync($request->input('diplomes'));
-        $demandeur->departements()->sync($request->input('departements'));
 
 
         return redirect()->route('demandeurs.index')->with('success','demandeur modifié avec succès !');

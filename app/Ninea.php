@@ -38,6 +38,7 @@ class Ninea extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'numero',
+		'name',
 		'date'
 	];
 

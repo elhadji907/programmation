@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:29:15 +0000.
+ * Date: Mon, 26 Jul 2021 12:38:02 +0000.
  */
 
 namespace App;
@@ -16,17 +16,23 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $uuid
  * @property string $name
  * @property string $sigle
+ * @property string $description
+ * @property string $qualification
  * @property int $domaines_id
  * @property int $specialites_id
- * @property string $qualification
+ * @property int $statuts_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Domaine $domaine
  * @property \App\Specialite $specialite
+ * @property \App\Statut $statut
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $evaluateurs
+ * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $agrements
+ * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
  * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $programmes
@@ -40,16 +46,19 @@ class Module extends Eloquent
 
 	protected $casts = [
 		'domaines_id' => 'int',
-		'specialites_id' => 'int'
+		'specialites_id' => 'int',
+		'statuts_id' => 'int'
 	];
 
 	protected $fillable = [
 		'uuid',
 		'name',
 		'sigle',
+		'description',
+		'qualification',
 		'domaines_id',
 		'specialites_id',
-		'qualification'
+		'statuts_id'
 	];
 
 	public function domaine()
@@ -62,6 +71,11 @@ class Module extends Eloquent
 		return $this->belongsTo(\App\Specialite::class, 'specialites_id');
 	}
 
+	public function statut()
+	{
+		return $this->belongsTo(\App\Statut::class, 'statuts_id');
+	}
+
 	public function demandeurs()
 	{
 		return $this->belongsToMany(\App\Demandeur::class, 'demandeurs_has_modules', 'modules_id', 'demandeurs_id')
@@ -72,6 +86,25 @@ class Module extends Eloquent
 	public function evaluateurs()
 	{
 		return $this->belongsToMany(\App\Evaluateur::class, 'evaluateurs_has_modules', 'modules_id', 'evaluateurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function formations()
+	{
+		return $this->hasMany(\App\Formation::class, 'modules_id');
+	}
+
+	public function agrements()
+	{
+		return $this->belongsToMany(\App\Agrement::class, 'modules_has_agrements', 'modules_id', 'agrements_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function departements()
+	{
+		return $this->belongsToMany(\App\Departement::class, 'modules_has_departements', 'modules_id', 'departements_id')
 					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}

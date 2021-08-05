@@ -9,17 +9,20 @@ $factory->define(App\Agrement::class, function (Faker $faker) {
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
         'name' => $faker->name,
+        'sigle' => $faker->word,
         'rccm' => $faker->word,
         'quitus' => $faker->word,
         'ninea' => $faker->word,
         'adresse' => $faker->word,
-        'bp' => $faker->word,
         'email' => $faker->safeEmail,
-        'prenom' => $faker->word,
-        'nom' => $faker->word,
-        'region' => $faker->word,
-        'departement' => $faker->word,
-        'commune' => $faker->word,
+        'telephone' => $faker->word,
+        'fixe' => $faker->word,
+        'bp' => $faker->word,
+        'fax' => $faker->word,
+        'prenom_responsable' => $faker->word,
+        'nom_responsable' => $faker->word,
+        'email_responsable' => $faker->word,
+        'telephone_responsabel' => $faker->word,
         'type' => $faker->word,
         'details' => $faker->word,
         'gestionnaires_id' => function () {
@@ -27,9 +30,6 @@ $factory->define(App\Agrement::class, function (Faker $faker) {
         },
         'operateurs_id' => function () {
             return factory(App\Operateur::class)->create()->id;
-        },
-        'responsables_id' => function () {
-            return factory(App\Responsable::class)->create()->id;
         },
         'quitus_id' => function () {
             return factory(App\Quitus::class)->create()->id;
@@ -42,6 +42,9 @@ $factory->define(App\Agrement::class, function (Faker $faker) {
         },
         'courriers_id' => function () {
             return factory(App\Courrier::class)->create()->id;
+        },
+        'departements_id' => function () {
+            return factory(App\Departement::class)->create()->id;
         },
     ];
 });

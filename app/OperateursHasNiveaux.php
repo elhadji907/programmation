@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:23 +0000.
+ * Date: Mon, 26 Jul 2021 12:40:02 +0000.
  */
 
 namespace App;
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * Class OperateursHasNiveaux
  * 
+ * @property int $id
  * @property int $operateurs_id
  * @property int $niveaux_id
  * @property string $deleted_at
@@ -25,17 +26,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class OperateursHasNiveaux extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	protected $table = 'operateurs_has_niveaux';
-	protected $primaryKey = 'operateurs_id';
 
 	protected $casts = [
+		'operateurs_id' => 'int',
 		'niveaux_id' => 'int'
 	];
 
 	protected $fillable = [
+		'operateurs_id',
 		'niveaux_id'
 	];
 

@@ -8,26 +8,36 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
     return [
         'uuid' => $faker->uuid,
         'numero' => $faker->word,
-        'sexe' => $faker->word,
-        'situation_professionnelle' => $faker->word,
+        'numero_courrier' => $faker->word,
         'etablissement' => $faker->word,
         'niveau_etude' => $faker->word,
-        'diplome' => $faker->word,
         'qualification' => $faker->text,
         'experience' => $faker->text,
         'deja_forme' => $faker->word,
-        'pre_requis' => $faker->text,
         'adresse' => $faker->text,
-        'type' => $faker->word,
-        'situation' => $faker->word,
+        'pre_requis' => $faker->text,
+        'option' => $faker->word,
+        'autres_diplomes' => $faker->word,
         'telephone' => $faker->word,
         'fixe' => $faker->word,
         'nbre_piece' => $faker->randomNumber(),
+        'statut' => $faker->word,
+        'motivation' => $faker->text,
         'items1' => $faker->word,
         'items2' => $faker->word,
         'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
         'date2' => $faker->dateTime(),
+        'file1' => $faker->word,
+        'file2' => $faker->word,
+        'file3' => $faker->word,
+        'file4' => $faker->word,
+        'file5' => $faker->word,
+        'file6' => $faker->word,
+        'file7' => $faker->word,
+        'file8' => $faker->word,
+        'file9' => $faker->word,
+        'file10' => $faker->word,
         'users_id' => function () {
             return factory(App\User::class)->create()->id;
         },
@@ -46,16 +56,15 @@ $factory->define(App\Demandeur::class, function (Faker $faker) {
         'regions_id' => function () {
             return factory(App\Region::class)->create()->id;
         },
-        'file1' => $faker->word,
-        'file2' => $faker->word,
-        'file3' => $faker->word,
-        'file4' => $faker->word,
-        'file5' => $faker->word,
-        'file6' => $faker->word,
-        'file7' => $faker->word,
-        'file8' => $faker->word,
-        'file9' => $faker->word,
-        'file10' => $faker->word,
+        'diplomes_id' => function () {
+            return factory(App\Diplome::class)->create()->id;
+        },
+        'departements_id' => function () {
+            return factory(App\Departement::class)->create()->id;
+        },
+        'types_demandes_id' => function () {
+            return factory(App\TypesDemande::class)->create()->id;
+        },
     ];
 }); */
 use App\Helpers\SnNameGenerator as SnmG;
@@ -70,27 +79,29 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
     $projet_id=App\Projet::all()->random()->id;
     $programmes_id=App\Programme::all()->random()->id;
     $regions_id=App\Region::all()->random()->id;
+    $departements_id=App\Departement::all()->random()->id;
     $lieux_id=App\Lieux::all()->random()->id;
+    $diplomes_id=App\Diplome::all()->random()->id;
+    $types_demandes_id=App\TypesDemande::all()->random()->id;
+    $domaine=App\Domaine::all()->random()->name;
 
     
     $nombre = rand(1, 9);
 
     return [
         'numero' => $autoIncremen_demandeur->current()."".$annee,
-        'sexe' => SnmG::getSexe(),
-        'situation_professionnelle' => SnmG::getSituation(),
         'etablissement' => SnmG::getEtablissement(),
         'niveau_etude' => SnmG::getNiveaux(),
-        'diplome' => SnmG::getDiplome(),
         'qualification' => $faker->text,
         'experience' => $faker->text,
         'deja_forme' => SnmG::getDeja(),
-        'pre_requis' => $faker->text,
         'adresse' => $faker->address,
-        'type' => $faker->word,
-        'situation' => SnmG::getSituation(),
+        'option' => $domaine,
+        'autres_diplomes' => SnmG::getDiplome(),
         'telephone' => $faker->e164PhoneNumber,
         'fixe' => $faker->phoneNumber,
+        'statut' => "Attente",
+        'motivation' => $faker->paragraph(3),
         'nbre_piece' => $nombre,
         'date_depot' => $faker->dateTime(),
         'date1' => $faker->dateTime(),
@@ -109,6 +120,15 @@ $factory->define(App\Demandeur::class, function (Faker\Generator $faker) use ($a
         },
         'regions_id' => function ()  use($regions_id) {
             return $regions_id;
+        },
+        'departements_id' => function ()  use($departements_id) {
+            return $departements_id;
+        },
+        'diplomes_id' => function ()  use($diplomes_id) {
+            return $diplomes_id;
+        },
+        'types_demandes_id' => function ()   use($types_demandes_id) {
+            return $types_demandes_id;
         },
     ];
 });

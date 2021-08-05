@@ -18,9 +18,9 @@ class ModulesController extends Controller
      */
     public function index()
     {
-        $modules = Module::with('demandeurs.modules','demandeurs.localite')->get();
+        $modules = Module::get();
 
-       /*  dd($modules); */
+        /* dd($modules); */
 
         return view('modules.index', compact('modules'));
     }
@@ -60,9 +60,7 @@ class ModulesController extends Controller
             'domaines_id'    =>      $domaine_id
 
         ]);
-
-
-        
+       
         $domaine->save();
         return redirect()->route('modules.index')->with('success','enregistrement effectué avec succès !');
     }
@@ -139,7 +137,10 @@ class ModulesController extends Controller
 
     public function list(Request $request)
     {
-        $modules=Module::with('domaine.secteur','demandeurs')->get();
+        /* $modules=Module::withCount('demandeurs')->with(['demandeurs.individuelles', 'demandeurs.collectives'])->get(); */
+
+        $modules=Module::withCount('demandeurs')->withCount(['departements'])->get();
+
         return Datatables::of($modules)->make(true);
     }
 }

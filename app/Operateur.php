@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:28:15 +0000.
+ * Date: Thu, 05 Aug 2021 20:55:03 +0000.
  */
 
 namespace App;
@@ -21,35 +21,47 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $ninea
  * @property string $rccm
  * @property string $quitus
+ * @property \Carbon\Carbon $date
+ * @property \Carbon\Carbon $date_debut
+ * @property \Carbon\Carbon $date_fin
+ * @property \Carbon\Carbon $date_renew
+ * @property \Carbon\Carbon $debut_quitus
+ * @property \Carbon\Carbon $fin_quitus
  * @property string $telephone1
  * @property string $telephone2
  * @property string $fixe
  * @property string $email1
  * @property string $email2
  * @property string $adresse
- * @property int $communes_id
+ * @property string $nom_responsable
+ * @property string $prenom_responsable
+ * @property string $cin_responsable
+ * @property string $telephone_responsable
+ * @property string $email_responsable
+ * @property string $fonction_responsable
+ * @property string $qualification
  * @property int $users_id
  * @property int $rccms_id
  * @property int $nineas_id
  * @property int $types_operateurs_id
- * @property int $quitus_id
- * @property int $responsables_id
  * @property int $specialites_id
  * @property int $courriers_id
+ * @property int $departements_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \App\Commune $commune
  * @property \App\Courrier $courrier
- * @property \App\Responsable $responsable
+ * @property \App\Departement $departement
  * @property \App\Specialite $specialite
  * @property \App\TypesOperateur $types_operateur
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $agrements
+ * @property \Illuminate\Database\Eloquent\Collection $commenteres
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $niveauxes
+ * @property \Illuminate\Database\Eloquent\Collection $regions
  * @property \Illuminate\Database\Eloquent\Collection $traitements
  *
  * @package App
@@ -60,15 +72,22 @@ class Operateur extends Eloquent
 	use \App\Helpers\UuidForKey;
 
 	protected $casts = [
-		'communes_id' => 'int',
 		'users_id' => 'int',
 		'rccms_id' => 'int',
 		'nineas_id' => 'int',
 		'types_operateurs_id' => 'int',
-		'quitus_id' => 'int',
-		'responsables_id' => 'int',
 		'specialites_id' => 'int',
-		'courriers_id' => 'int'
+		'courriers_id' => 'int',
+		'departements_id' => 'int'
+	];
+
+	protected $dates = [
+		'date',
+		'date_debut',
+		'date_fin',
+		'date_renew',
+		'debut_quitus',
+		'fin_quitus'
 	];
 
 	protected $fillable = [
@@ -80,31 +99,42 @@ class Operateur extends Eloquent
 		'ninea',
 		'rccm',
 		'quitus',
+		'date',
+		'date_debut',
+		'date_fin',
+		'date_renew',
+		'debut_quitus',
+		'fin_quitus',
 		'telephone1',
 		'telephone2',
 		'fixe',
 		'email1',
 		'email2',
 		'adresse',
-		'communes_id',
+		'nom_responsable',
+		'prenom_responsable',
+		'cin_responsable',
+		'telephone_responsable',
+		'email_responsable',
+		'fonction_responsable',
+		'qualification',
 		'users_id',
 		'rccms_id',
 		'nineas_id',
 		'types_operateurs_id',
-		'quitus_id',
-		'responsables_id',
 		'specialites_id',
-		'courriers_id'
+		'courriers_id',
+		'departements_id'
 	];
-
-	public function commune()
-	{
-		return $this->belongsTo(\App\Commune::class, 'communes_id');
-	}
 
 	public function courrier()
 	{
 		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function departement()
+	{
+		return $this->belongsTo(\App\Departement::class, 'departements_id');
 	}
 
 	public function ninea()
@@ -112,19 +142,9 @@ class Operateur extends Eloquent
 		return $this->belongsTo(\App\Ninea::class, 'nineas_id');
 	}
 
-	public function quitus()
-	{
-		return $this->belongsTo(\App\Quitus::class);
-	}
-
 	public function rccm()
 	{
 		return $this->belongsTo(\App\Rccm::class, 'rccms_id');
-	}
-
-	public function responsable()
-	{
-		return $this->belongsTo(\App\Responsable::class, 'responsables_id');
 	}
 
 	public function specialite()
@@ -147,6 +167,11 @@ class Operateur extends Eloquent
 		return $this->hasMany(\App\Agrement::class, 'operateurs_id');
 	}
 
+	public function commenteres()
+	{
+		return $this->hasMany(\App\Commentere::class, 'operateurs_id');
+	}
+
 	public function formations()
 	{
 		return $this->hasMany(\App\Formation::class, 'operateurs_id');
@@ -162,7 +187,14 @@ class Operateur extends Eloquent
 	public function niveauxes()
 	{
 		return $this->belongsToMany(\App\Niveaux::class, 'operateurs_has_niveaux', 'operateurs_id')
-					->withPivot('deleted_at')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function regions()
+	{
+		return $this->belongsToMany(\App\Region::class, 'operateurs_has_regions', 'operateurs_id', 'regions_id')
+					->withPivot('id', 'deleted_at')
 					->withTimestamps();
 	}
 

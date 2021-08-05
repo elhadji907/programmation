@@ -11,6 +11,6 @@ class CollectivesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Collective::class,31)->create();
+        factory(App\Collective::class,81)->create();
     }
 }

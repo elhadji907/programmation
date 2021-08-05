@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Departement;
+use App\Region;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class DepartementsController extends Controller
 {
@@ -14,7 +16,7 @@ class DepartementsController extends Controller
      */
     public function index()
     {
-        //
+        return view('departements.index');
     }
 
     /**
@@ -24,7 +26,8 @@ class DepartementsController extends Controller
      */
     public function create()
     {
-        //
+        $regions = Region::get();
+        return view('departements.create', compact('regions'));
     }
 
     /**
@@ -35,7 +38,23 @@ class DepartementsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request, [
+               
+                'nom'      =>  'required|string|max:50|unique:departements,nom',
+                'region'   =>  'required|string',
+            ]
+        );
+        $region_id = $request->input('region');
+       /*  dd($region_id); */
+        $departement = new Departement([      
+            'nom'           =>      $request->input('nom'),
+            'regions_id'    =>      $region_id
+
+        ]);
+
+        $departement->save();
+        return redirect()->route('departements.index')->with('success','enregistrement effectué avec succès !');
     }
 
     /**
@@ -57,7 +76,10 @@ class DepartementsController extends Controller
      */
     public function edit(Departement $departement)
     {
-        //
+        $id = $departement->id;
+        $region = $departement->region;
+        $regions = Region::get();
+        return view('departements.update', compact('departement','regions','region','id'));
     }
 
     /**
@@ -69,7 +91,17 @@ class DepartementsController extends Controller
      */
     public function update(Request $request, Departement $departement)
     {
-        //
+        $this->validate(
+            $request, 
+            [
+                'nom'      =>  'required|string|max:50|unique:departements,nom,'.$departement->id,
+                'region'   =>  'required|string'
+            ]);   
+
+        $departement->nom          =   $request->input('nom');
+        $departement->regions_id   =   $request->input('region');
+        $departement->save();
+        return redirect()->route('departements.index')->with('success','enregistrement modifié avec succès !');
     }
 
     /**
@@ -79,7 +111,15 @@ class DepartementsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Departement $departement)
+    {        
+        $departement->delete();
+        $message = $departement->nom.' a été supprimé(e)';
+        return redirect()->route('departements.index')->with(compact('message'));
+    }
+    
+    public function list(Request $request)
     {
-        //
+        $departements=Departement::with('region')->withCount('modules')->withCount('demandeurs')->withCount('formations')->get();
+        return Datatables::of($departements)->make(true);
     }
 }

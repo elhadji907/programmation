@@ -11,6 +11,6 @@ class OperateursTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Operateur::class,20)->create();
+        factory(App\Operateur::class,12)->create();
     }
 }

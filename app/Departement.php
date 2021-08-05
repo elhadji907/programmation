@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Mon, 26 Jul 2021 12:38:23 +0000.
  */
 
 namespace App;
@@ -21,13 +21,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Region $region
+ * @property \Illuminate\Database\Eloquent\Collection $agrements
  * @property \Illuminate\Database\Eloquent\Collection $arrondissements
+ * @property \Illuminate\Database\Eloquent\Collection $demandeurs
+ * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \Illuminate\Database\Eloquent\Collection $modules
+ * @property \Illuminate\Database\Eloquent\Collection $operateurs
  *
  * @package App
  */
 class Departement extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -46,8 +50,35 @@ class Departement extends Eloquent
 		return $this->belongsTo(\App\Region::class, 'regions_id');
 	}
 
+	public function agrements()
+	{
+		return $this->hasMany(\App\Agrement::class, 'departements_id');
+	}
+
 	public function arrondissements()
 	{
 		return $this->hasMany(\App\Arrondissement::class, 'departements_id');
+	}
+
+	public function demandeurs()
+	{
+		return $this->hasMany(\App\Demandeur::class, 'departements_id');
+	}
+
+	public function formations()
+	{
+		return $this->hasMany(\App\Formation::class, 'departements_id');
+	}
+
+	public function modules()
+	{
+		return $this->belongsToMany(\App\Module::class, 'modules_has_departements', 'departements_id', 'modules_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
+	}
+
+	public function operateurs()
+	{
+		return $this->hasMany(\App\Operateur::class, 'departements_id');
 	}
 }

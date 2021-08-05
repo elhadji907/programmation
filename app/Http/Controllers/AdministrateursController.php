@@ -40,7 +40,6 @@ class AdministrateursController extends Controller
 
     public function index()
     {
-
         return view('administrateurs.index');
     }
 

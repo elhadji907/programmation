@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 14 Jun 2021 21:40:22 +0000.
+ * Date: Sun, 11 Jul 2021 14:06:05 +0000.
  */
 
 namespace App;
@@ -21,18 +21,18 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property float $montant2
  * @property float $autre_montant
  * @property float $total
+ * @property int $formations_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
- * @property \Illuminate\Database\Eloquent\Collection $formations
+ * @property \App\Formation $formation
  * @property \Illuminate\Database\Eloquent\Collection $reglements
  *
  * @package App
  */
 class Facture extends Eloquent
 {
-	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -40,7 +40,8 @@ class Facture extends Eloquent
 		'montant1' => 'float',
 		'montant2' => 'float',
 		'autre_montant' => 'float',
-		'total' => 'float'
+		'total' => 'float',
+		'formations_id' => 'int'
 	];
 
 	protected $dates = [
@@ -55,12 +56,13 @@ class Facture extends Eloquent
 		'montant1',
 		'montant2',
 		'autre_montant',
-		'total'
+		'total',
+		'formations_id'
 	];
 
-	public function formations()
+	public function formation()
 	{
-		return $this->hasMany(\App\Formation::class, 'factures_id');
+		return $this->belongsTo(\App\Formation::class, 'formations_id');
 	}
 
 	public function reglements()

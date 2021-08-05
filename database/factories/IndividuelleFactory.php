@@ -38,6 +38,8 @@ $factory->define(App\Individuelle::class, function (Faker\Generator $faker) {
     $nombre8 = rand(0, 9);
     $nombre9 = rand(0, 9);
     
+    $types_demande_id=App\TypesDemande::where('name','Individuelle')->first()->id;
+    
     $cin = $nombre1.$nombre2.$nombre3.$nombre4.$nombre5.$nombre6.$nombre7.$nombre8.$nombre9;
 
     $nombre = rand(1, 9);
@@ -53,8 +55,8 @@ $factory->define(App\Individuelle::class, function (Faker\Generator $faker) {
         'information' => $faker->text,
         'items1' => $faker->word,
         'date1' => $faker->dateTime(),
-        'demandeurs_id' => function ()  {
-            return factory(App\Demandeur::class)->create()->id;
+        'demandeurs_id' => function ()  use($types_demande_id) {
+            return factory(App\Demandeur::class)->create(["types_demandes_id"=>$types_demande_id])->id;
         },
     ];
 });

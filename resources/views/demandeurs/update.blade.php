@@ -74,7 +74,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 {!! Form::label('Situation familiale') !!}
-                                {!! Form::select('familiale', ['Marié' => 'Marié', 'Célibataire' => 'Célibataire'], $utilisateurs->situation_familiale, ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' => 'familiale']) !!}
+                                {!! Form::select('familiale', ['Marié' => 'Marié', 'Célibataire' => 'Célibataire'], $utilisateurs->situation_familiale, 
+                                ['placeholder' => 'Votre situation familiale', 'class' => 'form-control', 'id' => 'familiale']) !!}
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('Situation professionnelle') !!}
@@ -100,7 +101,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('Statut', null, ['class' => 'control-label']) !!}<span class="text-danger"> <b>*</b></span>
-                                {!! Form::select('status', ['Attente' => 'Attente', 'Retenue' => 'Retenue', 'Annulée' => 'Annulée', 'Présélectionné' => 'Présélectionné', 'Absent' => 'Absent', 'En cours' => 'En cours', 'Terminée' => 'Terminée'], $demandeurs->status, ['placeholder' => 'sélectionnez', 'class' => 'form-control', 'id' => 'statut']) !!}
+                                {!! Form::select('status', ['Attente' => 'Attente', 'Retenue' => 'Retenue', 'Annulée' => 'Annulée', 'Présélectionné' => 'Présélectionné', 'Absent' => 'Absent',
+                                 'En cours' => 'En cours', 'Terminée' => 'Terminée'], $demandeurs->status, ['placeholder' => 'sélectionnez', 'class' => 'form-control', 'id' => 'statut']) !!}
                             </div>
                         </div>
                         <div class="form-row">

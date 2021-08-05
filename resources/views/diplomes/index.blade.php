@@ -28,7 +28,6 @@
                             <tr>
                               <th>ID</th>
                               <th>diplome</th>
-                              <th>{!! __("Option") !!}</th>
                               <th style="width:10%;">Action</th>
                             </tr>
                           </thead>
@@ -36,8 +35,7 @@
                               <tr>
                                 <th>ID</th>
                                 <th>diplome</th>
-                                <th>{!! __("Option") !!}</th>
-                                <th style="width:10%;">Action</th>
+                                <th style="width:6%;">Action</th>
                               </tr>
                             </tfoot>
                           <tbody>
@@ -86,7 +84,6 @@
             columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
-                    { data: 'option.name', name: 'option.name' },
                     { data: null ,orderable: false, searchable: false}
 
                 ],
@@ -99,7 +96,7 @@
                         return '<a href='+url_e+'  class=" btn btn-primary btn-sm edit" title="Modifier"><i class="far fa-edit"></i></a>'+
                         '<div class="btn btn-danger delete btn_delete_diplome btn-sm ml-1" title="Supprimer" data-href='+url_d+'><i class="fas fa-trash-alt"></i></div>';
                         },
-                        "targets": 3
+                        "targets": 2
                         },
                 ],
 

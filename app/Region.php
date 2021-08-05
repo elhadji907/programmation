@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 17 Jun 2021 12:28:40 +0000.
+ * Date: Thu, 29 Jul 2021 10:41:14 +0000.
  */
 
 namespace App;
@@ -22,12 +22,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property \Illuminate\Database\Eloquent\Collection $demandeurs
  * @property \Illuminate\Database\Eloquent\Collection $departements
  * @property \Illuminate\Database\Eloquent\Collection $ecoles
+ * @property \Illuminate\Database\Eloquent\Collection $operateurs
  * @property \Illuminate\Database\Eloquent\Collection $programmes
  *
  * @package App
  */
 class Region extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -49,6 +51,13 @@ class Region extends Eloquent
 	public function ecoles()
 	{
 		return $this->hasMany(\App\Ecole::class, 'regions_id');
+	}
+
+	public function operateurs()
+	{
+		return $this->belongsToMany(\App\Operateur::class, 'operateurs_has_regions', 'regions_id', 'operateurs_id')
+					->withPivot('id', 'deleted_at')
+					->withTimestamps();
 	}
 
 	public function programmes()

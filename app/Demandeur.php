@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Tue, 22 Jun 2021 08:53:36 +0000.
+ * Date: Thu, 29 Jul 2021 10:41:55 +0000.
  */
 
 namespace App;
@@ -15,32 +15,26 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property int $id
  * @property string $uuid
  * @property string $numero
- * @property string $sexe
- * @property string $situation_professionnelle
+ * @property string $numero_courrier
  * @property string $etablissement
  * @property string $niveau_etude
- * @property string $diplome
  * @property string $qualification
  * @property string $experience
  * @property string $deja_forme
- * @property string $pre_requis
  * @property string $adresse
- * @property string $type
- * @property string $situation
+ * @property string $pre_requis
+ * @property string $option
+ * @property string $autres_diplomes
  * @property string $telephone
  * @property string $fixe
  * @property int $nbre_piece
+ * @property string $statut
+ * @property string $motivation
  * @property string $items1
  * @property string $items2
  * @property \Carbon\Carbon $date_depot
  * @property \Carbon\Carbon $date1
  * @property \Carbon\Carbon $date2
- * @property int $users_id
- * @property int $lieux_id
- * @property int $items_id
- * @property int $projets_id
- * @property int $programmes_id
- * @property int $regions_id
  * @property string $file1
  * @property string $file2
  * @property string $file3
@@ -51,22 +45,38 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string $file8
  * @property string $file9
  * @property string $file10
+ * @property int $users_id
+ * @property int $lieux_id
+ * @property int $items_id
+ * @property int $projets_id
+ * @property int $programmes_id
+ * @property int $regions_id
+ * @property int $diplomes_id
+ * @property int $departements_id
+ * @property int $types_demandes_id
+ * @property int $courriers_id
+ * @property string $motif
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * 
+ * @property \App\Courrier $courrier
+ * @property \App\Departement $departement
+ * @property \App\Diplome $diplome
  * @property \App\Item $item
  * @property \App\Lieux $lieux
  * @property \App\Programme $programme
  * @property \App\Projet $projet
  * @property \App\Region $region
+ * @property \App\TypesDemande $types_demande
  * @property \App\User $user
  * @property \Illuminate\Database\Eloquent\Collection $collectives
- * @property \Illuminate\Database\Eloquent\Collection $diplomes
+ * @property \Illuminate\Database\Eloquent\Collection $commentaires
  * @property \Illuminate\Database\Eloquent\Collection $disponibilites
  * @property \Illuminate\Database\Eloquent\Collection $formations
  * @property \Illuminate\Database\Eloquent\Collection $modules
  * @property \Illuminate\Database\Eloquent\Collection $individuelles
+ * @property \Illuminate\Database\Eloquent\Collection $pcharges
  * @property \Illuminate\Database\Eloquent\Collection $pieces
  * @property \Illuminate\Database\Eloquent\Collection $titres
  *
@@ -74,6 +84,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class Demandeur extends Eloquent
 {
+	
 	use \Illuminate\Database\Eloquent\SoftDeletes;
 	use \App\Helpers\UuidForKey;
 
@@ -84,7 +95,11 @@ class Demandeur extends Eloquent
 		'items_id' => 'int',
 		'projets_id' => 'int',
 		'programmes_id' => 'int',
-		'regions_id' => 'int'
+		'regions_id' => 'int',
+		'diplomes_id' => 'int',
+		'departements_id' => 'int',
+		'types_demandes_id' => 'int',
+		'courriers_id' => 'int'
 	];
 
 	protected $dates = [
@@ -96,32 +111,26 @@ class Demandeur extends Eloquent
 	protected $fillable = [
 		'uuid',
 		'numero',
-		'sexe',
-		'situation_professionnelle',
+		'numero_courrier',
 		'etablissement',
 		'niveau_etude',
-		'diplome',
 		'qualification',
 		'experience',
 		'deja_forme',
-		'pre_requis',
 		'adresse',
-		'type',
-		'situation',
+		'pre_requis',
+		'option',
+		'autres_diplomes',
 		'telephone',
 		'fixe',
 		'nbre_piece',
+		'statut',
+		'motivation',
 		'items1',
 		'items2',
 		'date_depot',
 		'date1',
 		'date2',
-		'users_id',
-		'lieux_id',
-		'items_id',
-		'projets_id',
-		'programmes_id',
-		'regions_id',
 		'file1',
 		'file2',
 		'file3',
@@ -131,8 +140,34 @@ class Demandeur extends Eloquent
 		'file7',
 		'file8',
 		'file9',
-		'file10'
+		'file10',
+		'users_id',
+		'lieux_id',
+		'items_id',
+		'projets_id',
+		'programmes_id',
+		'regions_id',
+		'diplomes_id',
+		'departements_id',
+		'types_demandes_id',
+		'courriers_id',
+		'motif'
 	];
+
+	public function courrier()
+	{
+		return $this->belongsTo(\App\Courrier::class, 'courriers_id');
+	}
+
+	public function departement()
+	{
+		return $this->belongsTo(\App\Departement::class, 'departements_id');
+	}
+
+	public function diplome()
+	{
+		return $this->belongsTo(\App\Diplome::class, 'diplomes_id');
+	}
 
 	public function item()
 	{
@@ -159,6 +194,11 @@ class Demandeur extends Eloquent
 		return $this->belongsTo(\App\Region::class, 'regions_id');
 	}
 
+	public function types_demande()
+	{
+		return $this->belongsTo(\App\TypesDemande::class, 'types_demandes_id');
+	}
+
 	public function user()
 	{
 		return $this->belongsTo(\App\User::class, 'users_id');
@@ -169,11 +209,9 @@ class Demandeur extends Eloquent
 		return $this->hasMany(\App\Collective::class, 'demandeurs_id');
 	}
 
-	public function diplomes()
+	public function commentaires()
 	{
-		return $this->belongsToMany(\App\Diplome::class, 'demandeurs_has_diplomes', 'demandeurs_id', 'diplomes_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+		return $this->hasMany(\App\Commentaire::class, 'demandeurs_id');
 	}
 
 	public function disponibilites()
@@ -186,8 +224,7 @@ class Demandeur extends Eloquent
 	public function formations()
 	{
 		return $this->belongsToMany(\App\Formation::class, 'demandeurs_has_formations', 'demandeurs_id', 'formations_id')
-					->withPivot('id', 'deleted_at')
-					->withTimestamps();
+					->withPivot('id', 'update_at', 'deleted_at');
 	}
 
 	public function modules()
@@ -200,6 +237,11 @@ class Demandeur extends Eloquent
 	public function individuelles()
 	{
 		return $this->hasMany(\App\Individuelle::class, 'demandeurs_id');
+	}
+
+	public function pcharges()
+	{
+		return $this->hasMany(\App\Pcharge::class, 'demandeurs_id');
 	}
 
 	public function pieces()

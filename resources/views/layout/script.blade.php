@@ -34,6 +34,13 @@
   </script>  
   <script type="text/javascript">
   
+        $("#convention").select2({
+              placeholder: "choisir convention",
+              allowClear: true
+          });
+  </script>  
+  <script type="text/javascript">
+  
         $("#activite").select2({
               placeholder: "choisir activité",
               allowClear: true
@@ -51,6 +58,12 @@
   
         $("#classeur").select2({
               placeholder: "sélectionner un classeur",
+              allowClear: true
+          });
+  </script>  
+  <script type="text/javascript">
+        $("#sexe").select2({
+              placeholder: "sélectionner le sexe",
               allowClear: true
           });
   </script>  
@@ -77,7 +90,28 @@
 </script>  
   <script type="text/javascript">
   
+    $("#niveau_etude").select2({
+          placeholder: "Niveau d'étude",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
     $("#region").select2({
+          placeholder: "sélectionner region",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
+    $("#commune").select2({
+          placeholder: "sélectionner commune",
+          allowClear: true
+      });
+</script>  
+  <script type="text/javascript">
+  
+    $("#region_id").select2({
           placeholder: "sélectionner region",
           allowClear: true
       });
@@ -96,19 +130,29 @@
           allowClear: true
       });
   </script>
-  <script type="text/javascript">
-    
+
+  <script type="text/javascript">    
     $("#type_direction").select2({
           placeholder: "sélectionner type direction",
           allowClear: true
       });
   </script>
 
-  <script type="text/javascript">
-    
+  <script type="text/javascript">    
     $("#module").select2({
           placeholder: "sélectionner module de formation",
-          allowClear: true
+          language: "fr",
+          allowClear: true,
+          maximumSelectionLength: 2
+      });
+  </script>
+
+  <script type="text/javascript">    
+    $("#regions_op").select2({
+          placeholder: "sélectionner régions d'intervention",
+          language: "fr",
+          allowClear: true,
+          maximumSelectionLength: 14
       });
   </script>
   <script type="text/javascript">
@@ -119,9 +163,14 @@
     });
 </script>
   <script type="text/javascript">
-  
   $("#domaine").select2({
         placeholder: "sélectionner un domaine",
+        allowClear: true
+    });
+</script>
+  <script type="text/javascript">
+  $("#type_structure").select2({
+        placeholder: "sélectionner type de structure",
         allowClear: true
     });
 </script>
@@ -202,6 +251,14 @@
   </script>
   <script type="text/javascript">
     
+    $("#type_operateur").select2({
+          placeholder: "sélectionner type operateur",
+          allowClear: true
+      });
+  </script>
+
+  <script type="text/javascript">
+    
     $("#statut").select2({
           placeholder: "sélectionner",
           allowClear: true
@@ -243,6 +300,6 @@
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <script>
         feather.replace()
-    </script>    
+    </script>
 @stack('scripts')
 @yield('javascripts')

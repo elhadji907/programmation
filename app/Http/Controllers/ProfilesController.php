@@ -5,6 +5,7 @@ use App\User;
 use App\Courrier;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Auth;
 
 class ProfilesController extends Controller
 {
@@ -26,9 +27,15 @@ class ProfilesController extends Controller
         // $internes = \App\Interne::get()->count();
         // $departs = \App\Depart::get()->count();
         
+        $demandeurs = \App\Demandeur::all();
+
+        $user_connect  =  auth::user()->demandeur;
+
+       /*  dd($demandeurs); */
+
         $courriers = Courrier::latest()->paginate(5);
 
-        return view('profiles.show', compact('user','courriers'));
+        return view('profiles.show', compact('user','courriers','demandeurs','user_connect'));
     }
 
 
@@ -37,7 +44,8 @@ class ProfilesController extends Controller
 
         $this->authorize('update', $user->profile);
 
-        $civilites = User::select('civilite')->distinct()->get()->unique();
+        $civilites = User::select('civilite')->distinct()->get();
+        //dd($civilites);
         return view('profiles.edit', compact('user', 'civilites'));
     }
 
